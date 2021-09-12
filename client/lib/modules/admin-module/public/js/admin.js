@@ -233,7 +233,7 @@ $(document).ready(function () {
                   {
                     alterOtherTeam = result.data.filter_referrals[i].referral_status
                   }
-                  console.log("alterOtherTeam: "+alterOtherTeam)
+                  console.log(result.data.filter_referrals[i].activity_action)
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,

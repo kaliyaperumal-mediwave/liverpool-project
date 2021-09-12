@@ -660,7 +660,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
                                 v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
                                 v-model="aboutObj.parentFirstName">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -684,7 +684,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','parentLastName')"
                                 v-bind:placeholder="sec2dynamicLabel.yourLastNameLabelPlacLabel"
                                 v-model="aboutObj.parentLastName">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -753,7 +753,7 @@
                                     placeholder="Enter your parent / carer’s first name"
                                     v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
                                     v-model="aboutFormData.parentCarerFirstName">
-                                <div class="input-group-append cursor-pointer">
+                                <div class="input-group-append">
                                     <span class="input-group-text px-3 font-23">
                                         <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
@@ -782,7 +782,7 @@
                                     placeholder="Enter your parent / carer’s first name"
                                     v-bind:placeholder="sec2dynamicLabel.parentOrCarerLastNameLabel"
                                     v-model="aboutFormData.parentCarerLastName">
-                                <div class="input-group-append cursor-pointer">
+                                <div class="input-group-append">
                                     <span class="input-group-text px-3 font-23">
                                         <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
@@ -843,7 +843,7 @@
                                         @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
                                         v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
                                         v-model="aboutFormData.contactNumber">
-                                    <div class="input-group-append cursor-pointer">
+                                    <div class="input-group-append">
                                         <span class="input-group-text px-3 font-25"><i aria-hidden="true"
                                                 class="fa fa-phone"></i></span>
                                     </div>
@@ -878,7 +878,7 @@
                                         inputmode="email" @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
                                         v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
                                         v-model="aboutFormData.emailAddress">
-                                    <div class="input-group-append cursor-pointer">
+                                    <div class="input-group-append">
                                         <span class="input-group-text px-3 font-23"><i aria-hidden="true"
                                                 class="fa fa-envelope"></i></span>
                                     </div>
@@ -1120,7 +1120,7 @@
                                             v-model="addressData.addressLine1"
                                             @input="trimWhiteSpace($event,'addressData','addressLine1')"
                                             id="addressline1Child" placeholder="Enter address line 1">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                             </span>
@@ -1142,7 +1142,7 @@
                                             v-model="addressData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressData','addressLine2')"
                                             id="childaddressline2" placeholder="Enter address line 2">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                             </span>
@@ -1181,7 +1181,7 @@
                                             v-model="addressData.country"
                                             @input="trimWhiteSpace($event,'addressData','country')" id="childCountryAdd"
                                             placeholder="Enter country">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                             </span>
@@ -1271,7 +1271,7 @@
                                             v-model="addressParentData.addressLine1"
                                             @input="trimWhiteSpace($event,'addressParentData','addressLine1')"
                                             id="addressline1Parent" placeholder="Enter address line 1">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                             </span>
@@ -1293,7 +1293,7 @@
                                             v-model="addressParentData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressParentData','addressLine2')"
                                             id="parentaddressline2" placeholder="Enter address line 2">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                             </span>
@@ -1327,7 +1327,7 @@
                                             v-model="addressParentData.country"
                                             @input="trimWhiteSpace($event,'addressParentData','country')"
                                             id="countryAdd" placeholder="Enter country">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                             </span>
@@ -1410,7 +1410,7 @@
                                             v-model="houseHoldData.name"
                                             @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
                                             placeholder="Enter first name">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i aria-hidden="true" class="fa fa-user-circle"></i>
                                             </span>
@@ -1432,7 +1432,7 @@
                                             v-model="houseHoldData.lastName"
                                             @input="trimWhiteSpace($event,'houseHoldData','lastName')"
                                             id="houseHoldLastName" placeholder="Enter last name">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i aria-hidden="true" class="fa fa-user-circle"></i>
                                             </span>
@@ -1470,7 +1470,7 @@
                                             @dp-change="toggleHouseHoldManualAddress($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker> -->
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -1526,7 +1526,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.profession" id="school"
                                                 placeholder="Enter school/college/employment">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1548,7 +1548,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.addressLine1"
                                                 id="addressline1HouseHold" placeholder="Enter address line 1">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1570,7 +1570,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.addressLine2"
                                                 id="houseHoldaddressline2" placeholder="Enter address line 2">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1602,7 +1602,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.country" id="countyAdd"
                                                 placeholder="Enter country">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-globe" aria-hidden="true"></i>
                                                 </span>
