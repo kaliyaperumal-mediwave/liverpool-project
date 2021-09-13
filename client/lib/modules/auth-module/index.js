@@ -99,6 +99,7 @@ module.exports = {
           req.session.email = data.data.sendUserResult.email
           req.session.loginFlag = "true";
           req.session.prof_data = data.data.sendUserResult.prof_data ? JSON.stringify(data.data.sendUserResult.prof_data) : '';
+          req.session.loginData = data
           //console.log("---- -------------------------------------------------------- -------")
           //console.log(req.session.prof_data)
           // need a change - decrypt

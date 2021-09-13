@@ -29,6 +29,9 @@ module.exports = {
       }));
     };
     self.serviceAdmin = function (req, callback) {
+      console.log(req.session.loginData.data.sendUserResult.service_admin_type )
+      req.data.showLogout = true;
+      req.data.loginAdminType = req.session.loginData.data.sendUserResult.service_admin_type ;
       return self.sendPage(req, self.renderer('serviceAdmin', {
         superAdmin: true,
         adminPanel: true,

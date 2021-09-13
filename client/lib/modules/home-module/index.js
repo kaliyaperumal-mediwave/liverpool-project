@@ -17,8 +17,9 @@ module.exports = {
       }
       else {
         //req.session.destroy();
+        req.data.showHome = false;
         return self.sendPage(req, self.renderer('home', {
-          showHeader: false,
+          showHeader: true,
           //piecesArray: piecesArray
         }));
       }
@@ -26,7 +27,7 @@ module.exports = {
 
     self.route('get', 'getPiecesData', async function (req, res) {
 
-    
+
       var Resources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
       var ThingsToWatchArray = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
       var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
