@@ -59,6 +59,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
 
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -111,6 +112,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
       //console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -150,6 +152,7 @@ module.exports = function (self, options) {
             req.data.logoPath = "/admin";
             req.data.referral = "/admin";
             req.data.archive = "/admin/archive";
+            req.data.loginAsAdmin = req.session.loginAsAdmin
             if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
             } else if (req.session.user_role === 'admin') {
@@ -172,6 +175,8 @@ module.exports = function (self, options) {
         self.verifyToken(req)
           .then((data) => {
             req.data.archive = "/admin/archive";
+            console.log("middleware" + req.session.loginAsAdmin)
+            req.data.loginAsAdmin = req.session.loginAsAdmin
             if (req.session.user_role === 'service_admin') {
               req.data.logoPath = "/admin/serviceAdmin";
               req.data.referral ="/admin/serviceAdmin";
@@ -378,6 +383,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
