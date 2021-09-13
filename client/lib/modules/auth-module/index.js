@@ -88,8 +88,12 @@ module.exports = {
     self.route('post', 'doLogin', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
       self.middleware.post(req, res, url, req.body).then((data) => {
-       // //console.log(data)
+       console.log(data.data.sendUserResult)
         if (data) {
+          if(data.data.sendUserResult.role=="service_admin")
+          {
+            req.session.loginAsAdmin=data.data.sendUserResult.service_admin_type;
+          }
           req.session.auth_token = data.data.sendUserResult.token;
           req.session.user_role = data.data.sendUserResult.role
           req.session.email = data.data.sendUserResult.email
@@ -98,6 +102,7 @@ module.exports = {
           //console.log("---- -------------------------------------------------------- -------")
           //console.log(req.session.prof_data)
           // need a change - decrypt
+          
           req.session.reload(function () { });
         }
         return res.send(data);

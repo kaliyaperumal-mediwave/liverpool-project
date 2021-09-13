@@ -48,6 +48,7 @@ $(document).ready(function () {
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
       integrationData: "",
+      loggedServiceAdmin:"",
       hasValidDate1: false,
       hasValidDate2: false
     },
@@ -71,6 +72,14 @@ $(document).ready(function () {
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
+      if(document.getElementById('loginAsAdmin').innerHTML=="Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS")
+      {
+        this.loggedServiceAdmin = "Accepted - Alder Hey";
+      }
+      else
+      {
+        this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
+      }
       if (this.archivePage == 'true') {
         this.urlToLoadData = '/modules/admin-module/getArchived'
       }

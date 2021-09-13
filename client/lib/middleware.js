@@ -150,6 +150,7 @@ module.exports = function (self, options) {
             req.data.logoPath = "/admin";
             req.data.referral = "/admin";
             req.data.archive = "/admin/archive";
+            req.data.loginAsAdmin = req.session.loginAsAdmin
             if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
             } else if (req.session.user_role === 'admin') {
@@ -172,6 +173,8 @@ module.exports = function (self, options) {
         self.verifyToken(req)
           .then((data) => {
             req.data.archive = "/admin/archive";
+            console.log("middleware" + req.session.loginAsAdmin)
+            req.data.loginAsAdmin = req.session.loginAsAdmin
             if (req.session.user_role === 'service_admin') {
               req.data.logoPath = "/admin/serviceAdmin";
               req.data.referral ="/admin/serviceAdmin";
