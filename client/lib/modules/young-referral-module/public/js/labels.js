@@ -1,4 +1,5 @@
 function getDynamicLabels(currentLocation, responsibilityFlow) {
+
   // var currentLocation = getQueryStringValue("role");
   var section2Labels = {
     headerLabel: "",
@@ -135,12 +136,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.houseHoldAddMemberLabel = "Add your young's household members";
     section2Labels.carerLabel = "Your details";
     section2Labels.nhsLabel = "Your young's NHS number";
-    section2Labels.youngTitleLabel = "What is your young/young person's title?";
-    section2Labels.youngTitlePlaceHoldTitle = "Select your young/young person's title"
+    section2Labels.youngTitleLabel = "What is your young person's title?";
+    section2Labels.youngTitlePlaceHoldTitle = "Select your young person's title"
     section2Labels.nhsPlaceLabel = "Enter your young's 10 digit NHS number";
     section2Labels.fullNameLabel = "Your young's full name";
     section2Labels.fullNamePlacLabel =
-      "Enter young/young person's first and last name";
+      "Enter young person's first and last name";
     section2Labels.emailLabel = "Your young's email address";
     section2Labels.emailPlacLabel = "Enter your young's email address";
     section2Labels.contactLabel = "Your young's contact number";
@@ -152,7 +153,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.genderPlacLabel = "Enter your young's gender";
     section2Labels.identityLabel =
       "Does your young identify with the gender you were assigned at birth?";
-    section2Labels.sexAssignedLabel = "What sex was your young/young person assigned at birth?";
+    section2Labels.sexAssignedLabel = "What sex was your young person assigned at birth?";
     section2Labels.sexOrientLabel = "Your young's sexual orientation";
     section2Labels.sexOrientPlacLabel =
       "Enter your young's sexual orientation (e.g. straight, pan, bi etc.)";
@@ -208,61 +209,61 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       section2Labels.guardAddress = "What is your address?";
       section2Labels.guardPlacAddress = "Enter your address";
       section2Labels.legalCareLabel =
-        "The young/young person's legal care status (“legal care status” means who has legal guardianship over the young/young person)";
+        "The young person's legal care status (“legal care status” means who has legal guardianship over the young person)";
       section2Labels.legalCarePlacLabel =
         "Select the young's legal care status";
     }
   } else if (currentLocation === "professional") {
     section2Labels.headerLabel =
-      "Section 2 of 5: About the young/young person & their household";
-    section2Labels.aboutYouLabel = "About the young/young person";
-    section2Labels.houseHoldLabel = "The young/young person's household";
-    section2Labels.houseHoldAddMemberLabel = "Add young/young person's household members";
-    section2Labels.carerLabel = "young/young person's parent/carer details";
-    section2Labels.nhsLabel = "The young/young person's NHS number";
-    section2Labels.youngTitleLabel = "What is the young/young person's title?";
-    section2Labels.youngTitlePlaceHoldTitle = "Select the young/young person's title"
+      "Section 2 of 5: About the young person & their household";
+    section2Labels.aboutYouLabel = "About the young person";
+    section2Labels.houseHoldLabel = "The young person's household";
+    section2Labels.houseHoldAddMemberLabel = "Add young person's household members";
+    section2Labels.carerLabel = "young person's parent/carer details";
+    section2Labels.nhsLabel = "The young person's NHS number";
+    section2Labels.youngTitleLabel = "What is the young person's title?";
+    section2Labels.youngTitlePlaceHoldTitle = "Select the young person's title"
     section2Labels.nhsPlaceLabel =
-      "Enter young/young person's your 10 digit NHS number";
+      "Enter young person's your 10 digit NHS number";
     section2Labels.fullNameLabel = "The young / young person’s full name";
     section2Labels.fullNamePlacLabel =
-      "Enter young/young person's first and last name";
-    section2Labels.emailLabel = "The young/young person's email address";
+      "Enter young person's first and last name";
+    section2Labels.emailLabel = "The young person's email address";
     section2Labels.emailPlacLabel =
       "Enter young / young person's email address";
-    section2Labels.contactLabel = "The young/young person's contact number";
+    section2Labels.contactLabel = "The young person's contact number";
     section2Labels.contactPlacLabel =
       "Enter young / young person's contact number";
-    section2Labels.addressLabel = "The young/young person's address";
+    section2Labels.addressLabel = "The young person's address";
     section2Labels.postLabel =
-      "Is the young/young person happy for the post to be sent to this address?";
+      "Is the young person happy for the post to be sent to this address?";
     section2Labels.genderLabel = "The young / young person’s gender";
     section2Labels.genderPlacLabel = "Enter the young / young person’s gender";
     section2Labels.identityLabel =
       "Does the young / young person identify with the gender they were assigned at birth?";
-    section2Labels.sexAssignedLabel = "What sex was the young/young person assigned at birth?";
+    section2Labels.sexAssignedLabel = "What sex was the young person assigned at birth?";
     section2Labels.sexOrientLabel =
-      "The young/young person's sexual orientation";
+      "The young person's sexual orientation";
     section2Labels.sexOrientPlacLabel =
-      "Enter the young/young person's sexual orientation (e.g. straight, pan, bi etc.)";
-    section2Labels.ethincityLabel = "The young/young person's  ethnicity";
+      "Enter the young person's sexual orientation (e.g. straight, pan, bi etc.)";
+    section2Labels.ethincityLabel = "The young person's  ethnicity";
     section2Labels.ethincityPlaceLabel =
-      "Enter the young/young person's ethnicity";
+      "Enter the young person's ethnicity";
     section2Labels.careAdultLabel =
-      "Does the young/young person care for an adult?";
+      "Does the young person care for an adult?";
     section2Labels.yourNameLabel =
       "What is the name of the young person's parent / carer?";
     section2Labels.yourNamePlacLabel = "Enter the person’s first and last name";
     section2Labels.parentalResLabel =
-      "Does this person have parental responsibility for the young/young person?";
+      "Does this person have parental responsibility for the young person?";
     section2Labels.responsibilityToastLabel =
-      "Please enter the details below for the person who has parental responsibility for the young/young person.";
+      "Please enter the details below for the person who has parental responsibility for the young person.";
     section2Labels.parentOrCarerNameLabel =
       "What is the parent or carers name?";
-    section2Labels.firstNameLabel = "The young/young person's first name";
-    section2Labels.firstNamePlacLabel = "Enter young/young person's first name";
-    section2Labels.lastNameLabel = "The young/young person's last name";
-    section2Labels.lastNamePlacLabel = "Enter young/young person's last name";
+    section2Labels.firstNameLabel = "The young person's first name";
+    section2Labels.firstNamePlacLabel = "Enter young person's first name";
+    section2Labels.lastNameLabel = "The young person's last name";
+    section2Labels.lastNamePlacLabel = "Enter young person's last name";
 
     section2Labels.yourFirstNameLabel = "What is the first name of the young person's parent / carer?";
     section2Labels.yourFirstNamePlacLabel = "Enter the person’s first name";
@@ -275,35 +276,190 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
-        "What is their relationship to the young/young person?";
+        "What is their relationship to the young person?";
       section2Labels.guardContactLabel = "What is their contact number?";
       section2Labels.guardContactPlacLabel = "Enter phone number";
       section2Labels.guardEmailLabel = "What is their email address?";
       section2Labels.guardEmailPlacLabel = "Enter their email address";
       section2Labels.sameHouseLabel =
-        "Do they live in the same house as the young/young person?";
+        "Do they live in the same house as the young person?";
       section2Labels.guardAddress = "What is their address?";
       section2Labels.guardPlacAddress = "Enter their address";
       section2Labels.legalCareLabel =
-        "Their young legal care status (“legal care status” means who has legal guardianship over the young/young person)";
+        "Their young legal care status (“legal care status” means who has legal guardianship over the young person)";
       section2Labels.legalCarePlacLabel =
         "Select the young's legal care status";
     } else if (responsibilityFlow === "yes") {
       section2Labels.relationShipLabel =
-        "What is their relationship to the young/young person?";
+        "What is their relationship to the young person?";
       section2Labels.guardContactLabel = "What is their contact number?";
       section2Labels.guardContactPlacLabel = "Enter phone number";
       section2Labels.guardEmailLabel = "What is their email address?";
       section2Labels.guardEmailPlacLabel = "Enter their email address";
       section2Labels.sameHouseLabel =
-        "Do they live in the same house as the young/young person?";
+        "Do they live in the same house as the young person?";
       section2Labels.guardAddress = "What is their address?";
       section2Labels.guardPlacAddress = "Enter their address";
       section2Labels.legalCareLabel =
-        "The young/young person's legal care status (“legal care status” means who has legal guardianship over them)";
+        "The young person's legal care status (“legal care status” means who has legal guardianship over them)";
       section2Labels.legalCarePlacLabel =
-        "Select the young/young person's legal care status";
+        "Select the young person's legal care status";
     }
   }
+
+
+  var section3Labels = {
+      positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '',socialWorkerLastNameLabel: '', socialWorkerContactLabel: '',
+  }
+
+  if (currentLocation === "young") {
+      section3Labels.postionLabel = "I am in";
+      section3Labels.locationLabel = "Which school / college / university / do you attend?";
+      section3Labels.ehcpPlanLabel = "Do you have an Education & Health Care Plan (EHCP)?";
+      section3Labels.ehatToolLabel = "Do you have an open Early Help Assessment Tool (EHAT)?";
+      section3Labels.isSocialWorkerLabel = "Do you have a social worker?";
+      section3Labels.socialWorkerNameLabel = "What is the first name of your social worker?";
+      section3Labels.socialWorkerLastNameLabel = "What is the last name of your social worker?";
+      section3Labels.socialWorkerContactLabel = "What is the contact number for your social worker";
+
+  } else if (currentLocation === "parent") {
+      section3Labels.postionLabel = "Your young is in";
+      section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
+      section3Labels.ehcpPlanLabel = "Does your young have an Education & Health Care Plan (EHCP)?";
+      section3Labels.ehatToolLabel = "Do your young have an open Early Help Assessment Tool (EHAT)?";
+      section3Labels.isSocialWorkerLabel = "Does your young have a social worker?";
+      section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
+      section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
+      section3Labels.socialWorkerContactLabel = "What is the contact number for their social worker";
+
+  }
+  else if (currentLocation === "professional") {
+      section3Labels.postionLabel = "The young person is in";
+      section3Labels.locationLabel = "Which school / college / university / does the young person you attend?";
+      section3Labels.ehcpPlanLabel = "Does the young person have an Education & Health Care Plan (EHCP)?";
+      section3Labels.ehatToolLabel = "Does the young person have an open Early Help Assessment Tool (EHAT)?";
+      section3Labels.isSocialWorkerLabel = "Does the young  have a social worker?";
+      section3Labels.socialWorkerNameLabel = "What is the first name of the young person's social worker?";
+      section3Labels.socialWorkerLastNameLabel = "What is the last name of the young person's social worker?";
+      section3Labels.socialWorkerContactLabel = "What is the contact number for the young person's  social worker";
+  }
+
+  var allLabels = {
+    supportNeedsLabel: "",
+    diagnosisLabel: "",
+    symptomsOrSupportLabel: "",
+    briefOutlineLabel: "",
+    referralLabel: "",
+    historyLabel: "",
+    referralSubLabel: "",
+    referralPlaceHolder: "",
+    anythingHelpedPlaceHolder: "",
+    triggersLabel: "",
+    triggersPlaceHolder: "",
+    disabilitiesLabel: "",
+    disabilitiesPlaceHolder: "",
+    prevAccessedServiceLabel: "",
+    listServiceLabel: "",
+  };
+  if (currentLocation === "young") {
+    allLabels.supportNeedsLabel = "What are your support needs?";
+    allLabels.diagnosisLabel = "Do you have a mental health diagnosis?";
+    allLabels.briefOutlineLabel = "your";
+    allLabels.historyLabel = "Your history";
+    allLabels.symptomsOrSupportLabel =
+      "Do you have any other symptoms or support needs you would like to discuss?";
+    allLabels.referralLabel =
+      "Please provide more information on your main referral issues.";
+    allLabels.referralSubLabel =
+      "(Please include how long this has been an issue and how it is impacting your day-to-day life).";
+    allLabels.referralPlaceHolder =
+      "Tell us more about the issues you are facing.";
+    allLabels.anythingHelpedPlaceHolder =
+      "Have you tried anything before that has helped you with this issue? Tell us more about it here.";
+    allLabels.triggersLabel = "Do you have any particular triggers?";
+    allLabels.triggersPlaceHolder =
+      "Is there anything that you  have noticed that makes this issue worse for you? Tell us about it here.";
+    allLabels.disabilitiesLabel =
+      "Do you have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+    allLabels.disabilitiesPlaceHolder =
+      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
+    allLabels.prevAccessedServiceLabel =
+      "Have you previously accessed any other services?";
+    allLabels.listServiceLabel =
+      "Have you accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+  } else if (currentLocation === "parent") {
+    allLabels.supportNeedsLabel = "What are the support needs of your young?";
+    allLabels.briefOutlineLabel = "your young's";
+    allLabels.diagnosisLabel =
+      "Does your young have a mental health diagnosis?";
+    allLabels.historyLabel = "The young person's history";
+    allLabels.symptomsOrSupportLabel =
+      "Does your young have any other symptoms or support needs you would like to discuss?";
+    allLabels.referralLabel =
+      "Please provide more information on the main referral issues.";
+    allLabels.referralSubLabel =
+      "(Please include how long this has been an issue and how it is impacting your young's day-to-day life).";
+    allLabels.referralPlaceHolder =
+      "Tell us more about the issues they are facing.";
+    allLabels.anythingHelpedPlaceHolder =
+      "Have they tried anything before that has helped them with this issue? Tell us more about it here.";
+    allLabels.triggersLabel = "Do they have any particular triggers?";
+    allLabels.triggersPlaceHolder =
+      "Is there anything that you or your young have noticed that makes this issue worse for them? Tell us about it here.";
+    allLabels.disabilitiesLabel =
+      "Does the young person have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+
+    allLabels.disabilitiesPlaceHolder =
+      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours the young person might have.";
+    allLabels.prevAccessedServiceLabel =
+      "Has your young previously accessed any other services?";
+    allLabels.listServiceLabel =
+      "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+  } else if (currentLocation === "professional") {
+    allLabels.briefOutlineLabel = "the young person's";
+    allLabels.supportNeedsLabel =
+      "What are the support needs of the young person?";
+    allLabels.historyLabel = "The young person's history";
+    allLabels.diagnosisLabel =
+      "Does the young person have a mental health diagnosis?";
+    allLabels.symptomsOrSupportLabel =
+      "Does the young person have any other symptoms or support needs you would like to discuss?";
+    allLabels.referralLabel =
+      "Please provide more information on your main referral issues.";
+    allLabels.referralSubLabel =
+      " (Please include how long this has been an issue and how it is impacting the young person's day-to-day life).";
+    allLabels.referralPlaceHolder =
+      "Tell us more about the issues they are facing.";
+    allLabels.anythingHelpedPlaceHolder =
+      "Have they tried anything before that has helped them with this issue? Tell us more about it here.";
+    allLabels.triggersLabel = "Do they have any particular triggers?";
+    allLabels.triggersPlaceHolder =
+      "Is there anything that you or the young person have noticed that makes this issue worse for them? Tell us about it here.";
+    allLabels.disabilitiesLabel =
+      "Does the young person have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+    allLabels.disabilitiesPlaceHolder =
+      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours the young person might have.";
+    allLabels.prevAccessedServiceLabel =
+      "Has the young previously accessed any other services?";
+    allLabels.listServiceLabel =
+      "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+  }
+
+  var currentRole = getQueryStringValue("role");
+  var section5Labels = {
+      aboutLabel: "",
+  };
+  if (currentRole == 'young') {
+      section5Labels.aboutLabel = "About You";
+  } else if (currentRole == 'parent') {
+      section5Labels.aboutLabel = "About Your young";
+  } else if (currentRole == 'professional') {
+      section5Labels.aboutLabel = "About The young";
+  }
+
+
+
   return section2Labels;
+  return section3Labels;
+  return allLabels;
 }
