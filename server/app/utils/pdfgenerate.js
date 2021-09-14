@@ -6,6 +6,7 @@ const _ = require('lodash');
 const config = require('../config');
 exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
+    console.log(ctx.request.body.referralData)
     try {
         if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child")
         {
