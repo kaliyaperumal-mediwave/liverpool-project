@@ -194,7 +194,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       section2Labels.guardAddress = "What is their address?";
       section2Labels.guardPlacAddress = "Enter their address";
       section2Labels.legalCareLabel =
-        "Their young ’s legal care status (“legal care status” means who has legal guardianship over the young / young person)";
+        "Their young ’s legal care status (“legal care status” means who has legal guardianship over the young person)";
       section2Labels.legalCarePlacLabel =
         "Select the young's legal care status";
     } else if (responsibilityFlow === "yes") {
@@ -225,22 +225,22 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.youngTitlePlaceHoldTitle = "Select the young person's title"
     section2Labels.nhsPlaceLabel =
       "Enter young person's your 10 digit NHS number";
-    section2Labels.fullNameLabel = "The young / young person’s full name";
+    section2Labels.fullNameLabel = "The young person’s full name";
     section2Labels.fullNamePlacLabel =
       "Enter young person's first and last name";
     section2Labels.emailLabel = "The young person's email address";
     section2Labels.emailPlacLabel =
-      "Enter young / young person's email address";
+      "Enter young person's email address";
     section2Labels.contactLabel = "The young person's contact number";
     section2Labels.contactPlacLabel =
-      "Enter young / young person's contact number";
+      "Enter young person's contact number";
     section2Labels.addressLabel = "The young person's address";
     section2Labels.postLabel =
       "Is the young person happy for the post to be sent to this address?";
-    section2Labels.genderLabel = "The young / young person’s gender";
-    section2Labels.genderPlacLabel = "Enter the young / young person’s gender";
+    section2Labels.genderLabel = "The young person’s gender";
+    section2Labels.genderPlacLabel = "Enter the young person’s gender";
     section2Labels.identityLabel =
-      "Does the young / young person identify with the gender they were assigned at birth?";
+      "Does the young person identify with the gender they were assigned at birth?";
     section2Labels.sexAssignedLabel = "What sex was the young person assigned at birth?";
     section2Labels.sexOrientLabel =
       "The young person's sexual orientation";
