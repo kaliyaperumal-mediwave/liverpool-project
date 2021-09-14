@@ -72,9 +72,14 @@ $(document).ready(function () {
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
+      console.log(document.getElementById('loginAsAdmin').innerHTML)
       if(document.getElementById('loginAsAdmin').innerHTML=="Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS")
       {
         this.loggedServiceAdmin = "Accepted - Alder Hey";
+      }
+      else if(document.getElementById('loginAsAdmin').innerHTML=="admin" )
+      {
+        this.loggedServiceAdmin = document.getElementById('loginAsAdmin').innerHTML;
       }
       else
       {
@@ -680,31 +685,43 @@ function downloadCSV(uuid, value, other_value) {
 
 function updateStatus(uuid) {
   $('#loader').show();
-  setTimeout(function () {
-    var status = $('#SelectedProviderStatus').val();
-    var postData = {
-      referral_id: uuid,
-      status: status
-    }
-    if (status === 'Referral to other team') {
-      postData.other = $('#statusOther').val();
-    }
-    var successData = apiCallPut('put', '/referralStatusUpdate', postData);
-    if (successData && Object.keys(successData)) {
-      document.getElementById("statusOther").value = '';
-      $('#changeStatusModal').modal('hide');
-      $('#statusUpdatedSuccess').modal('show');
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-    }
-    else {
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-      $('#changeStatusModal').modal('hide');
-    }
-  }, 500);
+  var status = $('#SelectedProviderStatus').val();
+  console.log(status)
+  if(status)
+  {
+    setTimeout(function () {
+      var postData = {
+        referral_id: uuid,
+        status: status
+      }
+      if (status === 'Referral to other team') {
+        postData.other = $('#statusOther').val();
+      }
+      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+      if (successData && Object.keys(successData)) {
+        document.getElementById("statusOther").value = '';
+        $('#changeStatusModal').modal('hide');
+        $('#statusUpdatedSuccess').modal('show');
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else {
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+        $('#changeStatusModal').modal('hide');
+      }
+    }, 500);
+  }
+  else
+  {
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 500);
+    return false;
+  }
+
 }
 
 

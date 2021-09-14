@@ -490,6 +490,7 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
     //checking update operation or not

@@ -1470,6 +1470,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
+                    cache: false,
                     success: function (data) {
                         _self.isSubmitted = false;
                         if (role === 'professional') {
