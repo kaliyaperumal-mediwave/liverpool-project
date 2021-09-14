@@ -488,6 +488,9 @@ $(document).ready(function () {
                         if (this.userRole == 'child' || this.userRole == 'parent') {
                             delete this.payloadData.aboutData.referral_mode;
                         }
+                        if (this.editPatchFlag) {
+                            this.payloadData.editFlag = this.editPatchFlag
+                        }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
