@@ -845,20 +845,30 @@ $(document).ready(function () {
 
             checkValidDateMine: function (e) {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
-                if (this.isValidDate(e.target.value)) {
-                    var dateValue = e.target.value;
-                    var dateFormat = "DD/MM/YYYY"
-                    var utc = moment(dateValue, dateFormat, true)
-                    var isUtc = utc.isValid();
-                    var currentYear = new Date().getFullYear();
-                    var setYearValue = dateValue.split('/');
-                    var getYearValue = setYearValue[2];
-                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value) || !isUtc) {
-                            this.hasValidDate = true;
-                            this.houseHoldData.dob = e.target.value;
+                if (e.target.value.length == 10) {
+                    if (this.isValidDate(e.target.value)) {
+                        var dateValue = e.target.value;
+                        var dateFormat = "DD/MM/YYYY"
+                        var utc = moment(dateValue, dateFormat, true)
+                        var isUtc = utc.isValid();
+                        var currentYear = new Date().getFullYear();
+                        var setYearValue = dateValue.split('/');
+                        var getYearValue = setYearValue[2];
+                        if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                            if (this.isFutureDate(e.target.value) || !isUtc) {
+                                this.hasValidDate = true;
+                                this.houseHoldData.dob = e.target.value;
+                            } else {
+                                this.hasValidDate = false;
+                                this.houseHoldData.profession = '';
+                                manualHouseHoldText.innerText = "Enter manually";
+                                this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                                this.showManualAddressHouseHold = false;
+                                this.resetHouseholdManualAddressValue();
+                            }
+
                         } else {
-                            this.hasValidDate = false;
+                            this.hasValidDate = true;
                             this.houseHoldData.profession = '';
                             manualHouseHoldText.innerText = "Enter manually";
                             this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
@@ -874,15 +884,15 @@ $(document).ready(function () {
                         this.showManualAddressHouseHold = false;
                         this.resetHouseholdManualAddressValue();
                     }
-
                 } else {
-                    this.hasValidDate = true;
+                    this.hasValidDate = false;
                     this.houseHoldData.profession = '';
                     manualHouseHoldText.innerText = "Enter manually";
                     this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                     this.showManualAddressHouseHold = false;
                     this.resetHouseholdManualAddressValue();
                 }
+
             },
 
             checkValidDate: function (id, obj, key) {
