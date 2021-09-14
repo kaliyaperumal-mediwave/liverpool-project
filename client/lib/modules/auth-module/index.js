@@ -90,9 +90,14 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
        console.log(data.data.sendUserResult)
         if (data) {
+          console.log(data.data.sendUserResult.role)
           if(data.data.sendUserResult.role=="service_admin")
           {
             req.session.loginAsAdmin=data.data.sendUserResult.service_admin_type;
+          }
+          else if(data.data.sendUserResult.role=="admin")
+          {
+            req.session.loginAsAdmin=data.data.sendUserResult.role;
           }
           req.session.auth_token = data.data.sendUserResult.token;
           req.session.user_role = data.data.sendUserResult.role

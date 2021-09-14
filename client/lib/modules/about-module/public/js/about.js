@@ -511,7 +511,6 @@ $(document).ready(function () {
                         else {
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
                         }
-
                         this.upsertAboutYouForm(this.payloadData);
                     } else {
                         scrollToInvalidInput();
