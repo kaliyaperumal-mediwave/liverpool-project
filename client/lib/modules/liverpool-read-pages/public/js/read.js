@@ -15,7 +15,7 @@ function doPrint() {
 }
 
 function clickPdf (index) {
-  // console.log('*******************',index);
+   console.log('*******************',index);
   var _self = this;
   if (_self.pdata_resources[index].doc_pdf.extension == 'docx') {
     $("iframe").addClass("d-none");
