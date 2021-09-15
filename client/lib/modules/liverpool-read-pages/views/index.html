@@ -146,13 +146,13 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div class="video-para-bottom text-underlined pt-0">
             {{apos.area(piece,'link')}}
           </div>
+          <div class="view-pdf view_pdf_div" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
           <div class="read-cont-p video-para-bottom pt-0">
             {{apos.area(piece,'by_author')}}
           </div>
           <div class="video-placed-ago">{{ piece.uploadTime }}</div>
         </div>
       </a>
-      <div class="view-pdf view_pdf_div video-title-top" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
       {% endif %} {% endfor %}
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %} {%
