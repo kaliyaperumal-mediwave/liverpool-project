@@ -735,7 +735,7 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }

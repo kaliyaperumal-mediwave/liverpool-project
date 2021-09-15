@@ -51,6 +51,15 @@ module.exports = {
       }
   },
   {
+
+    name: 'doc_pdf',
+    type: 'attachment',
+    label: 'File',
+    group: 'pdf',
+    required: true
+
+},
+  {
     name: 'by_author',
     label: 'By',
     type: 'area',
@@ -66,7 +75,7 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['Topic','title','thumbnail','read_topic','text','link','by_author']
+      fields: ['Topic','title','thumbnail','read_topic','text','link','doc_pdf','by_author']
     },
     {
       name: 'admins',

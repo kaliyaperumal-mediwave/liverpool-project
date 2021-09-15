@@ -257,7 +257,7 @@ $(document).ready(function () {
                         result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
-                    current_statusCapitalized,
+                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
                     result.data.filter_referrals[i].activity_user,
@@ -320,6 +320,11 @@ $(document).ready(function () {
         this.referral_ids = [];
         $('#loader').hide();
       },
+
+       capitalizeFirstLetter: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+      
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -767,8 +772,6 @@ function sendPdf(uuid, role, refCode) {
     error: function (error) {
       $('#loader').hide();
       buttonElem.disabled = false;
-      console.log(error)
-      console.log(error.responseJSON.data.data)
       $('#sendProviderModal').modal('hide');
       if (error) {
         showError(error.responseJSON.message, error.status);

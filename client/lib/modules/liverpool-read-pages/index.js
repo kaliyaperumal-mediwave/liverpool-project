@@ -30,7 +30,7 @@ module.exports = {
         return item;
       })
       const pieces = [];
-     // console.log( req.session.readArray);
+     console.log( req.session.readArray);
      if(req.session.readArray!=undefined)
      {
       for (let index = 0; index < req.session.readArray.length; index++) {
