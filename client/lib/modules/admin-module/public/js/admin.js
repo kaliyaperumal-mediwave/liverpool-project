@@ -237,7 +237,7 @@ $(document).ready(function () {
                 console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
-                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
                   if(result.data.filter_referrals[i].referral_provider_other)
                   {
@@ -261,6 +261,7 @@ $(document).ready(function () {
                         result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
+                    result.data.filter_referrals[i].referral_current_status,
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
                     result.data.filter_referrals[i].activity_user,

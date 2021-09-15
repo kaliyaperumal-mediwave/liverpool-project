@@ -1593,7 +1593,7 @@ exports.getActivity = async (ctx) => {
             { model: ctx.orm().User, as: 'userInfo' },
             {
                 model: ctx.orm().Referral, as: 'referralInfo', attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status',
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_firstname'), sequelize.col('referralInfo.professional.child_firstname'), sequelize.col('referralInfo.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_lastname'), sequelize.col('referralInfo.professional.child_lastname'), sequelize.col('referralInfo.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp'), sequelize.col('referralInfo.parent.registered_gp'), sequelize.col('referralInfo.professional.registered_gp')), 'gp_location'],
@@ -1635,7 +1635,7 @@ exports.getActivity = async (ctx) => {
         }
         var referrals = await referralModel.findAll({
             attributes: [
-                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode',
+                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'referral_complete_status', 'registered_gp_postcode',
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -1650,14 +1650,14 @@ exports.getActivity = async (ctx) => {
                 {
                     model: referralModel,
                     as: 'parent',
-                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
                     ]
                 },
                 {
                     model: referralModel,
                     as: 'professional',
                     attributes: [
-                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
                     ]
                 },
             ],
@@ -1690,7 +1690,7 @@ exports.getActivity = async (ctx) => {
             } else {
                 refObj.referral_provider = refObj.referral_provider
             }
-            console.log(refObj.updatedAt, "refObj.updatedAt");
+            console.log(refObj.dataValues.referral_complete_status, "refObj.dataValues.referral_complete_status==========");
             var referralObj = {
                 uuid: refObj.uuid,
                 name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
@@ -1704,6 +1704,7 @@ exports.getActivity = async (ctx) => {
                 referral_provider: refObj.referral_provider,
                 referral_provider_other: refObj.referral_provider_other,
                 referral_status: refObj.dataValues.referral_status,
+                referral_current_status: (refObj.dataValues.referral_complete_status == 'completed') ? 'active' : refObj.dataValues.referral_complete_status,
                 activity_date: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('DD/MM/YYYY') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('DD/MM/YYYY'),
                 activity_time: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('H:mm:ss'),
                 activity_user: obj.referralInfo ? (obj.userInfo.first_name + ' ' + obj.userInfo.last_name) : '',
