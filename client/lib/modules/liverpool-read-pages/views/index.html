@@ -118,8 +118,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div class="read-cont-p">{{ piece.read_topic }}</div>
           <div class="text-break">{{ piece.text }}</div>
           <div class="text-underlined text-secondary-theme">{{apos.area(piece,'link')}}</div>
-          <div class="view-pdf" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
-          <div class="read-cont-p p-0">{{apos.area(piece,'by_author')}}</div>
+          <div class="view-pdf font-weight-bold" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
+          <div class="font-weight-bold">{{apos.area(piece,'by_author')}}</div>
           <!-- <div class="video-placed-ago px-0 ">
                     {{ piece.uploadTime }}
                 </div> -->
@@ -129,8 +129,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       {% if data.pieces.length > 1 %}
       <div class="selectSource">More to read</div>
       {% endif %} {% else %}
+      <div class="large-toggle-cont no-padding card-set-container-bg">
       <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class="text-decoration-none">
-        <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.read_topic }}</div>
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %}
@@ -138,21 +138,22 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                 <img class="img-placeholder" width="100%" height="315"
                     src="{{ apos.attachments.url(img, { size: 'max' }) }}">
                 {% endif %} -->
-          <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
-
-          <div class="video-para-bottom ellipse-text pt-0">
+          <img  class="read-cont-p" src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
+          <div class="video-para-bottom text-break pt-0">
             {{ piece.text }}
           </div>
-          <div class="video-para-bottom text-underlined pt-0">
-            {{apos.area(piece,'link')}}
-          </div>
-          <div class="view-pdf view_pdf_div" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
-          <div class="read-cont-p video-para-bottom pt-0">
-            {{apos.area(piece,'by_author')}}
-          </div>
-          <div class="video-placed-ago">{{ piece.uploadTime }}</div>
-        </div>
       </a>
+      <div class="text-underlined video-para-bottom ">
+        {{apos.area(piece,'link')}}
+      </div>
+      
+      <div class="view-pdf read-cont-p video-para-bottom" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
+      
+      <div class="read-cont-p video-para-bottom pt-0">
+        {{apos.area(piece,'by_author')}}
+      </div>
+      <div class="video-placed-ago">{{ piece.uploadTime }}</div>
+      </div>
       {% endif %} {% endfor %}
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %} {%
