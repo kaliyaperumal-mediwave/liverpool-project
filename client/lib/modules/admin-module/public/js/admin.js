@@ -48,7 +48,7 @@ $(document).ready(function () {
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
       integrationData: "",
-      loggedServiceAdmin:"",
+      loggedServiceAdmin: "",
       hasValidDate1: false,
       hasValidDate2: false
     },
@@ -73,16 +73,13 @@ $(document).ready(function () {
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
       console.log(document.getElementById('loginAsAdmin').innerHTML)
-      if(document.getElementById('loginAsAdmin').innerHTML=="Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS")
-      {
+      if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
         this.loggedServiceAdmin = "Accepted - Alder Hey";
       }
-      else if(document.getElementById('loginAsAdmin').innerHTML=="admin" )
-      {
+      else if (document.getElementById('loginAsAdmin').innerHTML == "admin") {
         this.loggedServiceAdmin = document.getElementById('loginAsAdmin').innerHTML;
       }
-      else
-      {
+      else {
         this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
       }
       if (this.archivePage == 'true') {
@@ -220,8 +217,7 @@ $(document).ready(function () {
           console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
-          if(_self.hasValidDate1 || _self.hasValidDate2)
-          {
+          if (_self.hasValidDate1 || _self.hasValidDate2) {
             return false;
           }
           if (_self.fromDateCsv && _self.toDateCsv) {
@@ -239,15 +235,15 @@ $(document).ready(function () {
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
-                  if(result.data.filter_referrals[i].referral_provider_other)
-                  {
+                  if (result.data.filter_referrals[i].referral_provider_other) {
                     alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
                   }
-                  else
-                  {
+                  else {
                     alterOtherTeam = result.data.filter_referrals[i].referral_status
                   }
                   console.log(result.data.filter_referrals[i].activity_action)
+                  const current_status = result.data.filter_referrals[i].referral_current_status
+                  const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
@@ -693,8 +689,7 @@ function updateStatus(uuid) {
   $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
   console.log(status)
-  if(status)
-  {
+  if (status) {
     setTimeout(function () {
       var postData = {
         referral_id: uuid,
@@ -720,8 +715,7 @@ function updateStatus(uuid) {
       }
     }, 500);
   }
-  else
-  {
+  else {
     setTimeout(function () {
       $('#loader').hide();
     }, 500);

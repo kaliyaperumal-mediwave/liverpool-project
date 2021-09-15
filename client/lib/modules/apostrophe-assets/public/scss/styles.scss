@@ -1076,6 +1076,7 @@ a {
   }
 }
 
+
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
   @include xs-screen {
@@ -1104,13 +1105,16 @@ a {
     margin-bottom: 0px;
     @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 15px;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 16px;
     }
     @include md-screen {
-      font-size: 20px;
+      font-size: 18px;
+    }
+    @include md-screen-min {
+      font-size: 18px;
     }
   }
 }
@@ -1160,6 +1164,10 @@ a {
     @include md-screen {
       font-size: 19px;
     }
+    @include md-screen-min {
+      font-size: 19px;
+    }
+
   }
 }
 
@@ -2951,6 +2959,9 @@ $color-scheme: (
       background: $primary 0% 0% no-repeat padding-box;
       color: $secondary;
     }
+    .logout-font{
+    color: $secondary;
+    }
     .video-title-top {
       color: $secondary;
     }
@@ -3986,4 +3997,13 @@ div.collapse-container.collapsing {
 }
 .downloadCSV-div .row {
     margin-bottom: 20px;
+}
+.home-primary-content label{
+  margin-bottom: 0;
+}
+@media (max-width: 400px) {
+#feedBackStars.rating {
+    margin-left: -15px;
+    width: calc(100% + 15px);
+}
 }
