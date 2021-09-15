@@ -252,6 +252,7 @@ exports.eligibility = ctx => {
                 { id: childId }
             }).then((childUserInfo) => {
               return user.update({
+                referral_mode: ctx.request.body.referral_mode,
                 professional_firstname: ctx.request.body.profFirstName,
                 professional_lastname: ctx.request.body.proflastName,
                 professional_email: ctx.request.body.profEmail,
@@ -292,6 +293,7 @@ exports.eligibility = ctx => {
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
+            referral_mode: ctx.request.body.referral_mode,
             professional_firstname: ctx.request.body.profFirstName,
             professional_lastname: ctx.request.body.proflastName,
             professional_email: ctx.request.body.profEmail,
@@ -343,6 +345,7 @@ exports.eligibility = ctx => {
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
+            referral_mode: ctx.request.body.referral_mode,
             professional_firstname: ctx.request.body.profFirstName,
             professional_lastname: ctx.request.body.proflastName,
             professional_email: ctx.request.body.profEmail,
@@ -487,6 +490,7 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
     //checking update operation or not
@@ -850,7 +854,7 @@ exports.about = ctx => {
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
-                referral_mode: ctx.request.body.aboutData.referral_mode
+                //referral_mode: ctx.request.body.aboutData.referral_mode
               },
               {
                 where:
@@ -973,7 +977,7 @@ exports.about = ctx => {
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
-                referral_mode: ctx.request.body.aboutData.referral_mode
+                //referral_mode: ctx.request.body.aboutData.referral_mode
               },
               {
                 where:
@@ -2217,7 +2221,7 @@ exports.fetchReview = ctx => {
         where: {
           id: userObj.id,
         },
-        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'professional_address_postcode']
+        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'professional_address_postcode', 'referral_mode']
       }).then((elgibilityObj) => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2234,7 +2238,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode', 'referral_mode']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
             },
           ],
           where: {
@@ -2300,6 +2304,7 @@ exports.fetchReview = ctx => {
                 professional_profession: elgibilityObj.professional_profession,
                 service_location: elgibilityObj.service_location,
                 selected_service: elgibilityObj.selected_service,
+                referral_mode: elgibilityObj.referral_mode
 
               }
               const section2Obj = {
@@ -2392,6 +2397,7 @@ exports.fetchReview = ctx => {
 }
 
 exports.saveReview = ctx => {
+  console.log(ctx.request.body.venusApi)
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
@@ -2436,26 +2442,7 @@ exports.saveReview = ctx => {
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
-          if (ctx.request.body.referral_provider == "YPAS" || ctx.request.body.referral_provider == "Venus") {
-            return adminCtrl.sendReferralByApi(ctx).then((providermailStatus) => {
-              return user.update({
-                referral_provider: ctx.query.selectedProvider
-              },
-                {
-                  where:
-                    { uuid: ctx.request.body.userid }
-                }
-              ).then((result) => {
-                return ctx.body = responseData;
-              }).catch(error => {
-                //////console.log()(error);
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-              });
-            }).catch((error) => {
-              sequalizeErrorHandler.handleSequalizeError(ctx, error)
-            });
-          }
-          else {
+         // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
             return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
               return user.update({
                 referral_provider: ctx.query.selectedProvider
@@ -2473,7 +2460,26 @@ exports.saveReview = ctx => {
             }).catch((error) => {
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
-          }
+         // }
+          // else {
+          //   return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+          //     return user.update({
+          //       referral_provider: ctx.query.selectedProvider
+          //     },
+          //       {
+          //         where:
+          //           { uuid: ctx.request.body.userid }
+          //       }
+          //     ).then((result) => {
+          //       return ctx.body = responseData;
+          //     }).catch(error => {
+          //       //////console.log()(error);
+          //       sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          //     });
+          //   }).catch((error) => {
+          //     sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          //   });
+          // }
         }
         else {
           return ctx.body = responseData;

@@ -204,7 +204,7 @@ function dynamicSeparator(obj, separator, isOrganization) {
 //Common Modal for API error messages
 function showError(content, statusCode) {
     if (!content) {
-        content = "Something went wrong.Please try again"
+        content = "Something went wrong. Please try again."
     }
     $('#errorContent').text(content);
     if (statusCode) {
@@ -723,3 +723,19 @@ function openApps() {
     localStorage.removeItem("orFilData");
     location.href = window.location.origin + '/apps';
 }
+
+// function downloadJson() {
+//     var API_URI = "/modules/admin-module";
+//     console.log("4343");
+//     var successData = apiCallGet('get', '/downloadJson', API_URI);
+//     console.log(successData)
+//     downloadTextFile(JSON.stringify(successData.data), 'myObj.json');
+// }
+
+// function downloadTextFile(text, name) {
+//     const a = document.createElement('a');
+//     const type = name.split(".").pop();
+//     a.href = URL.createObjectURL(new Blob([text], { type: `text/${type === "txt" ? "plain" : type}` }));
+//     a.download = name;
+//     a.click();
+// }

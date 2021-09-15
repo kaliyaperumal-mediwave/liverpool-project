@@ -5,6 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
 {% endblock %}
 {% block main %}
@@ -178,14 +179,17 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate('#manualDatePickerParent','elgibilityObj','childDob',$event)"
-                            @keypress="preventRefresh($event)" inputmode="numeric" autocomplete="off"
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
                             id="manualDatePickerParent" placeholder="DD/MM/YYYY">
-                        <div class="input-group-append cursor-pointer">
+                        <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                 </div>
             </form>
@@ -246,14 +250,17 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob',$event)"
-                            @keypress="preventRefresh($event)" autocomplete="off" id="manualDatePickerChild"
-                            inputmode="numeric" placeholder="DD/MM/YYYY">
-                        <div class="input-group-append cursor-pointer">
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
 
                     {% endraw %}
@@ -934,12 +941,36 @@
 
             {% endraw %}
 
-            <!-- Professional select service directly end -->
+            <!-- Professional select service directly end  v-if="userRole == 'professional'" -->
 
 
             <form id="professionalInfo-form" data-options="professionalForm">
                 <div v-show="elgibilityObj.role === 'professional' && (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-4 pb-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+
+                    <div v-if="elgibilityObj.liverpoolService=='Alder Hey - Liverpool CAMHS' || elgibilityObj.liverpoolService=='Alder Hey - Liverpool EDYS' || elgibilityObj.seftonService =='Alder Hey - Sefton CAMHS' || elgibilityObj.seftonService =='Alder Hey - Sefton EDYS'  "
+                        class="px-2 px-lg-0 py-2 col-12 mx-auto">
+                        <p class="question-font m-0">Is this an urgent or routine referral?</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" checked id="routine" value="1"
+                                name="referralMode" v-model="elgibilityObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="routine">
+                                Routine
+                            </label>
+                        </div>
+                        <div class="form-check  py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2"
+                                v-model="elgibilityObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="urgent">
+                                Urgent
+                            </label>
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referral_mode),
+                          'invalid-fields':!aboutObj.referral_mode }">
+                          You must provide an answer to this question to continue.
+                      </div> -->
+                    </div>
+
                     <div class="form-group">
                         <label for="firstName" class="question-font">Your first name</label>
                         {% raw %}
@@ -948,7 +979,7 @@
                                 @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
                                 placeholder="Enter your first name" class="form-control input-bg-form-control"
                                 id="fullFirstName">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -968,7 +999,7 @@
                                 @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')"
                                 placeholder="Enter your last name" class="form-control input-bg-form-control"
                                 id="fullLatstName">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -989,7 +1020,7 @@
                                 @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                                 placeholder="Enter your email address" class="form-control input-bg-form-control"
                                 id="emailAddress">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-envelope"></i>
                                 </span>
@@ -1022,7 +1053,7 @@
                                 @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                                 placeholder="Enter your contact number" class="form-control input-bg-form-control"
                                 id="contact">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-25">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-phone"></i>
                                 </span>
@@ -1114,7 +1145,7 @@
                                 @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
                                 placeholder="Enter your profession" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
-                            <div class="input-group-append cursor-pointer">
+                            <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fas common-fa-fa fa-user-tie"></i>
                                 </span>
@@ -1162,7 +1193,7 @@
                                         v-model="addressData.addressLine1"
                                         @input="trimWhiteSpace($event,'addressData','addressLine1')" id="addressline1"
                                         placeholder="Enter address line 1">
-                                    <div class="input-group-append cursor-pointer">
+                                    <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </span>
@@ -1184,7 +1215,7 @@
                                         v-model="addressData.addressLine2"
                                         @input="trimWhiteSpace($event,'addressData','addressLine2')" id="addressline2"
                                         placeholder="Enter address line 2">
-                                    <div class="input-group-append cursor-pointer">
+                                    <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </span>
@@ -1217,7 +1248,7 @@
                                         v-model="addressData.country"
                                         @input="trimWhiteSpace($event,'addressData','country')" id="countyAdd"
                                         placeholder="Enter country">
-                                    <div class="input-group-append cursor-pointer">
+                                    <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-globe" aria-hidden="true"></i>
                                         </span>
@@ -1308,14 +1339,18 @@
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob" inputmode="numeric" @keypress="preventRefresh($event)"
-                            @input="checkValidDate('#manualDatePicker','elgibilityObj','profChildDob',$event)"
-                            autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
-                        <div class="input-group-append cursor-pointer">
+                            v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)"
+                            @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
+                            placeholder="DD/MM/YYYY">
+                        <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"

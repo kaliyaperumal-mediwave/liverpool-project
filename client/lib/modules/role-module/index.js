@@ -1,3 +1,5 @@
+const config = require("../../gplist.json");
+var _ = require("lodash");
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Role Module',
@@ -18,8 +20,7 @@ module.exports = {
       if (!req.session.frm_ref_home) {
         return req.res.redirect("/")
       }
-      if(req.session.referralCode)
-      {
+      if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -71,6 +72,28 @@ module.exports = {
       });
     });
 
+    self.route('get', 'getGpByName/:name', function (req, res) {
+      var searchTxt = req.params.name;
+      var searchRslt=[]
+      var result = _.filter(config, function (gp) {
+        if (!!~gp.Name.toLowerCase().indexOf(searchTxt.toLowerCase())) {
+          searchRslt.push(gp);
+      }
+      });
+      return res.send(searchRslt);
+    });
+
+
+    self.route('get', 'getGpByPostCode/:postcode', function (req, res) {
+      var searchTxt = req.params.postcode;
+      var searchRslt=[]
+      var result = _.filter(config, function (gp) {
+        if (!!~gp.Postcode.toLowerCase().indexOf(searchTxt.toLowerCase())) {
+          searchRslt.push(gp);
+      }
+      });
+      return res.send(searchRslt);
+    });
     // self.route('post', 'fetchEligibility', function (req, res) {
     //   var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchEligibility';
     //   //console.log("-------");
