@@ -46,7 +46,11 @@ $(document).ready(function () {
       copyFromDateCsv: '',
       copyToDateCsv: '',
       isCsvDownloadSubmitted: false,
-      showInvalidToDate: false
+      showInvalidToDate: false,
+      integrationData: "",
+      loggedServiceAdmin: "",
+      hasValidDate1: false,
+      hasValidDate2: false
     },
 
     beforeMount: function () {
@@ -54,12 +58,30 @@ $(document).ready(function () {
     },
 
     mounted: function () {
+      // var switchElem = document.getElementById('switchIntegration');
+      // if (localStorage.getItem('integration') && localStorage.getItem('integration') == 'true') {
+      //   switchElem.value = localStorage.getItem('integration');
+      //   switchElem.checked = true;
+
+      // } else {
+      //   switchElem.checked = false;
+      // }
       var date = new Date().getFullYear();
       for (var i = date; i > 1989; i--) {
         this.yearArr.push(i);
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
+      console.log(document.getElementById('loginAsAdmin').innerHTML)
+      if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
+        this.loggedServiceAdmin = "Accepted - Alder Hey";
+      }
+      else if (document.getElementById('loginAsAdmin').innerHTML == "admin") {
+        this.loggedServiceAdmin = document.getElementById('loginAsAdmin').innerHTML;
+      }
+      else {
+        this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
+      }
       if (this.archivePage == 'true') {
         this.urlToLoadData = '/modules/admin-module/getArchived'
       }
@@ -169,9 +191,11 @@ $(document).ready(function () {
                   referralRes.data.data[i].refDate,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                    referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted':
+                      referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+
                   referralRes.data.data[i].date,
                 ]);
               }
@@ -191,6 +215,11 @@ $(document).ready(function () {
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
           console.log(finalFromRes, finalToRes)
+          // finalFromRes= "08/01/2021";
+          // finalToRes = "08/20/2021";
+          if (_self.hasValidDate1 || _self.hasValidDate2) {
+            return false;
+          }
           if (_self.fromDateCsv && _self.toDateCsv) {
             if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
               if (new Date(finalToRes).getTime() >= new Date(finalFromRes).getTime()) {
@@ -198,12 +227,23 @@ $(document).ready(function () {
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
                 console.log('from and to', getFromData, getToData)
+                var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
+                console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
-                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
+                  if (result.data.filter_referrals[i].referral_provider_other) {
+                    alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
+                  }
+                  else {
+                    alterOtherTeam = result.data.filter_referrals[i].referral_status
+                  }
+                  console.log(result.data.filter_referrals[i].activity_action)
+                  const current_status = result.data.filter_referrals[i].referral_current_status
+                  const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
@@ -214,9 +254,10 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].refDate,
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                      result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted':
-                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
+                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
+                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
+                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
                     result.data.filter_referrals[i].activity_user,
@@ -279,6 +320,11 @@ $(document).ready(function () {
         this.referral_ids = [];
         $('#loader').hide();
       },
+
+       capitalizeFirstLetter: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+      
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -420,7 +466,52 @@ $(document).ready(function () {
       },
 
       preventRefresh: function (e) {
+        if (e.which == 32) {
+          e.preventDefault();
+        }
         stopRefresh(e);
+      },
+
+      isValidDate: function (sText) {
+        var reDate = /(?:0[1-9]|[12][0-9]|3[01])\/(?:0[1-9]|1[0-2])\/(?:19|20\d{2})/;
+        return reDate.test(sText);
+      },
+
+      isFutureDate: function (idate) {
+        var today = new Date().getTime(),
+          idate = idate.split("/");
+        idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+        return (today - idate) < 0 ? true : false;
+      },
+
+      checkValidDateMine: function (e, type) {
+        if (this.isValidDate(e.target.value)) {
+          var dateValue = e.target.value;
+          var dateFormat = "DD/MM/YYYY"
+          var utc = moment(dateValue, dateFormat, true)
+          var isUtc = utc.isValid();
+          var currentYear = new Date().getFullYear();
+          var setYearValue = dateValue.split('/');
+          var getYearValue = setYearValue[2];
+          if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+            if (this.isFutureDate(e.target.value) || !isUtc) {
+              this[type] = true;
+              this.showInvalidToDate = false;
+            } else {
+              this[type] = false;
+              this.showInvalidToDate = false;
+            }
+
+          } else {
+            this[type] = true;
+            this.showInvalidToDate = false;
+          }
+
+        } else {
+          this[type] = true;
+          this.showInvalidToDate = false;
+
+        }
       },
 
       checkValidDate: function (id, key, duplicateKey) {
@@ -489,6 +580,8 @@ $(document).ready(function () {
         this.toDateCsv = "";
         this.isCsvDownloadSubmitted = false;
         this.showInvalidToDate = false;
+        this.hasValidDate1 = false;
+        this.hasValidDate2 = false;
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
@@ -506,10 +599,18 @@ $(document).ready(function () {
           return o.ReferralId == uuid;
         })
         specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-        console.log(specificReferral, "specificReferral");
+        //  console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-        console.log(this.groupByActivityDate);
-      }
+        // console.log(this.groupByActivityDate);
+      },
+      setIntegration: function (e) {
+        if (e.target.checked) {
+          localStorage.setItem('integration', 'true');
+        }
+        else {
+          localStorage.setItem('integration', 'false');
+        }
+      },
     },
   })
 
@@ -586,31 +687,41 @@ function downloadCSV(uuid, value, other_value) {
 
 function updateStatus(uuid) {
   $('#loader').show();
-  setTimeout(function () {
-    var status = $('#SelectedProviderStatus').val();
-    var postData = {
-      referral_id: uuid,
-      status: status
-    }
-    if (status === 'Referral to other team') {
-      postData.other = $('#statusOther').val();
-    }
-    var successData = apiCallPut('put', '/referralStatusUpdate', postData);
-    if (successData && Object.keys(successData)) {
-      document.getElementById("statusOther").value = '';
-      $('#changeStatusModal').modal('hide');
-      $('#statusUpdatedSuccess').modal('show');
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-    }
-    else {
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-      $('#changeStatusModal').modal('hide');
-    }
-  }, 500);
+  var status = $('#SelectedProviderStatus').val();
+  console.log(status)
+  if (status) {
+    setTimeout(function () {
+      var postData = {
+        referral_id: uuid,
+        status: status
+      }
+      if (status === 'Referral to other team') {
+        postData.other = $('#statusOther').val();
+      }
+      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+      if (successData && Object.keys(successData)) {
+        document.getElementById("statusOther").value = '';
+        $('#changeStatusModal').modal('hide');
+        $('#statusUpdatedSuccess').modal('show');
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else {
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+        $('#changeStatusModal').modal('hide');
+      }
+    }, 500);
+  }
+  else {
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 500);
+    return false;
+  }
+
 }
 
 
@@ -623,16 +734,28 @@ function toArrayBuffer(buf) {
   return ab;
 }
 function sendPdf(uuid, role, refCode) {
+  var buttonElem = document.querySelector('#sendRef');
+  buttonElem.disabled = true;
+  var useAPI
+  if (document.querySelector('.messageCheckbox:checked') != null) {
+    useAPI = document.querySelector('.messageCheckbox:checked').value;
+  }
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  if (selectedProvider == "YPAS" || selectedProvider == "Venus") {
-    apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  }
-  else {
-    apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  }
-
+  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
+  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // else {
+  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // if (selectedProvider == "YPAS") {
+  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // else {
+  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
   $.ajax({
     url: API_URI + apiToSend,
     type: 'get',
@@ -648,8 +771,7 @@ function sendPdf(uuid, role, refCode) {
     },
     error: function (error) {
       $('#loader').hide();
-      console.log(error)
-      console.log(error.responseJSON.data.data)
+      buttonElem.disabled = false;
       $('#sendProviderModal').modal('hide');
       if (error) {
         showError(error.responseJSON.message, error.status);
@@ -660,6 +782,8 @@ function sendPdf(uuid, role, refCode) {
 function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  var buttonElem = document.querySelector('#sendRef');
+  buttonElem.disabled = false;
 }
 
 function closeAlreadySentPopup() {

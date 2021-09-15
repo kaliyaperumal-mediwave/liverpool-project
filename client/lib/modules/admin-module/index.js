@@ -8,7 +8,17 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
       self.dispatch('/archive', self.middleware.checkServiceAdminAuth, self.archive);
+      self.dispatch('/integration', self.integration);
       self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
+    };
+    self.integration = function (req, callback) {
+      console.log("page land admin integration page")
+      req.data.logoPath = "/";
+      return self.sendPage(req, self.renderer('integration', {
+        superAdmin: true,
+        adminPanel: true,
+        archivePge: true,
+      }));
     };
     self.archive = function (req, callback) {
       console.log("page land admin archieve page")
@@ -19,6 +29,9 @@ module.exports = {
       }));
     };
     self.serviceAdmin = function (req, callback) {
+      console.log(req.session.loginData.data.sendUserResult.service_admin_type )
+      req.data.showLogout = true;
+      req.data.loginAsAdmin = req.session.loginData.data.sendUserResult.service_admin_type ;
       return self.sendPage(req, self.renderer('serviceAdmin', {
         superAdmin: true,
         adminPanel: true,
@@ -28,6 +41,9 @@ module.exports = {
     require('../../middleware')(self, options);
 
     self.admin = function (req, callback) {
+      console.log("page land admin  page")
+      console.log(req.session.loginData)
+      req.data.loginAdminType = req.session.loginData.data.sendUserResult.role ;
       console.log("page land admin  page")
       return self.sendPage(req, self.renderer('admin', {
         superAdmin: true,
@@ -131,9 +147,16 @@ module.exports = {
     });
 
     self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
-      //console.log("get all referal")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      //console.log(url);
+
+      var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
+      var url;
+      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
+      // else {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -143,8 +166,33 @@ module.exports = {
     });
 
     self.route('get', 'sendReferralByApi/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
-      console.log("sendReferralByApi")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+
+      var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
+      var url;
+      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      }
+      else if (useVenusIaptusAPI == 'false' && req.params.selectedProvider == 'Venus') {
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      }
+      else {
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      }
+
+      //var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
+
+    //Api end point to downlaod json file
+    self.route('get', 'downloadJson', function (req, res) {
+      console.log("downloadJson")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadJson';
       //console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
@@ -153,5 +201,47 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
+    self.route('post', 'validateIntegration', function (req, res) {
+      console.log("validateIntegration")
+      console.log(req.body)
+      var mindwavePassword = self.apos.LIVERPOOLMODULE.getOption(req, 'apiIntegrationPassword');
+      if (mindwavePassword == req.body.password) {
+        var data = {
+          statusCode: 200,
+          successMsg: "Integration password matched."
+        }
+        return res.send(data);
+      }
+      else {
+        var data = {
+          statusCode: 500,
+          successMsg: "Integration password not matched."
+        }
+        return res.send(data);
+      }
+    });
+
+    self.route('put', 'updateApiValue', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/updateApiValue';
+      //console.log('referralStatusUpdate put', url);
+      self.middleware.put(req, res, url, req.body).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
+
+    self.route('get', 'getApiService', function (req, res) {
+      console.log("downloadJson")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getApiService';
+      //console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
+
   }
 }

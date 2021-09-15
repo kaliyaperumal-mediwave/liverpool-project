@@ -56,7 +56,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                      //  //console.log(data)
+                      console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {
