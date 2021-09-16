@@ -3238,6 +3238,9 @@ $color-scheme: (
     .selectSource {
       color: $secondary;
     }
+    .logout-font{
+      color: $secondary;
+    }
     .title-thing-to-watch {
       color: $secondary;
     }
@@ -4259,7 +4262,7 @@ iframe#uploadedDoc {
     justify-content: space-between;
 }
 iframe#uploadedDoc {
-    height: 500px;
+    height: 75vh;
 }
 }
 @media (min-width: 992px){
@@ -4267,9 +4270,15 @@ iframe#uploadedDoc {
     display: flex;
 }
 iframe#uploadedDoc {
-    height: 600px;
+    height: 76vh;
 }
 }
 .view_pdf_div {
     padding: 14px 18px 8px 18px;
+}
+div#IEFormatRemove {
+    display: flex;
+    align-items: center;
+    height: 85vh;
+    color: #fff;
 }
