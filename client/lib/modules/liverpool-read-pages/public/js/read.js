@@ -26,14 +26,20 @@ function clickPdf (url) {
   //   $('#docxFileRemove').addClass('d-none');
   // }
   var url = url
+  var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
      console.log(url);
   $("#uploadedDoc").attr("src", url);
   $(".pdf-overlay").removeClass("d-none");
   if (
     navigator.userAgent.indexOf("MSIE") > -1 ||
-    navigator.userAgent.indexOf("rv:") > -1
+    navigator.userAgent.indexOf("rv:") > -1 || isSamsungBrowser
   )
   {
+    if(isSamsungBrowser)
+    {
+      $("#MobileFormatRemove").removeClass("d-none");
+    $("iframe").addClass("d-none");
+    }
     $("#IEFormatRemove").removeClass("d-none");
     $("iframe").addClass("d-none");
   }
