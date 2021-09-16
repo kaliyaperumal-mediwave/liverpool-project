@@ -40,8 +40,11 @@ function clickPdf (url) {
       $("#MobileFormatRemove").removeClass("d-none");
     $("iframe").addClass("d-none");
     }
+    else {
+
     $("#IEFormatRemove").removeClass("d-none");
     $("iframe").addClass("d-none");
+  }
   }
 }
 

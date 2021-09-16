@@ -4276,9 +4276,10 @@ iframe#uploadedDoc {
 .view_pdf_div {
     padding: 14px 18px 8px 18px;
 }
-div#IEFormatRemove {
+div#IEFormatRemove,div#MobileFormatRemove {
     display: flex;
     align-items: center;
+    text-align: center;
     height: 85vh;
     color: #fff;
 }
