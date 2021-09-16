@@ -118,7 +118,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div class="read-cont-p">{{ piece.read_topic }}</div>
           <div class="text-break">{{ piece.text }}</div>
           <div class="text-underlined text-secondary-theme">{{apos.area(piece,'link')}}</div>
-          <div class="view-pdf font-weight-bold" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
+          {% if piece.isPdf %}
+          <div class="view-pdf font-weight-bold" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
+          {% endif %}
           <div class="font-weight-bold">{{apos.area(piece,'by_author')}}</div>
           <!-- <div class="video-placed-ago px-0 ">
                     {{ piece.uploadTime }}
@@ -146,9 +148,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       <div class="text-underlined video-para-bottom ">
         {{apos.area(piece,'link')}}
       </div>
-      
-      <div class="view-pdf read-cont-p video-para-bottom" onclick="clickPdf({{loop.index}}-1)">View PDF</div>
-      
+      {% if piece.isPdf %}
+      <div class="view-pdf read-cont-p video-para-bottom" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
+      {% endif %}
       <div class="read-cont-p video-para-bottom pt-0">
         {{apos.area(piece,'by_author')}}
       </div>
@@ -168,7 +170,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                <h4>Read</h4>
                <ul class="pdf-clinic">
                  <li>
-                   <div class="info-status ">
+                   <div class="info-status  d-none">
                      <span
                      class="material-icons click_fav_like">
                      favorite_border
@@ -183,7 +185,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                </div>
              </li>
              <li>
-               <div class="upload-right m-t-20" onclick="doPrint()">
+               <div class="upload-right m-t-20  d-none" onclick="doPrint()">
                  <i class="material-icons overlay-upload-close">
                    local_printshop</i>
                  </div>
@@ -191,15 +193,15 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                </li>
              </ul>
            </div>
-           <div class="pdf-icon-mobile">
+           <div class="pdf-icon-mobile ">
              <div class="upload-right close_pdf">
                <i
                class="material-icons overlay-upload-close pdf-close-img pdf-close-img">close</i>
              </div>
              <a id='document' download='respected-document.pdf' style="display:none;"></a>
 
-             <a class="upload-right" title='respected-document.pdf' onclick="downloadPDF()">
-               <i class="material-icons overlay-upload-close">
+             <a class="upload-right d-none" title='respected-document.pdf' onclick="downloadPDF()">
+               <i class="material-icons overlay-upload-close d-none">
                  save_alt</i></a>
                </div>
              </div>
@@ -226,7 +228,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                    </div>
                    <a id='document' download='respected-document.pdf' style="display:none;"></a>
 
-                   <a class="upload-right" title='respected-document.pdf' onclick="downloadPDF()">
+                   <a class="upload-right d-none" title='respected-document.pdf' onclick="downloadPDF()">
                      <i class="material-icons overlay-upload-close">
                        save_alt</i></a>
                      </div>

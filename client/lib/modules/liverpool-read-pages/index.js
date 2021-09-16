@@ -30,10 +30,21 @@ module.exports = {
         return item;
       })
       const pieces = [];
-     console.log( req.session.readArray);
+     //console.log( req.session.readArray.doc_pdf);
      if(req.session.readArray!=undefined)
      {
       for (let index = 0; index < req.session.readArray.length; index++) {
+        //console.log("req.session.readArray.doc_pdf");
+       // console.log(req.session.readArray[index].doc_pdf);
+        if(req.session.readArray[index].doc_pdf){
+          req.session.readArray[index].doc_pdf.url=self.apos.LIVERPOOLMODULE.getOption(req, 'blobStorage') + "attachments/" + req.session.readArray[index].doc_pdf._id+"-"+req.session.readArray[index].doc_pdf.name+"."+req.session.readArray[index].doc_pdf.extension
+          console.log(req.session.readArray[index].doc_pdf.url)
+          req.session.readArray[index].isPdf = true;
+        }
+        else
+        {
+          req.session.readArray[index].isPdf = false;
+        }
         if(req.session.readArray[index].createdAt) {
           req.session.readArray[index].uploadTime = moment(req.session.readArray[index].createdAt).fromNow();
         } else {
