@@ -14,25 +14,19 @@ function doPrint() {
   $("#uploadedDoc")[0].contentWindow.print();
 }
 
-function clickPdf (index) {
-   console.log('*******************',index);
+function clickPdf (url) {
+   console.log('*******************',url);
   var _self = this;
-  if (_self.pdata_resources[index].doc_pdf.extension == 'docx') {
-    $("iframe").addClass("d-none");
-    $('#docxFileRemove').removeClass('d-none');
-  }
-  else {
-    $("iframe").removeClass("d-none");
-    $('#docxFileRemove').addClass('d-none');
-  }
-  var url =
-    "/liverpool/attachments/" +
-    _self.pdata_resources[index].doc_pdf._id +
-    "-" +
-    _self.pdata_resources[index].doc_pdf.name +
-    "." +
-    _self.pdata_resources[index].doc_pdf.extension;
-    // console.log(url);
+  // if (_self.pdata_resources[index].doc_pdf.extension == 'docx') {
+  //   $("iframe").addClass("d-none");
+  //   $('#docxFileRemove').removeClass('d-none');
+  // }
+  // else {
+  //   $("iframe").removeClass("d-none");
+  //   $('#docxFileRemove').addClass('d-none');
+  // }
+  var url = url
+     console.log(url);
   $("#uploadedDoc").attr("src", url);
   $(".pdf-overlay").removeClass("d-none");
   if (
@@ -43,7 +37,6 @@ function clickPdf (index) {
     $("#IEFormatRemove").removeClass("d-none");
     $("iframe").addClass("d-none");
   }
-  _self.favHide = _self.pdata_resources[index].fav ? true : false;
 }
 
 

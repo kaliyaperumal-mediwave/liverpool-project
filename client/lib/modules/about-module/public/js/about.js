@@ -706,8 +706,10 @@ $(document).ready(function () {
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
                 console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
+                console.log(this.houseHoldData)
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
+                console.log(this.dateRegex.test(houseHoldForm.dob))
                 if (houseHoldForm.name && houseHoldForm.lastName) {
                     if (this.showManualAddressHouseHold) {
                         if (houseHoldForm.manualAddress.profession && houseHoldForm.manualAddress.addressLine1 && houseHoldForm.manualAddress.city &&
