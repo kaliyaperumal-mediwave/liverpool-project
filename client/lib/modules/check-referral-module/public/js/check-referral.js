@@ -83,6 +83,8 @@ $(document).ready(function () {
                         _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
                             if (referralType == 'completed') {
+                                console.log((_self.displayReferrals[i].referral_status).substring(0,8) )
+                               
                                 if (_self.displayReferrals[i].referral_status == 'Accepted - Alder Hey') //2
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
@@ -119,10 +121,10 @@ $(document).ready(function () {
                                     refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_provider_other
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
-                                else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                                else if ((_self.displayReferrals[i].referral_status).substring(0,8)) // 8
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
-                                    refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                                    refStatus = _self.displayReferrals[i].referral_provider+" have accepted your referral and will be in contact."; 
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
                                 else //3
