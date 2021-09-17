@@ -286,11 +286,11 @@ $(document).ready(function () {
                                 refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
-                            else if ((_self.displayReferrals[i].referral_status).substring(0, 8)) // 8
+                            else if ((_self.searchReferrals[0].referral_status).substring(0, 8)) // 8
                             {
-                                var refStatus = _self.displayReferrals[i].referral_status
-                                refStatus = _self.displayReferrals[i].referral_provider + " have accepted your referral and will be in contact.";
-                                _self.displayReferrals[i].referral_status = refStatus
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = _self.searchReferrals[0].referral_provider + " have accepted your referral and will be in contact.";
+                                _self.searchReferrals[0].referral_status = refStatus
                             }
                             else //3
                             {
@@ -364,11 +364,11 @@ $(document).ready(function () {
                             refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                             _self.searchReferrals[0].referral_status = refStatus
                         }
-                        else if ((_self.displayReferrals[i].referral_status).substring(0, 8)) // 8
+                        else if ((_self.searchReferrals[0].referral_status).substring(0, 8)) // 8
                         {
-                            var refStatus = _self.displayReferrals[i].referral_status
-                            refStatus = _self.displayReferrals[i].referral_provider + " have accepted your referral and will be in contact.";
-                            _self.displayReferrals[i].referral_status = refStatus
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = _self.searchReferrals[0].referral_provider + " have accepted your referral and will be in contact.";
+                            _self.searchReferrals[0].referral_status = refStatus
                         }
                         else //3
                         {
