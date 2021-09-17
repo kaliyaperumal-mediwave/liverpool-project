@@ -431,14 +431,6 @@
                                     If you don't have your NHS number, find it&nbsp;<a
                                         href="https://www.nhs.uk/nhs-services/online-services/find-nhs-number/"
                                         target="_blank" class="text-underline cursor-pointer">here</a>.</h3>
-                                <!-- <div class="col-md-12 mx-auto col-sm-10 col-12">
-                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
-                                        <a href="https://www.nhs.uk/nhs-services/online-services/find-nhs-number/"
-                                            target="_blank">
-                                            https://www.nhs.uk/nhs-services/online-services/find-nhs-number/
-                                        </a>
-                                    </p>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -738,7 +730,11 @@
                 <!-- Parental Responsibility start -->
                 <form id="parentResy-form" data-options="parentialResponsibility">
                     <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
-                        <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="pl-2 mb-2 cursor-pointer" alt=""
+                                data-toggle="modal" data-target="#parentialResHelperText">
+                        </div>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
                                 name="parentialResponsibility" v-model="aboutFormData.parentialResponsibility"
@@ -760,6 +756,28 @@
                     </div>
                 </form>
                 <!-- Parental Responsibility end -->
+
+                <!-- Nhs content modal start -->
+                <div class="modal fade" id="parentialResHelperText" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
+                                    For more information on parental responsibility please follow this&nbsp;<a
+                                        href="https://www.nhs.uk/conditions/consent-to-treatment/children/"
+                                        target="_blank" class="text-underline cursor-pointer">link</a>.</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nhs content modal end -->
 
                 <!-- Parental Responsibility Toaster container start-->
                 <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-2 px-lg-0 py-4">
