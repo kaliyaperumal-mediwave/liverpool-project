@@ -1464,6 +1464,9 @@ function getRefData(refID, refRole, ctx) {
 
 exports.referralStatusUpdate = async (ctx) => {
     const t = await ctx.orm().sequelize.transaction();
+    console.log(ctx.request.body.status)
+    console.log(ctx.request.body)
+    console.log(ctx.request.decryptedUsers)
     try {
         const referralModel = ctx.orm().Referral;
         const referralActivityModel = ctx.orm().referralActivity;
@@ -1471,8 +1474,12 @@ exports.referralStatusUpdate = async (ctx) => {
             referral_status: ctx.request.body.status
         }
 
-        if (ctx.request.body.status === 'Referral to other team' || ctx.request.body.status === 'Accepted by') {
+        if (ctx.request.body.status === 'Referral to other team') {
             updateValue.referral_provider_other = ctx.request.body.other;
+        }
+        if( ctx.request.body.status && (ctx.request.body.status).substring(0, 8)  === 'Accepted')
+        {
+            updateValue.referral_provider_other = ctx.request.decryptedUser.service_type
         }
 
         if (ctx.request.body.activity && ctx.request.body.activity.activity === 'Referral viewed') {
