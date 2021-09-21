@@ -24,6 +24,7 @@ module.exports = {
 
 
     self.young_referral_screen = function (req, callback) {
+      console.log('-------------------------');
       if (!req.session.frm_ref_home) {
         return req.res.redirect("/")
       }
@@ -45,8 +46,7 @@ module.exports = {
       // if (!req.session.user_role) {
       //   return req.res.redirect("/")
       // }
-      if(req.session.referralCode)
-      {
+      if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
@@ -75,8 +75,7 @@ module.exports = {
       // if (!req.session.user_role) {
       //   return req.res.redirect("/")
       // }
-      if(req.session.referralCode)
-      {
+      if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
       let decryptedUrl;
@@ -102,8 +101,7 @@ module.exports = {
       // if (!req.session.user_role) {
       //   return req.res.redirect("/")
       // }
-      if(req.session.referralCode)
-      {
+      if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
       let labels;
@@ -129,8 +127,7 @@ module.exports = {
       // if (!req.session.user_role) {
       //   return req.res.redirect("/")
       // }
-      if(req.session.referralCode)
-      {
+      if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
       let decryptedUrl;
@@ -183,11 +180,11 @@ module.exports = {
 
     self.route('get', 'getGpByName/:name', function (req, res) {
       var searchTxt = req.params.name;
-      var searchRslt=[]
+      var searchRslt = []
       var result = _.filter(config, function (gp) {
         if (!!~gp.Name.toLowerCase().indexOf(searchTxt.toLowerCase())) {
           searchRslt.push(gp);
-      }
+        }
       });
       return res.send(searchRslt);
     });
@@ -195,11 +192,11 @@ module.exports = {
 
     self.route('get', 'getGpByPostCode/:postcode', function (req, res) {
       var searchTxt = req.params.postcode;
-      var searchRslt=[]
+      var searchRslt = []
       var result = _.filter(config, function (gp) {
         if (!!~gp.Postcode.toLowerCase().indexOf(searchTxt.toLowerCase())) {
           searchRslt.push(gp);
-      }
+        }
       });
       return res.send(searchRslt);
     });

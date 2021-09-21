@@ -87,7 +87,7 @@ $(document).ready(function () {
                 this.section5Labels.aboutLabel = "About you";
                 this.section5Labels.referralLabel = "Your reason for referral";
 
-            } else if (this.userRole === 'parent') {
+            } else if (this.userRole === 'family') {
                 this.yourInfo = 'Parent / Carer';
                 this.section5Labels.aboutLabel = "About your young";
                 this.section5Labels.referralLabel = "Your young's reason for referral";
@@ -252,7 +252,7 @@ $(document).ready(function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 this.payloadData.contact_person = this.contact_person;
-                if (this.userRole == 'young' || this.userRole == 'parent') {
+                if (this.userRole == 'young' || this.userRole == 'family') {
                     if (this.contact_person && this.contactPref.length) {
                         $('#loader').show();
                         if (this.section1Data.gp_school != "" && this.section1Data.gp_school != null) {

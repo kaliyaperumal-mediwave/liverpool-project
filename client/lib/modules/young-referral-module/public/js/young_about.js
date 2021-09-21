@@ -296,7 +296,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "referral_progress", data.referral_progress == 20 ? 40 : data.referral_progress);
                     }
                 }
-                else if (this.userRole == "parent") {
+                else if (this.userRole == "family") {
                     if (data[0].parent[0].young_firstname != null) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].young_NHS);
@@ -485,7 +485,7 @@ $(document).ready(function () {
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
                         this.payloadData.userid = document.getElementById('uUid').innerHTML
                         this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                        if (this.userRole == 'young' || this.userRole == 'parent') {
+                        if (this.userRole == 'young' || this.userRole == 'family') {
                             delete this.payloadData.aboutData.referral_mode;
                         }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
@@ -567,7 +567,7 @@ $(document).ready(function () {
                     document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
                     document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
                     document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
-                } else if (role == 'parent') {
+                } else if (role == 'family') {
                     manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
                     this.aboutFormData.parentOrCarrerAddress = "";
                     document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
@@ -601,7 +601,7 @@ $(document).ready(function () {
                 if (role == 'young') {
                     patchManualAddress(this, 'addressData', address, 'youngManualAddress');
                     this.prevyoungAddressData = JSON.parse(JSON.stringify(this.youngManualAddress));
-                } else if (role == 'parent') {
+                } else if (role == 'family') {
                     patchManualAddress(this, 'addressParentData', address, 'parentManualAddress');
                     this.prevParentAddressData = JSON.parse(JSON.stringify(this.parentManualAddress));
                 }
@@ -1099,7 +1099,7 @@ $(document).ready(function () {
                         'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                     this.isAddressFormSubmitted = false;
                     $('#deleteyoungAddressModal').modal('hide');
-                } else if (role == 'parent') {
+                } else if (role == 'family') {
                     deleteLogicManualAddress(this.parentManualAddress, this.addressParentData, this, 'parentManualAddress',
                         'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                     this.isAddressFormParentSubmitted = false;

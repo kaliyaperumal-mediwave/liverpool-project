@@ -309,39 +309,39 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
 
   var section3Labels = {
-      positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '',socialWorkerLastNameLabel: '', socialWorkerContactLabel: '',
+    positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '', socialWorkerLastNameLabel: '', socialWorkerContactLabel: '',
   }
 
   if (currentLocation === "young") {
-      section3Labels.postionLabel = "I am in";
-      section3Labels.locationLabel = "Which school / college / university / do you attend?";
-      section3Labels.ehcpPlanLabel = "Do you have an Education & Health Care Plan (EHCP)?";
-      section3Labels.ehatToolLabel = "Do you have an open Early Help Assessment Tool (EHAT)?";
-      section3Labels.isSocialWorkerLabel = "Do you have a social worker?";
-      section3Labels.socialWorkerNameLabel = "What is the first name of your social worker?";
-      section3Labels.socialWorkerLastNameLabel = "What is the last name of your social worker?";
-      section3Labels.socialWorkerContactLabel = "What is the contact number for your social worker";
+    section3Labels.postionLabel = "I am in";
+    section3Labels.locationLabel = "Which school / college / university / do you attend?";
+    section3Labels.ehcpPlanLabel = "Do you have an Education & Health Care Plan (EHCP)?";
+    section3Labels.ehatToolLabel = "Do you have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.isSocialWorkerLabel = "Do you have a social worker?";
+    section3Labels.socialWorkerNameLabel = "What is the first name of your social worker?";
+    section3Labels.socialWorkerLastNameLabel = "What is the last name of your social worker?";
+    section3Labels.socialWorkerContactLabel = "What is the contact number for your social worker";
 
-  } else if (currentLocation === "parent") {
-      section3Labels.postionLabel = "Your young is in";
-      section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
-      section3Labels.ehcpPlanLabel = "Does your young have an Education & Health Care Plan (EHCP)?";
-      section3Labels.ehatToolLabel = "Do your young have an open Early Help Assessment Tool (EHAT)?";
-      section3Labels.isSocialWorkerLabel = "Does your young have a social worker?";
-      section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
-      section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
-      section3Labels.socialWorkerContactLabel = "What is the contact number for their social worker";
+  } else if (currentLocation === "family") {
+    section3Labels.postionLabel = "Your young is in";
+    section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
+    section3Labels.ehcpPlanLabel = "Does your young have an Education & Health Care Plan (EHCP)?";
+    section3Labels.ehatToolLabel = "Do your young have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.isSocialWorkerLabel = "Does your young have a social worker?";
+    section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
+    section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
+    section3Labels.socialWorkerContactLabel = "What is the contact number for their social worker";
 
   }
   else if (currentLocation === "professional") {
-      section3Labels.postionLabel = "The young person is in";
-      section3Labels.locationLabel = "Which school / college / university / does the young person you attend?";
-      section3Labels.ehcpPlanLabel = "Does the young person have an Education & Health Care Plan (EHCP)?";
-      section3Labels.ehatToolLabel = "Does the young person have an open Early Help Assessment Tool (EHAT)?";
-      section3Labels.isSocialWorkerLabel = "Does the young  have a social worker?";
-      section3Labels.socialWorkerNameLabel = "What is the first name of the young person's social worker?";
-      section3Labels.socialWorkerLastNameLabel = "What is the last name of the young person's social worker?";
-      section3Labels.socialWorkerContactLabel = "What is the contact number for the young person's  social worker";
+    section3Labels.postionLabel = "The young person is in";
+    section3Labels.locationLabel = "Which school / college / university / does the young person you attend?";
+    section3Labels.ehcpPlanLabel = "Does the young person have an Education & Health Care Plan (EHCP)?";
+    section3Labels.ehatToolLabel = "Does the young person have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.isSocialWorkerLabel = "Does the young  have a social worker?";
+    section3Labels.socialWorkerNameLabel = "What is the first name of the young person's social worker?";
+    section3Labels.socialWorkerLastNameLabel = "What is the last name of the young person's social worker?";
+    section3Labels.socialWorkerContactLabel = "What is the contact number for the young person's  social worker";
   }
 
   var allLabels = {
@@ -387,7 +387,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Have you previously accessed any other services?";
     allLabels.listServiceLabel =
       "Have you accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
-  } else if (currentLocation === "parent") {
+  } else if (currentLocation === "family") {
     allLabels.supportNeedsLabel = "What are the support needs of your young?";
     allLabels.briefOutlineLabel = "your young's";
     allLabels.diagnosisLabel =
@@ -447,14 +447,14 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
   var currentRole = getQueryStringValue("role");
   var section5Labels = {
-      aboutLabel: "",
+    aboutLabel: "",
   };
   if (currentRole == 'young') {
-      section5Labels.aboutLabel = "About You";
-  } else if (currentRole == 'parent') {
-      section5Labels.aboutLabel = "About Your young";
+    section5Labels.aboutLabel = "About You";
+  } else if (currentRole == 'family') {
+    section5Labels.aboutLabel = "About Your young";
   } else if (currentRole == 'professional') {
-      section5Labels.aboutLabel = "About The young";
+    section5Labels.aboutLabel = "About The young";
   }
 
 

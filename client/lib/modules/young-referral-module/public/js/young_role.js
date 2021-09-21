@@ -161,7 +161,7 @@ $(document).ready(function () {
                     disableParent.style.opacity = '0.6';
                     disableProfessional.style.opacity = '0.6';
 
-                } else if (userRole == 'parent') {
+                } else if (userRole == 'family') {
                     disableyoung.style.opacity = '0.6';
                     disableProfessional.style.opacity = '0.6';
 
@@ -293,7 +293,7 @@ $(document).ready(function () {
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
-                else if (roleType == "parent") {
+                else if (roleType == "family") {
 
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
@@ -1012,7 +1012,7 @@ $(document).ready(function () {
                         }
                     }
 
-                    else if (roleText == 'parent') {
+                    else if (roleText == 'family') {
                         console.log(age)
                         if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
@@ -1195,7 +1195,7 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                } else if (role === 'parent') {
+                } else if (role === 'family') {
                     if (this.elgibilityObj.youngDob) {
                         this.elgibilityObj.youngDob = this.elgibilityObj.youngDob.replace(/\s/g, "");
                     }
@@ -1271,7 +1271,7 @@ $(document).ready(function () {
                     var setYearValue = dateValue.split('/');
                     var getYearValue = setYearValue[2];
                     if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value) ||  !isUtc) {
+                        if (this.isFutureDate(e.target.value) || !isUtc) {
                             this.hasValidDate = true;
                             if (this.elgibilityObj.role == 'professional') {
                                 this.elgibilityObj.profBelowAgeLimit = "";
@@ -1601,7 +1601,7 @@ $(document).ready(function () {
                     }
                 }
 
-                else if (roleText == 'parent') {
+                else if (roleText == 'family') {
                     if (age > 18) {
                         this.elgibilityObj.aboveLimit = "yes";
                         this.elgibilityObj.camhs = "";

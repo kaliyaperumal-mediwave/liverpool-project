@@ -397,7 +397,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
-                else if (this.userRole == "parent") {
+                else if (this.userRole == "family") {
                     if (data[0].parent[0].young_education_manual_address && data[0].parent[0].young_education_manual_address.length) {
                         Vue.set(this, "educationManualAddressData", data[0].parent[0].young_education_manual_address);
                         this.setReadonlyState(true);
