@@ -1,5 +1,10 @@
 module.exports = function modelUser(sequelize, types) {
   const Referral = sequelize.define('Referral', {
+    id: {
+      primaryKey: true,
+      type: types.INTEGER,
+      autoIncrement: true,
+    },
     uuid: {
       type: types.UUID,
       defaultValue: types.UUIDV4,
@@ -293,7 +298,7 @@ module.exports = function modelUser(sequelize, types) {
 
   Referral.belongsToMany(Referral, {
     as: 'family',
-    through: 'YoungFamilyFriends',
+    through: 'YoungFamily',
   });
   Referral.belongsToMany(Referral, {
     as: 'youngProfessional',
@@ -303,8 +308,8 @@ module.exports = function modelUser(sequelize, types) {
 
   Referral.belongsToMany(Referral, {
     as: 'young_family',
-    through: 'YonngFamily',
-    foreignKey: 'familyId',
+    through: 'YoungFamily',
+    foreignKey: 'FamilyId',
   });
   Referral.belongsToMany(Referral, {
     as: 'young_professional',

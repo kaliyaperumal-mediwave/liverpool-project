@@ -114,7 +114,7 @@ exports.eligibility = ctx => {
             {
               model: ctx.orm().Referral,
               nested: true,
-              as: 'parent',
+              as: 'family',
             },
           ],
           where: {
@@ -184,13 +184,14 @@ exports.eligibility = ctx => {
         });
       }
       else {
+        console.log(ctx.request.body);
         return user.create({
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
-          childUserInfo.setType("1")
+          childUserInfo.setType("7")
           return user.create({
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
@@ -198,15 +199,20 @@ exports.eligibility = ctx => {
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
-            parentUserInfo.setType("2")
-            parentUserInfo.setParent(childUserInfo.id)
+            console.log(parentUserInfo)
+            parentUserInfo.setType("8")
+            parentUserInfo.setFamily(childUserInfo.uuid)
             const responseData = {
               userid: parentUserInfo.uuid,
               user_role: parentUserInfo.user_role,
+              familydata:parentUserInfo,
+              youngData:childUserInfo,
+
               status: "ok"
             }
             return ctx.body = responseData;
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {

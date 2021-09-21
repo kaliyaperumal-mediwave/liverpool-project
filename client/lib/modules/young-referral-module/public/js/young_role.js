@@ -22,8 +22,8 @@ $(document).ready(function () {
                 interpreter: '',
                 tostInterYes: '',
                 youngDob: '',
-                contactParent: '',
-                contactParentNo: '',
+                contactfamily: '',
+                contactfamilyNo: '',
                 belowAgeLimit: 'no',
                 aboveLimit: 'no',
                 isInformation: '',
@@ -36,9 +36,9 @@ $(document).ready(function () {
                 submitProfForm: '',
                 profBelowAgeLimit: '',
                 profaboveLimit: '',
-                parentConcernInformation: '',
+                familyConcernInformation: '',
                 youngConcernInformation: '',
-                contactProfParent: '',
+                contactProffamily: '',
                 regProfGpTxt: '',
                 profEmail: '',
                 profFirstName: '',
@@ -47,8 +47,8 @@ $(document).ready(function () {
                 profAddress: '',
                 profProfession: '',
                 disableRole: false,
-                contact_parent_camhs: '',
-                reason_contact_parent_camhs: '',
+                contact_family_camhs: '',
+                reason_contact_family_camhs: '',
                 gpNotCovered: false,
                 gpNotCoveredProf: false,
                 profDirectService: '',
@@ -142,7 +142,7 @@ $(document).ready(function () {
             }
             this.isSubmitted = false;
             var disableyoung = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementyoung;
-            var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementyoung;
+            var disablefamily = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementyoung;
             var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementyoung;
             var profData = document.getElementById('prof_data').innerHTML;
             // try{
@@ -158,7 +158,7 @@ $(document).ready(function () {
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
                 if (userRole == 'young') {
-                    disableParent.style.opacity = '0.6';
+                    disablefamily.style.opacity = '0.6';
                     disableProfessional.style.opacity = '0.6';
 
                 } else if (userRole == 'family') {
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
                 } else if (userRole == 'professional') {
                     disableyoung.style.opacity = '0.6';
-                    disableParent.style.opacity = '0.6';
+                    disablefamily.style.opacity = '0.6';
 
                 }
             }
@@ -272,10 +272,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
                     Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data.young_dob));
                     this.fetchAgeLogic(data.young_dob, roleType)
-                    Vue.set(this.elgibilityObj, "contactParent", data.contact_parent);
+                    Vue.set(this.elgibilityObj, "contactfamily", data.contact_family);
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_young);
-                    Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
-                    Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
+                    Vue.set(this.elgibilityObj, "contact_family_camhs", data.contact_family_camhs);
+                    Vue.set(this.elgibilityObj, "reason_contact_family_camhs", data.reason_contact_family_camhs);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     if (data.registered_gp_postcode) { // bind postcode column for new referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp + ',' + data.registered_gp_postcode));
@@ -297,20 +297,20 @@ $(document).ready(function () {
 
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
-                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data[0].parent[0].young_dob));
-                    this.fetchAgeLogic(data[0].parent[0].young_dob)
-                    Vue.set(this.elgibilityObj, "contactParent", data[0].consent_young);
+                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data[0].family[0].young_dob));
+                    this.fetchAgeLogic(data[0].family[0].young_dob)
+                    Vue.set(this.elgibilityObj, "contactfamily", data[0].consent_young);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_young);
-                    //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
-                    if (data[0].parent[0].registered_gp_postcode) { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp + ',' + data[0].parent[0].registered_gp_postcode, roleType));
+                    //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].family[0].registered_gp, roleType));
+                    if (data[0].family[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].family[0].registered_gp + ',' + data[0].family[0].registered_gp_postcode, roleType));
                     }
                     else {// leave postcode column for old referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].family[0].registered_gp, roleType));
                     }
 
-                    if (data[0].parent[0].gp_school) {
-                        Vue.set(this.elgibilityObj, "gpSchool", data[0].parent[0].gp_school);
+                    if (data[0].family[0].gp_school) {
+                        Vue.set(this.elgibilityObj, "gpSchool", data[0].family[0].gp_school);
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
                         this.elgibilityObj.gpNotCovered = true;
                     }
@@ -334,8 +334,8 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "profyoungDob", this.convertDate(data[0].professional[0].young_dob));
                     this.duplicateYearArray = this.elgibilityObj.profyoungDob.slice(this.elgibilityObj.profyoungDob.length - 4);
                     this.fetchAgeLogic(data[0].professional[0].young_dob, roleType)
-                    Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
-                    Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_young);
+                    Vue.set(this.elgibilityObj, "contactProffamily", data[0].consent_family);
+                    Vue.set(this.elgibilityObj, "familyConcernInformation", data[0].consent_young);
 
                     if (data[0].selected_service == 'Alder Hey - Liverpool CAMHS' || data[0].selected_service == 'Alder Hey - Liverpool EDYS' || data[0].selected_service == 'Alder Hey - Sefton CAMHS' || data[0].selected_service == 'Alder Hey - Sefton EDYS') {
                         Vue.set(this.elgibilityObj, "referral_mode", data[0].referral_mode);
@@ -488,15 +488,15 @@ $(document).ready(function () {
                 else if (questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
                 }
-                else if (questionIdentifier == "belowAgeParent" && optionValue == "no") {
+                else if (questionIdentifier == "belowAgefamily" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.contactParent = optionValue;
+                    this.elgibilityObj.contactfamily = optionValue;
                 }
-                else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
+                else if (questionIdentifier == "reasonfamilyContact" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.contact_parent_camhs = optionValue;
+                    this.elgibilityObj.contact_family_camhs = optionValue;
                 }
-                else if (questionIdentifier == "reasonParentContact" && optionValue == "yes") {
+                else if (questionIdentifier == "reasonfamilyContact" && optionValue == "yes") {
                     this.elgibilityObj.regGpTxt = "";
                 }
                 else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
@@ -504,13 +504,13 @@ $(document).ready(function () {
                     this.elgibilityObj.isInformation = optionValue;
                 }
                 //for professional
-                else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
+                else if (questionIdentifier == "contactProffamily" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.contactProfParent = optionValue;
+                    this.elgibilityObj.contactProffamily = optionValue;
                 }
-                else if (questionIdentifier == "parentConcernSelect" && optionValue == "no") {
+                else if (questionIdentifier == "familyConcernSelect" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.parentConcernInformation = optionValue;
+                    this.elgibilityObj.familyConcernInformation = optionValue;
                 }
                 else if (questionIdentifier == "directServices") {
                     if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
@@ -952,40 +952,40 @@ $(document).ready(function () {
                         if (age < 14) {
                             this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
-                            this.elgibilityObj.contactParent = "";
-                            this.elgibilityObj.contact_parent_camhs = "";
-                            this.elgibilityObj.reason_contact_parent_camhs = ""
+                            this.elgibilityObj.contactfamily = "";
+                            this.elgibilityObj.contact_family_camhs = "";
+                            this.elgibilityObj.reason_contact_family_camhs = ""
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.belowAgeLimit = "no";
-                            this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";
-                            this.elgibilityObj.contactParent = "";
-                            this.elgibilityObj.contact_parent_camhs = "";
-                            this.elgibilityObj.reason_contact_parent_camhs = ""
+                            this.elgibilityObj.contactfamily = "";
+                            this.elgibilityObj.contact_family_camhs = "";
+                            this.elgibilityObj.reason_contact_family_camhs = ""
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
                             ////console.log("343")
-                            this.elgibilityObj.contactParent = "yes";
+                            this.elgibilityObj.contactfamily = "yes";
                             this.elgibilityObj.belowAgeLimit = "no";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
-                            this.elgibilityObj.contact_parent_camhs = "";
-                            this.elgibilityObj.reason_contact_parent_camhs = ""
+                            this.elgibilityObj.contact_family_camhs = "";
+                            this.elgibilityObj.reason_contact_family_camhs = ""
                         }
                     }
                     else if (roleText == 'professional') {
                         if (age < 15) {
                             this.elgibilityObj.profBelowAgeLimit = "yes";
                             this.elgibilityObj.profaboveLimit = "";
-                            this.elgibilityObj.parentConcern = "";
-                            this.elgibilityObj.contactProfParent = "";
-                            this.elgibilityObj.parentConcernInformation = "";
+                            this.elgibilityObj.familyConcern = "";
+                            this.elgibilityObj.contactProffamily = "";
+                            this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
@@ -993,19 +993,19 @@ $(document).ready(function () {
                         else if (age > 18) {
                             this.elgibilityObj.profaboveLimit = "yes";
                             this.elgibilityObj.profBelowAgeLimit = "";
-                            this.elgibilityObj.parentConcern = "";
-                            this.elgibilityObj.contactProfParent = "";
-                            this.elgibilityObj.parentConcernInformation = "";
+                            this.elgibilityObj.familyConcern = "";
+                            this.elgibilityObj.contactProffamily = "";
+                            this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
                         else {
-                            this.elgibilityObj.parentConcern = "show";
-                            this.elgibilityObj.contactProfParent = "yes";
+                            this.elgibilityObj.familyConcern = "show";
+                            this.elgibilityObj.contactProffamily = "yes";
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
-                            this.elgibilityObj.parentConcernInformation = "";
+                            this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
@@ -1016,12 +1016,12 @@ $(document).ready(function () {
                         console.log(age)
                         if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
-                            this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
-                            this.elgibilityObj.contactParent = "yes";
+                            this.elgibilityObj.contactfamily = "yes";
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.aboveLimit = "";
                             this.elgibilityObj.submitForm = "false";
@@ -1276,9 +1276,9 @@ $(document).ready(function () {
                             if (this.elgibilityObj.role == 'professional') {
                                 this.elgibilityObj.profBelowAgeLimit = "";
                                 this.elgibilityObj.profaboveLimit = "";
-                                this.elgibilityObj.parentConcern = "";
-                                this.elgibilityObj.contactProfParent = "";
-                                this.elgibilityObj.parentConcernInformation = "";
+                                this.elgibilityObj.familyConcern = "";
+                                this.elgibilityObj.contactProffamily = "";
+                                this.elgibilityObj.familyConcernInformation = "";
                                 this.elgibilityObj.youngConcernInformation = "";
                                 this.elgibilityObj.submitProfForm = "";
                                 this.elgibilityObj.regProfGpTxt = "";
@@ -1286,16 +1286,16 @@ $(document).ready(function () {
                             else if (this.elgibilityObj.role == 'young') {
                                 this.elgibilityObj.belowAgeLimit = "";
                                 this.elgibilityObj.aboveLimit = "";
-                                this.elgibilityObj.contactParent = "";
-                                this.elgibilityObj.contact_parent_camhs = "";
-                                this.elgibilityObj.reason_contact_parent_camhs = ""
+                                this.elgibilityObj.contactfamily = "";
+                                this.elgibilityObj.contact_family_camhs = "";
+                                this.elgibilityObj.reason_contact_family_camhs = ""
                                 this.elgibilityObj.submitForm = "";
                                 this.elgibilityObj.regGpTxt = "";
                                 this.elgibilityObj.isInformation = "";
                             }
                             else {
                                 this.elgibilityObj.aboveLimit = "";
-                                this.elgibilityObj.contactParent = "";
+                                this.elgibilityObj.contactfamily = "";
                                 this.elgibilityObj.submitForm = "";
                                 this.elgibilityObj.belowAgeLimit = "";
                                 this.elgibilityObj.regGpTxt = "";
@@ -1311,9 +1311,9 @@ $(document).ready(function () {
                         if (this.elgibilityObj.role == 'professional') {
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
-                            this.elgibilityObj.parentConcern = "";
-                            this.elgibilityObj.contactProfParent = "";
-                            this.elgibilityObj.parentConcernInformation = "";
+                            this.elgibilityObj.familyConcern = "";
+                            this.elgibilityObj.contactProffamily = "";
+                            this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "";
                             this.elgibilityObj.regProfGpTxt = "";
@@ -1321,16 +1321,16 @@ $(document).ready(function () {
                         else if (this.elgibilityObj.role == 'young') {
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.aboveLimit = "";
-                            this.elgibilityObj.contactParent = "";
-                            this.elgibilityObj.contact_parent_camhs = "";
-                            this.elgibilityObj.reason_contact_parent_camhs = ""
+                            this.elgibilityObj.contactfamily = "";
+                            this.elgibilityObj.contact_family_camhs = "";
+                            this.elgibilityObj.reason_contact_family_camhs = ""
                             this.elgibilityObj.submitForm = "";
                             this.elgibilityObj.regGpTxt = "";
                             this.elgibilityObj.isInformation = "";
                         }
                         else {
                             this.elgibilityObj.aboveLimit = "";
-                            this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "";
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.regGpTxt = "";
@@ -1343,9 +1343,9 @@ $(document).ready(function () {
                     if (this.elgibilityObj.role == 'professional') {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
-                        this.elgibilityObj.parentConcern = "";
-                        this.elgibilityObj.contactProfParent = "";
-                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.familyConcern = "";
+                        this.elgibilityObj.contactProffamily = "";
+                        this.elgibilityObj.familyConcernInformation = "";
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
                         this.elgibilityObj.regProfGpTxt = "";
@@ -1353,16 +1353,16 @@ $(document).ready(function () {
                     else if (this.elgibilityObj.role == 'young') {
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
-                        this.elgibilityObj.contact_parent_camhs = "";
-                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.contactfamily = "";
+                        this.elgibilityObj.contact_family_camhs = "";
+                        this.elgibilityObj.reason_contact_family_camhs = ""
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
                     }
                     else {
                         this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contactfamily = "";
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
@@ -1419,9 +1419,9 @@ $(document).ready(function () {
                     if (this.elgibilityObj.role == 'professional') {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
-                        this.elgibilityObj.parentConcern = "";
-                        this.elgibilityObj.contactProfParent = "";
-                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.familyConcern = "";
+                        this.elgibilityObj.contactProffamily = "";
+                        this.elgibilityObj.familyConcernInformation = "";
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
                         this.elgibilityObj.regProfGpTxt = "";
@@ -1429,16 +1429,16 @@ $(document).ready(function () {
                     else if (this.elgibilityObj.role == 'young') {
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
-                        this.elgibilityObj.contact_parent_camhs = "";
-                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.contactfamily = "";
+                        this.elgibilityObj.contact_family_camhs = "";
+                        this.elgibilityObj.reason_contact_family_camhs = ""
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
                     }
                     else {
                         this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contactfamily = "";
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
@@ -1465,12 +1465,14 @@ $(document).ready(function () {
                 console.log(payload)
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/eligibility",
+                    url: API_URI + "/youngEligibility",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
+                        console.log(data)
+                        return;
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
@@ -1584,17 +1586,17 @@ $(document).ready(function () {
                     if (age < 15) {
                         this.elgibilityObj.profBelowAgeLimit = "yes";
                         this.elgibilityObj.profaboveLimit = "";
-                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.familyConcern = "";
                         this.elgibilityObj.submitProfForm = "false";
                     }
                     else if (age > 18) {
                         this.elgibilityObj.profaboveLimit = "yes";
                         this.elgibilityObj.profBelowAgeLimit = "";
-                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.familyConcern = "";
                         this.elgibilityObj.submitProfForm = "false";
                     }
                     else {
-                        this.elgibilityObj.parentConcern = "show";
+                        this.elgibilityObj.familyConcern = "show";
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.submitProfForm = "false";
@@ -1694,7 +1696,7 @@ $(document).ready(function () {
 
             clearGP: function (e) {
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
-                    this.elgibilityObj.reason_contact_parent_camhs = e.target.value.trim();
+                    this.elgibilityObj.reason_contact_family_camhs = e.target.value.trim();
                     return false;
                 }
                 var reasonCamhs = e.target.value;

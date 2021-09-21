@@ -149,8 +149,8 @@ module.exports = {
 
 
     // save eligibitiy
-    self.route('post', 'eligibility', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/eligibility';
+    self.route('post', 'youngEligibility', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/youngEligibility';
       self.middleware.post(req, res, url, req.body).then((data) => {
         // setting the uuid and userrole to use in upcoming sections.
         if (!req.body.editFlag) {

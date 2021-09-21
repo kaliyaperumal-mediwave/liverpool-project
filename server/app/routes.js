@@ -6,6 +6,7 @@ const authController = require('./controllers/authController');
 const adminController = require('./controllers/adminController');
 const orchaController = require('./controllers/orchaController');
 const userController = require('./controllers/userController');
+const youngControler = require('./controllers/youngController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
 const auth = require('./middlewares/auth');
@@ -83,5 +84,11 @@ router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSe
 router.get('/admin/downloadJson', validateToken, adminController.toJson);
 router.put('/admin/updateApiValue', validateToken, adminController.updateApiValue);
 router.get('/admin/getApiService', validateToken, adminController.getApiService);
+
+
+//Apis for form 2
+router.post('/user/youngEligibility', validateToken, youngControler.eligibility);
+
+
 
 module.exports = router;
