@@ -142,7 +142,7 @@ $(document).ready(function () {
                 this.yearArr.push(i);
             }
             this.paramValues = getParameter(location.href);
-            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userRole = "Parent";
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.isFormSubmitted = false;
             this.fetchSavedData();
