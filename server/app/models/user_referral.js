@@ -289,6 +289,31 @@ module.exports = function modelUser(sequelize, types) {
     as: 'professional',
     through: 'ChildProfessional',
   });
+
+
+  Referral.belongsToMany(Referral, {
+    as: 'family',
+    through: 'YoungFamilyFriends',
+  });
+  Referral.belongsToMany(Referral, {
+    as: 'youngProfessional',
+    through: 'YoungProfessional',
+  });
+
+
+  Referral.belongsToMany(Referral, {
+    as: 'young_family',
+    through: 'YonngFamily',
+    foreignKey: 'familyId',
+  });
+  Referral.belongsToMany(Referral, {
+    as: 'young_professional',
+    through: 'YoungProfessional',
+    foreignKey: 'professionalId'
+  });
+
+
+
   Referral.belongsToMany(Referral, {
     as: 'child_parent',
     through: 'ChildParents',

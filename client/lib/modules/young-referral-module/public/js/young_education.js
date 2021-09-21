@@ -63,7 +63,7 @@ $(document).ready(function () {
             this.isFormSubmitted = false;
             this.paramValues = getParameter(location.href)
             this.userId = document.getElementById('uUid').innerHTML;
-            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userRole = "Parent"
             this.dynamicLabels = getDynamicLabels(this.userRole);
             this.fetchSavedData();
             this.initMaps();
