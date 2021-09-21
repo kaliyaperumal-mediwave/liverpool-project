@@ -184,7 +184,6 @@ exports.eligibility = ctx => {
         });
       }
       else {
-        console.log(ctx.request.body);
         return user.create({
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
@@ -201,7 +200,12 @@ exports.eligibility = ctx => {
           }).then((parentUserInfo) => {
             console.log(parentUserInfo)
             parentUserInfo.setType("8")
-            parentUserInfo.setFamily(childUserInfo.uuid)
+            console.log(childUserInfo.id)
+            parentUserInfo.setFamily(childUserInfo.id).then(sc=>{
+              console.log(sc);
+          }).catch((error) =>{
+            console.log(error)
+          });
             const responseData = {
               userid: parentUserInfo.uuid,
               user_role: parentUserInfo.user_role,

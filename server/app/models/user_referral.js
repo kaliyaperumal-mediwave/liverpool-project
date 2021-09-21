@@ -306,11 +306,11 @@ module.exports = function modelUser(sequelize, types) {
   });
 
 
-  Referral.belongsToMany(Referral, {
-    as: 'young_family',
-    through: 'YoungFamily',
-    foreignKey: 'familyId',
-  });
+  // Referral.belongsToMany(Referral, {
+  //   as: 'Family',
+  //   through: 'YoungFamily',
+  //   foreignKey: 'familyId',
+  // });
   Referral.belongsToMany(Referral, {
     as: 'young_professional',
     through: 'YoungProfessional',

@@ -14,14 +14,11 @@ module.exports = {
           type: Sequelize.DATE,
         },
         ReferralId: {
-          type: Sequelize.UUID,
-          references: {
-            model: 'referrals',
-            key: 'uuid',
-          },
+          type: Sequelize.INTEGER,
+          primaryKey: true,
         },
-        FamilyId: {
-          type: Sequelize.UUID,
+        familyId: {
+          type: Sequelize.INTEGER,
           primaryKey: true,
         },
       }
