@@ -303,7 +303,7 @@ module.exports = function modelUser(sequelize, types) {
 
   Referral.belongsToMany(Referral, {
     as: 'young_family',
-    through: 'YonngFamily',
+    through: 'YoungFamily',
     foreignKey: 'familyId',
   });
   Referral.belongsToMany(Referral, {
