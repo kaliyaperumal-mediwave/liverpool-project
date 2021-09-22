@@ -88,6 +88,7 @@ router.get('/admin/getApiService', validateToken, adminController.getApiService)
 
 //Apis for form 2
 router.post('/user/youngEligibility', validateToken, youngControler.eligibility);
+router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEligibility);
 
 
 

@@ -124,7 +124,7 @@ exports.eligibility = ctx => {
 
           var childId = userResult[0].parent[0].ChildParents.parentId;
           return user.update({
-            child_dob: ctx.request.body.child_Dob,
+            child_dob: ctx.request.body.youngDob,
             registered_gp: ctx.request.body.registered_gp,
             gp_school: ctx.request.body.gpSchool,
             registered_gp_postcode: ctx.request.body.registered_gp_postcode
@@ -185,7 +185,7 @@ exports.eligibility = ctx => {
       }
       else {
         return user.create({
-          child_dob: ctx.request.body.child_Dob,
+          child_dob: ctx.request.body.young_Dob,
           registered_gp: ctx.request.body.registered_gp,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.registered_gp_postcode

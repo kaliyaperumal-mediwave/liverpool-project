@@ -12,7 +12,7 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.young_referral_screen);
-      self.dispatch('/about', self.middleware.checkCommonPageAuth, self.young_referral_about);
+      self.dispatch('/youngAbout', self.young_referral_about);
       self.dispatch('/education', self.middleware.checkCommonPageAuth, self.young_education);
       self.dispatch('/referral', self.middleware.checkCommonPageAuth, self.young_referral);
       self.dispatch('/review', self.middleware.checkCommonPageAuth, self.young_review);
@@ -46,6 +46,7 @@ module.exports = {
       // if (!req.session.user_role) {
       //   return req.res.redirect("/")
       // }
+      console.log("3434")
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
@@ -169,8 +170,9 @@ module.exports = {
       });
     });
 
-    self.route('get', 'fetchEligibility/:userid', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchEligibility?user_id=' + req.params.userid;
+    self.route('get', 'youngFetchEligibility/:userid', function (req, res) {
+      console.log("Ere")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/youngFetchEligibility?user_id=' + req.params.userid;
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

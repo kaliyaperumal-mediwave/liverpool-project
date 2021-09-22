@@ -155,21 +155,21 @@ $(document).ready(function () {
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
-                $('input[name=role]').attr("disabled", true);
-                $('#loader').hide();
-                if (userRole == 'young') {
-                    disablefamily.style.opacity = '0.6';
-                    disableProfessional.style.opacity = '0.6';
+                // $('input[name=role]').attr("disabled", true);
+                // $('#loader').hide();
+                // if (userRole == 'young') {
+                //     disablefamily.style.opacity = '0.6';
+                //     disableProfessional.style.opacity = '0.6';
 
-                } else if (userRole == 'family') {
-                    disableyoung.style.opacity = '0.6';
-                    disableProfessional.style.opacity = '0.6';
+                // } else if (userRole == 'family') {
+                //     disableyoung.style.opacity = '0.6';
+                //     disableProfessional.style.opacity = '0.6';
 
-                } else if (userRole == 'professional') {
-                    disableyoung.style.opacity = '0.6';
-                    disablefamily.style.opacity = '0.6';
+                // } else if (userRole == 'professional') {
+                //     disableyoung.style.opacity = '0.6';
+                //     disablefamily.style.opacity = '0.6';
 
-                }
+                // }
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
@@ -218,7 +218,7 @@ $(document).ready(function () {
                 if ((this.sendObj.uuid != undefined && this.sendObj.uuid != "") && (this.sendObj.role != undefined && this.sendObj.role != "")) {
                     $.ajax({
                         //  url: API_URI + "/fetchEligibility",
-                        url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
+                        url: API_URI + "/youngFetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
@@ -1472,7 +1472,6 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     success: function (data) {
                         console.log(data)
-                        return;
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
@@ -1484,11 +1483,11 @@ $(document).ready(function () {
                             else {
                                 var url = location.href;
                                 ////console.log(url.substring(req.url.indexOf("?") + 1));
-                                location.href = "/about?" + url.substring(url.indexOf("?") + 1);
+                                location.href = "/young-referral/youngAbout?" + url.substring(url.indexOf("?") + 1);
                             }
                         }
                         else {
-                            location.href = "/about";
+                            location.href = "/young-referral/youngAbout";
                         }
 
                         //location.href = redirectUrl(url, "about", data.userid, role);
