@@ -298,9 +298,7 @@ body {
   right: -11px;
 }
 
-a {
-  color: #023047 !important;
-}
+
 
 .swiper-button-prev.swiper-button-disabled {
   display: none !important;
@@ -2959,10 +2957,17 @@ $color-scheme: (
       background: $primary 0% 0% no-repeat padding-box;
       color: $secondary;
     }
+    .view-pdf::after {
+        content: "";
+        background-color: $secondary;
+    }
     .logout-font{
     color: $secondary;
     }
     .video-title-top {
+      color: $secondary;
+    }
+    a {
       color: $secondary;
     }
     .video-para-bottom a {
@@ -4295,5 +4300,7 @@ div#IEFormatRemove,div#MobileFormatRemove {
     position: absolute;
     display: block;
     height: 1px;
-    background-color: #ffffff;
+}
+.view-pdf.v-pdf-alg {
+    margin: 0px 30px;
 }
