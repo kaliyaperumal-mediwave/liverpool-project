@@ -949,7 +949,7 @@ $(document).ready(function () {
 
                     //   ////console.log(age);
                     if (roleText == 'young') {
-                        if (age < 14) {
+                        if (age < 18) {
                             this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactfamily = "";
@@ -958,7 +958,7 @@ $(document).ready(function () {
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
                         }
-                        else if (age > 18) {
+                        else if (age > 26) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.belowAgeLimit = "no";
                             this.elgibilityObj.contactfamily = "";
@@ -980,7 +980,7 @@ $(document).ready(function () {
                         }
                     }
                     else if (roleText == 'professional') {
-                        if (age < 15) {
+                        if (age < 18) {
                             this.elgibilityObj.profBelowAgeLimit = "yes";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.familyConcern = "";
@@ -990,7 +990,7 @@ $(document).ready(function () {
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
-                        else if (age > 18) {
+                        else if (age > 26) {
                             this.elgibilityObj.profaboveLimit = "yes";
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.familyConcern = "";
