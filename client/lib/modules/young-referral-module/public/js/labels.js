@@ -1,4 +1,5 @@
 function getDynamicLabels(currentLocation, responsibilityFlow) {
+  console.log(currentLocation,responsibilityFlow)
 
   // var currentLocation = getQueryStringValue("role");
   var section2Labels = {
@@ -128,7 +129,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         "Your legal care status (“legal care status” means who has legal guardianship over you)";
       section2Labels.legalCarePlacLabel = "Select your legal care status";
     }
-  } else if (currentLocation === "parent") {
+  } else if (currentLocation === "family") {
     section2Labels.headerLabel =
       "Section 2 of 5: About your young & their household";
     section2Labels.aboutYouLabel = "About your young";

@@ -86,10 +86,13 @@ router.put('/admin/updateApiValue', validateToken, adminController.updateApiValu
 router.get('/admin/getApiService', validateToken, adminController.getApiService);
 
 
-//Apis for form 2
+//Apis for form 2 
+//Sec 1
 router.post('/user/youngEligibility', validateToken, youngControler.eligibility);
 router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEligibility);
 
+//Sec 2
+router.post('/user/saveYoungReferral', validateToken, youngControler.about);
 
 
 module.exports = router;

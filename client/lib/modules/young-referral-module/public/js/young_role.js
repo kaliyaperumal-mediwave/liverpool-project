@@ -297,10 +297,10 @@ $(document).ready(function () {
 
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
-                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data[0].family[0].young_dob));
+                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data[0].family[0].child_dob));
                     this.fetchAgeLogic(data[0].family[0].young_dob)
-                    Vue.set(this.elgibilityObj, "contactfamily", data[0].consent_young);
-                    Vue.set(this.elgibilityObj, "isInformation", data[0].consent_young);
+                    Vue.set(this.elgibilityObj, "contactfamily", data[0].consent_child);
+                    Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].family[0].registered_gp, roleType));
                     if (data[0].family[0].registered_gp_postcode) { // bind postcode column for new referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].family[0].registered_gp + ',' + data[0].family[0].registered_gp_postcode, roleType));
@@ -1471,7 +1471,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        console.log(data)
+                       
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();

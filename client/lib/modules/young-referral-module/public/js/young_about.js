@@ -142,7 +142,7 @@ $(document).ready(function () {
                 this.yearArr.push(i);
             }
             this.paramValues = getParameter(location.href);
-            this.userRole = "Parent";
+            this.userRole = document.getElementById('uRole').innerHTML;;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.isFormSubmitted = false;
             this.fetchSavedData();
@@ -212,7 +212,7 @@ $(document).ready(function () {
                 var payload = {};
                 payload.uuid = document.getElementById('uUid').innerHTML;
                 payload.role = document.getElementById('uRole').innerHTML;
-                var successData = apiCallPost('post', '/fetchAbout', payload);
+                var successData = apiCallPost('post', '/fetchYoungAbout', payload);
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -678,7 +678,7 @@ $(document).ready(function () {
 
             //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
-                var responseData = apiCallPost('post', '/saveReferral', payload);
+                var responseData = apiCallPost('post', '/saveYoungReferral', payload);
                 if (responseData && Object.keys(responseData)) {
 
                     $('#loader').hide();

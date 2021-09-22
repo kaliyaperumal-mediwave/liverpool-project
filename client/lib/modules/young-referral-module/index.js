@@ -12,7 +12,7 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.young_referral_screen);
-      self.dispatch('/youngAbout', self.young_referral_about);
+      self.dispatch('/youngAbout', self.middleware.checkCommonPageAuth, self.young_referral_about);
       self.dispatch('/education', self.middleware.checkCommonPageAuth, self.young_education);
       self.dispatch('/referral', self.middleware.checkCommonPageAuth, self.young_referral);
       self.dispatch('/review', self.middleware.checkCommonPageAuth, self.young_review);
@@ -154,6 +154,7 @@ module.exports = {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/youngEligibility';
       self.middleware.post(req, res, url, req.body).then((data) => {
         // setting the uuid and userrole to use in upcoming sections.
+        console.log(data)
         if (!req.body.editFlag) {
           if (req.session.auth_token) {
             req.session.uuid = data.userid;
@@ -203,8 +204,8 @@ module.exports = {
       return res.send(searchRslt);
     });
 
-    self.route('post', 'saveReferral', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/about';
+    self.route('post', 'saveYoungReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/saveYoungReferral';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -223,8 +224,8 @@ module.exports = {
     });
 
 
-    self.route('post', 'fetchAbout', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchAbout';
+    self.route('post', 'fetchYoungAbout', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchYoungAbout';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {

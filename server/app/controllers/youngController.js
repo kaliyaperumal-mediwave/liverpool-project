@@ -122,9 +122,15 @@ exports.eligibility = ctx => {
           },
         }).then((userResult) => {
 
-          var childId = userResult[0].parent[0].ChildParents.parentId;
+          // const responseData = {
+          //   userid: ctx.request.body.uuid,
+          //   status: "ok",
+          //   checkDB:userResult
+          // }
+          // return ctx.body = responseData;
+          var childId = userResult[0].family[0].YoungFamily.familyId;
           return user.update({
-            child_dob: ctx.request.body.youngDob,
+            child_dob: ctx.request.body.young_Dob,
             registered_gp: ctx.request.body.registered_gp,
             gp_school: ctx.request.body.gpSchool,
             registered_gp_postcode: ctx.request.body.registered_gp_postcode
@@ -144,6 +150,7 @@ exports.eligibility = ctx => {
                   const responseData = {
                     userid: ctx.request.body.uuid,
                     status: "ok",
+                    checkDB:userResult
                   }
                   return ctx.body = responseData;
                 })
@@ -683,14 +690,14 @@ exports.about = ctx => {
           {
             model: ctx.orm().Referral,
             nested: true,
-            as: 'parent',
+            as: 'family',
           },
         ],
         where: {
           id: result.id,
         },
       }).then((userResult) => {
-        var childId = userResult[0].parent[0].ChildParents.parentId
+        var childId = userResult[0].family[0].YoungFamily.familyId;
         ////console.log(ctx.request.body.allHouseHoldMembers)
         return user.update(
           {
