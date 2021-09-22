@@ -1261,9 +1261,7 @@ $(document).ready(function () {
             },
 
             checkValidDateMine: function (e) {
-                debugger
-                console.log(e.target.value.length);
-                if (e.target.value.length == 10) {
+                if (e.target.value.length >= 10) {
                     if (this.isValidDate(e.target.value)) {
                         var dateValue = e.target.value;
                         var dateFormat = "DD/MM/YYYY"
