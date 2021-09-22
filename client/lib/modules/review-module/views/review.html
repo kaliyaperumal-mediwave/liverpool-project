@@ -87,7 +87,14 @@
                 <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 mx-auto">
                     <div class="form-group text-left">
                         <label for="feedback" class="referral-feedback m-0 py-2 px-2 text-left">Is there any
-                            other feedback you would like to provide? - <b>optional</b></label>
+                            other feedback you would like to provide? - <b>optional</b> <span
+                                style="font-weight: normal !important;" class="referral-feedback text-left">(This
+                                feedback is about
+                                the form
+                                and the platform only and will be shared with the design/development team. Please do not
+                                include personal information about your healthcare needs as your clinician will not see
+                                it.)</span></label>
+
                         <textarea class="h-100 px-4 form-control my-2 input-bg-form-control" id="feedback"
                             v-model="refFeedbackData.comments"
                             @input="trimWhiteSpace($event,'refFeedbackData','comments')"
@@ -563,7 +570,8 @@
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionExample">
-                            <div v-if="userRole == 'professional'" class="py-3 w-100 mx-0 row align-items-center d-none">
+                            <div v-if="userRole == 'professional'"
+                                class="py-3 w-100 mx-0 row align-items-center d-none">
                                 <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
                                     Referral type:
                                 </label>

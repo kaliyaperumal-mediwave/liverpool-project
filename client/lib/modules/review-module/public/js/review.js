@@ -247,7 +247,6 @@ $(document).ready(function () {
             },
 
             save: function () {
-                debugger;
                 var buttonElem = document.querySelector('#acceptBtn');
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
