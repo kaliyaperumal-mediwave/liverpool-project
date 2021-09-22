@@ -149,7 +149,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         {{apos.area(piece,'link')}}
       </div>
       {% if piece.isPdf %}
-      <div class="view-pdf read-cont-p video-para-bottom" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
+      <div class="view-pdf v-pdf-alg" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
       {% endif %}
       <div class="read-cont-p video-para-bottom pt-0">
         {{apos.area(piece,'by_author')}}
