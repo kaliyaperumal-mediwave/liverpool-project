@@ -4003,6 +4003,8 @@ div.collapse-container.collapsing {
 }
 .view-pdf {
     cursor: pointer;
+    position: relative;
+    display: inline-block;
 }
 
 
@@ -4285,4 +4287,13 @@ div#IEFormatRemove,div#MobileFormatRemove {
 }
 .p-w-100 p{
   width: 100%;
+}
+
+.view-pdf::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    display: block;
+    height: 1px;
+    background-color: #ffffff;
 }
