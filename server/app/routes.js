@@ -93,6 +93,6 @@ router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEli
 
 //Sec 2
 router.post('/user/saveYoungReferral', validateToken, youngControler.about);
-
+router.post('/user/fetchYoungAbout', validateToken, youngControler.fetchAbout);
 
 module.exports = router;

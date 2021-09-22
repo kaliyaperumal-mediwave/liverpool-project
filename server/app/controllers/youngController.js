@@ -701,24 +701,24 @@ exports.about = ctx => {
         ////console.log(ctx.request.body.allHouseHoldMembers)
         return user.update(
           {
-            child_firstname: ctx.request.body.aboutData.childFirstName,
-            child_lastname: ctx.request.body.aboutData.childLastName,
-            child_name_title: ctx.request.body.aboutData.childNameTitle,
+            child_firstname: ctx.request.body.aboutData.youngFirstName,
+            child_lastname: ctx.request.body.aboutData.youngLastName,
+            child_name_title: ctx.request.body.aboutData.youngNameTitle,
             child_NHS: ctx.request.body.aboutData.nhsNumber,
-            child_email: ctx.request.body.aboutData.childEmail,
-            child_contact_number: ctx.request.body.aboutData.childContactNumber,
-            child_address: ctx.request.body.aboutData.childAddress,
-            child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
-            child_manual_address: ctx.request.body.aboutData.childManualAddress,
+            child_email: ctx.request.body.aboutData.youngEmail,
+            child_contact_number: ctx.request.body.aboutData.youngContactNumber,
+            child_address: ctx.request.body.aboutData.youngAddress,
+            child_address_postcode: ctx.request.body.aboutData.youngAddressPostcode,
+            child_manual_address: ctx.request.body.aboutData.youngManualAddress,
             can_send_post: ctx.request.body.aboutData.sendPost,
-            child_gender: ctx.request.body.aboutData.childGender,
-            child_gender_birth: ctx.request.body.aboutData.childIdentity,
-            child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
-            child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+            child_gender: ctx.request.body.aboutData.youngGender,
+            child_gender_birth: ctx.request.body.aboutData.youngIdentity,
+            child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+            child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
             parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
             household_member: ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
-            child_care_adult: ctx.request.body.aboutData.childCareAdult,
+            child_care_adult: ctx.request.body.aboutData.youngCareAdult,
             child_contact_type: ctx.request.body.aboutData.contactMode,
             sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
           },
@@ -1013,7 +1013,8 @@ exports.about = ctx => {
 
 
 exports.fetchAbout = ctx => {
-  ////console.log("fetchAbout")
+  console.log("ERr")
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
   let attributes = ['id', 'uuid'];
 
@@ -1049,21 +1050,34 @@ exports.fetchAbout = ctx => {
 
     } else if (ctx.request.body.role == "family") {
 
-      return user.findAll({
-        include: [
-          {
-            model: ctx.orm().Referral,
-            nested: true,
-            as: 'parent',
-          },
-        ],
+      return user.findOne({
         where: {
-          id: result.id,
+          uuid: ctx.request.body.uuid,
         },
-      }).then((userResult) => {
-
-        return ctx.body = userResult;
-
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+  
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().Referral,
+              nested: true,
+              as: 'family',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
+  
+          return ctx.body = userResult;
+  
+        })
+          .catch((error) => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+  
       })
         .catch((error) => {
           console.log(error)
@@ -1118,6 +1132,7 @@ exports.fetchAbout = ctx => {
 
   })
     .catch((error) => {
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 }

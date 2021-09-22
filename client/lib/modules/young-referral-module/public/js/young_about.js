@@ -213,6 +213,7 @@ $(document).ready(function () {
                 payload.uuid = document.getElementById('uUid').innerHTML;
                 payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchYoungAbout', payload);
+                console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -297,39 +298,39 @@ $(document).ready(function () {
                     }
                 }
                 else if (this.userRole == "family") {
-                    if (data[0].parent[0].young_firstname != null) {
+                    if (data[0].family[0].child_firstname != null) {
                         this.editPatchFlag = true;
-                        Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].young_NHS);
-                        if (data[0].parent[0].young_name_title != null) {
-                            Vue.set(this.aboutObj, "youngNameTitle", data[0].parent[0].young_name_title);
+                        Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
+                        if (data[0].family[0].child_name_title != null) {
+                            Vue.set(this.aboutObj, "youngNameTitle", data[0].family[0].child_name_title);
                         }
-                        Vue.set(this.aboutObj, "youngFirstName", data[0].parent[0].young_firstname);
-                        Vue.set(this.aboutObj, "youngLastName", data[0].parent[0].young_lastname);
-                        Vue.set(this.aboutObj, "youngEmail", data[0].parent[0].young_email);
-                        Vue.set(this.aboutObj, "youngContactNumber", data[0].parent[0].young_contact_number);
+                        Vue.set(this.aboutObj, "youngFirstName", data[0].family[0].child_firstname);
+                        Vue.set(this.aboutObj, "youngLastName", data[0].family[0].child_lastname);
+                        Vue.set(this.aboutObj, "youngEmail", data[0].family[0].child_email);
+                        Vue.set(this.aboutObj, "youngContactNumber", data[0].family[0].child_contact_number);
                         //Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
-                        if (data[0].parent[0].young_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address + ' ,' + data[0].parent[0].young_address_postcode);
+                        if (data[0].family[0].young_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
                         }
                         else {// leave postcode column for old referrals
-                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
+                            Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
                         }
-                        if (data[0].parent[0].young_manual_address && data[0].parent[0].young_manual_address.length) {
-                            Vue.set(this, "youngManualAddress", data[0].parent[0].young_manual_address);
+                        if (data[0].family[0].young_manual_address && data[0].family[0].young_manual_address.length) {
+                            Vue.set(this, "youngManualAddress", data[0].family[0].young_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
-                        Vue.set(this.aboutObj, "youngGender", data[0].parent[0].young_gender);
-                        Vue.set(this.aboutObj, "youngIdentity", data[0].parent[0].young_gender_birth);
-                        Vue.set(this.aboutObj, "youngSexualOrientation", data[0].parent[0].young_sexual_orientation);
-                        Vue.set(this.aboutObj, "youngEthnicity", data[0].parent[0].young_ethnicity);
-                        Vue.set(this.aboutObj, "youngCareAdult", data[0].parent[0].young_care_adult);
-                        Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].young_household_name);
-                        if (data[0].parent[0].young_contact_type != null) {
-                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].young_contact_type);
+                        Vue.set(this.aboutObj, "sendPost", data[0].family[0].can_send_post);
+                        Vue.set(this.aboutObj, "youngGender", data[0].family[0].child_gender);
+                        Vue.set(this.aboutObj, "youngIdentity", data[0].family[0].child_gender_birth);
+                        Vue.set(this.aboutObj, "youngSexualOrientation", data[0].family[0].child_sexual_orientation);
+                        Vue.set(this.aboutObj, "youngEthnicity", data[0].family[0].child_ethnicity);
+                        Vue.set(this.aboutObj, "youngCareAdult", data[0].family[0].child_care_adult);
+                        Vue.set(this.aboutObj, "houseHoldName", data[0].family[0].child_household_name);
+                        if (data[0].family[0].child_contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].family[0].child_contact_type);
                         }
-                        if (data[0].parent[0].sex_at_birth != null) {
-                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
+                        if (data[0].family[0].sex_at_birth != null) {
+                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].family[0].sex_at_birth);
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
@@ -353,15 +354,15 @@ $(document).ready(function () {
                             Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address + ' ,' + data[0].parent_address_postcode);
                         }
                         else {// leave postcode column for old referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].family[0].parent_address);
                         }
                         if (!data[0].parent_address && data[0].parent_manual_address && data[0].parent_manual_address.length) {
                             Vue.set(this, "parentManualAddress", data[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                         }
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
-                        this.allHouseHoldMembers = data[0].parent[0].household_member;
-                        this.prevHouseHoldData = data[0].parent[0].household_member;
+                        this.allHouseHoldMembers = data[0].family[0].household_member;
+                        this.prevHouseHoldData = data[0].family[0].household_member;
                         Vue.set(this.aboutObj, "referral_progress", data[0].referral_progress == 20 ? 40 : data[0].referral_progress);
                     }
                 }

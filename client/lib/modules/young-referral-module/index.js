@@ -225,6 +225,7 @@ module.exports = {
 
 
     self.route('post', 'fetchYoungAbout', function (req, res) {
+      console.log('fetchYoungAbout')
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchYoungAbout';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
