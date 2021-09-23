@@ -95,4 +95,10 @@ router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEli
 router.post('/user/saveYoungReferral', validateToken, youngControler.about);
 router.post('/user/fetchYoungAbout', validateToken, youngControler.fetchAbout);
 
+//sec 3
+router.post('/user/saveYoungeducation', validateToken, youngControler.profession);
+router.post('/user/fetchYoungProfession', validateToken, youngControler.fetchProfession);
+// router.put('/user/updateSec3Info', validateToken, referralControler.updateSec3Info);
+
+
 module.exports = router;

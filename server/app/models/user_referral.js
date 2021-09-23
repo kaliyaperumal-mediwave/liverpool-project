@@ -133,6 +133,9 @@ module.exports = function modelUser(sequelize, types) {
     child_EHAT: {
       type: types.TEXT
     },
+    careLeaver: {
+      type: types.TEXT
+    },
     child_socialworker: {
       type: types.TEXT
     },

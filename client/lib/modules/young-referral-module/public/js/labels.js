@@ -318,6 +318,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section3Labels.locationLabel = "Which school / college / university / do you attend?";
     section3Labels.ehcpPlanLabel = "Do you have an Education & Health Care Plan (EHCP)?";
     section3Labels.ehatToolLabel = "Do you have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.careLeaver = "Are you a care leaver?";
     section3Labels.isSocialWorkerLabel = "Do you have a social worker?";
     section3Labels.socialWorkerNameLabel = "What is the first name of your social worker?";
     section3Labels.socialWorkerLastNameLabel = "What is the last name of your social worker?";
@@ -328,6 +329,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
     section3Labels.ehcpPlanLabel = "Does your young have an Education & Health Care Plan (EHCP)?";
     section3Labels.ehatToolLabel = "Do your young have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.careLeaver = "Are you a care leaver?";
     section3Labels.isSocialWorkerLabel = "Does your young have a social worker?";
     section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
     section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
@@ -339,6 +341,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section3Labels.locationLabel = "Which school / college / university / does the young person you attend?";
     section3Labels.ehcpPlanLabel = "Does the young person have an Education & Health Care Plan (EHCP)?";
     section3Labels.ehatToolLabel = "Does the young person have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.careLeaver = "Are you a care leaver?";
     section3Labels.isSocialWorkerLabel = "Does the young  have a social worker?";
     section3Labels.socialWorkerNameLabel = "What is the first name of the young person's social worker?";
     section3Labels.socialWorkerLastNameLabel = "What is the last name of the young person's social worker?";
@@ -460,7 +463,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
 
 
-  return section2Labels;
   return section3Labels;
+  return section2Labels;
   return allLabels;
 }

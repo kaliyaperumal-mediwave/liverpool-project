@@ -225,9 +225,36 @@
                 </form>
                 <!-- Early Help Assessment Tool End-->
 
+                <!-- care leaver Start-->
+                <form id="careLeaver-form" data-options="careLeaver">
+                    <div v-show="educAndEmpData.haveEhat =='No' || educAndEmpData.haveEhat =='Yes'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">{{dynamicLabels.careLeaver}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer img-class"
+                                data-toggle="modal" data-target="#eHatModal" alt="">
+                        </div>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="careLeaverNo" value="No" name="careLeaver"
+                                v-model="educAndEmpData.careLeaver" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="careLeaverNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="careLeaver" id="careLeaverYes" value="Yes"
+                                v-model="educAndEmpData.careLeaver" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="careLeaverYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- care leaver End -->
+
                 <!-- Have a Social Worker Start-->
                 <form id="isSocialWorker-form" data-options="haveSocialWorker">
-                    <div v-show="educAndEmpData.haveEhat =='No' || educAndEmpData.haveEhat =='Yes'"
+                    <div v-show="educAndEmpData.careLeaver =='No' || educAndEmpData.careLeaver =='Yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.isSocialWorkerLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">

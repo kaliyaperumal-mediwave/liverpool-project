@@ -1219,6 +1219,7 @@ exports.profession = ctx => {
               child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
               child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
               child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
+              careLeaver: ctx.request.body.educAndEmpData.careLeaver,
 
               child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
               child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
@@ -1297,6 +1298,7 @@ exports.profession = ctx => {
             child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
             child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
             child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
+            careLeaver: ctx.request.body.educAndEmpData.careLeaver,
 
             child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
             child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
@@ -1336,7 +1338,7 @@ exports.profession = ctx => {
     });
   }
 
-  else if (ctx.request.body.role == "youngPerson") {
+  else if (ctx.request.body.role == "young") {
     const user = ctx.orm().Referral;
     return user.findOne({
       where: {
@@ -1362,6 +1364,7 @@ exports.profession = ctx => {
           child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
           child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
           child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
+          careLeaver: ctx.request.body.educAndEmpData.careLeaver,
 
           child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
           child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
@@ -1406,7 +1409,7 @@ exports.fetchProfession = ctx => {
     },
   }).then((result) => {
 
-    if (ctx.request.body.role == "youngPerson") {
+    if (ctx.request.body.role == "young") {
 
       return ctx.body = result;
 

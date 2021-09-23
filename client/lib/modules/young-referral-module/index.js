@@ -64,7 +64,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_about', {
         headerContent: "Section 2 of 5: About you & your household",
         headerDescription: "Now we need some personal details, such as name & contact details",
-        backContent: '/role?' + decryptedUrl,
+        backContent: '/young-referral/role?' + decryptedUrl,
         home: false,
         showHeader: true,
         hideRefButton: false,
@@ -90,7 +90,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_education', {
         headerContent: "Section 3 of 5: Education, employment & support needs",
         headerDescription: "We also need details about school & employment",
-        backContent: '/about?' + decryptedUrl,
+        backContent: '/young-referral/about?' + decryptedUrl,
         home: false,
         showHeader: true,
         //completed: true,
@@ -117,7 +117,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_referral', {
         headerContent: "Section 4 of 5: Reason for referral",
         headerDescription: "The most important part - why are you making a referral today?",
-        backContent: '/education?' + decryptedUrl,
+        backContent: '/young-referral/education?' + decryptedUrl,
         home: false,
         showHeader: true,
         hideRefButton: false,
@@ -141,7 +141,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_review', {
         headerContent: "Section 5 of 5: Form review & contact preferences",
         headerDescription: "Check over your answers and let us know how to keep in touch",
-        backContent: '/referral?' + decryptedUrl,
+        backContent: '/young-referral/referral?' + decryptedUrl,
         home: false,
         showHeader: true,
         hideRefButton: false,
@@ -235,7 +235,7 @@ module.exports = {
     });
 
     self.route('post', 'young_education', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/education';
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/saveYoungeducation';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -244,7 +244,7 @@ module.exports = {
     });
 
     self.route('post', 'fetchProfession', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchProfession';
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchYoungProfession';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {

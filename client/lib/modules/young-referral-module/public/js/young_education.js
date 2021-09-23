@@ -9,6 +9,7 @@ $(document).ready(function () {
                 position: '',
                 haveEhcpPlan: '',
                 haveEhat: '',
+                careLeaver:'',
                 attendedInfo: '',
                 haveSocialWorker: '',
                 socialWorkName: '',
@@ -63,8 +64,8 @@ $(document).ready(function () {
             this.isFormSubmitted = false;
             this.paramValues = getParameter(location.href)
             this.userId = document.getElementById('uUid').innerHTML;
-            this.userRole = "Parent"
-            this.dynamicLabels = getDynamicLabels(this.userRole);
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.dynamicLabels = getDynamicLabels(this.userRole,null);
             this.fetchSavedData();
             this.initMaps();
             $('#loaderEduc').hide();
@@ -323,20 +324,20 @@ $(document).ready(function () {
             //Section 3(Education) Save and Service call with navigation's Logic
             upsertEducationForm: function (payload) {
                 payload.educAndEmpData.position = this.aboutYourSelf.toString();
-                var responseData = apiCallPost('post', '/education', payload);
+                var responseData = apiCallPost('post', '/young_education', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loaderEduc').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/review";
+                            location.href = "/young-referral/review";
                         }
                         else {
                             var url = location.href;
-                            location.href = "/referral?" + url.substring(url.indexOf("?") + 1);
+                            location.href = "/young-referral/referral?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        location.href = "/referral";
+                        location.href = "/young-referral/referral";
                     }
 
                 } else {
@@ -386,6 +387,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.young_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.young_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data.young_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data.young_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data.young_socialworker_lastname);
@@ -415,6 +417,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].young_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].young_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].young_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].young_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].young_socialworker_lastname);
@@ -444,6 +447,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].young_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].young_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].young_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].young_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].young_socialworker_lastname);
