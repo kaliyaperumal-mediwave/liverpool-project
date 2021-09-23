@@ -105,6 +105,32 @@ endblock %} {% block extraHead %}
   });
 </script>
 
+{% if data.environment == 'local' or data.environment == 'staging'%}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NTP74CK');</script>
+<!-- End Google Tag Manager -->
+{% elseif data.environment == 'uat' %}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TC53DZR');</script>
+  <!-- End Google Tag Manager -->
+{% elseif data.environment == 'production'%}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NDD89G4');</script>
+  <!-- End Google Tag Manager -->
+{%endif%}
+
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
@@ -113,6 +139,17 @@ endblock %} {% block extraHead %}
 {% endblock %}
 {% block bodyClass %}bodyclass{% endblock %}
 {% block beforeMain %}
+
+{% if data.environment == 'local' or data.environment == 'staging'%}
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTP74CK"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% elseif data.environment == 'uat'%}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC53DZR"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% elseif data.environment == 'production'%}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDD89G4"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {%endif%}
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
@@ -180,7 +217,7 @@ endblock %} {% block extraHead %}
         <!-- Side Drawer content -->
         <div class="slider-container">
           {% if data.showHome %}
-          <div class="inside-cont-slider cursor-pointer" >
+          <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
           </div>
           {% endif %}
@@ -439,9 +476,9 @@ endblock %} {% block extraHead %}
   <p id="prof_data" class="d-none">{{data.prof_data}}</p>
   <!-- Dont remove this line. it is used in check a referral page -->
   <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
-  <p id="loginLoginType" class="d-none"  >{{data.loginAdminType}}</p>
+  <p id="loginLoginType" class="d-none">{{data.loginAdminType}}</p>
   <p id="sessionExp">{{data.sessionExp}}</p>
-  <p id="loginAsAdmin" class="d-none" >{{data.loginAsAdmin}}</p>
+  <p id="loginAsAdmin" class="d-none">{{data.loginAsAdmin}}</p>
 
   <div class="d-none">
     <button type="button" onclick="downloadJson()">Download Json!</button>
