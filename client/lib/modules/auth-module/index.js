@@ -170,5 +170,17 @@ module.exports = {
    //   //console.log(req.session.frm_ref_home)
       return res.send({ data: { success: "true", message: "session ref_home set" } });
     });
+
+    self.route('get', 'getCount', function (req, res) {
+      //console.log("---- doLogout -------")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getCount';
+      self.middleware.get(req, url).then((data) => {
+        console.log(data);
+        return res.send(data.data);
+      }).catch((error) => {
+        //console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   },
 };
