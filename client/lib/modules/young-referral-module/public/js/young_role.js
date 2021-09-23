@@ -270,12 +270,12 @@ $(document).ready(function () {
                 if (roleType == "young") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
-                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data.young_dob));
-                    this.fetchAgeLogic(data.young_dob, roleType)
-                    Vue.set(this.elgibilityObj, "contactfamily", data.contact_family);
-                    Vue.set(this.elgibilityObj, "isInformation", data.consent_young);
-                    Vue.set(this.elgibilityObj, "contact_family_camhs", data.contact_family_camhs);
-                    Vue.set(this.elgibilityObj, "reason_contact_family_camhs", data.reason_contact_family_camhs);
+                    Vue.set(this.elgibilityObj, "youngDob", this.convertDate(data.child_dob));
+                    this.fetchAgeLogic(data.child_dob, roleType)
+                    Vue.set(this.elgibilityObj, "contactfamily", data.contact_parent);
+                    Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
+                    Vue.set(this.elgibilityObj, "contact_family_camhs", data.contact_parent_camhs);
+                    Vue.set(this.elgibilityObj, "reason_contact_family_camhs", data.reason_contact_parent_camhs);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     if (data.registered_gp_postcode) { // bind postcode column for new referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp + ',' + data.registered_gp_postcode));
@@ -1471,7 +1471,8 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                       
+                       console.log(data)
+                       console.log(_self.paramValues)
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
@@ -1556,19 +1557,21 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
-                // console.log(selectedDate)
+                console.log(dbdob)
+                console.log(selectedDate)
                 this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
+                console.log(roleText)
                 console.log(age)
                 if (roleText == 'young') {
-                    if (age < 14) {
+                    if (age < 18) {
 
                         this.elgibilityObj.belowAgeLimit = "yes";
                         this.elgibilityObj.aboveLimit = "no";
                         this.elgibilityObj.camhs = "";
                         this.elgibilityObj.submitForm = "false";
                     }
-                    else if (age > 19) {
+                    else if (age > 26) {
                         this.elgibilityObj.boveLimit = "yes";
                         this.elgibilityObj.belowAgeLimit = "no";
                         this.elgibilityObj.camhs = "";

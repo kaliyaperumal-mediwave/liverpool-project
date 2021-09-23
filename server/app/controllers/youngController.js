@@ -6,20 +6,19 @@ const email = require('../utils/email');
 const Op = require('sequelize').Op;
 const adminCtrl = require('./adminController');
 exports.eligibility = ctx => {
-  ////console.log(ctx.request.body)
   const user = ctx.orm().Referral;
-  ////console.log(ctx.request.decryptedUser)
-  if (ctx.request.body.role == "youngPerson") {
+  console.log(ctx.request.body)
+  if (ctx.request.body.role == "young") {
     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.update({
         need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.child_Dob,
-        contact_parent: ctx.request.body.contactParent,
+        child_dob: ctx.request.body.young_Dob,
+        contact_parent: ctx.request.body.contactfamily,
         consent_child: ctx.request.body.isInformation,
         registered_gp: ctx.request.body.registered_gp,
-        contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+        contact_parent_camhs: ctx.request.body.contact_family_camhs,
+        reason_contact_parent_camhs: ctx.request.body.reason_contact_family_camhs,
         gp_school: ctx.request.body.gpSchool,
         registered_gp_postcode: ctx.request.body.registered_gp_postcode
       },
@@ -44,14 +43,14 @@ exports.eligibility = ctx => {
         //////console.log(ctx.request.body)
         return user.create({
           need_interpreter: ctx.request.body.interpreter,
-          child_dob: ctx.request.body.child_Dob,
-          contact_parent: ctx.request.body.contactParent,
+          child_dob: ctx.request.body.young_Dob,
+          contact_parent: ctx.request.body.contactfamily,
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
           login_id: ctx.request.decryptedUser.id,
-          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          contact_parent_camhs: ctx.request.body.contact_family_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_family_camhs,
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete',
@@ -73,19 +72,19 @@ exports.eligibility = ctx => {
       else {
         return user.create({
           need_interpreter: ctx.request.body.interpreter,
-          child_dob: ctx.request.body.child_Dob,
-          contact_parent: ctx.request.body.contactParent,
+          child_dob: ctx.request.body.young_Dob,
+          contact_parent: ctx.request.body.contactfamily,
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
-          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          contact_parent_camhs: ctx.request.body.contact_family_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_family_camhs,
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete',
           registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
-          childUserInfo.setType("1")
+          childUserInfo.setType("7")
           const responseData = {
             userid: childUserInfo.uuid,
             user_role: childUserInfo.user_role,
@@ -93,7 +92,7 @@ exports.eligibility = ctx => {
           }
           return ctx.body = responseData;
         }).catch((error) => {
-          ////console.log(error)
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
@@ -150,7 +149,7 @@ exports.eligibility = ctx => {
                   const responseData = {
                     userid: ctx.request.body.uuid,
                     status: "ok",
-                    checkDB:userResult
+                    checkDB: userResult
                   }
                   return ctx.body = responseData;
                 })
@@ -208,16 +207,16 @@ exports.eligibility = ctx => {
             console.log(parentUserInfo)
             parentUserInfo.setType("8")
             console.log(childUserInfo.id)
-            parentUserInfo.setFamily(childUserInfo.id).then(sc=>{
+            parentUserInfo.setFamily(childUserInfo.id).then(sc => {
               console.log(sc);
-          }).catch((error) =>{
-            console.log(error)
-          });
+            }).catch((error) => {
+              console.log(error)
+            });
             const responseData = {
               userid: parentUserInfo.uuid,
               user_role: parentUserInfo.user_role,
-              familydata:parentUserInfo,
-              youngData:childUserInfo,
+              familydata: parentUserInfo,
+              youngData: childUserInfo,
 
               status: "ok"
             }
@@ -360,7 +359,7 @@ exports.eligibility = ctx => {
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
-          childUserInfo.setType("1")
+          childUserInfo.setType("7")
           return user.create({
             referral_mode: ctx.request.body.referral_mode,
             professional_firstname: ctx.request.body.profFirstName,
@@ -382,11 +381,22 @@ exports.eligibility = ctx => {
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
             professionalUserInfo.setType("3")
-            professionalUserInfo.setProfessional(childUserInfo.id)
+            professionalUserInfo.setProfessional2(childUserInfo.id).then(sc => {
+              console.log(sc);
+            }).catch((error) => {
+              console.log(error)
+            });
             return user.create({
             }).then((parenetUserInfo) => {
-              parenetUserInfo.setType("2")
-              parenetUserInfo.setParent(childUserInfo.id)
+              parenetUserInfo.setType("8")
+              console.log("---------------")
+              parentUserInfo.setFamily(childUserInfo.id).then(sc => {
+                console.log("----sx-----------")
+                console.log(sc);
+              }).catch((error) => {
+                console.log("----error-----------")
+                console.log(error)
+              });
               const responseData = {
                 userid: professionalUserInfo.uuid,
                 user_role: professionalUserInfo.user_role,
@@ -394,16 +404,16 @@ exports.eligibility = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
-              //////console.log(error);
+              console.log(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
           }).catch((error) => {
-            // ////console.log(error);
+            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
-          ////console.log(error);
+          console.log(error);
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
@@ -423,7 +433,7 @@ exports.fetchEligibility = ctx => {
     attributes: ['id', 'uuid']
   }).then((result) => {
 
-    if (ctx.query.role == "youngPerson") {
+    if (ctx.query.role == "young") {
 
       return user.findOne({
         where: {
@@ -467,7 +477,8 @@ exports.fetchEligibility = ctx => {
 
 exports.about = ctx => {
   const user = ctx.orm().Referral;
-  if (ctx.request.body.role == "youngPerson") {
+  console.log(ctx.request.body)
+  if (ctx.request.body.role == "young") {
     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
@@ -492,7 +503,7 @@ exports.about = ctx => {
               {
                 model: ctx.orm().Referral,
                 nested: true,
-                as: 'parent',
+                as: 'family',
               },
             ],
             where: {
@@ -500,7 +511,8 @@ exports.about = ctx => {
             },
           }).then((userResult) => {
 
-            var parentid = userResult[0].parent[0].ChildParents.parentId
+            var parentid = userResult[0].family[0].YoungFamily.familyId
+
             return user.update(
               {
                 child_firstname: ctx.request.body.aboutData.childFirstName,
@@ -603,25 +615,28 @@ exports.about = ctx => {
 
           return user.update(
             {
-              child_firstname: ctx.request.body.aboutData.childFirstName,
-              child_lastname: ctx.request.body.aboutData.childLastName,
-              child_name_title: ctx.request.body.aboutData.childNameTitle,
+
+              child_firstname: ctx.request.body.aboutData.youngFirstName,
+              child_lastname: ctx.request.body.aboutData.youngLastName,
+              child_name_title: ctx.request.body.aboutData.youngNameTitle,
               child_NHS: ctx.request.body.aboutData.nhsNumber,
-              child_email: ctx.request.body.aboutData.childEmail,
-              child_contact_number: ctx.request.body.aboutData.childContactNumber,
-              child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
-              child_address: ctx.request.body.aboutData.childAddress,
-              child_manual_address: ctx.request.body.aboutData.childManualAddress,
+              child_email: ctx.request.body.aboutData.youngEmail,
+              child_contact_number: ctx.request.body.aboutData.youngContactNumber,
+              child_address: ctx.request.body.aboutData.youngAddress,
+              child_address_postcode: ctx.request.body.aboutData.youngAddressPostcode,
+              child_manual_address: ctx.request.body.aboutData.youngManualAddress,
               can_send_post: ctx.request.body.aboutData.sendPost,
-              child_gender: ctx.request.body.aboutData.childGender,
-              child_gender_birth: ctx.request.body.aboutData.childIdentity,
-              child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
-              child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+              child_gender: ctx.request.body.aboutData.youngGender,
+              child_gender_birth: ctx.request.body.aboutData.youngIdentity,
+              child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+              child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+              parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
-              child_care_adult: ctx.request.body.aboutData.childCareAdult,
+              child_care_adult: ctx.request.body.aboutData.youngCareAdult,
               child_contact_type: ctx.request.body.aboutData.contactMode,
               sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
+
             },
             {
               where:
@@ -654,8 +669,16 @@ exports.about = ctx => {
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
               }).then((parentUserInfo) => {
 
-                parentUserInfo.setType("2")
-                userResult.setParent(parentUserInfo.id)
+                //console.log(parentUserInfo)
+                parentUserInfo.setType("8")
+                userResult.setFamily(parentUserInfo.id).then(sc => {
+                  console.log(sc);
+                }).catch((error) => {
+                  console.log(error)
+                });
+
+                // parentUserInfo.setType("8")
+                // userResult.setParent(parentUserInfo.id)
                 const responseData = {
                   userid: ctx.request.body.userid,
                   status: "ok",
@@ -663,13 +686,16 @@ exports.about = ctx => {
                 }
                 return ctx.body = responseData;
               }).catch((error) => {
+                console.log(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
               });
 
             }).catch((error) => {
+              console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
 
@@ -1029,21 +1055,30 @@ exports.fetchAbout = ctx => {
     attributes: attributes,
   }).then((professionalResult) => {
 
-    if (ctx.request.body.role == "youngPerson") {
+    if (ctx.request.body.role == "young") {
 
       return user.findOne({
-        include: [
-          {
-            model: ctx.orm().Referral,
-            nested: true,
-            as: 'parent',
-          },
-        ],
         where: {
-          id: result.id,
+          uuid: ctx.request.body.uuid,
         },
-      }).then((userResult) => {
-        return ctx.body = userResult;
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+        return user.findOne({
+          include: [
+            {
+              model: ctx.orm().Referral,
+              nested: true,
+              as: 'family',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
+          return ctx.body = userResult;
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
@@ -1056,7 +1091,7 @@ exports.fetchAbout = ctx => {
         },
         attributes: ['id', 'uuid']
       }).then((result) => {
-  
+
         return user.findAll({
           include: [
             {
@@ -1069,15 +1104,15 @@ exports.fetchAbout = ctx => {
             id: result.id,
           },
         }).then((userResult) => {
-  
+
           return ctx.body = userResult;
-  
+
         })
           .catch((error) => {
             console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
-  
+
       })
         .catch((error) => {
           console.log(error)
