@@ -84,4 +84,9 @@ router.get('/admin/downloadJson', validateToken, adminController.toJson);
 router.put('/admin/updateApiValue', validateToken, adminController.updateApiValue);
 router.get('/admin/getApiService', validateToken, adminController.getApiService);
 
+
+//google analytics
+
+router.get('/admin/getCount', adminController.getCount);
+
 module.exports = router;
