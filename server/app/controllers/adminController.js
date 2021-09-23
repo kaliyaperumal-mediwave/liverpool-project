@@ -687,7 +687,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-        
+
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -712,7 +712,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-        
+
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1477,8 +1477,7 @@ exports.referralStatusUpdate = async (ctx) => {
         if (ctx.request.body.status === 'Referral to other team') {
             updateValue.referral_provider_other = ctx.request.body.other;
         }
-        if( ctx.request.body.status && (ctx.request.body.status).substring(0, 8)  === 'Accepted')
-        {
+        if (ctx.request.body.status && (ctx.request.body.status).substring(0, 8) === 'Accepted') {
             updateValue.referral_provider_other = ctx.request.decryptedUser.service_type
         }
 
@@ -1817,9 +1816,80 @@ exports.getApiService = async (ctx) => {
                     message: reponseMessages[1009]
                 });
             }
-        }).catch(error => { 
+        }).catch(error => {
             console.log(error)
-            sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    } catch (e) {
+        console.log(e)
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+exports.getCount = async (ctx) => {
+    console.log("-------------------------------------------------get count")
+    const referralModel = ctx.orm().Referral;
+    const userModel = ctx.orm().User;
+
+    try {
+        return userModel.count({
+
+        }).then((userCount) => {
+            console.log(userCount)
+
+            try {
+                return referralModel.count({
+                    where:
+                        { 
+                            referral_complete_status: {
+                                [sequelize.Op.in]: ['completed','archived','deleted']
+                            }
+                        }
+                }
+                ).then((completedReferralCount) => {
+                    console.log(completedReferralCount)
+                    try {
+                        return referralModel.count({
+                            where:
+                                { 
+                                    referral_complete_status: {
+                                        [sequelize.Op.in]: ['incomplete']
+                                    }
+                                }
+                        }
+                        ).then((incompletedReferralCount) => {
+                            console.log(incompletedReferralCount)
+
+                            return ctx.res.ok({
+                                data: { 
+                                    Complted_Referrals: completedReferralCount,
+                                    Partial_Referrals: incompletedReferralCount,
+                                    Total_Users : userCount
+                                 }
+                            });
+        
+                        }).catch(error => {
+                            console.log(error)
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+                    } catch (e) {
+                        console.log(e)
+                        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+                    }
+
+                }).catch(error => {
+                    console.log(error)
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            } catch (e) {
+                console.log(e)
+                return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+            }
+
+        }).catch(error => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
     } catch (e) {
         console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
