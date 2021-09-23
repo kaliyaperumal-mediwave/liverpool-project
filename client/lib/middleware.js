@@ -24,7 +24,7 @@ module.exports = function (self, options) {
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
-            req.data.environment= process.env.ENVIRONMENT;
+            req.data.ga_code= process.env.GA_CODE;
 
             if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
@@ -39,7 +39,7 @@ module.exports = function (self, options) {
       }
       else {
         req.data.userRole = req.session.user_role;
-        req.data.environment= process.env.ENVIRONMENT;
+        req.data.ga_code= process.env.GA_CODE;
         return req.res.redirect("/")
       }
     },
@@ -62,7 +62,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       req.data.showHome = true;
-      req.data.environment= process.env.ENVIRONMENT;
+      req.data.ga_code= process.env.GA_CODE;
 
       if (req.session.auth_token) {
         self.verifyToken(req)
