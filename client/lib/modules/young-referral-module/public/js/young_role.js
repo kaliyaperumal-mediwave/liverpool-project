@@ -1014,7 +1014,12 @@ $(document).ready(function () {
 
                     else if (roleText == 'family') {
                         console.log(age)
-                        if (age > 18) {
+                        if (age < 18) {
+                            this.elgibilityObj.aboveLimit = "no";
+                            this.elgibilityObj.contactfamily = "";
+                            this.elgibilityObj.submitForm = "false";
+                            this.elgibilityObj.regGpTxt = "";
+                        }else if (age > 26) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";

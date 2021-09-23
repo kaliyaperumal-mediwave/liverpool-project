@@ -302,7 +302,7 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
                             <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
-                                people below 18 years of age</p>
+                                people above 25 years of age</p>
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
                                 your GP
@@ -384,7 +384,7 @@
                             the
                             information that you provide and
                             share it
-                            with other CAMHS partners so that we can help you?
+                            with other AMHS partners so that we can help you?
                             <!-- {{ apos.area(data.page, 'referral1_titleyoung', {
                                   widgets: {
                                     'apostrophe-rich-text': {
@@ -514,7 +514,7 @@
 
             <!-- new flow start -->
             {% raw %}
-            <form id="reason-familycontact-form" data-options="isInformation">
+            <form id="reason-familycontact-form" data-options="isInformation" class="d-none">
                 <div v-show="elgibilityObj.role == 'young' && elgibilityObj.youngDob!=null && elgibilityObj.isInformation=='yes' &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
@@ -570,8 +570,7 @@
                 <!-- <div v-show=" (elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto"> -->
                 <div v-show=" (elgibilityObj.role=='family' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null) ||
                     (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'yes' && elgibilityObj.youngDob!=null && elgibilityObj.reason_contact_family_camhs) ||
-                    (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'no' && elgibilityObj.youngDob!=null) ||
-                    (elgibilityObj.role=='young' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null &&  elgibilityObj.belowAgeLimit == 'yes' ) "
+                    (elgibilityObj.role=='young' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null)"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label v-show="elgibilityObj.role=='young'" for="gpLocation" class="question-font">Which GP are
@@ -739,7 +738,7 @@
                     class="px-4 py-4"> -->
                 <div v-show="(elgibilityObj.role=='family' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '') ) ||
 
-                (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_family_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
 
                 (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
 
@@ -767,7 +766,7 @@
 
             <div v-show="(elgibilityObj.role=='family' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) ||
 
-                (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_family_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
 
                 (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
 
