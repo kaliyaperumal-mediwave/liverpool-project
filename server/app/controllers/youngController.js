@@ -248,7 +248,7 @@ exports.eligibility = ctx => {
             {
               model: ctx.orm().Referral,
               nested: true,
-              as: 'professional',
+              as: 'professional2',
             },
           ],
           where: {
@@ -256,9 +256,9 @@ exports.eligibility = ctx => {
           },
         }).then((userResult) => {
 
-          var childId = userResult[0].professional[0].ChildProfessional.professionalId;
+          var childId = userResult[0].professional2[0].YoungProfessional.professionalId;
           return user.update({
-            child_dob: ctx.request.body.prof_ChildDob,
+            child_dob: ctx.request.body.prof_youngDob,
             registered_gp: ctx.request.body.profregistered_gp,
             gp_school: ctx.request.body.gpSchool,
             registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
@@ -302,7 +302,7 @@ exports.eligibility = ctx => {
       if (ctx.request.decryptedUser != undefined) {
 
         return user.create({
-          child_dob: ctx.request.body.prof_ChildDob,
+          child_dob: ctx.request.body.prof_youngDob,
           registered_gp: ctx.request.body.profregistered_gp,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
@@ -354,7 +354,7 @@ exports.eligibility = ctx => {
       }
       else {
         return user.create({
-          child_dob: ctx.request.body.prof_ChildDob,
+          child_dob: ctx.request.body.prof_youngDob,
           registered_gp: ctx.request.body.profregistered_gp,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
@@ -390,7 +390,7 @@ exports.eligibility = ctx => {
             }).then((parenetUserInfo) => {
               parenetUserInfo.setType("8")
               console.log("---------------")
-              parentUserInfo.setFamily(childUserInfo.id).then(sc => {
+              parenetUserInfo.setFamily(childUserInfo.id).then(sc => {
                 console.log("----sx-----------")
                 console.log(sc);
               }).catch((error) => {
@@ -455,7 +455,7 @@ exports.fetchEligibility = ctx => {
           {
             model: ctx.orm().Referral,
             nested: true,
-            as: ctx.query.role,
+            as: ctx.query.role + 2,
           },
         ],
         where: {
@@ -825,34 +825,35 @@ exports.about = ctx => {
               {
                 model: ctx.orm().Referral,
                 nested: true,
-                as: 'professional',
+                as: 'professional2',
               },
             ],
             where: {
               id: result.id,
             },
           }).then((userResult) => {
-            var childId = userResult[0].professional[0].ChildProfessional.professionalId
+            var childId = userResult[0].professional2[0].YoungFamily.professionalId
             return user.update(
               {
-                child_firstname: ctx.request.body.aboutData.childFirstName,
-                child_lastname: ctx.request.body.aboutData.childLastName,
-                child_name_title: ctx.request.body.aboutData.childNameTitle,
+
+                child_firstname: ctx.request.body.aboutData.youngFirstName,
+                child_lastname: ctx.request.body.aboutData.youngLastName,
+                child_name_title: ctx.request.body.aboutData.youngNameTitle,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
-                child_email: ctx.request.body.aboutData.childEmail,
-                child_contact_number: ctx.request.body.aboutData.childContactNumber,
-                child_address: ctx.request.body.aboutData.childAddress,
-                child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
-                child_manual_address: ctx.request.body.aboutData.childManualAddress,
+                child_email: ctx.request.body.aboutData.youngEmail,
+                child_contact_number: ctx.request.body.aboutData.youngContactNumber,
+                child_address: ctx.request.body.aboutData.youngAddress,
+                child_address_postcode: ctx.request.body.aboutData.youngAddressPostcode,
+                child_manual_address: ctx.request.body.aboutData.youngManualAddress,
                 can_send_post: ctx.request.body.aboutData.sendPost,
-                child_gender: ctx.request.body.aboutData.childGender,
-                child_gender_birth: ctx.request.body.aboutData.childIdentity,
-                child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
-                child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+                child_gender: ctx.request.body.aboutData.youngGender,
+                child_gender_birth: ctx.request.body.aboutData.youngIdentity,
+                child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+                child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
                 parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
-                child_care_adult: ctx.request.body.aboutData.childCareAdult,
+                child_care_adult: ctx.request.body.aboutData.youngCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
                 //referral_mode: ctx.request.body.aboutData.referral_mode
@@ -944,38 +945,42 @@ exports.about = ctx => {
           return user.findAll({
             include: [{
               model: ctx.orm().Referral,
-              as: 'professional',
+              as: 'professional2',
               include: [{
                 model: ctx.orm().Referral,
-                as: 'child_parent',
+                as: 'young_family',
               }]
             }],
             where: {
               id: result.id,
             },
           }).then((userResult) => {
-            var childId = userResult[0].professional[0].ChildProfessional.professionalId
-            var parentIdNew = userResult[0].professional[0].child_parent[0].id;
-            var parentId = Number(userResult[0].professional[0].ChildProfessional.ReferralId) + 1
+            var childId = userResult[0].professional2[0].YoungProfessional.professionalId
+            var parentIdNew = userResult[0].professional2[0].young_family[0].id;
+            var parentId = Number(userResult[0].professional2[0].YoungProfessional.ReferralId) + 1
+            console.log(childId)
+            console.log(parentIdNew)
+            console.log(parentId)
             return user.update(
               {
-                child_firstname: ctx.request.body.aboutData.childFirstName,
-                child_lastname: ctx.request.body.aboutData.childLastName,
-                child_name_title: ctx.request.body.aboutData.childNameTitle,
+                child_firstname: ctx.request.body.aboutData.youngFirstName,
+                child_lastname: ctx.request.body.aboutData.youngLastName,
+                child_name_title: ctx.request.body.aboutData.youngNameTitle,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
-                child_email: ctx.request.body.aboutData.childEmail,
-                child_contact_number: ctx.request.body.aboutData.childContactNumber,
-                child_address: ctx.request.body.aboutData.childAddress,
-                child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
-                child_manual_address: ctx.request.body.aboutData.childManualAddress,
+                child_email: ctx.request.body.aboutData.youngEmail,
+                child_contact_number: ctx.request.body.aboutData.youngContactNumber,
+                child_address: ctx.request.body.aboutData.youngAddress,
+                child_address_postcode: ctx.request.body.aboutData.youngAddressPostcode,
+                child_manual_address: ctx.request.body.aboutData.youngManualAddress,
                 can_send_post: ctx.request.body.aboutData.sendPost,
-                child_gender: ctx.request.body.aboutData.childGender,
-                child_gender_birth: ctx.request.body.aboutData.childIdentity,
-                child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
-                child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+                child_gender: ctx.request.body.aboutData.youngGender,
+                child_gender_birth: ctx.request.body.aboutData.youngIdentity,
+                child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+                child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+                parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
-                child_care_adult: ctx.request.body.aboutData.childCareAdult,
+                child_care_adult: ctx.request.body.aboutData.youngCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
                 //referral_mode: ctx.request.body.aboutData.referral_mode
@@ -1017,12 +1022,15 @@ exports.about = ctx => {
                 }
                 return ctx.body = responseData;
               }).catch((error) => {
+                console.log(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
               });
             }).catch((error) => {
+              console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         })
@@ -1124,27 +1132,31 @@ exports.fetchAbout = ctx => {
       return user.findAll({
         include: [{
           model: ctx.orm().Referral,
-          as: 'professional',
+          as: 'professional2',
           include: [{
             model: ctx.orm().Referral,
-            as: 'child_parent',
+            as: 'young_family',
           }]
         }],
         where: {
           id: professionalResult.id,
         },
       }).then((childResult) => {
-        var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
-        var parentIdNew = childResult[0].professional[0].child_parent[0].id;
+        var parentId = Number(childResult[0].professional2[0].YoungProfessional.professionalId) + 2
+        var parentIdNew = childResult[0].professional2[0].young_family[0].id;
+
+        console.log(parentIdNew)
         //  var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
-        ////console.log(parentId)
+        ////console.log(parentId
+        console.log(parentId)
+        console.log(parentIdNew)
         return user.findAll({
           include: [
             {
               model: ctx.orm().Referral,
               nested: true,
-              as: 'parent',
+              as: 'family',
             },
           ],
           where: {
