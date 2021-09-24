@@ -318,6 +318,7 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
+                    console.log(data[0].professional_address_postcode)
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -331,9 +332,9 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
                     Vue.set(this.elgibilityObj, "professional_contact_type", data[0].professional_contact_type);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
-                    Vue.set(this.elgibilityObj, "profyoungDob", this.convertDate(data[0].professional[0].young_dob));
+                    Vue.set(this.elgibilityObj, "profyoungDob", this.convertDate(data[0].professional2[0].child_dob));
                     this.duplicateYearArray = this.elgibilityObj.profyoungDob.slice(this.elgibilityObj.profyoungDob.length - 4);
-                    this.fetchAgeLogic(data[0].professional[0].young_dob, roleType)
+                    this.fetchAgeLogic(data[0].professional2[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProffamily", data[0].consent_family);
                     Vue.set(this.elgibilityObj, "familyConcernInformation", data[0].consent_young);
 
@@ -356,14 +357,14 @@ $(document).ready(function () {
                     }
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
-                    if (data[0].professional[0].registered_gp_postcode) { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp + ',' + data[0].professional[0].registered_gp_postcode, roleType));
+                    if (data[0].professional2[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional2[0].registered_gp + ',' + data[0].professional2[0].registered_gp_postcode, roleType));
                     }
                     else {// leave postcode column for old referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional2[0].registered_gp, roleType));
                     }
-                    if (data[0].professional[0].gp_school) {
-                        Vue.set(this.elgibilityObj, "gpSchool", data[0].professional[0].gp_school);
+                    if (data[0].professional2[0].gp_school) {
+                        Vue.set(this.elgibilityObj, "gpSchool", data[0].professional2[0].gp_school);
                         Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
 
                     }
