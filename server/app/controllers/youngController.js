@@ -54,7 +54,8 @@ exports.eligibility = ctx => {
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete',
-          registered_gp_postcode: ctx.request.body.registered_gp_postcode
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode,
+          referral_type:"young"
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
@@ -82,7 +83,8 @@ exports.eligibility = ctx => {
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete',
-          registered_gp_postcode: ctx.request.body.registered_gp_postcode
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode,
+          referral_type:"young"
         }).then((childUserInfo) => {
           childUserInfo.setType("7")
           const responseData = {
@@ -172,7 +174,8 @@ exports.eligibility = ctx => {
             user_role: ctx.request.body.role,
             referral_complete_status: 'incomplete',
             login_id: ctx.request.decryptedUser.id,
-            referral_progress: 20
+            referral_progress: 20,
+            referral_type:"young"
           }).then((parentUserInfo) => {
             parentUserInfo.setType("2")
             parentUserInfo.setParent(childUserInfo.id)
@@ -201,6 +204,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            referral_type:"young",
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -326,6 +330,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
             user_role: ctx.request.body.role,
+            referral_type:"young",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -377,6 +382,7 @@ exports.eligibility = ctx => {
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
+            referral_type:"young",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {

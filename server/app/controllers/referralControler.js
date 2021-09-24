@@ -49,6 +49,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
+          referral_type:"child",
           login_id: ctx.request.decryptedUser.id,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
@@ -78,6 +79,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
+          referral_type:"child",
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           gp_school: ctx.request.body.gpSchool,
@@ -164,6 +166,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_complete_status: 'incomplete',
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20
@@ -195,6 +198,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -310,6 +314,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -361,6 +366,7 @@ exports.eligibility = ctx => {
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
