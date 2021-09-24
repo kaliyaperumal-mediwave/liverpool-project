@@ -437,7 +437,7 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveYoungReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                    location.href = redirectUrl(location.href, "/young-referral/review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
                             location.href = "/young-referral/review";

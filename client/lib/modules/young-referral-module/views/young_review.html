@@ -388,7 +388,7 @@
                                 <!-- Professional Info End -->
 
                                 <!-- Interpreter Needed Start -->
-                                <div v-if="userRole == 'young' || userRole == 'parent'"
+                                <div v-if="userRole == 'young' || userRole == 'family'"
                                     class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                     <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
@@ -418,32 +418,32 @@
                                 </div>
                                 <!-- Interpreter Needed End -->
 
-                                <!-- young's DOB Start -->
+                                <!-- child's DOB Start -->
                                 <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobyoungs">
-                                        young's D.O.B:
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobchilds">
+                                        child's D.O.B:
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        v-model="section1Data.young_dob" id="dobyoungs">
+                                        v-model="section1Data.child_dob" id="dobchilds">
                                 </div>
-                                <!-- young's DOB Start -->
+                                <!-- child's DOB Start -->
 
                                 <!-- Consent Given Start -->
-                                <!-- young and Parent -->
-                                <div v-if="userRole == 'young' || userRole == 'parent'">
+                                <!-- child and Parent -->
+                                <div v-if="userRole == 'young' || userRole == 'family'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
                                             Consent given:
                                         </label>
                                         <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
                                             <input class="form-control input-bg-form-control " readonly type="text"
-                                                v-model="section1Data.consent_young" id="consentGivenSec5">
+                                                v-model="section1Data.consent_child" id="consentGivenSec5">
                                         </div>
                                     </div>
                                 </div>
-                                <!-- young and Parent -->
+                                <!-- child and Parent -->
 
-                                <!-- young -->
+                                <!-- child -->
                                 <div v-if="userRole == 'young' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
@@ -455,9 +455,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- young and Parent -->
+                                <!-- child and Parent -->
 
-                                <!-- young -->
+                                <!-- child -->
                                 <div
                                     v-if="userRole == 'young' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
@@ -470,17 +470,17 @@
                                             id="reasonCamhs">
                                     </div>
                                 </div>
-                                <!-- young and Parent -->
+                                <!-- child and Parent -->
 
                                 <!-- Professional -->
                                 <div v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenyoung">
-                                            Consent given by young:
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenchild">
+                                            Consent given by child:
                                         </label>
                                         <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                             <input class="form-control input-bg-form-control" readonly type="text"
-                                                v-model="section1Data.consent_young" id="consentGivenyoung">
+                                                v-model="section1Data.consent_child" id="consentGivenchild">
                                         </div>
                                     </div>
 
@@ -512,7 +512,7 @@
                                 <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null"
                                     class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        young School:
+                                        child School:
                                     </label>
                                     <textarea
                                         class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
@@ -588,19 +588,19 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control    input-bg-form-control"
-                                            @input="onDetectChange($event,'sect2','section2Data','young_NHS')"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_NHS')"
                                             type="text" inputmode="numeric" placeholder="Enter NHS number"
-                                            v-model="section2Data.young_NHS" id="nhsNumberSect5">
+                                            v-model="section2Data.child_NHS" id="nhsNumberSect5">
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.young_NHS && !nhsRegex.test(section2Data.young_NHS)),
-                                        'invalid-fields':(section2Data.young_NHS && !nhsRegex.test(section2Data.young_NHS)) }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
+                                        'invalid-fields':(section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)) }">
                                             You must provide a valid NHS Number.
                                         </small>
                                     </div>
                                 </div>
                                 <!-- NHS Number End -->
 
-                                <!-- young's title Start -->
+                                <!-- child's title Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
                                         Title:
@@ -609,8 +609,8 @@
                                         <span class="plain-select">
                                             <select
                                                 class="custom-select h-50px custom-select h-50px  input-bg-form-control"
-                                                @change="onDetectChange($event,'sect2','section2Data','young_name_title')"
-                                                v-model="section2Data.young_name_title">
+                                                @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
+                                                v-model="section2Data.child_name_title">
                                                 <option value="Mr">Mr</option>
                                                 <option value="Miss">Miss</option>
                                                 <option value="Ms">Ms</option>
@@ -620,7 +620,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <!-- young's title End -->
+                                <!-- child's title End -->
 
                                 <!-- Full name Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -632,8 +632,8 @@
                                             <!-- <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select">
                                                     <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.young_name_title"
-                                                        @change="onDetectChange($event,'sect2','section2Data','young_name_title')">
+                                                        v-model="section2Data.child_name_title"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
                                                         <option selected="selected" value="Mr">Mr</option>
                                                         <option value="Miss">Miss</option>
                                                         <option value="Ms">Ms</option>
@@ -643,9 +643,9 @@
                                                 </span>
                                             </div> -->
                                             <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','young_name')"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter first name" type="text"
-                                                v-model="section2Data.young_name" id="nameSecLast">
+                                                v-model="section2Data.child_name" id="nameSecLast">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
@@ -653,7 +653,7 @@
                                             </div>
                                         </div>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.young_name),'invalid-fields':!section2Data.young_name }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_name),'invalid-fields':!section2Data.child_name }">
                                             You must provide a first name.
                                         </small>
                                     </div>
@@ -668,9 +668,9 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','young_lastname')"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_lastname')"
                                                 placeholder="Enter last name" type="text"
-                                                v-model="section2Data.young_lastname" id="nameSec5">
+                                                v-model="section2Data.child_lastname" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
@@ -678,7 +678,7 @@
                                             </div>
                                         </div>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.young_lastname),'invalid-fields':!section2Data.young_lastname }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_lastname),'invalid-fields':!section2Data.child_lastname }">
                                             You must provide a last name.
                                         </small>
                                     </div>
@@ -693,9 +693,9 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','young_email')"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_email')"
                                                 placeholder="Enter email" inputmode="email" type="text"
-                                                v-model="section2Data.young_email" id="emailSec5">
+                                                v-model="section2Data.child_email" id="emailSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
@@ -703,8 +703,8 @@
                                             </div>
                                         </div>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.young_email && !emailRegex.test(section2Data.young_email)),
-                                            'invalid-fields':(section2Data.young_email && !emailRegex.test(section2Data.young_email)) }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_email && !emailRegex.test(section2Data.child_email)),
+                                            'invalid-fields':(section2Data.child_email && !emailRegex.test(section2Data.child_email)) }">
                                             You must provide a valid email.
                                         </small>
                                     </div>
@@ -717,7 +717,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select v-model="section2Data.young_contact_type"
+                                            <select v-model="section2Data.child_contact_type"
                                                 class="custom-select h-50px    input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option selected="selected" value="mobile">Mobile</option>
@@ -729,24 +729,24 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
-                                        young's contact number:
+                                        child's contact number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select custom-mobile-place">
                                                     <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.young_contact_type"
-                                                        @change="onDetectChange($event,'sect2','section2Data','young_contact_type')">
+                                                        v-model="section2Data.child_contact_type"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_contact_type')">
                                                         <option selected="selected" value="mobile">Mobile</option>
                                                         <option value="landline">Landline</option>
                                                     </select>
                                                 </span>
                                             </div>
                                             <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','young_contact_number')"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
                                                 placeholder="Enter contact number" inputmode="tel" type="text"
-                                                v-model="section2Data.young_contact_number" id="cont">
+                                                v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
@@ -754,43 +754,43 @@
                                             </div>
                                         </div>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.young_contact_number),'invalid-fields':!section2Data.young_contact_number }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_contact_number),'invalid-fields':!section2Data.child_contact_number }">
                                             You must provide a number.
                                         </small>
 
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.young_contact_number && section2Data.young_contact_type =='mobile' && !phoneRegex.test(section2Data.young_contact_number)),
-                                                'invalid-fields':(section2Data.young_contact_number && section2Data.young_contact_type =='mobile' && !phoneRegex.test(section2Data.young_contact_number)) }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)),
+                                                'invalid-fields':(section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)) }">
                                             You must provide a valid mobile number.
                                         </small>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.young_contact_number && section2Data.young_contact_type =='landline' && !landlineRegex.test(section2Data.young_contact_number)),
-                                            'invalid-fields':(section2Data.young_contact_number &&  section2Data.young_contact_type =='landline' && !landlineRegex.test(section2Data.young_contact_number)) }">
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)),
+                                            'invalid-fields':(section2Data.child_contact_number &&  section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)) }">
                                             You must provide a valid landline number.
                                         </small>
                                     </div>
                                 </div>
 
-                                <div v-if="section2Data.young_address"
+                                <div v-if="section2Data.child_address"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea readonly class="form-control input-bg-form-control" type="text"
-                                            v-model="section2Data.young_address" id="addressSect5">
+                                            v-model="section2Data.child_address" id="addressSect5">
                                 </textarea>
                                     </div>
                                 </div>
 
-                                <div v-if="checkArrayLength(section2Data.young_manual_address)"
+                                <div v-if="checkArrayLength(section2Data.child_manual_address)"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea readonly class="form-control    input-bg-form-control" type="text"
-                                            v-model="showyoungManualAddressSection2" id="addressSect5">
+                                            v-model="showchildManualAddressSection2" id="addressSect5">
                                 </textarea>
                                     </div>
                                 </div>
@@ -819,11 +819,11 @@
                                     </label>
                                     <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','young_gender')"
-                                            placeholder="Enter gender" v-model="section2Data.young_gender"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_gender')"
+                                            placeholder="Enter gender" v-model="section2Data.child_gender"
                                             id="genderSect5">
-                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.young_gender),
-                                        'invalid-fields':!section2Data.young_gender }">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
+                                        'invalid-fields':!section2Data.child_gender }">
                                             You must provide an answer.
                                         </small>
                                     </div>
@@ -836,7 +836,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section2Data.young_gender_birth"
+                                                v-model="section2Data.child_gender_birth"
                                                 @change="onDetectChange($event,'sect2')">
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No</option>
@@ -870,9 +870,9 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control    input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','young_sexual_orientation')"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_sexual_orientation')"
                                             placeholder="Enter sexual orientation"
-                                            v-model="section2Data.young_sexual_orientation" id="orientSect5">
+                                            v-model="section2Data.child_sexual_orientation" id="orientSect5">
                                     </div>
                                 </div>
 
@@ -882,8 +882,8 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control    input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','young_ethnicity')"
-                                            placeholder="Enter ethnicity" v-model="section2Data.young_ethnicity"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_ethnicity')"
+                                            placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
                                             id="ethincitySect5">
                                     </div>
                                 </div>
@@ -948,7 +948,7 @@
                                         <span class="plain-select">
                                             <select class="custom-select h-50px    input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2')"
-                                                v-model="section2Data.young_care_adult">
+                                                v-model="section2Data.child_care_adult">
                                                 <option class='option-text' value="No">No</option>
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="Unsure">Unsure</option>
@@ -1006,11 +1006,11 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control    input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','young_parent_relationship')"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_parent_relationship')"
                                             placeholder="Enter relationship"
-                                            v-model="section2Data.young_parent_relationship" id="relSec5">
-                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.young_parent_relationship),
-                                    'invalid-fields':!section2Data.young_parent_relationship }">
+                                            v-model="section2Data.child_parent_relationship" id="relSec5">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
+                                    'invalid-fields':!section2Data.child_parent_relationship }">
                                             You must provide an answer.
                                         </small>
                                     </div>
@@ -1138,7 +1138,7 @@
                                 <!-- <div v-if="section2Data.legal_care_status"
                                     class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
-                                        The young's legal care status:
+                                        The child's legal care status:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
@@ -1173,7 +1173,7 @@
                                                 <option class='option-text' value="Care Order places at home">Care Order
                                                     places at home
                                                 </option>
-                                                <option class='option-text' value="young Protection Plan">young
+                                                <option class='option-text' value="child Protection Plan">child
                                                     Protection Plan</option>
                                                 <option class='option-text' value="Other Carer">Other Carer</option>
                                             </select>
@@ -1230,39 +1230,39 @@
                                     </label>
                                     <input
                                         class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section3Data.young_profession">
+                                        readonly type="text" v-model="section3Data.child_profession">
                                     <!-- <div class="col-md-4 col-12 px-0">
                                         <select disabled class="custom-select h-50px    input-bg-form-control"
-                                            v-model="section3Data.young_profession"
+                                            v-model="section3Data.child_profession"
                                             @change="onDetectChange($event,'sect3')">
                                             <option class='option-text' selected>
-                                                {{section3Data.young_profession}}</option>
-                                            <option class='option-text' v-if="section3Data.young_profession != 'education'"
+                                                {{section3Data.child_profession}}</option>
+                                            <option class='option-text' v-if="section3Data.child_profession != 'education'"
                                                 value="education">
                                                 Education</option>
-                                            <option class='option-text' v-if="section3Data.young_profession != 'employment'"
+                                            <option class='option-text' v-if="section3Data.child_profession != 'employment'"
                                                 value="employment">
                                                 Employment</option>
-                                            <option class='option-text' v-if="section3Data.young_profession != 'neither'" value="neither">
+                                            <option class='option-text' v-if="section3Data.child_profession != 'neither'" value="neither">
                                                 Neither</option>
                                         </select>
                                     </div> -->
                                 </div>
 
-                                <div v-if="section3Data.young_education_place"
+                                <div v-if="section3Data.child_education_place"
                                     class="py-3 readOnly-class w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="youngEducationPlace">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="childEducationPlace">
                                         School/college:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea class="form-control    input-bg-form-control" type="text"
-                                            v-model="section3Data.young_education_place" id="youngEducationPlace"
+                                            v-model="section3Data.child_education_place" id="childEducationPlace"
                                             @input="onDetectChange($event,'sect3')">
                                 </textarea>
                                     </div>
                                 </div>
 
-                                <div v-if="checkArrayLength(section3Data.young_education_manual_address)"
+                                <div v-if="checkArrayLength(section3Data.child_education_manual_address)"
                                     class="py-3 readOnly-class w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         School/college:
@@ -1281,7 +1281,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section3Data.young_EHCP"
+                                                v-model="section3Data.child_EHCP"
                                                 @change="onDetectChange($event,'sect3')">
                                                 <option class='option-text' value="No">No </option>
                                                 <option class='option-text' value="Yes">Yes</option>
@@ -1297,7 +1297,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section3Data.young_EHAT"
+                                                v-model="section3Data.child_EHAT"
                                                 @change="onDetectChange($event,'sect3')">
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No
@@ -1313,11 +1313,11 @@
                                     </label>
                                     <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
                                         <input class="form-control input-bg-form-control" readonly type="text"
-                                            v-model="section3Data.young_socialworker">
+                                            v-model="section3Data.child_socialworker">
                                     </div>
                                 </div>
 
-                                <div v-if="section3Data.young_socialworker == 'yes'">
+                                <div v-if="section3Data.child_socialworker == 'yes'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0"
                                             for="socialworkerNameSec5">
@@ -1327,9 +1327,9 @@
                                             <div class="input-group">
                                                 <input class="form-control    input-bg-form-control" type="text"
                                                     placeholder="Enter social worker first name"
-                                                    v-model="section3Data.young_socialworker_firstname"
+                                                    v-model="section3Data.child_socialworker_firstname"
                                                     id="socialworkerNameSec5"
-                                                    @input="onDetectChange($event,'sect3','section3Data', 'young_socialworker_firstname')">
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
                                                         <i class="fa common-fa-fa fa-user-circle"
@@ -1337,8 +1337,8 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.young_socialworker_firstname),
-                                                'invalid-fields':!section3Data.young_socialworker_firstname }">
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_firstname),
+                                                'invalid-fields':!section3Data.child_socialworker_firstname }">
                                                 You must provide a first name.
                                             </small> -->
                                         </div>
@@ -1353,9 +1353,9 @@
                                             <div class="input-group">
                                                 <input class="form-control    input-bg-form-control" type="text"
                                                     placeholder="Enter social worker last name"
-                                                    v-model="section3Data.young_socialworker_lastname"
+                                                    v-model="section3Data.child_socialworker_lastname"
                                                     id="socialworkerLastNameSec5"
-                                                    @input="onDetectChange($event,'sect3','section3Data', 'young_socialworker_lastname')">
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
                                                         <i class="fa common-fa-fa fa-user-circle"
@@ -1363,8 +1363,8 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.young_socialworker_lastname),
-                                                'invalid-fields':!section3Data.young_socialworker_lastname }">
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_lastname),
+                                                'invalid-fields':!section3Data.child_socialworker_lastname }">
                                                 You must provide a last name.
                                             </small> -->
                                         </div>
@@ -1380,8 +1380,8 @@
                                                 <div class="input-group-prepend cursor-pointer">
                                                     <span class="plain-select custom-mobile-place">
                                                         <select class="custom-select form-control input-bg-form-control"
-                                                            v-model="section3Data.young_socialworker_contact_type"
-                                                            @change="onDetectChange($event,'sect3','section3Data','young_socialworker_contact_type')">
+                                                            v-model="section3Data.child_socialworker_contact_type"
+                                                            @change="onDetectChange($event,'sect3','section3Data','child_socialworker_contact_type')">
                                                             <option selected="selected" value="mobile">Mobile</option>
                                                             <option value="landline">Landline</option>
                                                         </select>
@@ -1389,27 +1389,27 @@
                                                 </div>
                                                 <input class="form-control input-bg-form-control" type="text"
                                                     inputmode="tel" placeholder="Enter social worker number"
-                                                    v-model="section3Data.young_socialworker_contact"
+                                                    v-model="section3Data.child_socialworker_contact"
                                                     id="socialworkerNumSec5"
-                                                    @input="onDetectChange($event,'sect3','section3Data', 'young_socialworker_contact')">
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_contact')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
                                                         <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
-                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.young_socialworker_contact),
-                                                'invalid-fields':!section3Data.young_socialworker_contact }">
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_contact),
+                                                'invalid-fields':!section3Data.child_socialworker_contact }">
                                                 You must provide a number.
                                             </small> -->
                                             <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.young_socialworker_contact && section3Data.young_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.young_socialworker_contact)),
-                                                'invalid-fields':(section3Data.young_socialworker_contact && section3Data.young_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.young_socialworker_contact)) }">
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)),
+                                                'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)) }">
                                                 You must provide a valid mobile number.
                                             </small>
                                             <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.young_socialworker_contact && section3Data.young_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.young_socialworker_contact)),
-                                            'invalid-fields':(section3Data.young_socialworker_contact && section3Data.young_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.young_socialworker_contact)) }">
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)),
+                                            'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)) }">
                                                 You must provide a valid landline number.
                                             </small>
                                         </div>
@@ -1661,7 +1661,7 @@
                     </h2>
                     <p class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12"> How would you like to
                         be
-                        contacted about the progress of your young’s referral?
+                        contacted about the progress of your child’s referral?
                     </p> -->
                     <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
@@ -1700,7 +1700,7 @@
                             </div>
                         </div>
 
-                        <div v-if="userRole == 'parent'">
+                        <div v-if="userRole == 'family'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToMe" value="Me"
                                     v-model="contact_person">
@@ -1710,10 +1710,10 @@
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToParCarer"
-                                    value="My young/ young person" v-model="contact_person">
+                                    value="My child/ child person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    My young/ young person
+                                    My child/ child person
                                 </label>
                             </div>
                         </div>
@@ -1721,9 +1721,9 @@
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToMe"
-                                    value="The young person" v-model="contact_person">
+                                    value="The child person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
-                                    The young person
+                                    The child person
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
