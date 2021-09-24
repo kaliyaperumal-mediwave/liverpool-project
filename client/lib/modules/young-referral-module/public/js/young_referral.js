@@ -32,6 +32,7 @@ $(document).ready(function () {
                 disabilityOrDifficulty: '',
                 accessService: '',
                 listService: '',
+                about_our_service:''
             },
             dependent: [
                 // {
@@ -281,7 +282,7 @@ $(document).ready(function () {
                 var payload = {};
                 payload.userid = this.userId;
                 payload.role = this.userRole;
-                var successData = apiCallPost('post', '/fetchReferral', payload);
+                var successData = apiCallPost('post', '/fetchYoungReferral', payload);
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -433,21 +434,21 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                var responseData = apiCallPost('post', '/saveReferral', payload);
+                var responseData = apiCallPost('post', '/saveYoungReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
                     location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/review";
+                            location.href = "/young-referral/review";
                         }
                         else {
                             var url = location.href;
-                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                            location.href = "/young-referral/review?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        location.href = "/review";
+                        location.href = "/young-referral/review";
                     }
                     this.storeDeleteData = null;
                 } else {
@@ -484,6 +485,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
+                    Vue.set(this.referralData, "about_our_service", data.about_our_service);
                 }
                 setTimeout(function () {
                     if (_self.reasonForReferral.length)

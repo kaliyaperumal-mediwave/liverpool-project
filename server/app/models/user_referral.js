@@ -273,6 +273,9 @@ module.exports = function modelUser(sequelize, types) {
     referral_mode: {
       type: types.TEXT
     },
+    referral_type: {
+      type: types.TEXT,
+    }
   }, {
     tableName: 'referrals',
   });

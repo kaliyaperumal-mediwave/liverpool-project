@@ -214,8 +214,8 @@ module.exports = {
       });
     });
 
-    self.route('post', 'fetchReferral', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchReferral';
+    self.route('post', 'fetchYoungReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchYoungReferral';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {

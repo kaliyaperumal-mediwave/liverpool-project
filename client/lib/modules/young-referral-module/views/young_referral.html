@@ -620,6 +620,22 @@
                 </div>
                 <!-- Delete Modal End -->
 
+                <!-- Your History Start-->
+                <form id="about-our-service-form" data-options="about_our_service">
+                    <div v-if="(accessList.length && referralData.accessService == 'yes') || referralData.accessService == 'no'" class="pt-2">
+                        <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group m-0">
+                                <label for="disability" class="question-font">{{dynamicLabels.about_our_service}}</label>
+                                <textarea class="h-112 form-control input-bg-form-control"
+                                    name="about_our_service" id="about_our_service"
+                                    @input="trimWhiteSpace($event,'referralData','about_our_service')"
+                                    v-model="referralData.about_our_service" rows="7"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Your History-End-->
+
                 <!-- Dynamic Toaster start Scenario 1-->
                 <!-- <template v-if="accessList.length && !showAddOtherService">
                     <div class="px-4 py-4">
@@ -658,7 +674,7 @@
                     </div>
                 </template> -->
 
-                <div v-if="accessList.length && !showAddOtherService">
+                <div v-if="referralData.about_our_service !== '' && !showAddOtherService">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -742,7 +758,7 @@
                 </template> -->
 
                 <div v-if="referralData.accessService == 'no'">
-                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                    <div class="px-4 py-4 d-none" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <div class="text-center m-0 py-2">
@@ -775,7 +791,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="text-center py-4">
+                    <div class="text-center py-4 d-none">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">SAVE &
                                 CONTINUE</span></button>
@@ -859,7 +875,7 @@
                     </div> -->
                     <div class="text-center py-4">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">SAVE &
+                                class="btn-secondary-text">3SAVE &
                                 CONTINUE</span></button>
                     </div>
                 </div>

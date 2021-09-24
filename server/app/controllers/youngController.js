@@ -1454,7 +1454,6 @@ exports.fetchProfession = ctx => {
 //Section 4
 
 exports.saveReferal = ctx => {
-
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
 
@@ -1488,7 +1487,8 @@ exports.saveReferal = ctx => {
           any_other_services: ctx.request.body.referralData.accessService,
           local_services: ctx.request.body.accessList,//---------->checkbox
           currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-          services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+          services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+          about_our_service: ctx.request.body.referralData.about_our_service
         },
         {
           where:
@@ -1564,7 +1564,8 @@ exports.saveReferal = ctx => {
                 any_other_services: ctx.request.body.referralData.accessService,
                 local_services: ctx.request.body.accessList,//---------->checkbox
                 currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-                services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+                services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+                about_our_service: ctx.request.body.referralData.about_our_service
               },
             ).then((fetchResult) => {
               result.setReferral_reason(fetchResult.id)
@@ -1628,7 +1629,8 @@ exports.saveReferal = ctx => {
           any_other_services: ctx.request.body.referralData.accessService,
           local_services: ctx.request.body.accessList,//---------->checkbox
           currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-          services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+          services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+          about_our_service: ctx.request.body.referralData.about_our_service
         },
         {
           where:
@@ -1702,7 +1704,8 @@ exports.saveReferal = ctx => {
                 any_other_services: ctx.request.body.referralData.accessService,
                 local_services: ctx.request.body.accessList,//---------->checkbox
                 currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-                services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+                services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+                about_our_service: ctx.request.body.referralData.about_our_service
               },
             ).then((fetchResult) => {
               result.setReferral_reason(fetchResult.id)
@@ -1732,7 +1735,7 @@ exports.saveReferal = ctx => {
 
   }
 
-  else if (ctx.request.body.role == "youngPerson") {
+  else if (ctx.request.body.role == "young") {
     if (ctx.request.body.editFlag != null) {
       return referral.update(
         {
@@ -1759,7 +1762,8 @@ exports.saveReferal = ctx => {
           any_other_services: ctx.request.body.referralData.accessService,
           local_services: ctx.request.body.accessList,//---------->checkbox
           currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-          services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+          services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+          about_our_service: ctx.request.body.referralData.about_our_service
         },
         {
           where:
@@ -1820,7 +1824,8 @@ exports.saveReferal = ctx => {
               any_other_services: ctx.request.body.referralData.accessService,
               local_services: ctx.request.body.accessList,//---------->checkbox
               currently_accessing_services: ctx.request.body.referralData.isAccessingService,
-              services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
+              services: ctx.request.body.allAvailableService,//------------->dynamic add service for only child
+              about_our_service: ctx.request.body.referralData.about_our_service
             },
           ).then((fetchResult) => {
 
@@ -1889,7 +1894,7 @@ exports.fetchReferral = ctx => {
           },
 
         }).then((referralResult) => {
-          ////console.log(referralResult)
+          console.log(referralResult)
           return ctx.body = referralResult;
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)

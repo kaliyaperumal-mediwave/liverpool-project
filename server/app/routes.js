@@ -92,13 +92,18 @@ router.post('/user/youngEligibility', validateToken, youngControler.eligibility)
 router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEligibility);
 
 //Sec 2
-router.post('/user/saveYoungReferral', validateToken, youngControler.about);
+router.post('/user/saveYoungAbout', validateToken, youngControler.about);
 router.post('/user/fetchYoungAbout', validateToken, youngControler.fetchAbout);
 
 //sec 3
 router.post('/user/saveYoungeducation', validateToken, youngControler.profession);
 router.post('/user/fetchYoungProfession', validateToken, youngControler.fetchProfession);
 // router.put('/user/updateSec3Info', validateToken, referralControler.updateSec3Info);
+
+//sec 4
+router.post('/user/saveYoungReferral', validateToken, youngControler.saveReferal);
+router.post('/user/fetchYoungReferral', validateToken, youngControler.fetchReferral);
+// router.put('/user/updateSec4Info', validateToken, youngControler.updateSec4Info);
 
 
 module.exports = router;

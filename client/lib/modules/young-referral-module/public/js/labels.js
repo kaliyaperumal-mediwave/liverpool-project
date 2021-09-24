@@ -364,6 +364,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     disabilitiesPlaceHolder: "",
     prevAccessedServiceLabel: "",
     listServiceLabel: "",
+    about_our_service:""
   };
   if (currentLocation === "young") {
     allLabels.supportNeedsLabel = "What are your support needs?";
@@ -391,6 +392,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Have you previously accessed any other services?";
     allLabels.listServiceLabel =
       "Have you accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+    allLabels.about_our_service = "How did you hear about our service?";
   } else if (currentLocation === "family") {
     allLabels.supportNeedsLabel = "What are the support needs of your young?";
     allLabels.briefOutlineLabel = "your young's";
@@ -419,6 +421,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Has your young previously accessed any other services?";
     allLabels.listServiceLabel =
       "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+    allLabels.about_our_service = "How did you hear about our service?";
   } else if (currentLocation === "professional") {
     allLabels.briefOutlineLabel = "the young person's";
     allLabels.supportNeedsLabel =
@@ -447,6 +450,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Has the young previously accessed any other services?";
     allLabels.listServiceLabel =
       "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
+    allLabels.about_our_service = "How did you hear about our service?";
   }
 
   var currentRole = getQueryStringValue("role");
@@ -463,7 +467,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
 
 
+  return allLabels;
   return section3Labels;
   return section2Labels;
-  return allLabels;
 }
