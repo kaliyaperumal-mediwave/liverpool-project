@@ -64,7 +64,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_about', {
         headerContent: "Section 2 of 5: About you & your household",
         headerDescription: "Now we need some personal details, such as name & contact details",
-        backContent: '/young-referral/role?' + decryptedUrl,
+        backContent: '/young-referral?' + decryptedUrl,
         home: false,
         showHeader: true,
         hideRefButton: false,
