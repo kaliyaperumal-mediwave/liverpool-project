@@ -370,90 +370,90 @@ $(document).ready(function () {
             //Patching the value logic
             patchValue: function (data) {
                 if (this.userRole == "young") {
-                    if (data.young_education_manual_address && data.young_education_manual_address.length) {
-                        Vue.set(this, "educationManualAddressData", data.young_education_manual_address);
+                    if (data.child_education_manual_address && data.child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data.child_education_manual_address);
                         this.setReadonlyState(true);
                     }
-                    if (data.young_education_place) {
-                        Vue.set(this.educAndEmpData, "attendedInfo", data.young_education_place);
+                    if (data.child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
-                    if (data.young_profession) {
-                        data.young_profession = capitalizeFirstLetter(data.young_profession);
-                        var convertArray = data.young_profession.split(",");
+                    if (data.child_profession) {
+                        data.child_profession = capitalizeFirstLetter(data.child_profession);
+                        var convertArray = data.child_profession.split(",");
                         if (convertArray.indexOf('Education') != -1) {
                             this.showInstitution = true;
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data.young_EHCP);
-                    Vue.set(this.educAndEmpData, "haveEhat", data.young_EHAT);
-                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
-                    Vue.set(this.educAndEmpData, "haveSocialWorker", data.young_socialworker);
-                    Vue.set(this.educAndEmpData, "socialWorkName", data.young_socialworker_firstname);
-                    Vue.set(this.educAndEmpData, "socialWorkLastName", data.young_socialworker_lastname);
-                    Vue.set(this.educAndEmpData, "socialWorkContact", data.young_socialworker_contact);
-                    if (data.young_socialworker_contact_type) {
-                        Vue.set(this, "socialWorkContactType", data.young_socialworker_contact_type);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_firstname);
+                    Vue.set(this.educAndEmpData, "socialWorkLastName", data.child_socialworker_lastname);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
+                    if (data.child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data.child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "family") {
-                    if (data[0].parent[0].young_education_manual_address && data[0].parent[0].young_education_manual_address.length) {
-                        Vue.set(this, "educationManualAddressData", data[0].parent[0].young_education_manual_address);
+                    if (data[0].parent[0].child_education_manual_address && data[0].parent[0].child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data[0].parent[0].child_education_manual_address);
                         this.setReadonlyState(true);
                     }
-                    if (data[0].parent[0].young_education_place) {
-                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].young_education_place);
+                    if (data[0].parent[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
                     }
-                    if (data[0].parent[0].young_profession) {
-                        data[0].parent[0].young_profession = capitalizeFirstLetter(data[0].parent[0].young_profession);
-                        var convertArray = data[0].parent[0].young_profession.split(",");
+                    if (data[0].parent[0].child_profession) {
+                        data[0].parent[0].child_profession = capitalizeFirstLetter(data[0].parent[0].child_profession);
+                        var convertArray = data[0].parent[0].child_profession.split(",");
                         if (convertArray.indexOf('Education') != -1) {
                             this.showInstitution = true;
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].young_EHCP);
-                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].young_EHAT);
-                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
-                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].young_socialworker);
-                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].young_socialworker_firstname);
-                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].young_socialworker_lastname);
-                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].young_socialworker_contact);
-                    if (data[0].parent[0].young_socialworker_contact_type) {
-                        Vue.set(this, "socialWorkContactType", data[0].parent[0].young_socialworker_contact_type);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_firstname);
+                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
+                    if (data[0].parent[0].child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
                 else if (this.userRole == "professional") {
-                    if (data[0].professional[0].young_education_manual_address && data[0].professional[0].young_education_manual_address.length) {
-                        Vue.set(this, "educationManualAddressData", data[0].professional[0].young_education_manual_address);
+                    if (data[0].professional[0].child_education_manual_address && data[0].professional[0].child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data[0].professional[0].child_education_manual_address);
                         this.setReadonlyState(true);
                     }
-                    if (data[0].professional[0].young_education_place) {
-                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].young_education_place);
+                    if (data[0].professional[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
                     }
-                    if (data[0].professional[0].young_profession) {
-                        data[0].professional[0].young_profession = capitalizeFirstLetter(data[0].professional[0].young_profession);
-                        var convertArray = data[0].professional[0].young_profession.split(",");
+                    if (data[0].professional[0].child_profession) {
+                        data[0].professional[0].child_profession = capitalizeFirstLetter(data[0].professional[0].child_profession);
+                        var convertArray = data[0].professional[0].child_profession.split(",");
                         if (convertArray.indexOf('Education') != -1) {
                             this.showInstitution = true;
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].young_EHCP);
-                    Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].young_EHAT);
-                    Vue.set(this.educAndEmpData, "careLeaver", data.young_careLeaver);
-                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].young_socialworker);
-                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].young_socialworker_firstname);
-                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].young_socialworker_lastname);
-                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].young_socialworker_contact);
-                    if (data[0].professional[0].young_socialworker_contact_type) {
-                        Vue.set(this, "socialWorkContactType", data[0].professional[0].young_socialworker_contact_type);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_firstname);
+                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].child_socialworker_lastname);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
+                    if (data[0].professional[0].child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
