@@ -680,7 +680,7 @@ $(document).ready(function () {
 
             //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
-                var responseData = apiCallPost('post', '/saveYoungReferral', payload);
+                var responseData = apiCallPost('post', '/saveYoungAbout', payload);
                 if (responseData && Object.keys(responseData)) {
 
                     $('#loader').hide();

@@ -482,6 +482,7 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
+  console.log("#343333333333333333333333333333333333333")
   const user = ctx.orm().Referral;
   console.log(ctx.request.body)
   if (ctx.request.body.role == "young") {
@@ -601,6 +602,7 @@ exports.about = ctx => {
     }
 
     else {
+      console.log(ctx.request.body.userid)
       return user.findOne({
         where: {
           uuid: ctx.request.body.userid,

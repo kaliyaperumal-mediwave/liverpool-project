@@ -204,8 +204,8 @@ module.exports = {
       return res.send(searchRslt);
     });
 
-    self.route('post', 'saveYoungReferral', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/saveYoungReferral';
+    self.route('post', 'saveYoungAbout', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/saveYoungAbout';
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
