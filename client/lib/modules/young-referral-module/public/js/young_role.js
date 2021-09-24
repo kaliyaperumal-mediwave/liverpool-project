@@ -10,6 +10,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             showLoadingSpinner: "",
+            isUserLoggedIn: document.getElementById('loginUserFlag').innerHTML == "true" ? true : false,
             //dateMask: "##/##/####",
             optionsProxy: [],
             selectedResources: [],
@@ -1788,8 +1789,8 @@ $(document).ready(function () {
             },
 
             updateSelected: function (value) {
-                if (value & value.length) {
-                    this.selectedResources.push(resource);
+                if (value && value.length) {
+                    this.selectedResources.push(value);
                 }
                 this.optionsProxy = []
             },

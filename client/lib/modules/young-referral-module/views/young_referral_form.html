@@ -49,21 +49,21 @@
                         }) }}</div>
                     {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0" id="1752a966-f49a-4443-baae-ed131ebb477b">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
-                            id="aboutYou" value="young" @change="onChange($event)">
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
+                            id="aboutYou" value="young" @change="onChange($event)" d>
                         <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                             Young Person
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="398a82d9-59fe-459c-8d1e-85f803d0319c">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
                             value="family" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whom">
                             Family / Friend
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="96dda9ca-9328-47e8-ac1a-8cdc972df4d0">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
                             id="profession" value="professional" @change="onChange($event)">
                         <label class="form-check-label d-flex align-items-center option-font" for="profession">
                             Professional
