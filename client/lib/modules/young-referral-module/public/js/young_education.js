@@ -400,30 +400,30 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "family") {
-                    if (data[0].parent[0].child_education_manual_address && data[0].parent[0].child_education_manual_address.length) {
-                        Vue.set(this, "educationManualAddressData", data[0].parent[0].child_education_manual_address);
+                    if (data[0].family[0].child_education_manual_address && data[0].family[0].child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data[0].family[0].child_education_manual_address);
                         this.setReadonlyState(true);
                     }
-                    if (data[0].parent[0].child_education_place) {
-                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
+                    if (data[0].family[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].family[0].child_education_place);
                     }
-                    if (data[0].parent[0].child_profession) {
-                        data[0].parent[0].child_profession = capitalizeFirstLetter(data[0].parent[0].child_profession);
-                        var convertArray = data[0].parent[0].child_profession.split(",");
+                    if (data[0].family[0].child_profession) {
+                        data[0].family[0].child_profession = capitalizeFirstLetter(data[0].family[0].child_profession);
+                        var convertArray = data[0].family[0].child_profession.split(",");
                         if (convertArray.indexOf('Education') != -1) {
                             this.showInstitution = true;
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHCP);
-                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].family[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].family[0].child_EHAT);
                     Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
-                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
-                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_firstname);
-                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
-                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
-                    if (data[0].parent[0].child_socialworker_contact_type) {
-                        Vue.set(this, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].family[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].family[0].child_socialworker_firstname);
+                    Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].family[0].child_socialworker_lastname);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].family[0].child_socialworker_contact);
+                    if (data[0].family[0].child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data[0].family[0].child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }

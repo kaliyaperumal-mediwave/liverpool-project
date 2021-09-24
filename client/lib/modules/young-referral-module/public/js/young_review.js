@@ -36,7 +36,7 @@ $(document).ready(function () {
                 'Full Care Order',
                 'Interim Care Order',
                 'Care Order places at home',
-                'young Protection Plan',
+                'child Protection Plan',
                 'Other Carer'
             ],
             contact_person: '',
@@ -52,7 +52,7 @@ $(document).ready(function () {
             payloadData: {},
             contactPref: [],
             showManualAddress: "",
-            showyoungManualAddressSection2: "",
+            showchildManualAddressSection2: "",
             showParentManualAddressSection2: "",
             showManualAddressForRole: "",
             selectProvider: 'No',
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.section5Labels = section5Labels;
+          //  this.section5Labels = section5Labels;
             this.userRole = document.getElementById('uRole').innerHTML;
             if (this.userRole === 'young') {
                 this.yourInfo = 'young person';
@@ -89,13 +89,13 @@ $(document).ready(function () {
 
             } else if (this.userRole === 'family') {
                 this.yourInfo = 'Parent / Carer';
-                this.section5Labels.aboutLabel = "About your young";
-                this.section5Labels.referralLabel = "Your young's reason for referral";
+                this.section5Labels.aboutLabel = "About your child";
+                this.section5Labels.referralLabel = "Your child's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
-                this.section5Labels.aboutLabel = "About the young";
-                this.section5Labels.referralLabel = "The young's reason for referral";
+                this.section5Labels.aboutLabel = "About the child";
+                this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
             this.userId = document.getElementById('uUid').innerHTML;
@@ -110,27 +110,27 @@ $(document).ready(function () {
             getAllSectionData: function (payloadData) {
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
+                    url: API_URI + "/fetchyoungReview/" + payloadData.userid + "&role=" + payloadData.role,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //console.log(data)
+                        console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-                        _self.ageFlag = _self.calculateAge(data.section1.young_dob);
-                        _self.section1Data.young_dob = _self.convertDate(data.section1.young_dob);
+                        _self.ageFlag = _self.calculateAge(data.section1.child_dob);
+                        _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
-                        if (_self.section2Data.young_manual_address && _self.section2Data.young_manual_address.length) {
-                            var getObjSect2young = convertArrayToObj(_self.section2Data.young_manual_address);
-                            delete getObjSect2young.id;
-                            delete getObjSect2young.mode;
-                            _self.showyoungManualAddressSection2 = dynamicSeparator(getObjSect2young, ',');
-                            _self.showyoungManualAddressSection2 = _self.showyoungManualAddressSection2 + '.';
+                        if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
+                            var getObjSect2child = convertArrayToObj(_self.section2Data.child_manual_address);
+                            delete getObjSect2child.id;
+                            delete getObjSect2child.mode;
+                            _self.showchildManualAddressSection2 = dynamicSeparator(getObjSect2child, ',');
+                            _self.showchildManualAddressSection2 = _self.showchildManualAddressSection2 + '.';
                         }
 
                         if (_self.section2Data.parent_manual_address && _self.section2Data.parent_manual_address.length) {
@@ -150,8 +150,8 @@ $(document).ready(function () {
                             _self.showManualAddressForRole = _self.showManualAddressForRole + '.';
                         }
 
-                        if (_self.section3Data.young_education_manual_address && _self.section3Data.young_education_manual_address.length) {
-                            var getObj = convertArrayToObj(_self.section3Data.young_education_manual_address);
+                        if (_self.section3Data.child_education_manual_address && _self.section3Data.child_education_manual_address.length) {
+                            var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
                             delete getObj.id;
                             delete getObj.mode;
                             _self.showManualAddress = dynamicSeparator(getObj, ',', true);
@@ -268,7 +268,7 @@ $(document).ready(function () {
 
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
-                            url: API_URI + "/saveReview",
+                            url: API_URI + "/saveYoungReview",
                             type: "post",
                             dataType: 'json',
                             contentType: 'application/json',
@@ -514,12 +514,12 @@ $(document).ready(function () {
                 var beforeSaveElem = $('#' + saveButtonId);
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
-                    var dynamicRegexyoung;
+                    var dynamicRegexchild;
                     var dynamicRegexParent;
-                    if (formData.young_contact_type == "mobile") {
-                        dynamicRegexyoung = this.phoneRegex
-                    } else if (formData.young_contact_type == "landline") {
-                        dynamicRegexyoung = this.landlineRegex;
+                    if (formData.child_contact_type == "mobile") {
+                        dynamicRegexchild = this.phoneRegex
+                    } else if (formData.child_contact_type == "landline") {
+                        dynamicRegexchild = this.landlineRegex;
                     }
                     if (formData.parent_contact_type == "mobile") {
                         dynamicRegexParent = this.phoneRegex
@@ -527,17 +527,17 @@ $(document).ready(function () {
                         dynamicRegexParent = this.landlineRegex;
                     }
 
-                    if (formData.young_name && formData.young_lastname && formData.young_contact_number &&
-                        formData.young_gender && formData.parent_name && formData.parent_lastname && formData.young_parent_relationship && formData.parent_contact_number
-                        && dynamicRegexyoung.test(formData.young_contact_number) && dynamicRegexParent.test(formData.parent_contact_number)
+                    if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
+                        formData.child_gender && formData.parent_name && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
+                        && dynamicRegexchild.test(formData.child_contact_number) && dynamicRegexParent.test(formData.parent_contact_number)
                     ) {
 
-                        if ((formData.young_NHS && !this.nhsRegex.test(formData.young_NHS))) {
+                        if ((formData.child_NHS && !this.nhsRegex.test(formData.child_NHS))) {
                             scrollToInvalidInput('remove');
                             return false;
                         }
 
-                        if ((formData.young_email && !this.emailRegex.test(formData.young_email))) {
+                        if ((formData.child_email && !this.emailRegex.test(formData.child_email))) {
                             scrollToInvalidInput('remove');
                             return false;
                         }
@@ -572,16 +572,16 @@ $(document).ready(function () {
                 else if (endpoint == "/user/updateSec3Info") {
                     this.isSection3Submitted = true;
                     var dynamicRegexPattern;
-                    if (formData.young_socialworker_contact_type == "mobile") {
+                    if (formData.child_socialworker_contact_type == "mobile") {
                         dynamicRegexPattern = this.phoneRegex
-                    } else if (formData.young_socialworker_contact_type == "landline") {
+                    } else if (formData.child_socialworker_contact_type == "landline") {
                         dynamicRegexPattern = this.landlineRegex;
                     }
-                    if (formData.young_socialworker == 'yes' && formData.young_socialworker_name == "") {
+                    if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
                         scrollToInvalidInput('remove');
                         return false;
                     }
-                    if (formData.young_socialworker == 'yes' && (formData.young_socialworker_contact && !dynamicRegexPattern.test(formData.young_socialworker_contact))) {
+                    if (formData.child_socialworker == 'yes' && (formData.child_socialworker_contact && !dynamicRegexPattern.test(formData.child_socialworker_contact))) {
                         scrollToInvalidInput('remove');
                         return false;
                     }
@@ -707,7 +707,7 @@ $(document).ready(function () {
                     this.isSection1Submitted = false;
                     this.section1Data = data;
                     this.allSectionData.section1 = data;
-                    this.section1Data.young_dob = this.convertDate(data.young_dob);
+                    this.section1Data.child_dob = this.convertDate(data.child_dob);
                 }
                 else if (section == 2) {
                     this.isSection2Submitted = false;

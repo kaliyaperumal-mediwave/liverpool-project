@@ -105,5 +105,9 @@ router.post('/user/saveYoungReferral', validateToken, youngControler.saveReferal
 router.post('/user/fetchYoungReferral', validateToken, youngControler.fetchReferral);
 // router.put('/user/updateSec4Info', validateToken, youngControler.updateSec4Info);
 
+//sec 5
+router.get('/user/fetchYoungReview/', validateToken, youngControler.fetchReview);
+router.post('/user/saveYoungReview', validateToken, youngControler.saveReview);
+router.get('/user/getRefNo', validateToken, youngControler.getRefNo);
 
 module.exports = router;
