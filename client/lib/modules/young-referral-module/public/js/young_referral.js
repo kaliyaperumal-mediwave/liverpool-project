@@ -13,7 +13,7 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
             this.userMode = this.paramValues;
-            this.dynamicLabels = getDynamicLabels(this.userRole);
+            this.dynamicLabels = getDynamicLabels(this.userRole,undefined,4);
             this.fetchSavedData();
             $('#loader').hide();
         },

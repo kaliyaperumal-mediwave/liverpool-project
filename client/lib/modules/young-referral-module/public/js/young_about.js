@@ -143,7 +143,7 @@ $(document).ready(function () {
             }
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;;
-            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined,2);
             this.isFormSubmitted = false;
             this.fetchSavedData();
             this.initMaps();

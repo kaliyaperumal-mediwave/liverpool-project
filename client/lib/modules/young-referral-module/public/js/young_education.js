@@ -65,7 +65,7 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href)
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
-            this.dynamicLabels = getDynamicLabels(this.userRole,null);
+            this.dynamicLabels = getDynamicLabels(this.userRole,null,3);
             this.fetchSavedData();
             this.initMaps();
             $('#loaderEduc').hide();

@@ -1,4 +1,4 @@
-function getDynamicLabels(currentLocation, responsibilityFlow) {
+function getDynamicLabels(currentLocation, responsibilityFlow,section_no) {
   console.log(currentLocation,responsibilityFlow)
 
   // var currentLocation = getQueryStringValue("role");
@@ -466,8 +466,11 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
   }
 
 
-
-  return allLabels;
-  return section3Labels;
-  return section2Labels;
+  if (section_no == 2) {
+    return section2Labels;
+  } else if (section_no == 3) {
+    return section3Labels;
+  } else {
+    return allLabels;
+}
 }
