@@ -321,7 +321,7 @@ $(document).ready(function () {
 
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
-                            url: API_URI + "/saveReview",
+                            url: API_URI + "/saveYoungReview",
                             type: "post",
                             dataType: 'json',
                             contentType: 'application/json',
@@ -334,8 +334,9 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.disabled = true;
+                                buttonElem.disabled = false;
                                 if (error) {
+                                    console.log(error)
                                     showError(error.responseJSON.message, error.status);
                                 }
                             }
