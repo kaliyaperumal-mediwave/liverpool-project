@@ -68,7 +68,7 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode', 'referral_type',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -76,6 +76,9 @@ exports.getReferral = ctx => {
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp_postcode'), sequelize.col('parent.registered_gp_postcode'), sequelize.col('professional.registered_gp_postcode')), 'gp_location_postcode'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
 
                 ],
                 where: query,
@@ -83,25 +86,35 @@ exports.getReferral = ctx => {
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'family',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
                 ],
                 order: order
             })
             var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
-            referrals = JSON.parse(JSON.stringify(referrals));
+            var reftest = referrals
+            var jsonStringTest = JSON.stringify(referrals)
+            //referrals = JSON.parse(JSON.stringify(referrals));
+
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            //console.log(referrals);
+            var fullName;
+            var referralFullName;
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -169,12 +182,30 @@ exports.getReferral = ctx => {
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
+
+                    if (refObj.user_role == 'family') {
+                        fullName = refObj.family[0].child_firstname + " " + refObj.family[0].child_lastname
+                        
+                    }
+                    else if (refObj.user_role == 'parent') {
+                        console.log(refObj.dataValues.referrer_name)
+                        fullName = refObj.parent[0].child_firstname + " " + refObj.parent[0].child_lastname
+                    }
+                    else if (refObj.user_role == 'professional') {
+                        if (refObj.referral_type == "young") {
+                            fullName = "Prasath"
+                        }
+                        else {
+                            fullName  = refObj.professional[0].child_firstname + " " + refObj.professional[0].child_lastname
+                        }
+
+                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + " " + refObj.lastname,
-                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        name: fullName,
+                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
+                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -183,17 +214,17 @@ exports.getReferral = ctx => {
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status
                     }
-                    if (refObj.gp_location) {
+                    if (refObj.dataValues.gp_location) {
                         //  console.log(refObj.gp_location_postcode)
-                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
-                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
+                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.dataValues .gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.gp_location.split(',');
+                            var splitLocation = refObj.dataValues.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -202,6 +233,8 @@ exports.getReferral = ctx => {
                                 }
                             }
                         }
+
+                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     referrals[index] = referralObj;
                 });
@@ -220,6 +253,7 @@ exports.getReferral = ctx => {
                         totalReferrals: totalReferrals,
                         filteredReferrals: filteredReferrals,
                         data: referrals,
+                        reftest: reftest,
                         activity: referralsActivity
                     }
                 })
@@ -687,7 +721,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-        
+
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -712,7 +746,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-        
+
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1809,9 +1843,10 @@ exports.getApiService = async (ctx) => {
                     message: reponseMessages[1009]
                 });
             }
-        }).catch(error => { 
+        }).catch(error => {
             console.log(error)
-            sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
     } catch (e) {
         console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
