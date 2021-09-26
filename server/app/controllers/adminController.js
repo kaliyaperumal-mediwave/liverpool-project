@@ -102,6 +102,13 @@ exports.getReferral = ctx => {
                         attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
+                    {
+                        model: referralModel,
+                        as: 'professional2',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        ]
+                    },
                 ],
                 order: order
             })
@@ -114,6 +121,7 @@ exports.getReferral = ctx => {
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
             var fullName;
+            var dob
             var referralFullName;
             // with search
             if (ctx.query.searchValue) {
@@ -121,17 +129,39 @@ exports.getReferral = ctx => {
                 // console.log(ctx.query.searchValue)
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
+
+                    console.log(refObj)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
+
+                    if (refObj.user_role == 'family') {
+                        refObj.dataValues.name = refObj.family[0].child_firstname;
+                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
+                        refObj.dataValues.dob = refObj.family[0].child_dob;
+                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
+                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
+
+                    }
+                    else if (refObj.user_role == 'professional') {
+                        if (refObj.referral_type == "young") {
+                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
+                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
+                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
+                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
+                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
+                        }
+                    }
+
+
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + " " + refObj.lastname,
-                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
+                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
+                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -139,18 +169,18 @@ exports.getReferral = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
+                        referral_formType:refObj.dataValues.referral_type
                     }
-                    if (refObj.gp_location) {
-                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
-                            var splitLocation = refObj.gp_location.split(',');
-                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.dataValues.gp_location) {
+                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
+                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.gp_location.split(',');
+                            var splitLocation = refObj.dataValues.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -159,6 +189,8 @@ exports.getReferral = ctx => {
                                 }
                             }
                         }
+
+                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -177,6 +209,7 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
+                    console.log(refObj.dataValues.referral_type)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
@@ -184,25 +217,25 @@ exports.getReferral = ctx => {
                     }
 
                     if (refObj.user_role == 'family') {
-                        fullName = refObj.family[0].child_firstname + " " + refObj.family[0].child_lastname
-                        
-                    }
-                    else if (refObj.user_role == 'parent') {
-                        console.log(refObj.dataValues.referrer_name)
-                        fullName = refObj.parent[0].child_firstname + " " + refObj.parent[0].child_lastname
+                        refObj.dataValues.name = refObj.family[0].child_firstname;
+                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
+                        refObj.dataValues.dob = refObj.family[0].child_dob;
+                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
+                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
+
                     }
                     else if (refObj.user_role == 'professional') {
                         if (refObj.referral_type == "young") {
-                            fullName = "Prasath"
+                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
+                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
+                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
+                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
+                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
                         }
-                        else {
-                            fullName  = refObj.professional[0].child_firstname + " " + refObj.professional[0].child_lastname
-                        }
-
                     }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: fullName,
+                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
                         dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
@@ -212,14 +245,14 @@ exports.getReferral = ctx => {
                         refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
-                        referral_status: refObj.referral_status
+                        referral_status: refObj.referral_status,
+                        referral_formType:refObj.dataValues.referral_type
                     }
                     if (refObj.dataValues.gp_location) {
-                        //  console.log(refObj.gp_location_postcode)
                         if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
                             if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.dataValues .gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
@@ -299,35 +332,52 @@ exports.getArchived = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode', 'referral_type',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp_postcode'), sequelize.col('parent.registered_gp_postcode'), sequelize.col('professional.registered_gp_postcode')), 'gp_location_postcode'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                    //[sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+
                 ],
                 where: query,
                 include: [
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'family',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'professional2',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
                 ],
                 order: order
             });
 
-            referrals = JSON.parse(JSON.stringify(referrals));
+            //referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
             // with search
@@ -340,12 +390,29 @@ exports.getArchived = ctx => {
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
+                    if (refObj.user_role == 'family') {
+                        refObj.dataValues.name = refObj.family[0].child_firstname;
+                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
+                        refObj.dataValues.dob = refObj.family[0].child_dob;
+                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
+                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
+
+                    }
+                    else if (refObj.user_role == 'professional') {
+                        if (refObj.referral_type == "young") {
+                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
+                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
+                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
+                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
+                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
+                        }
+                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + " " + refObj.lastname,
-                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
+                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
+                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -353,17 +420,18 @@ exports.getArchived = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
+                        referral_formType:refObj.dataValues.referral_type
                     }
-                    if (refObj.gp_location) {
-                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
-                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.dataValues.gp_location) {
+                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
+                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.gp_location.split(',');
+                            var splitLocation = refObj.dataValues.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -372,6 +440,8 @@ exports.getArchived = ctx => {
                                 }
                             }
                         }
+
+                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     //////console.log()(referralObj)
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -396,12 +466,30 @@ exports.getArchived = ctx => {
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
+
+                    if (refObj.user_role == 'family') {
+                        refObj.dataValues.name = refObj.family[0].child_firstname;
+                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
+                        refObj.dataValues.dob = refObj.family[0].child_dob;
+                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
+                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
+
+                    }
+                    else if (refObj.user_role == 'professional') {
+                        if (refObj.referral_type == "young") {
+                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
+                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
+                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
+                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
+                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
+                        }
+                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + " " + refObj.lastname,
-                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
+                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
+                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -409,17 +497,18 @@ exports.getArchived = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
+                        referral_formType:refObj.dataValues.referral_type
                     }
-                    if (refObj.gp_location) {
-                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
-                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.dataValues.gp_location) {
+                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
+                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.gp_location.split(',');
+                            var splitLocation = refObj.dataValues.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -428,6 +517,8 @@ exports.getArchived = ctx => {
                                 }
                             }
                         }
+
+                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     referrals[index] = referralObj;
                 });
