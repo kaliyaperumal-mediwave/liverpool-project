@@ -6,12 +6,13 @@ const _ = require('lodash');
 const config = require('../config');
 exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
+    console.log( ctx.request.body.referralData)
     try {
-        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child")
+        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
         }
-        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent")
+        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" ||   ctx.request.body.referralData.role == "Family")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/parent_referralSendTemplate.html`), 'utf8');
         }
