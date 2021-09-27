@@ -8,11 +8,11 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
     console.log( ctx.request.body.referralData)
     try {
-        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young")
+        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young" || ctx.request.body.referralData.role == "young")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
         }
-        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" ||   ctx.request.body.referralData.role == "Family")
+        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" ||   ctx.request.body.referralData.role == "Family" || ctx.request.body.referralData.role == "family")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/parent_referralSendTemplate.html`), 'utf8');
         }

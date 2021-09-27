@@ -206,10 +206,13 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.parenting_email
         } else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
+        } else if (ctx.request.body.emailToProvider == "newForm") {
+            toAddress = config.new_form
         }
+
         else {
             toAddress = ctx.request.body.emailToProvider;
-            ctx.request.body.refCode =ctx.request.body.referralCode
+            ctx.request.body.refCode = ctx.request.body.referralCode
             sendProf = true;
         }
         console.log('toAddress----------', toAddress);
@@ -403,7 +406,7 @@ function getCSVData(ctx) {
             },
         ];
     }
-    else if (ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young" ) {
+    else if (ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young") {
         var householdMembers = [];
         for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
             var name = ctx.request.body.referralData.section2.household_member[index].name;

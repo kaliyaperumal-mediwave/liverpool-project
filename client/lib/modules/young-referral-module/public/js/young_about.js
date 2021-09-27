@@ -686,7 +686,7 @@ $(document).ready(function () {
                     $('#loader').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/review";
+                            location.href = "/young-referral/review";
                         }
                         else {
                             var url = location.href;

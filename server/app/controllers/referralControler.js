@@ -2672,6 +2672,8 @@ exports.updateSec3Info = ctx => {
     child_socialworker_firstname: ctx.request.body.section3Data.child_socialworker_firstname,
     child_socialworker_lastname: ctx.request.body.section3Data.child_socialworker_lastname,
     child_socialworker_contact_type: ctx.request.body.section3Data.child_socialworker_contact_type,
+    careLeaver: ctx.request.body.section3Data.careLeaver,
+
   },
     {
       where: {
@@ -2682,7 +2684,7 @@ exports.updateSec3Info = ctx => {
         where: {
           id: ctx.request.body.section3Data.child_id,
         },
-        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
+        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
       }).then((eduResult) => {
         return ctx.res.ok({
           data: eduResult,
@@ -2706,6 +2708,7 @@ exports.updateSec4Info = ctx => {
     food_fluid_intake: ctx.request.body.section4Data.food_fluid_intake,
     height: ctx.request.body.section4Data.height,
     weight: ctx.request.body.section4Data.weight,
+    about_our_service:ctx.request.body.section4Data.about_our_service,
   },
     {
       where: {

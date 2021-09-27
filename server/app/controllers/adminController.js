@@ -941,7 +941,7 @@ function getRefData(refID, refRole, ctx) {
     const referral = ctx.orm().Reason
     var includeModalName;
     console.log("---------------------", ctx.query.refRole)
-    if (refRole == "Child" || refRole == "child" || refRole == "Young") {
+    if (refRole == "Child" || refRole == "child" || refRole == "Young" || refRole == "young") {
         if (refRole == "Child" || refRole == "child") {
             includeModalName = "parent";
         }
@@ -1123,7 +1123,7 @@ function getRefData(refID, refRole, ctx) {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
-    else if (refRole == "Parent" || refRole == "parent" || refRole == "Family") {
+    else if (refRole == "Parent" || refRole == "parent" || refRole == "Family" || refRole == "family") {
         if (refRole == "Parent" || refRole == "parent") {
             includeModalName = "parent";
         }

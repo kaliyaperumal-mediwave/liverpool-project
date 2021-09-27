@@ -1,9 +1,9 @@
 var API_URI = "/modules/young-referral-module";
 
-window.history.forward();
-function noBack() {
-    window.history.forward();
-}
+// window.history.forward();
+// function noBack() {
+//     window.history.forward();
+// }
 
 $(document).ready(function () {
     var app = new Vue({

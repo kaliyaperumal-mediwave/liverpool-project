@@ -1983,7 +1983,7 @@ console.log(ctx.query)
           where: {
             id: eligibilityObj.id,
           },
-          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
         }).then((educationObj) => {
 
           eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
@@ -2436,22 +2436,23 @@ exports.saveReview = ctx => {
           role: ctx.request.body.role,
           refNo: uniqueNo
         }
-        return ctx.body = responseData;
+        //return ctx.body = responseData;
         // if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
         //   ctx.query.selectedProvider = "MHST";
         // }
         if (ctx.request.body.referral_provider != "") {
           console.log("ref ----------------------------------------------------- " + ctx.request.body.referral_provider)
-          if (ctx.request.body.referral_provider == "Mental Health Support Team") {
-            ctx.query.selectedProvider = "MHST";
-          }
-          else {
-            ctx.query.selectedProvider = ctx.request.body.referral_provider;
-          }
-
+          // if (ctx.request.body.referral_provider == "Mental Health Support Team") {
+          //   ctx.query.selectedProvider = "MHST";
+          // }
+          // else {
+          //   ctx.query.selectedProvider = ctx.request.body.referral_provider;
+          // }
+          ctx.query.selectedProvider = "newForm";
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
+          ctx.query.formType = "young"
           // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
@@ -2543,6 +2544,7 @@ exports.getRefNo = ctx => {
     return ctx.body = result;
   })
 }
+/*
 exports.updateAboutInfo = ctx => {
   const user = ctx.orm().Referral;
   return user.update({
@@ -2800,6 +2802,7 @@ exports.updateEligibilityInfo = ctx => {
         });
     })
 }
+*/
 
 //for login user
 
@@ -2946,12 +2949,7 @@ exports.getIncompleteReferral = ctx => {
 }
 exports.getUserReferral = ctx => {
   const ref = ctx.orm().Referral;
-  var query = {
-    referral_progress: {
-      [Op.ne]: null
-    },
-    referral_complete_status: ctx.query.referralType
-  }
+
   if (ctx.request.decryptedUser) {
     query.login_id = ctx.request.decryptedUser.id;
   }
