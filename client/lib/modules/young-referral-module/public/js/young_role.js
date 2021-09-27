@@ -982,9 +982,13 @@ $(document).ready(function () {
                         }
                     }
                     else if (roleText == 'professional') {
+                        console.log(age)
+                        console.log(age<18)
                         if (age < 18) {
+                            console.log(age)
+                        console.log(age<18)
                             this.elgibilityObj.profBelowAgeLimit = "yes";
-                            this.elgibilityObj.profaboveLimit = "";
+                            this.elgibilityObj.profaboveLimit = "no";
                             this.elgibilityObj.familyConcern = "";
                             this.elgibilityObj.contactProffamily = "";
                             this.elgibilityObj.familyConcernInformation = "";
@@ -1015,8 +1019,9 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'family') {
-                        console.log(age)
+                       
                         if (age < 18) {
+                            this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";

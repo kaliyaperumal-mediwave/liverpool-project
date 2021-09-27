@@ -289,6 +289,28 @@
                 </div>
             </form>
             {% endraw %}
+
+            {% raw %}
+            <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
+                <div v-show="(elgibilityObj.role == 'family' && elgibilityObj.youngDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">If you are under 18 you will need your
+                                family/friend's to complete this referral.
+                            </p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
+                                form from
+                                the beginning on your behalf</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
@@ -1385,8 +1407,31 @@
             {% endraw %}
 
             {% raw %}
+            <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
+                <div v-show="(elgibilityObj.role == 'professional' && elgibilityObj.profyoungDob!=null) &&  elgibilityObj.profBelowAgeLimit == 'yes'"
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">If you are under 18 you will need your
+                                family/friend's to complete this referral.
+                            </p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
+                                form from
+                                the beginning on your behalf</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endraw %}
+            
+
+            {% raw %}
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
-                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profyoungDob!=''"
+                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'no' && elgibilityObj.profyoungDob!='null'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the young person's family/friend's for
