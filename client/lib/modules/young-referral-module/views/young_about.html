@@ -700,7 +700,7 @@
                 <!-- Reset Flow Start -->
 
                 <!-- Parental Responsibility start -->
-                <form id="parentResy-form" data-options="parentialResponsibility">
+                <!-- <form id="parentResy-form" data-options="parentialResponsibility">
                     <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -722,11 +722,11 @@
                             </label>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- Parental Responsibility end -->
 
                 <!-- Parental Responsibility Toaster container start-->
-                <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-2 px-lg-0 py-4">
+                <!-- <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-2 px-lg-0 py-4">
                     <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -737,11 +737,11 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Parental Responsibility Toaster container end -->
 
                 <!-- Parent or Carer First Name Start -->
-                <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
+                <!-- <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -766,11 +766,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- Parent or Carer First Name End -->
 
                 <!-- Parent or Carer end Name Start -->
-                <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
+                <!-- <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -795,12 +795,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- Parent or Carer end Name End -->
 
 
-                <div
-                    v-show="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
+                <div>
                     <!-- Parent or Carer Relationship Start -->
                     <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
                         <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
@@ -897,8 +896,7 @@
 
                 <!-- Live In Same House Start -->
                 <form id="sameHouse-form" data-options="sameHouse">
-                    <div v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'"
-                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.sameHouseLabel}}
                         </p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -1045,19 +1043,11 @@
                     && aboutObj.youngCareAdult
                     && aboutObj.parentFirstName
                     && aboutObj.parentLastName
-                    && (
-                            (aboutFormData.parentialResponsibility =='yes' && (
+                    && ((
                                 aboutFormData.relationshipToYou
                                 && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
                                 && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
-                            ))
-                        || (aboutFormData.parentialResponsibility =='no' && (
-                                aboutFormData.parentCarerFirstName
-                                && aboutFormData.parentCarerLastName
-                                && aboutFormData.relationshipToYou
-                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
-                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
-                            ))
+                            )
                         )
                     && aboutFormData.sameHouse
                     && aboutObj.sexAssignedAtBirth
