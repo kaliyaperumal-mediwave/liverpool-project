@@ -35,9 +35,9 @@ $(document).ready(function () {
                 referral_mode: 1,
             },
             aboutFormData: {
-               // parentialResponsibility: "",
+                // parentialResponsibility: "",
                 // parentCarerFirstName: "",
-               // parentCarerLastName: "",
+                // parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
                 emailAddress: "",
@@ -252,7 +252,7 @@ $(document).ready(function () {
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data.family[0].parental_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.family[0].parental_responsibility)
                         // Vue.set(this.aboutFormData, "parentCarerFirstName", data.family[0].responsibility_parent_firstname);
-                       // Vue.set(this.aboutFormData, "parentCarerLastName", data.family[0].responsibility_parent_lastname);
+                        // Vue.set(this.aboutFormData, "parentCarerLastName", data.family[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.family[0].child_parent_relationship);
                         if (data.family[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data.family[0].parent_contact_type);
@@ -319,7 +319,7 @@ $(document).ready(function () {
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         //  Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
-                       // Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
+                        // Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
@@ -429,7 +429,6 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-                debugger
                 this.isFormSubmitted = true;
                 // var dynamicRegexyoung;
                 // var dynamicRegexParent;
