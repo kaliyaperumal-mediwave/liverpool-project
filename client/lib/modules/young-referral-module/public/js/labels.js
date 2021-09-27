@@ -64,7 +64,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.aboutYouLabel = "About you";
     section2Labels.houseHoldLabel = "Your household";
     section2Labels.houseHoldAddMemberLabel = "Add your household members";
-    section2Labels.carerLabel = "Your parent/carer details";
+    section2Labels.carerLabel = "Your emergency contact";
     section2Labels.nhsLabel = "Your NHS number";
     section2Labels.youngTitleLabel = "What is your title?";
     section2Labels.youngTitlePlaceHoldTitle = "Select your title"
@@ -103,10 +103,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.lastNameLabel = "Your last name";
     section2Labels.lastNamePlacLabel = "Enter your last name";
 
-    section2Labels.yourFirstNameLabel = "What is your parent / carer’s first name?";
-    section2Labels.yourFirstNamePlacLabel = "Enter this person’s first name";
-    section2Labels.yourLastNameLabel = "What is your parent / carer’s last name?";
-    section2Labels.yourLastNameLabelPlacLabel = "Enter this person’s last name";
+    section2Labels.yourFirstNameLabel = "What is your emergency contact first name?";
+    section2Labels.yourFirstNamePlacLabel = "Enter the emergency contact first name";
+    section2Labels.yourLastNameLabel = "What is your emergency contact last name?";
+    section2Labels.yourLastNameLabelPlacLabel = "Enter the emergency contact last name";
 
     section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is your parent or carer's last name?";
@@ -126,7 +126,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.aboutYouLabel = "About your young";
     section2Labels.houseHoldLabel = "Your young's household";
     section2Labels.houseHoldAddMemberLabel = "Add your young's household members";
-    section2Labels.carerLabel = "Your details";
+    section2Labels.carerLabel = "Your emergency contact";
     section2Labels.nhsLabel = "Your young's NHS number";
     section2Labels.youngTitleLabel = "What is your young person's title?";
     section2Labels.youngTitlePlaceHoldTitle = "Select your young person's title"
@@ -158,10 +158,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.lastNameLabel = "Your young's last name";
     section2Labels.lastNamePlacLabel = "Enter your young's last name";
 
-    section2Labels.yourFirstNameLabel = "What is your first name?";
-    section2Labels.yourFirstNamePlacLabel = "Enter your first name";
-    section2Labels.yourLastNameLabel = "What is your last name?";
-    section2Labels.yourLastNameLabelPlacLabel = "Enter your last name";
+    section2Labels.yourFirstNameLabel = "What is your emergency contact first name?";
+    section2Labels.yourFirstNamePlacLabel = "Enter your emergency contact first name";
+    section2Labels.yourLastNameLabel = "What is your emergency contact last name?";
+    section2Labels.yourLastNameLabelPlacLabel = "Enter your emergency contact last name";
 
     section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
@@ -183,7 +183,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.aboutYouLabel = "About the young person";
     section2Labels.houseHoldLabel = "The young person's household";
     section2Labels.houseHoldAddMemberLabel = "Add young person's household members";
-    section2Labels.carerLabel = "young person's parent/carer details";
+    section2Labels.carerLabel = "Young person's emergency contact";
     section2Labels.nhsLabel = "The young person's NHS number";
     section2Labels.youngTitleLabel = "What is the young person's title?";
     section2Labels.youngTitlePlaceHoldTitle = "Select the young person's title"
@@ -229,10 +229,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.lastNameLabel = "The young person's last name";
     section2Labels.lastNamePlacLabel = "Enter young person's last name";
 
-    section2Labels.yourFirstNameLabel = "What is the first name of the young person's parent / carer?";
-    section2Labels.yourFirstNamePlacLabel = "Enter the person’s first name";
-    section2Labels.yourLastNameLabel = "What is the last name of the young person's parent / carer?";
-    section2Labels.yourLastNameLabelPlacLabel = "Enter the person’s last name";
+    section2Labels.yourFirstNameLabel = "What is the first name of the young person's emergency contact?";
+    section2Labels.yourFirstNamePlacLabel = "Enter the emergency contact first name";
+    section2Labels.yourLastNameLabel = "What is the last name of the young person's emergency contact?";
+    section2Labels.yourLastNameLabelPlacLabel = "Enter the emergency contact last name";
 
     section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
