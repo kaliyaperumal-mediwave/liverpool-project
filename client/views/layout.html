@@ -105,6 +105,15 @@ endblock %} {% block extraHead %}
   });
 </script>
 
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{data.ga_code}}');</script>
+<!-- End Google Tag Manager -->
+
+
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
@@ -113,6 +122,9 @@ endblock %} {% block extraHead %}
 {% endblock %}
 {% block bodyClass %}bodyclass{% endblock %}
 {% block beforeMain %}
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{data.ga_code}}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
@@ -179,9 +191,11 @@ endblock %} {% block extraHead %}
         </div>
         <!-- Side Drawer content -->
         <div class="slider-container">
+          {% if data.showHome %}
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
           </div>
+          {% endif %}
           <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
             <a class="text-decoration-none">Referrals</a>
@@ -437,7 +451,9 @@ endblock %} {% block extraHead %}
   <p id="prof_data" class="d-none">{{data.prof_data}}</p>
   <!-- Dont remove this line. it is used in check a referral page -->
   <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
+  <p id="loginLoginType" class="d-none">{{data.loginAdminType}}</p>
   <p id="sessionExp">{{data.sessionExp}}</p>
+  <p id="loginAsAdmin" class="d-none">{{data.loginAsAdmin}}</p>
 
   <div class="d-none">
     <button type="button" onclick="downloadJson()">Download Json!</button>

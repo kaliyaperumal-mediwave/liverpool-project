@@ -29,6 +29,9 @@ module.exports = {
       }));
     };
     self.serviceAdmin = function (req, callback) {
+      console.log(req.session.loginData.data.sendUserResult.service_admin_type )
+      req.data.showLogout = true;
+      req.data.loginAsAdmin = req.session.loginData.data.sendUserResult.service_admin_type ;
       return self.sendPage(req, self.renderer('serviceAdmin', {
         superAdmin: true,
         adminPanel: true,
@@ -38,6 +41,9 @@ module.exports = {
     require('../../middleware')(self, options);
 
     self.admin = function (req, callback) {
+      console.log("page land admin  page")
+      console.log(req.session.loginData)
+      req.data.loginAdminType = req.session.loginData.data.sendUserResult.role ;
       console.log("page land admin  page")
       return self.sendPage(req, self.renderer('admin', {
         superAdmin: true,

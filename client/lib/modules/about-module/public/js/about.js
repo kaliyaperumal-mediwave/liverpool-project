@@ -130,7 +130,7 @@ $(document).ready(function () {
             dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
             formatter: '',
-            hasValidDate: false
+            hasValidDate: false,
         },
         beforeMount: function () {
             $('#loader').show();
@@ -488,6 +488,9 @@ $(document).ready(function () {
                         if (this.userRole == 'child' || this.userRole == 'parent') {
                             delete this.payloadData.aboutData.referral_mode;
                         }
+                        if (this.editPatchFlag) {
+                            this.payloadData.editFlag = this.editPatchFlag
+                        }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
@@ -508,7 +511,6 @@ $(document).ready(function () {
                         else {
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
                         }
-
                         this.upsertAboutYouForm(this.payloadData);
                     } else {
                         scrollToInvalidInput();
@@ -704,8 +706,13 @@ $(document).ready(function () {
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
                 console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
+                console.log(this.houseHoldData)
                 var houseHoldForm = this.houseHoldData;
+                var dateFormat = "DD/MM/YYYY"
+                var utc = moment(houseHoldForm.dob, dateFormat, true)
+                // this.isCheckUtcUtc = utc.isValid();
                 var modal = document.getElementById('closeModalRaj');
+                console.log(this.dateRegex.test(houseHoldForm.dob))
                 if (houseHoldForm.name && houseHoldForm.lastName) {
                     if (this.showManualAddressHouseHold) {
                         if (houseHoldForm.manualAddress.profession && houseHoldForm.manualAddress.addressLine1 && houseHoldForm.manualAddress.city &&
@@ -733,7 +740,7 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
@@ -756,7 +763,6 @@ $(document).ready(function () {
                             return;
                         }
                     } else {
-                        //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
                             if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
@@ -766,10 +772,6 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                            //     modal.removeAttribute("data-dismiss", "modal");
-                            //     return false;
-                            // }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -791,7 +793,7 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            // if (!this.isFutureDate(houseHoldForm.dob) || this.isCheckUtc) {
                             //     modal.removeAttribute("data-dismiss", "modal");
                             //     return false;
                             // }
@@ -842,20 +844,30 @@ $(document).ready(function () {
 
             checkValidDateMine: function (e) {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
-                if (this.isValidDate(e.target.value)) {
-                    var dateValue = e.target.value;
-                    var dateFormat = "DD/MM/YYYY"
-                    var utc = moment(dateValue, dateFormat, true)
-                    var isUtc = utc.isValid();
-                    var currentYear = new Date().getFullYear();
-                    var setYearValue = dateValue.split('/');
-                    var getYearValue = setYearValue[2];
-                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value) || !isUtc) {
-                            this.hasValidDate = true;
-                            this.houseHoldData.dob = e.target.value;
+                if (e.target.value.length >= 10) {
+                    if (this.isValidDate(e.target.value)) {
+                        var dateValue = e.target.value;
+                        var dateFormat = "DD/MM/YYYY"
+                        var utc = moment(dateValue, dateFormat, true)
+                        var isUtc = utc.isValid();
+                        var currentYear = new Date().getFullYear();
+                        var setYearValue = dateValue.split('/');
+                        var getYearValue = setYearValue[2];
+                        if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                            if (this.isFutureDate(e.target.value) || !isUtc) {
+                                this.hasValidDate = true;
+                                this.houseHoldData.dob = e.target.value;
+                            } else {
+                                this.hasValidDate = false;
+                                this.houseHoldData.profession = '';
+                                manualHouseHoldText.innerText = "Enter manually";
+                                this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                                this.showManualAddressHouseHold = false;
+                                this.resetHouseholdManualAddressValue();
+                            }
+
                         } else {
-                            this.hasValidDate = false;
+                            this.hasValidDate = true;
                             this.houseHoldData.profession = '';
                             manualHouseHoldText.innerText = "Enter manually";
                             this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
@@ -871,15 +883,15 @@ $(document).ready(function () {
                         this.showManualAddressHouseHold = false;
                         this.resetHouseholdManualAddressValue();
                     }
-
                 } else {
-                    this.hasValidDate = true;
+                    this.hasValidDate = false;
                     this.houseHoldData.profession = '';
                     manualHouseHoldText.innerText = "Enter manually";
                     this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                     this.showManualAddressHouseHold = false;
                     this.resetHouseholdManualAddressValue();
                 }
+
             },
 
             checkValidDate: function (id, obj, key) {

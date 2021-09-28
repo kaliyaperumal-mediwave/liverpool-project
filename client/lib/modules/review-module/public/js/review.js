@@ -248,7 +248,6 @@ $(document).ready(function () {
 
             save: function () {
                 var buttonElem = document.querySelector('#acceptBtn');
-                buttonElem.disabled = true;
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 this.payloadData.contact_person = this.contact_person;
@@ -266,6 +265,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
 
+                        buttonElem.setAttribute('disabled', true)
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
                             url: API_URI + "/saveReview",
@@ -281,23 +281,15 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.disabled = false;
+                                buttonElem.removeAttribute('disabled')
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
                             }
                         });
 
-                        //var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        // if (Object.keys(successData)) {
-                        //     location.href = "/acknowledge";
-                        //     this.isFormSubmitted = false;
-                        //     $('#loader').hide();
-                        // } else {
-                        //     $('#loader').hide();
-                        // }
                     } else {
-                        // scrollToInvalidInput();
+                        buttonElem.removeAttribute('disabled')
                         return false;
                     }
 
@@ -318,7 +310,7 @@ $(document).ready(function () {
                         else if (this.section1Data.selected_service == "") {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
-
+                        buttonElem.setAttribute('disabled', true);
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
                             url: API_URI + "/saveReview",
@@ -334,22 +326,15 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.disabled = true;
+                                buttonElem.removeAttribute('disabled')
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
                             }
                         });
-                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        // if (Object.keys(successData)) {
-                        //     location.href = "/acknowledge";
-                        //     this.isFormSubmitted = false;
-                        // } else {
-                        //     $('#loader').hide();
-                        // }
                     } else {
                         // scrollToInvalidInput();
-                        buttonElem.disabled = true;
+                        buttonElem.removeAttribute('disabled')
                         return false;
                     }
                 }

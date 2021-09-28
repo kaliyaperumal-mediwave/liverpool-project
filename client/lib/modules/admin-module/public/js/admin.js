@@ -48,6 +48,7 @@ $(document).ready(function () {
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
       integrationData: "",
+      loggedServiceAdmin: "",
       hasValidDate1: false,
       hasValidDate2: false
     },
@@ -71,6 +72,16 @@ $(document).ready(function () {
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
+      console.log(document.getElementById('loginAsAdmin').innerHTML)
+      if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
+        this.loggedServiceAdmin = "Accepted - Alder Hey";
+      }
+      else if (document.getElementById('loginAsAdmin').innerHTML == "admin") {
+        this.loggedServiceAdmin = document.getElementById('loginAsAdmin').innerHTML;
+      }
+      else {
+        this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
+      }
       if (this.archivePage == 'true') {
         this.urlToLoadData = '/modules/admin-module/getArchived'
       }
@@ -206,8 +217,7 @@ $(document).ready(function () {
           console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
-          if(_self.hasValidDate1 || _self.hasValidDate2)
-          {
+          if (_self.hasValidDate1 || _self.hasValidDate2) {
             return false;
           }
           if (_self.fromDateCsv && _self.toDateCsv) {
@@ -217,13 +227,23 @@ $(document).ready(function () {
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
                 console.log('from and to', getFromData, getToData)
+                var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
                 console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
-                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
+                  if (result.data.filter_referrals[i].referral_provider_other) {
+                    alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
+                  }
+                  else {
+                    alterOtherTeam = result.data.filter_referrals[i].referral_status
+                  }
+                  console.log(result.data.filter_referrals[i].activity_action)
+                  const current_status = result.data.filter_referrals[i].referral_current_status
+                  const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
@@ -235,8 +255,9 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
                         result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
+                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
+                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
                     result.data.filter_referrals[i].activity_user,
@@ -299,6 +320,11 @@ $(document).ready(function () {
         this.referral_ids = [];
         $('#loader').hide();
       },
+
+       capitalizeFirstLetter: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+      
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -470,16 +496,20 @@ $(document).ready(function () {
           if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
             if (this.isFutureDate(e.target.value) || !isUtc) {
               this[type] = true;
+              this.showInvalidToDate = false;
             } else {
               this[type] = false;
+              this.showInvalidToDate = false;
             }
 
           } else {
             this[type] = true;
+            this.showInvalidToDate = false;
           }
 
         } else {
           this[type] = true;
+          this.showInvalidToDate = false;
 
         }
       },
@@ -658,31 +688,41 @@ function downloadCSV(uuid, value, other_value) {
 
 function updateStatus(uuid) {
   $('#loader').show();
-  setTimeout(function () {
-    var status = $('#SelectedProviderStatus').val();
-    var postData = {
-      referral_id: uuid,
-      status: status
-    }
-    if (status === 'Referral to other team') {
-      postData.other = $('#statusOther').val();
-    }
-    var successData = apiCallPut('put', '/referralStatusUpdate', postData);
-    if (successData && Object.keys(successData)) {
-      document.getElementById("statusOther").value = '';
-      $('#changeStatusModal').modal('hide');
-      $('#statusUpdatedSuccess').modal('show');
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-    }
-    else {
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-      $('#changeStatusModal').modal('hide');
-    }
-  }, 500);
+  var status = $('#SelectedProviderStatus').val();
+  console.log(status)
+  if (status) {
+    setTimeout(function () {
+      var postData = {
+        referral_id: uuid,
+        status: status
+      }
+      if (status === 'Referral to other team') {
+        postData.other = $('#statusOther').val();
+      }
+      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+      if (successData && Object.keys(successData)) {
+        document.getElementById("statusOther").value = '';
+        $('#changeStatusModal').modal('hide');
+        $('#statusUpdatedSuccess').modal('show');
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else {
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+        $('#changeStatusModal').modal('hide');
+      }
+    }, 500);
+  }
+  else {
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 500);
+    return false;
+  }
+
 }
 
 
@@ -733,8 +773,6 @@ function sendPdf(uuid, role, refCode,formType) {
     error: function (error) {
       $('#loader').hide();
       buttonElem.disabled = false;
-      console.log(error)
-      console.log(error.responseJSON.data.data)
       $('#sendProviderModal').modal('hide');
       if (error) {
         showError(error.responseJSON.message, error.status);

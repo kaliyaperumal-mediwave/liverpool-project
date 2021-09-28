@@ -107,6 +107,7 @@ module.exports = {
       req.session.user_role = req.params.role;
       req.session.uuid = req.params.uuid;
       req.session.frm_ref_home = "Y";
+      delete req.session.referralCode
       return res.send(req.params.refProgress);
     });
   }

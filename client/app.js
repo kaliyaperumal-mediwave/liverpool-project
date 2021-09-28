@@ -32,7 +32,8 @@ var apos = require("apostrophe")({
        // 'phr-module': 'https://192.168.0.67:3010'
       "useVenusIaptusAPI": process.env.useVenusIaptusAPI,
       "apiIntegrationPassword": process.env.apiIntegrationPassword,
-
+      'blobStorage' : process.env.AZURE_DOMAIN_PATH,
+     
     },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING,

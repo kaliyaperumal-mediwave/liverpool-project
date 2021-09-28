@@ -980,7 +980,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: eligibilityObj.id,
                     },
-                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                 }).then((educationObj) => {
                     
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
@@ -1174,7 +1174,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
+                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                             },
                         ],
                         where: {
@@ -1275,6 +1275,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_socialworker_lastname: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_lastname : edu_empObj[0].family[0].child_socialworker_lastname,
                                 child_socialworker_contact: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact : edu_empObj[0].family[0].child_socialworker_contact,
                                 child_socialworker_contact_type: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact_type : edu_empObj[0].family[0].child_socialworker_contact_type,
+                                careLeaver: edu_empObj[0].parent ? edu_empObj[0].parent[0].careLeaver : edu_empObj[0].family[0].careLeaver,
                             }
 
 
@@ -1417,8 +1418,6 @@ function getRefData(refID, refRole, ctx) {
                 attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode']
             }).then((elgibilityObj) => {
 
-                console.log(elgibilityObj.professional2[0])
-
                 var childIdNew;
                 var childId
                 if (ctx.query.formType == 'child') {
@@ -1456,7 +1455,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                             },
                         ],
                         where: {
@@ -1560,6 +1559,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_lastname: edu_empObj[0].professional[0].child_socialworker_lastname,
                                     child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
                                     child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
+                                    careLeaver: edu_empObj[0].professional[0].careLeaver,
                                 }
 
                                  getChildDob = convertDate(elgibilityObj.professional[0].child_dob);
@@ -1641,6 +1641,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_lastname: edu_empObj[0].professional2[0].child_socialworker_lastname,
                                     child_socialworker_contact: edu_empObj[0].professional2[0].child_socialworker_contact,
                                     child_socialworker_contact_type: edu_empObj[0].professional2[0].child_socialworker_contact_type,
+                                    careLeaver: edu_empObj[0].professional2[0].careLeaver,
                                 }
                                 getChildDob = convertDate(elgibilityObj.professional2[0].child_dob);
                                  getChildAge = calculateAge(elgibilityObj.professional2[0].child_dob);
@@ -1757,6 +1758,9 @@ function getRefData(refID, refRole, ctx) {
 
 exports.referralStatusUpdate = async (ctx) => {
     const t = await ctx.orm().sequelize.transaction();
+    console.log(ctx.request.body.status)
+    console.log(ctx.request.body)
+    console.log(ctx.request.decryptedUsers)
     try {
         const referralModel = ctx.orm().Referral;
         const referralActivityModel = ctx.orm().referralActivity;
@@ -1764,8 +1768,11 @@ exports.referralStatusUpdate = async (ctx) => {
             referral_status: ctx.request.body.status
         }
 
-        if (ctx.request.body.status === 'Referral to other team' || ctx.request.body.status === 'Accepted by') {
+        if (ctx.request.body.status === 'Referral to other team') {
             updateValue.referral_provider_other = ctx.request.body.other;
+        }
+        if (ctx.request.body.status && (ctx.request.body.status).substring(0, 8) === 'Accepted') {
+            updateValue.referral_provider_other = ctx.request.decryptedUser.service_type
         }
 
         if (ctx.request.body.activity && ctx.request.body.activity.activity === 'Referral viewed') {
@@ -1886,7 +1893,7 @@ exports.getActivity = async (ctx) => {
             { model: ctx.orm().User, as: 'userInfo' },
             {
                 model: ctx.orm().Referral, as: 'referralInfo', attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status',
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_firstname'), sequelize.col('referralInfo.professional.child_firstname'), sequelize.col('referralInfo.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_lastname'), sequelize.col('referralInfo.professional.child_lastname'), sequelize.col('referralInfo.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp'), sequelize.col('referralInfo.parent.registered_gp'), sequelize.col('referralInfo.professional.registered_gp')), 'gp_location'],
@@ -1928,7 +1935,7 @@ exports.getActivity = async (ctx) => {
         }
         var referrals = await referralModel.findAll({
             attributes: [
-                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode',
+                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'referral_complete_status', 'registered_gp_postcode',
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -1943,14 +1950,14 @@ exports.getActivity = async (ctx) => {
                 {
                     model: referralModel,
                     as: 'parent',
-                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
                     ]
                 },
                 {
                     model: referralModel,
                     as: 'professional',
                     attributes: [
-                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
                     ]
                 },
             ],
@@ -1983,7 +1990,7 @@ exports.getActivity = async (ctx) => {
             } else {
                 refObj.referral_provider = refObj.referral_provider
             }
-            console.log(refObj.updatedAt, "refObj.updatedAt");
+            console.log(refObj.dataValues.referral_complete_status, "refObj.dataValues.referral_complete_status==========");
             var referralObj = {
                 uuid: refObj.uuid,
                 name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
@@ -1997,6 +2004,7 @@ exports.getActivity = async (ctx) => {
                 referral_provider: refObj.referral_provider,
                 referral_provider_other: refObj.referral_provider_other,
                 referral_status: refObj.dataValues.referral_status,
+                referral_current_status: (refObj.dataValues.referral_complete_status == 'completed') ? 'active' : refObj.dataValues.referral_complete_status,
                 activity_date: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('DD/MM/YYYY') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('DD/MM/YYYY'),
                 activity_time: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('H:mm:ss'),
                 activity_user: obj.referralInfo ? (obj.userInfo.first_name + ' ' + obj.userInfo.last_name) : '',
@@ -2102,6 +2110,76 @@ exports.getApiService = async (ctx) => {
                     message: reponseMessages[1009]
                 });
             }
+        }).catch(error => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    } catch (e) {
+        console.log(e)
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+exports.getCount = async (ctx) => {
+    console.log("-------------------------------------------------get count")
+    const referralModel = ctx.orm().Referral;
+    const userModel = ctx.orm().User;
+
+    try {
+        return userModel.count({
+
+        }).then((userCount) => {
+            console.log(userCount)
+
+            try {
+                return referralModel.count({
+                    where:
+                        { 
+                            referral_complete_status: {
+                                [sequelize.Op.in]: ['completed','archived','deleted']
+                            }
+                        }
+                }
+                ).then((completedReferralCount) => {
+                    console.log(completedReferralCount)
+                    try {
+                        return referralModel.count({
+                            where:
+                                { 
+                                    referral_complete_status: {
+                                        [sequelize.Op.in]: ['incomplete']
+                                    }
+                                }
+                        }
+                        ).then((incompletedReferralCount) => {
+                            console.log(incompletedReferralCount)
+
+                            return ctx.res.ok({
+                                data: { 
+                                    Complted_Referrals: completedReferralCount,
+                                    Partial_Referrals: incompletedReferralCount,
+                                    Total_Users : userCount
+                                 }
+                            });
+        
+                        }).catch(error => {
+                            console.log(error)
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+                    } catch (e) {
+                        console.log(e)
+                        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+                    }
+
+                }).catch(error => {
+                    console.log(error)
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            } catch (e) {
+                console.log(e)
+                return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+            }
+
         }).catch(error => {
             console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
