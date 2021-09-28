@@ -980,7 +980,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: eligibilityObj.id,
                     },
-                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                 }).then((educationObj) => {
                     
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
@@ -1174,7 +1174,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
+                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                             },
                         ],
                         where: {
@@ -1275,6 +1275,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_socialworker_lastname: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_lastname : edu_empObj[0].family[0].child_socialworker_lastname,
                                 child_socialworker_contact: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact : edu_empObj[0].family[0].child_socialworker_contact,
                                 child_socialworker_contact_type: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact_type : edu_empObj[0].family[0].child_socialworker_contact_type,
+                                careLeaver: edu_empObj[0].parent ? edu_empObj[0].parent[0].careLeaver : edu_empObj[0].family[0].careLeaver,
                             }
 
 
@@ -1417,8 +1418,6 @@ function getRefData(refID, refRole, ctx) {
                 attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode']
             }).then((elgibilityObj) => {
 
-                console.log(elgibilityObj.professional2[0])
-
                 var childIdNew;
                 var childId
                 if (ctx.query.formType == 'child') {
@@ -1456,7 +1455,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
                             },
                         ],
                         where: {
@@ -1560,6 +1559,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_lastname: edu_empObj[0].professional[0].child_socialworker_lastname,
                                     child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
                                     child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
+                                    careLeaver: edu_empObj[0].professional[0].careLeaver,
                                 }
 
                                  getChildDob = convertDate(elgibilityObj.professional[0].child_dob);
@@ -1641,6 +1641,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_lastname: edu_empObj[0].professional2[0].child_socialworker_lastname,
                                     child_socialworker_contact: edu_empObj[0].professional2[0].child_socialworker_contact,
                                     child_socialworker_contact_type: edu_empObj[0].professional2[0].child_socialworker_contact_type,
+                                    careLeaver: edu_empObj[0].professional2[0].careLeaver,
                                 }
                                 getChildDob = convertDate(elgibilityObj.professional2[0].child_dob);
                                  getChildAge = calculateAge(elgibilityObj.professional2[0].child_dob);
