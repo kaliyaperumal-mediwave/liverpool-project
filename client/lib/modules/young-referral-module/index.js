@@ -90,7 +90,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('young_education', {
         headerContent: "Section 3 of 5: Education, employment & support needs",
         headerDescription: "We also need details about school & employment",
-        backContent: '/young-referral/about?' + decryptedUrl,
+        backContent: '/young-referral/youngAbout?' + decryptedUrl,
         home: false,
         showHeader: true,
         //completed: true,
