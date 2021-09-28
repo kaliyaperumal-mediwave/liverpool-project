@@ -824,6 +824,22 @@
                                                                             </div>
                                                                         </div>
                                                                         <%}%>
+                                                                            <% if(body.section4.about_our_service!=''
+                                                                                && body.section4.any_particular_trigger
+                                                                                !=null){ %>
+                                                                                <div class="text-container">
+                                                                                    <div class="label-set">
+                                                                                        <label class="labelTitle">
+                                                                                            Triggers:
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="label-set">
+                                                                                        <div class="duplicate_text">
+                                                                                            <%= body.section4.any_particular_trigger
+                                                                                                %>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                                 <%}%>
                                                                                     <% if(body.section4.disabilities!=''
                                                                                         && body.section4.disabilities
@@ -869,23 +885,22 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <%}%>
-                                                                                                <% if(body.section4.about_our_service!=''
-                                                                                                && body.section4.about_our_service
-                                                                                                !=null){ %>
-                                                                                                <div class="text-container">
-                                                                                                    <div class="label-set">
-                                                                                                        <label class="labelTitle">
-                                                                                                            Hear about our service from:
-                                                                                                        </label>
-                                                                                                    </div>
-                                                                                                    <div class="label-set">
-                                                                                                        <div class="duplicate_text">
-                                                                                                            <%= body.section4.about_our_service
-                                                                                                                %>
+
+                                                                                                <% if(body.section4.about_our_service !='' && body.section4.about_our_service !=null ) {%>
+                                                                                                    <div class="text-container">
+                                                                                                        <div class="label-set">
+                                                                                                            <label class="labelTitle">
+                                                                                                                Hear about our service from:
+                                                                                                            </label>
+                                                                                                        </div>
+                                                                                                        <div class="label-set">
+                                                                                                            <div class="duplicate_text">
+                                                                                                                <%= body.section4.about_our_service %>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                                <%}%>
+                                                                                                    <% }%>
+
                                                                                                     <div
                                                                                                         style="border-top: 1px solid #b4b8ba;margin:10px 0px 0px 0px">
                                                                                                     </div>
