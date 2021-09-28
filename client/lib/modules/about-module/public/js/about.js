@@ -511,7 +511,6 @@ $(document).ready(function () {
                         else {
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
                         }
-
                         this.upsertAboutYouForm(this.payloadData);
                     } else {
                         scrollToInvalidInput();
@@ -707,11 +706,13 @@ $(document).ready(function () {
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
                 console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
+                console.log(this.houseHoldData)
                 var houseHoldForm = this.houseHoldData;
                 var dateFormat = "DD/MM/YYYY"
                 var utc = moment(houseHoldForm.dob, dateFormat, true)
                 // this.isCheckUtcUtc = utc.isValid();
                 var modal = document.getElementById('closeModalRaj');
+                console.log(this.dateRegex.test(houseHoldForm.dob))
                 if (houseHoldForm.name && houseHoldForm.lastName) {
                     if (this.showManualAddressHouseHold) {
                         if (houseHoldForm.manualAddress.profession && houseHoldForm.manualAddress.addressLine1 && houseHoldForm.manualAddress.city &&
@@ -739,7 +740,7 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }

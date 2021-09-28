@@ -10,6 +10,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             showLoadingSpinner: "",
+            isUserLoggedIn: document.getElementById('loginUserFlag').innerHTML == "true" ? true : false,
             //dateMask: "##/##/####",
             optionsProxy: [],
             selectedResources: [],
@@ -1503,6 +1504,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
+                    cache: false,
                     success: function (data) {
                         _self.isSubmitted = false;
                         if (role === 'professional') {

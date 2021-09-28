@@ -34,6 +34,7 @@ const configs = {
     mayden_api_ypas:process.env.mayden_api_ypas,
     mayden_api_venus:process.env.mayden_api_venus,
     mayden_apiToken:process.env.mayden_apiToken,
+    new_form: process.env.NEW_FORM,
 
     orm: {
       name: 'orm',

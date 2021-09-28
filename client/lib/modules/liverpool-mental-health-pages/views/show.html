@@ -4,10 +4,6 @@
 
 <script>
   $(document).on("click", "a.previous-link", function () {
-    // document.getElementById('resumeButton').classList.add('d-none');
-    // document.getElementById('playButton').classList.add('active-border');
-
-
     var iFrameDetection = (window === window.parent) ? false : true;
     if(iFrameDetection){
       history.go(-1);

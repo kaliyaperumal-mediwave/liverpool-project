@@ -1,0 +1,971 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/young-referral-module/js/labels.js"></script>
+<script src="/modules/young-referral-module/js/young_referral.js"></script>
+
+{% endblock %}
+{% block main %}
+<div id="young-referral-form">
+    <div class="py-4 main-min-height">
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
+            <div class="py-4">
+                <!-- <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
+                    referral
+                </h2> -->
+                <div v-if="userRole == 'young'"
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_Titileyoung', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Paragraph', element: 'p' }
+
+                    ]
+                    }
+                    }
+                    }) }}</div>
+                <div v-if="userRole == 'parent'"
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_Titileparent', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Paragraph', element: 'p' }
+
+                    ]
+                    }
+                    }
+                    }) }}</div>
+                <div v-if="userRole == 'professional'"
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_TitileProffessional', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Paragraph', element: 'p' }
+
+                    ]
+                    }
+                    }
+                    }) }}</div>
+
+
+                {% raw %}
+
+                <!--  Support-Start-->
+                <form id="support-form" data-options="support">
+                    <div class="px-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
+                        <div class="d-flex form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                                id="mental" @change="onOptionChange($event)" value="Mental health">
+                            <label class="form-check-label option-font d-flex align-items-center" for="mental">
+                                Mental health
+                            </label>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" height="30"
+                                class="px-lg-3 px-2 cursor-pointer" data-toggle="modal"
+                                data-target="#mentalConsentModal" alt="">
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                                id="disorder" @change="onOptionChange($event)" value="Eating disorder">
+                            <label class="form-check-label option-font d-flex align-items-center" for="disorder">
+                                Eating disorder
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                                id="mental&disorder" @change="onOptionChange($event)"
+                                value="Mental health & eating disorder">
+                            <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
+                                Mental health & eating disorder
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Support-End-->
+
+                <!--  Covid-Referrral-Start-->
+                <form id="covid-form" data-options="covid">
+                    <div v-if="(referralData.support == 'Mental health' || referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder')"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">Is this referral related to Covid-19?</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.covid"
+                                name="covidReferal" id="refYes" @change="onOptionChange($event)" value="Yes">
+                            <label class="form-check-label option-font d-flex align-items-center" for="refYes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.covid"
+                                name="covidReferal" id="refNo" @change="onOptionChange($event)" value="No">
+                            <label class="form-check-label option-font d-flex align-items-center" for="refNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.covid"
+                                name="covidReferal" id="refUnsure" @change="onOptionChange($event)" value="Unsure">
+                            <label class="form-check-label option-font d-flex align-items-center" for="refUnsure">
+                                Unsure
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Covid-Referrra-End-->
+
+
+                <!-- List of main eating order difficulties-start-->
+                <form id="mainEatingOrderForm" data-options="eatingDifficulties">
+                    <div v-if="(referralData.covid && (referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder'))"
+                        class="px-4 pt-3 pb-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">Main eating disorder difficulties (Please tick all that apply)</p>
+                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfEatingDifficulties"
+                            :key="index">
+                            <div class="row m-0 align-items-center">
+                                <div>
+                                    <input type="checkbox" v-bind:id="item.id" name="eatingDisorder"
+                                        v-bind:value="item.value" v-model="eatingDifficulties"
+                                        @change="onOptionChange($event)">
+                                    <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                    </label>
+                                </div>
+                                <div class="set-width-calc">
+                                    <div class="d-flex align-items-center">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                        <img src="/modules/my-apostrophe-assets/img/5.svg"
+                                            class="px-lg-3 px-2 cursor-pointer mb-2" data-toggle="modal"
+                                            data-target="#bingingAndPurgingModal"
+                                            v-bind:class="{ 'd-block': item.id == '4714dbea-340d-42c5-a183-d54e9522aadb', 'd-none': item.id != '4714dbea-340d-42c5-a183-d54e9522aadb' }"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--List of main eating order difficulties-End-->
+
+
+                <!-- Textarea for other eating order difficulties Start -->
+                <form id="otherEatingOrderDifficultiesFormu" data-options="otherEatingDifficulties">
+                    <div v-if="(referralData.covid && (referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder'))"
+                        class="px-4 pb-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-2 m-0">
+                            <label for="proOthers" class="question-font">Other - <b>optional</b></label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="eatingDisorder"
+                                id="proOthers" v-model="referralData.otherEatingDifficulties"
+                                @input="onValueEnter($event,'otherEating')" rows="4"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <!-- Textarea for other eating order difficulties end -->
+
+
+                <!-- Daily food/fluid intake-start -->
+                <form id="DailyFoodFluidform" data-options="dailyIntakes">
+                    <div v-if="eatingDifficulties.length || referralData.otherEatingDifficulties"
+                        class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-1">
+                            <label for="mainEatDiff" class="question-font">Please give a brief outline of
+                                {{dynamicLabels.briefOutlineLabel}} daily food/fluid intake:</label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="briefOutlineInfo"
+                                id="mainEatDiff" placeholder="Tell us about diet, eating habits, quantities etc"
+                                @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
+                                rows="7"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <!--Daily food/fluid intake-end -->
+
+                <!-- Height(optional)-start -->
+                <form id="heightOptionalForm" data-options="height">
+                    <div v-if="eatingDifficulties.length || referralData.otherEatingDifficulties"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-1">
+                            <label for="heightOpt" class="question-font">Height - <b>optional</b></label>
+                            <input type="text" class="form-control input-bg-form-control" id="heightOpt"
+                                placeholder="Enter height" @input="trimWhiteSpace($event,'referralData','height')"
+                                v-model="referralData.height">
+                        </div>
+                    </div>
+                </form>
+                <!--Height(optional)-end -->
+
+
+                <!-- Weight(optional)-start -->
+                <form id="weightOptionalForm" data-options="weight">
+                    <div v-if="eatingDifficulties.length || referralData.otherEatingDifficulties"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-1">
+                            <label for="weightOpt" class="question-font">Weight - <b>optional</b></label>
+                            <p class="question-font">If you're not sure of your exact weight, please describe
+                                it</p>
+                            <input type="text" class="form-control input-bg-form-control" id="weightOpt"
+                                placeholder="Enter weight" @input="trimWhiteSpace($event,'referralData','weight')"
+                                v-model="referralData.weight">
+                        </div>
+                    </div>
+                </form>
+                <!--Weight(optional)-end -->
+
+
+                <!-- Reason for making referral-start -->
+                <form id="reasonFormakingForm" data-options="reasonForReferral">
+
+                    <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
+                        class="px-4 pt-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="d-flex">
+                            <p class="question-font m-0 pr-2">Main reason for making referral (please tick all that
+                                apply)
+                            </p>
+                            <span id="8791f0c9-468a-44ea-92b4-57b96d260392" style="color: #D6D8D8;" class="px-2 d-none">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" id="toggleIconSect2" aria-expanded="true"
+                                    @click="showMoreOrLessList($event)"></i>
+                            </span>
+                        </div>
+                        <div v-if="showMoreOrLess" class="checkboxWrapper">
+                            <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
+                                :key="index">
+                                <div class="row m-0 align-items-center">
+                                    <div>
+                                        <input type="checkbox" v-bind:id="item.id" class="checkLogic"
+                                            name="listReasonsForReferral" v-bind:value="item.value"
+                                            v-model="reasonForReferral" v-bind:checked="item.isActive"
+                                            @change="onOptionChange($event)">
+                                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                        </label>
+                                    </div>
+                                    <div class="set-width-calc">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="option-font cursor-pointer my-3 d-none" id="showMoreOrLessText"
+                                @click="toggleList($event)">...</p>
+                        </div>
+                        <!-- <div v-if="!showMoreOrLess">
+                            <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
+                                :key="index">
+                                <div class="row m-0 align-items-center">
+                                    <div class="forInput">
+                                        <input type="checkbox" v-bind:id="item.id" name="listReasonsForReferral"
+                                            v-bind:value="item.value" v-model="reasonForReferral"
+                                            v-bind:checked="item.isActive" @change="onOptionChange($event)">
+                                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                        </label>
+                                    </div>
+                                    <div class="set-width-calc">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+
+                <!--Reason for making referral-end -->
+
+
+                <!-- Textarea for other Reason for making referral-start -->
+                <form id="reasonFormakingOthersForm" data-options="otherReasonsReferral">
+                    <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
+                        class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-2 m-0">
+                            <label for="proOthers" class="question-font">Other - <b>optional</b></label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="listReasonsForReferral"
+                                id="proOthers" v-model="referralData.otherReasonsReferral"
+                                @input="onValueEnter($event,'other')" rows="4"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <!-- Textarea for other Reason for making referral-end -->
+
+
+                <!-- List of TextArea Inputs-->
+                <form id="referralInfoIssueForm" data-options="referralInfo">
+                    <div v-if="reasonForReferral.length || referralData.otherReasonsReferral"
+                        class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group">
+                            <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}
+                                <b>{{dynamicLabels.referralSubLabel}}</b></label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo1" @input="trimWhiteSpace($event,'referralData','referralInfo',true)"
+                                v-model="referralData.referralInfo"
+                                v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
+                            <div class="text-validation invalid-feedback d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
+                                You must provide some information on your main referral issue.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- List of Troubles-End-->
+
+                <!-- Has anything helped-start -->
+                <form id="anything-helped-form" data-options="hasAnythingInfo">
+                    <div v-if="reasonForReferral.length || referralData.otherReasonsReferral"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-1">
+                            <label for="textInfo2" class="question-font">Has anything helped? - <b>optional</b></label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo2" @input="trimWhiteSpace($event,'referralData','hasAnythingInfo')"
+                                v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
+                                v-model="referralData.hasAnythingInfo" rows="7"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <!--Has anything helped-end -->
+
+                <!-- Particular-triggers-start -->
+                <form id="particularTriggersForm" data-options="triggerInfo">
+                    <div v-if="reasonForReferral.length || referralData.otherReasonsReferral"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-1">
+                            <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}} -
+                                <b>optional</b></label>
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo3" @input="trimWhiteSpace($event,'referralData','triggerInfo')"
+                                v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
+                                v-model="referralData.triggerInfo" rows="7"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <!-- Particular-triggers-end -->
+
+                <!-- Your History Start-->
+                <form id="history-start-form" data-options="disabilityOrDifficulty">
+                    <div v-if="reasonForReferral.length || referralData.otherReasonsReferral" class="pt-2">
+                        <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            {{dynamicLabels.historyLabel}}
+                        </h2>
+                        <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group m-0">
+                                <label for="disability" class="question-font">{{dynamicLabels.disabilitiesLabel}} -
+                                    <b>optional</b></label>
+                                <textarea class="h-112 form-control input-bg-form-control"
+                                    name="disabilitiesandDifficulty" id="disability"
+                                    @input="trimWhiteSpace($event,'referralData','disabilityOrDifficulty')"
+                                    v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
+                                    v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Your History-End-->
+
+                <!-- Accesses Service Start -->
+                <form id="access-service-start-form" data-options="accessService">
+                    <div v-if="reasonForReferral.length || referralData.otherReasonsReferral"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.prevAccessedServiceLabel}}</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.accessService"
+                                name="accessedService" id="accessSerYes" @change="onOptionChange($event)" value="yes">
+                            <label class="form-check-label option-font d-flex align-items-center" for="accessSerYes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" v-model="referralData.accessService"
+                                name="accessedService" id="accessSeNo" @change="onOptionChange($event)" value="no">
+                            <label class="form-check-label option-font d-flex align-items-center" for="accessSeNo">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Accesses Service End -->
+
+
+                <!-- List Available Start -->
+                <form id="servicesAll-list-form" v-if="referralData.accessService == 'yes'" data-options="accessList">
+                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.listServiceLabel}}</p>
+                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
+                            :key="index">
+                            <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
+                                v-model="accessList" @change="onOptionChange($event)">
+                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                {{ item.value }}</label>
+                        </div>
+                    </div>
+                </form>
+                <!-- List Available Start -->
+
+                <!--Add a Service Start-->
+                <form id="addService-form">
+                    <div v-if="showAddOtherService" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font">Do you want to add a service?</p>
+                        <!-- <div class="text-center"> -->
+                        <template v-if="allAvailableService.length">
+                            <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
+                                <div class="card-body text-capitalize bg-set-on-card">
+                                    <div class="d-flex align-items-center justify-content-between my-1">
+                                        <h3 class="link-text">{{item.name}} </h3>
+                                        <div class="d-flex">
+                                            <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                                data-target="#serviceModal" @click="patchService(item)"><i
+                                                    class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="badge badge-pill cursor-pointer"><i data-id="index"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                    @click="openDeleteModal(item)" data-item="item"
+                                                    class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h3 class="link-text">{{item.profFirstName}} {{item.profLastName}}</h3>
+                                    <h3 class="link-text">{{item.contactMode}} - {{item.contact}}</h3>
+                                </div>
+                            </div>
+                        </template>
+
+                        <button data-toggle="modal" data-target="#serviceModal" type="button" @click="resetModal('add')"
+                            class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
+                                service <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            </span></button>
+                        <!-- </div> -->
+                    </div>
+                </form>
+                <!-- Add a Service End -->
+
+                <!-- Add Service Modal Start -->
+                <div class="modal fade" id="serviceModal" data-id="index" data-item="item" tabindex="-1" role="dialog"
+                    aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="serviceData.mode == 'update'">
+                                    <h5 class="question-header-font" id="addModalLabel">Edit service</h5>
+                                </template>
+                                <template v-else-if="serviceData.mode == ''">
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                    <i class="fal fa-times fa-2x cursor-pointer"></i>
+                                </span>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <form id="add-service-form">
+                                    <div class="form-group">
+                                        <label for="service-name" class="question-font">Name of service</label>
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="serviceData.name"
+                                            @input="trimWhiteSpace($event,'serviceData','name')" id="service-name"
+                                            placeholder="Enter the name of the service you have used">
+                                        <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
+                                            You must provide the name of the service.
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profAtService" class="question-font">First name of professional at
+                                            service - <b>optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" v-model="serviceData.profFirstName"
+                                                class="form-control input-bg-form-control"
+                                                @input="trimWhiteSpace($event,'serviceData','profFirstName')"
+                                                id="profAtService" placeholder="Enter the name of who you worked with">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-23"><i
+                                                        aria-hidden="true" class="fa fa-user-circle"></i></span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
+                                            You must provide the name of a professional at the service.
+                                        </div> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profAtService" class="question-font">Last name of professional at
+                                            service - <b>optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" v-model="serviceData.profLastName"
+                                                class="form-control input-bg-form-control"
+                                                @input="trimWhiteSpace($event,'serviceData','profLastName')"
+                                                id="profAtService" placeholder="Enter the name of who you worked with">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-23"><i
+                                                        aria-hidden="true" class="fa fa-user-circle"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactNumber" class="question-font">Contact
+                                            number for
+                                            professional - <b>optional</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="serviceData.contactMode">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                inputmode="tel" v-model="serviceData.contact"
+                                                @input="trimWhiteSpace($event,'serviceData','contact')"
+                                                id="contactNumber"
+                                                placeholder="Enter a phone number for the professional">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-25"><i
+                                                        aria-hidden="true" class="fa fa-phone"></i></span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
+                                            You must provide the 11 digit contact number.
+                                        </div> -->
+                                        <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && serviceData.contact && serviceData.contactMode == 'mobile' && !phoneRegex.test(serviceData.contact))}">
+                                            You must provide a valid mobile number.
+                                        </div>
+                                        <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && serviceData.contact && serviceData.contactMode == 'landline' && !landlineRegex.test(serviceData.contact))}">
+                                            You must provide a valid landline number.
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertService()">
+                                    <template v-if="serviceData.mode == 'update'">
+                                        <span class="btn-modal-text">UPDATE
+                                        </span>
+                                    </template>
+                                    <template v-else-if="serviceData.mode == ''">
+                                        <span class="btn-modal-text">ADD
+                                        </span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="btn-modal-text">ADD
+                                        </span>
+                                    </template>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Service Modal End -->
+
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete service</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you
+                                    sure want to
+                                    delete this service?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" id="closeModalDelete"
+                                    @click="deleteService(storeDeleteData)">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
+
+                <!-- Your History Start-->
+                <form id="about-our-service-form" data-options="about_our_service">
+                    <div v-if="(accessList.length && referralData.accessService == 'yes') || referralData.accessService == 'no'" class="pt-2">
+                        <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group m-0">
+                                <label for="disability" class="question-font">{{dynamicLabels.about_our_service}}</label>
+                                <textarea class="h-112 form-control input-bg-form-control"
+                                    name="about_our_service" id="about_our_service"
+                                    @input="trimWhiteSpace($event,'referralData','about_our_service')"
+                                    v-model="referralData.about_our_service" rows="7"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Your History-End-->
+
+                <!-- Dynamic Toaster start Scenario 1-->
+                <!-- <template v-if="accessList.length && !showAddOtherService">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template v-if="referralData.referralInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template v-else>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
+                                </p>
+                                <template v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </template>
+                                <template v-else>
+                                    <p class="question-font text-center text danger m-0 py-2">You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template> -->
+
+                <div v-if="referralData.about_our_service !== '' && !showAddOtherService">
+                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Toaster end -->
+
+
+                <!-- Dynamic Toaster start Scenario 2-->
+                <!-- <template v-if="referralData.accessService == 'no'">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template v-if="referralData.referralInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template v-else>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
+                                </p>
+                                <template v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </template>
+                                <template v-else>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template> -->
+
+                <div v-if="referralData.accessService == 'no'">
+                    <div class="px-4 py-4 d-none" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4 d-none">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Toaster start Scenario 2-->
+
+
+                <!-- Dynamic Toaster start Scenario 3-->
+                <!-- <template v-if="allAvailableService.length">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template v-if="referralData.referralInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template v-else>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
+                                </p>
+                                <template v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </template>
+                                <template v-else>
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template> -->
+
+                <div v-if="allAvailableService.length">
+                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">3SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
+                <!-- Dynamic Toaster end Scenario 3-->
+
+                <!-- support content for binging and purging modal start -->
+                <div class="modal fade" id="bingingAndPurgingModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <span style="color:#023047;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <div class="col-md-10 col-lg-8 col-xl-10 mx-auto pt-2 col-sm-10 col-12">
+                                    <h3 class="support-modal-content-text text-left py-2">Binging - Mental health
+                                        problems can
+                                        engage in an activity, especially eating and drinking, to excess
+                                    </h3>
+                                    <h3 class="support-modal-content-text text-left py-2">Purging - Behaviour to get rid
+                                        of
+                                        products (usually food) eg making yourself vomit, misuse of laxatives or
+                                        medications, excessive exercise etc
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- support content for binging and purging modal modal end -->
+
+
+                <!-- support content modal start -->
+                <div class="modal fade" id="mentalConsentModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <!-- <img src="/modules/my-apostrophe-assets/img/support.svg" alt="logo"
+                                    class="support-logo"> -->
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <h3 class="px-4 py-4 pb-2 support-modal-header-text text-center">
+                                    Mental health is a broad term covering many different conditions</h3>
+                                <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                                    <h3 class="support-modal-content-text text-left py-2"> Mental health problems can
+                                        affect
+                                        the way you
+                                        think, feel and behave. They range from common mental health problems (such as
+                                        depression and anxiety) to more rare problems (such as schizophrenia and bipolar
+                                        disorder)
+                                    </h3>
+                                    <h3 class="support-modal-content-text text-left py-2"> Depending on which mental
+                                        health
+                                        condition they
+                                        have, people may feel tired, sad, helpless, angry or agitated all the time. They
+                                        might make irrational decisions such as spending too much money, having
+                                        inappropriate relationships, or they might feel like life just isn’t worth
+                                        living
+                                    </h3>
+                                    <h3 class="support-modal-content-text text-left py-2"> Mental health can also cause
+                                        physical symptoms,
+                                        for example, fatigue, bed wetting or
+                                        outbursts of anger
+                                    </h3>
+                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> <a
+                                            href="/mental-health" target="_blank">> Find out
+                                            more
+                                            about mental
+                                            health</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- support content modal end -->
+
+
+
+                {% endraw %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

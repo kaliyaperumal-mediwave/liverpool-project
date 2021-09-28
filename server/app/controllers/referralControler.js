@@ -49,6 +49,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
+          referral_type:"child",
           login_id: ctx.request.decryptedUser.id,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
@@ -78,6 +79,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
+          referral_type:"child",
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           gp_school: ctx.request.body.gpSchool,
@@ -114,7 +116,7 @@ exports.eligibility = ctx => {
             {
               model: ctx.orm().Referral,
               nested: true,
-              as: 'parent',
+              as: 'family',
             },
           ],
           where: {
@@ -122,7 +124,7 @@ exports.eligibility = ctx => {
           },
         }).then((userResult) => {
 
-          var childId = userResult[0].parent[0].ChildParents.parentId;
+          var childId = userResult[0].family[0].ChildParents.parentId;
           return user.update({
             child_dob: ctx.request.body.child_Dob,
             registered_gp: ctx.request.body.registered_gp,
@@ -164,6 +166,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_complete_status: 'incomplete',
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20
@@ -195,6 +198,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -310,6 +314,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -361,6 +366,7 @@ exports.eligibility = ctx => {
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
+            referral_type:"child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -490,6 +496,7 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
     //checking update operation or not
@@ -2666,6 +2673,8 @@ exports.updateSec3Info = ctx => {
     child_socialworker_firstname: ctx.request.body.section3Data.child_socialworker_firstname,
     child_socialworker_lastname: ctx.request.body.section3Data.child_socialworker_lastname,
     child_socialworker_contact_type: ctx.request.body.section3Data.child_socialworker_contact_type,
+    careLeaver: ctx.request.body.section3Data.careLeaver,
+
   },
     {
       where: {
@@ -2676,7 +2685,7 @@ exports.updateSec3Info = ctx => {
         where: {
           id: ctx.request.body.section3Data.child_id,
         },
-        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
+        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
       }).then((eduResult) => {
         return ctx.res.ok({
           data: eduResult,
@@ -2700,6 +2709,7 @@ exports.updateSec4Info = ctx => {
     food_fluid_intake: ctx.request.body.section4Data.food_fluid_intake,
     height: ctx.request.body.section4Data.height,
     weight: ctx.request.body.section4Data.weight,
+    about_our_service:ctx.request.body.section4Data.about_our_service,
   },
     {
       where: {

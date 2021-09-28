@@ -32,6 +32,7 @@ var apos = require("apostrophe")({
        // 'phr-module': 'https://192.168.0.67:3010'
       "useVenusIaptusAPI": process.env.useVenusIaptusAPI,
       "apiIntegrationPassword": process.env.apiIntegrationPassword,
+      'blobStorage' : process.env.AZURE_DOMAIN_PATH,
      
     },
     "apostrophe-db": {
@@ -99,5 +100,6 @@ var apos = require("apostrophe")({
     "apostrophe-templates": {
       viewsFolderFallback: path.join(__dirname, "views"),
     },
+    "young-referral-module": {},
   },
 });

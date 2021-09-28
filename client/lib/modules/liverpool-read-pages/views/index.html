@@ -10,7 +10,9 @@
     return false;
   });
 </script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/liverpool-read-pages/js/read.js"></script>
 {% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
 data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
 "../../shared-referal-module/views/header.html" %}
@@ -99,27 +101,27 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         </div>
       </div>
       <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
-        <h5 class="font-weight-bold">
+        <h5 class="logout-font font-weight-bold">
           Here are different real life experiences of users currently using the
           platform
         </h5>
       </div>
-
+      <div id="piecesvalue" style="display:none;">{{data.pieces| json}}</div>
       {% for piece in data.pieces %} {% if loop.index == 1 %}
+      <div id="piecesvalue" style="display:none;">{{data.pieces| json}}</div>
       <div class="text_inside_video text-decoration-none">
         {% if apos.images.first(piece.thumbnail) %} {% set img =
         apos.images.first(piece.thumbnail) %} {% endif %}
-        <!-- {% if img %}
-            <img class="img-placeholder" width="100%" height="315"
-                src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-            {% endif %} -->
         <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" />
         <div class="body-cont-set card-set-container-bg">
           <div class="read-cont-h1">{{ piece.title }}</div>
           <div class="read-cont-p">{{ piece.read_topic }}</div>
           <div class="text-break">{{ piece.text }}</div>
           <div class="text-underlined text-secondary-theme">{{apos.area(piece,'link')}}</div>
-          <div class="read-cont-p p-0">{{apos.area(piece,'by_author')}}</div>
+          {% if piece.isPdf %}
+          <div class="view-pdf font-weight-bold" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
+          {% endif %}
+          <div class="font-weight-bold">{{apos.area(piece,'by_author')}}</div>
           <!-- <div class="video-placed-ago px-0 ">
                     {{ piece.uploadTime }}
                 </div> -->
@@ -129,8 +131,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       {% if data.pieces.length > 1 %}
       <div class="selectSource">More to read</div>
       {% endif %} {% else %}
+      <div class="large-toggle-cont no-padding card-set-container-bg">
       <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class="text-decoration-none">
-        <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.read_topic }}</div>
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %}
@@ -138,25 +140,108 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                 <img class="img-placeholder" width="100%" height="315"
                     src="{{ apos.attachments.url(img, { size: 'max' }) }}">
                 {% endif %} -->
-          <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
-
-          <div class="video-para-bottom ellipse-text pt-0">
+          <img  class="read-cont-p" src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
+          <div class="video-para-bottom text-break pt-0">
             {{ piece.text }}
           </div>
-          <div class="video-para-bottom text-underlined pt-0">
-            {{apos.area(piece,'link')}}
-          </div>
-          <div class="read-cont-p video-para-bottom pt-0">
-            {{apos.area(piece,'by_author')}}
-          </div>
-          <div class="video-placed-ago">{{ piece.uploadTime }}</div>
-        </div>
       </a>
+      <div class="text-underlined video-para-bottom ">
+        {{apos.area(piece,'link')}}
+      </div>
+      {% if piece.isPdf %}
+      <div class="view-pdf v-pdf-alg" onclick="clickPdf('{{piece.doc_pdf.url}}')">View PDF</div>
+      {% endif %}
+      <div class="read-cont-p video-para-bottom pt-0">
+        {{apos.area(piece,'by_author')}}
+      </div>
+      <div class="video-placed-ago">{{ piece.uploadTime }}</div>
+      </div>
       {% endif %} {% endfor %}
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %} {%
     include "../../shared-referal-module/views/company.html" %}
   </div>
+  <div class="pdf-overlay d-none">
+     <div>
+       <div class="pdf-margins overlay-block careflow">
+         <div class="row m-0 w-100">
+           <div class="col-12 col-sm-12 col-md-12 col-lg-2 pdf-text-icon">
+             <div class="pdf-heading">
+               <h4>Read</h4>
+               <ul class="pdf-clinic">
+                 <li>
+                   <div class="info-status  d-none">
+                     <span
+                     class="material-icons click_fav_like">
+                     favorite_border
+                   </span>
+                   <span
+                   class="material-icons favorite-icon click_fav_remove d-none">
+                   favorite
+                 </span>
+                 <span  class="material-icons" onclick="messagesent()">
+                   send
+                 </span>
+               </div>
+             </li>
+             <li>
+               <div class="upload-right m-t-20  d-none" onclick="doPrint()">
+                 <i class="material-icons overlay-upload-close">
+                   local_printshop</i>
+                 </div>
 
+               </li>
+             </ul>
+           </div>
+           <div class="pdf-icon-mobile ">
+             <div class="upload-right close_pdf">
+               <i
+               class="material-icons overlay-upload-close pdf-close-img pdf-close-img">close</i>
+             </div>
+             <a id='document' download='respected-document.pdf' style="display:none;"></a>
+
+             <a class="upload-right d-none" title='respected-document.pdf' onclick="downloadPDF()">
+               <i class="material-icons overlay-upload-close d-none">
+                 save_alt</i></a>
+               </div>
+             </div>
+             <div class="col-lg-10 pdf-resources">
+               <div class="pdf-align resources w-100">
+                 <div class="w-100">
+                   <div class="IEformat">
+                     <div id="IEFormatRemove" class="d-none w-100">
+                       <div class="">
+                         <p>The Iframe will not be view in Internet Explorer you can download the document</p>
+                       </div>
+                     </div>
+                     <div id="MobileFormatRemove" class="d-none w-100">
+                      <div class="">
+                        <p>The Iframe will not be view in Mobile device you can download the document</p>
+                      </div>
+                    </div>
+                     <div id="docxFileRemove" class="d-none w-100">
+                       <div class="">
+                         <p>The Iframe will not be view in docx file you can download the document</p>
+                       </div>
+                     </div>
+                     <iframe id="uploadedDoc" frameborder="0" width="100%" height="600"></iframe>
+                   </div>
+                 </div>
+                 <div class="pdf-icon">
+                   <div class="upload-right close_pdf">
+                     <i class="material-icons overlay-upload-close pdf-close-img">close</i>
+                   </div>
+                   <a id='document' download='respected-document.pdf' style="display:none;"></a>
+
+                   <a class="upload-right d-none" title='respected-document.pdf' onclick="downloadPDF()">
+                     <i class="material-icons overlay-upload-close">
+                       save_alt</i></a>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
   {% endblock %}
 </div>

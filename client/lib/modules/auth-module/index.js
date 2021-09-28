@@ -90,9 +90,14 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
        console.log(data.data.sendUserResult)
         if (data) {
+          console.log(data.data.sendUserResult.role)
           if(data.data.sendUserResult.role=="service_admin")
           {
             req.session.loginAsAdmin=data.data.sendUserResult.service_admin_type;
+          }
+          else if(data.data.sendUserResult.role=="admin")
+          {
+            req.session.loginAsAdmin=data.data.sendUserResult.role;
           }
           req.session.auth_token = data.data.sendUserResult.token;
           req.session.user_role = data.data.sendUserResult.role
@@ -164,6 +169,18 @@ module.exports = {
       req.session.sessionExp = "false";
    //   //console.log(req.session.frm_ref_home)
       return res.send({ data: { success: "true", message: "session ref_home set" } });
+    });
+
+    self.route('get', 'getCount', function (req, res) {
+      //console.log("---- doLogout -------")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getCount';
+      self.middleware.get(req, url).then((data) => {
+        console.log(data);
+        return res.send(data.data);
+      }).catch((error) => {
+        //console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
     });
   },
 };

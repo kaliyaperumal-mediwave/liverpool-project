@@ -26,6 +26,13 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('types', null, {});
+
+    return queryInterface.bulkDelete('types', {
+      name: [
+        'Child',
+        'Parent',
+        'Professional',
+      ],
+    });
   }
 };

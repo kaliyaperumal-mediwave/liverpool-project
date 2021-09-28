@@ -305,7 +305,7 @@
                                             <label>Time:</label>
                                             <p>{{val.time }}</p>
                                         </div>
-                                        <div class="actionloguser_info">
+                                        <div class="actionloguser_info"  v-if="val.userInfo.length !== 0">
                                             <label>User:</label>
                                             <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}</p>
                                         </div>
@@ -351,7 +351,8 @@
                                 id="SelectedProviderStatus"
                                 class="custom-select form-control input-bg-form-control height-44">
                                 <option class='option-text' value="Nothing">Nothing</option>
-                                <option class='option-text' value="Accepted - Alder Hey">Accepted - Alder Hey</option>
+                                <option v-if="loggedServiceAdmin === 'admin'"  class='option-text' value="Accepted - Alder Hey">Accepted - Alder Hey</option>
+                                <option v-if="loggedServiceAdmin != 'admin'"  class='option-text' :value=loggedServiceAdmin>{{loggedServiceAdmin}}</option>
                                 <!-- <option class='option-text' value="YPAS">Forwarded to partner agency - YPAS</option>
                                 <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option> -->
                                 <option class='option-text' value="Duplicate referral">Duplicate referral</option>

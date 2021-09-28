@@ -48,7 +48,7 @@ $(document).ready(function () {
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
       integrationData: "",
-      loggedServiceAdmin:"",
+      loggedServiceAdmin: "",
       hasValidDate1: false,
       hasValidDate2: false
     },
@@ -72,12 +72,14 @@ $(document).ready(function () {
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
-      if(document.getElementById('loginAsAdmin').innerHTML=="Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS")
-      {
+      console.log(document.getElementById('loginAsAdmin').innerHTML)
+      if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
         this.loggedServiceAdmin = "Accepted - Alder Hey";
       }
-      else
-      {
+      else if (document.getElementById('loginAsAdmin').innerHTML == "admin") {
+        this.loggedServiceAdmin = document.getElementById('loginAsAdmin').innerHTML;
+      }
+      else {
         this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
       }
       if (this.archivePage == 'true') {
@@ -192,7 +194,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -215,8 +217,7 @@ $(document).ready(function () {
           console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
-          if(_self.hasValidDate1 || _self.hasValidDate2)
-          {
+          if (_self.hasValidDate1 || _self.hasValidDate2) {
             return false;
           }
           if (_self.fromDateCsv && _self.toDateCsv) {
@@ -232,17 +233,17 @@ $(document).ready(function () {
                 console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
-                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
-                  if(result.data.filter_referrals[i].referral_provider_other)
-                  {
+                  if (result.data.filter_referrals[i].referral_provider_other) {
                     alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
                   }
-                  else
-                  {
+                  else {
                     alterOtherTeam = result.data.filter_referrals[i].referral_status
                   }
                   console.log(result.data.filter_referrals[i].activity_action)
+                  const current_status = result.data.filter_referrals[i].referral_current_status
+                  const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
@@ -256,6 +257,7 @@ $(document).ready(function () {
                         result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
+                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
                     result.data.filter_referrals[i].activity_user,
@@ -318,6 +320,11 @@ $(document).ready(function () {
         this.referral_ids = [];
         $('#loader').hide();
       },
+
+       capitalizeFirstLetter: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+      
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -625,12 +632,13 @@ $(document).ready(function () {
   }
 });
 
-function viewPdf(uuid, role) {
+function viewPdf(uuid, role,other,formType) {
+  console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
   setTimeout(function () {
-    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role +"/" +formType, API_URI);
     if (successData && Object.keys(successData)) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
@@ -680,31 +688,41 @@ function downloadCSV(uuid, value, other_value) {
 
 function updateStatus(uuid) {
   $('#loader').show();
-  setTimeout(function () {
-    var status = $('#SelectedProviderStatus').val();
-    var postData = {
-      referral_id: uuid,
-      status: status
-    }
-    if (status === 'Referral to other team') {
-      postData.other = $('#statusOther').val();
-    }
-    var successData = apiCallPut('put', '/referralStatusUpdate', postData);
-    if (successData && Object.keys(successData)) {
-      document.getElementById("statusOther").value = '';
-      $('#changeStatusModal').modal('hide');
-      $('#statusUpdatedSuccess').modal('show');
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-    }
-    else {
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-      $('#changeStatusModal').modal('hide');
-    }
-  }, 500);
+  var status = $('#SelectedProviderStatus').val();
+  console.log(status)
+  if (status) {
+    setTimeout(function () {
+      var postData = {
+        referral_id: uuid,
+        status: status
+      }
+      if (status === 'Referral to other team') {
+        postData.other = $('#statusOther').val();
+      }
+      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+      if (successData && Object.keys(successData)) {
+        document.getElementById("statusOther").value = '';
+        $('#changeStatusModal').modal('hide');
+        $('#statusUpdatedSuccess').modal('show');
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else {
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+        $('#changeStatusModal').modal('hide');
+      }
+    }, 500);
+  }
+  else {
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 500);
+    return false;
+  }
+
 }
 
 
@@ -716,7 +734,7 @@ function toArrayBuffer(buf) {
   }
   return ab;
 }
-function sendPdf(uuid, role, refCode) {
+function sendPdf(uuid, role, refCode,formType) {
   var buttonElem = document.querySelector('#sendRef');
   buttonElem.disabled = true;
   var useAPI
@@ -726,7 +744,7 @@ function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode + "/" + formType
   // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
   //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   // }
@@ -755,8 +773,6 @@ function sendPdf(uuid, role, refCode) {
     error: function (error) {
       $('#loader').hide();
       buttonElem.disabled = false;
-      console.log(error)
-      console.log(error.responseJSON.data.data)
       $('#sendProviderModal').modal('hide');
       if (error) {
         showError(error.responseJSON.message, error.status);
@@ -764,9 +780,9 @@ function sendPdf(uuid, role, refCode) {
     }
   });
 }
-function openSendPopup(uuid, role, refCode, referral_provider) {
+function openSendPopup(uuid, role, refCode, referral_provider,formType) {
   $('#sendProviderModal').modal('show');
-  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + formType + '\')');
   var buttonElem = document.querySelector('#sendRef');
   buttonElem.disabled = false;
 }
