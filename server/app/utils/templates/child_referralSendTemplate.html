@@ -387,7 +387,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <% if(body.section2.household_member && body.section2.household_member.length>0 ){ %>
+                                            <% if(body.section2.household_member &&
+                                                body.section2.household_member.length>0 ){ %>
                                                 <div class="text-container">
                                                     <div class="label-set">
                                                         <label class="labelTitle">
@@ -610,65 +611,79 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-container">
-                        <div class="label-set">
-                            <label class="labelTitle">
-                                Social worker:
-                            </label>
-                        </div>
-                        <div class="label-set">
-                            <div class="duplicate_text">
-                                <%= body.section3.child_socialworker %>
-                            </div>
-                        </div>
-                    </div>
-                    <% if(body.section3.child_socialworker_firstname!='' && body.section3.child_socialworker_firstname
-                        !=null ) {%>
+                    <% if(body.section3.careLeaver !='' && body.section3.careLeaver !=null ) {%>
                         <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
-                                    Social worker first name:
+                                    Care Leaver:
                                 </label>
                             </div>
                             <div class="label-set">
                                 <div class="duplicate_text">
-                                    <%= body.section3.child_socialworker_firstname %>
+                                    <%= body.section3.careLeaver %>
                                 </div>
                             </div>
                         </div>
                         <% }%>
-                            <% if(body.section3.child_socialworker_lastname!='' &&
-                                body.section3.child_socialworker_lastname !=null ) {%>
+                            <div class="text-container">
+                                <div class="label-set">
+                                    <label class="labelTitle">
+                                        Social worker:
+                                    </label>
+                                </div>
+                                <div class="label-set">
+                                    <div class="duplicate_text">
+                                        <%= body.section3.child_socialworker %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(body.section3.child_socialworker_firstname!='' &&
+                                body.section3.child_socialworker_firstname !=null ) {%>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
-                                            Social worker last name:
+                                            Social worker first name:
                                         </label>
                                     </div>
                                     <div class="label-set">
                                         <div class="duplicate_text">
-                                            <%= body.section3.child_socialworker_lastname %>
+                                            <%= body.section3.child_socialworker_firstname %>
                                         </div>
                                     </div>
                                 </div>
                                 <% }%>
-                                    <% if(body.section3.child_socialworker_contact !='' &&
-                                        body.section3.child_socialworker_contact !=null ) {%>
+                                    <% if(body.section3.child_socialworker_lastname!='' &&
+                                        body.section3.child_socialworker_lastname !=null ) {%>
                                         <div class="text-container">
                                             <div class="label-set">
                                                 <label class="labelTitle">
-                                                    Social worker number:
+                                                    Social worker last name:
                                                 </label>
                                             </div>
                                             <div class="label-set">
                                                 <div class="duplicate_text">
-                                                    <%= body.section3.child_socialworker_contact_type %> - <%=
-                                                            body.section3.child_socialworker_contact %>
+                                                    <%= body.section3.child_socialworker_lastname %>
                                                 </div>
                                             </div>
                                         </div>
                                         <% }%>
-                                            <div style="border-top: 1px solid #b4b8ba;margin:px 0px"></div>
+                                            <% if(body.section3.child_socialworker_contact !='' &&
+                                                body.section3.child_socialworker_contact !=null ) {%>
+                                                <div class="text-container">
+                                                    <div class="label-set">
+                                                        <label class="labelTitle">
+                                                            Social worker number:
+                                                        </label>
+                                                    </div>
+                                                    <div class="label-set">
+                                                        <div class="duplicate_text">
+                                                            <%= body.section3.child_socialworker_contact_type %> - <%=
+                                                                    body.section3.child_socialworker_contact %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }%>
+                                                    <div style="border-top: 1px solid #b4b8ba;margin:px 0px"></div>
         </div>
         <div>
             <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
@@ -809,22 +824,6 @@
                                                                             </div>
                                                                         </div>
                                                                         <%}%>
-                                                                            <% if(body.section4.any_particular_trigger!=''
-                                                                                && body.section4.any_particular_trigger
-                                                                                !=null){ %>
-                                                                                <div class="text-container">
-                                                                                    <div class="label-set">
-                                                                                        <label class="labelTitle">
-                                                                                            Triggers:
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    <div class="label-set">
-                                                                                        <div class="duplicate_text">
-                                                                                            <%= body.section4.any_particular_trigger
-                                                                                                %>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
                                                                                 <%}%>
                                                                                     <% if(body.section4.disabilities!=''
                                                                                         && body.section4.disabilities
@@ -865,6 +864,23 @@
                                                                                                         <div
                                                                                                             class="duplicate_text">
                                                                                                             <%= body.section4LocalService
+                                                                                                                %>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <%}%>
+                                                                                                <% if(body.section4.about_our_service!=''
+                                                                                                && body.section4.about_our_service
+                                                                                                !=null){ %>
+                                                                                                <div class="text-container">
+                                                                                                    <div class="label-set">
+                                                                                                        <label class="labelTitle">
+                                                                                                            Hear about our service from:
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                    <div class="label-set">
+                                                                                                        <div class="duplicate_text">
+                                                                                                            <%= body.section4.about_our_service
                                                                                                                 %>
                                                                                                         </div>
                                                                                                     </div>

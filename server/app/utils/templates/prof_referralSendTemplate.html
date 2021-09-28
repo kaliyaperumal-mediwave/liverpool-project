@@ -655,6 +655,20 @@
                             </div>
                         </div>
                     </div>
+                    <% if(body.section3.careLeaver !='' && body.section3.careLeaver !=null ) {%>
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Care Leaver:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section3.careLeaver %>
+                                </div>
+                            </div>
+                        </div>
+                        <% }%>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -923,6 +937,24 @@
                                                                                                             <div
                                                                                                                 class="duplicate_text">
                                                                                                                 <%= body.section4LocalService
+                                                                                                                    %>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <%}%>
+
+                                                                                                    <% if(body.section4.about_our_service!=''
+                                                                                                    && body.section4.about_our_service
+                                                                                                    !=null){ %>
+                                                                                                    <div class="text-container">
+                                                                                                        <div class="label-set">
+                                                                                                            <label class="labelTitle">
+                                                                                                                Hear about our service from:
+                                                                                                            </label>
+                                                                                                        </div>
+                                                                                                        <div class="label-set">
+                                                                                                            <div class="duplicate_text">
+                                                                                                                <%= body.section4.about_our_service
                                                                                                                     %>
                                                                                                             </div>
                                                                                                         </div>
