@@ -3,35 +3,28 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('types', [{
-      id: 4,
-      name: 'Child',
-      description: 'Child',
+      id: 7,
+      name: 'Young_Person',
+      description: 'Young_Person',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      id: 5,
-      name: 'Parent',
-      description: 'Parent',
+      id: 8,
+      name: 'Family_Friends',
+      description: 'Family_Friends',
       createdAt: new Date(),
       updatedAt: new Date()
     },
-    {
-      id: 6,
-      name: 'Professional',
-      description: 'Professional',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+  ]);
   },
 
   down: async (queryInterface, Sequelize) => {
 
     return queryInterface.bulkDelete('types', {
       name: [
-        'Child',
-        'Parent',
-        'Professional',
+        'Young_Person',
+        'Family_Friends',
       ],
     });
   }

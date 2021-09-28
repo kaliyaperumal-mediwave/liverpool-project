@@ -1,0 +1,1655 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/young-referral-module/js/labels.js"></script>
+<script src="/modules/young-referral-module/js/young_about.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
+<!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+{% endblock %}
+{% block main %}
+<div id="young-about-form">
+    {% raw %}
+    <div class="py-4 main-min-height">
+
+        <!-- Loader start -->
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loader end -->
+
+        <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-7 col-xl-6 mx-auto">
+            <div class="py-4" v-cloak>
+                <h2 class="px-0 px-lg-0 py-4 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    {{sec2dynamicLabel.aboutYouLabel}}</h2>
+
+                <div class="p-0 px-lg-0  col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+
+                    <div v-if="userRole == 'professional'" class="px-2 px-lg-0 py-2 col-12 mx-auto d-none">
+                        <p class="question-font m-0">Is this an urgent or routine referral?</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" checked id="routine" value="1"
+                                name="referralMode" v-model="aboutObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="routine">
+                                Routine
+                            </label>
+                        </div>
+                        <div class="form-check  py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2"
+                                v-model="aboutObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="urgent">
+                                Urgent
+                            </label>
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referral_mode),
+                          'invalid-fields':!aboutObj.referral_mode }">
+                          You must provide an answer to this question to continue.
+                      </div> -->
+                    </div>
+
+                    <!-- young NHS Number Start-->
+                    <div class="form-group ">
+                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
+                        <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
+                            v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
+                            v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
+                            'invalid-fields':(aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
+                            You must provide a valid NHS Number.
+                        </div>
+                    </div>
+                    <!-- young NHS Number End-->
+
+                    <!-- young title Start-->
+                    <div class="form-group py-2 mt-0 mb-2">
+                        <label class="question-font">{{sec2dynamicLabel.youngTitleLabel}}
+                        </label>
+                        <div class="input-group">
+                            <span class="plain-select">
+                                <select class="custom-select form-control input-bg-form-control"
+                                    v-model="aboutObj.youngNameTitle" name="youngNameTitle">
+                                    <option class='option-text' value="" disabled selected>
+                                        {{sec2dynamicLabel.youngTitlePlaceHoldTitle}}
+                                    </option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Mx">Mx</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngNameTitle),'invalid-fields':!aboutObj.youngNameTitle }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                    </div>
+                    <!-- young title end-->
+
+                    <!-- young first name Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="youngFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control"
+                                v-model="aboutObj.youngFirstName" id="youngFirstName"
+                                @input="trimWhiteSpace($event,'aboutObj','youngFirstName')"
+                                v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
+                            <div class="input-group-append">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngFirstName),'invalid-fields':!aboutObj.youngFirstName }">
+                                You must provide a first name.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- young first name End-->
+
+                    <!-- young last name Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="youngLastName" class="question-font">{{sec2dynamicLabel.lastNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control"
+                                v-model="aboutObj.youngLastName" id="youngLastName"
+                                @input="trimWhiteSpace($event,'aboutObj','youngLastName')"
+                                v-bind:placeholder="sec2dynamicLabel.lastNamePlacLabel">
+                            <div class="input-group-append">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngLastName),'invalid-fields':!aboutObj.youngLastName }">
+                                You must provide a last name.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- young last name End-->
+
+                    <!-- young email Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="emailAddressOpts" class="question-font">{{sec2dynamicLabel.emailLabel}} -
+                            <b>optional</b></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control" id="emailAddressOpts"
+                                inputmode="email" @input="trimWhiteSpace($event,'aboutObj','youngEmail')"
+                                v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.youngEmail">
+                            <div class="input-group-append">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.youngEmail && !emailRegex.test(aboutObj.youngEmail)),'invalid-fields':(aboutObj.youngEmail && !emailRegex.test(aboutObj.youngEmail)) }">
+                                You must provide a valid email.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- young email end-->
+
+                    <!-- young contact Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select custom-mobile-place">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        @change="selectContactTypeyoung(aboutObj.contactMode)"
+                                        v-model="aboutObj.contactMode">
+                                        <option selected="selected" value="mobile">Mobile</option>
+                                        <option value="landline">Landline</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
+                                @input="trimWhiteSpace($event,'aboutObj','youngContactNumber')"
+                                v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
+                                v-model="aboutObj.youngContactNumber">
+                            <div class="input-group-append">
+                                <span class="input-group-text px-3 font-25">
+                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngContactNumber),'invalid-fields':!aboutObj.youngContactNumber }">
+                                You must provide a number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.youngContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.youngContactNumber)),
+                                'invalid-fields':(aboutObj.youngContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.youngContactNumber)) }">
+                                You must provide a valid mobile number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.youngContactNumber && aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.youngContactNumber)),
+                            'invalid-fields':(aboutObj.youngContactNumber &&  aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.youngContactNumber)) }">
+                                You must provide a valid landline number.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- young contact end-->
+
+                    <!-- young address Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="txtyoungAddress" class="question-font">
+                            {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
+                        <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
+                            <multiselect :options="addressOptions" v-model="aboutObj.youngAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.youngAddress && !youngManualAddress.length)),'invalid-fields':(!aboutObj.youngAddress && !youngManualAddress.length) }">
+                                You must provide a address.
+                            </div>
+                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                id="bdeb1825-c05e-4949-974e-93514d3a85b4"
+                                @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
+                                    manually</u></p>
+                        </div>
+                    </div>
+
+                    <div v-if="checkArrayLength(youngManualAddress)">
+                        <label class="question-font">
+                            Manual Address</label>
+                        <div class="card text-left mb-2" v-for="(item, index) in youngManualAddress" :key="index">
+                            <div class="card-body text-capitalize bg-set-on-card">
+                                <div class="d-flex align-items-center justify-content-between my-1">
+                                    <h3 class="link-text">{{item.addressLine1}}</h3>
+                                    <div class="d-flex">
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#addressModal" @click="patchAddress(item,'young')">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            </i>
+                                        </span>
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#deleteyoungAddressModal">
+                                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h3 class="link-text">{{item.addressLine2}}</h3>
+                                <h3 class="link-text">{{item.city}}</h3>
+                                <h3 class="link-text">{{item.country}}</h3>
+                                <h3 class="link-text">{{item.postCode}}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--young address End-->
+
+                <!-- Post Section Start-->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <p class="question-font m-0">{{sec2dynamicLabel.postLabel}}</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" id="no" value="No" name="sendPost"
+                            v-model="aboutObj.sendPost">
+                        <label class="form-check-label option-font d-flex align-items-center" for="no">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check  py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sendPost" id="yes" value="Yes"
+                            v-model="aboutObj.sendPost">
+                        <label class="form-check-label option-font d-flex align-items-center" for="yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.sendPost),
+                        'invalid-fields':!aboutObj.sendPost }">
+                        You must provide an answer to this question to continue.
+                    </div>
+                </div>
+                <!-- Post Section End-->
+
+                <!-- Gender Section Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="form-group py-2 my-2">
+                        <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
+                        <input type="text" class="form-control input-bg-form-control" id="genderChoose"
+                            v-model="aboutObj.youngGender" @input="trimWhiteSpace($event,'aboutObj','youngGender')"
+                            v-bind:placeholder="sec2dynamicLabel.genderPlacLabel">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngGender),
+                            'invalid-fields':!aboutObj.youngGender }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                    </div>
+                </div>
+                <!-- Gender Section End -->
+
+                <!-- Gender Identification Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
+                        </p>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""
+                            data-toggle="modal" data-target="#genderIdentity">
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" value="No" id="genderNo" name="youngGenderBirth"
+                            v-model="aboutObj.youngIdentity">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderNo">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="youngGenderBirth" value="Yes" id="genderYes"
+                            v-model="aboutObj.youngIdentity">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderYes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="youngGenderBirth" value="Unsure"
+                            id="genderUnsure" v-model="aboutObj.youngIdentity">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderUnsure">
+                            Unsure
+                        </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngIdentity),
+                        'invalid-fields':!aboutObj.youngIdentity }">
+                        You must provide an answer to this question to continue.
+                    </div>
+                </div>
+                <!-- Gender Identification End -->
+
+                <!-- Sex identification Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">{{sec2dynamicLabel.sexAssignedLabel}}
+                        </p>
+                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""
+                            data-toggle="modal" data-target="#genderIdentity"> -->
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" value="Male" id="sexAssignedMale"
+                            name="sexAssigned" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedMale">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Female"
+                            id="sexAssignedFem" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedFem">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Prefer not to say"
+                            id="genderNotSay" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderNotSay">
+                            Prefer not to say
+                        </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.sexAssignedAtBirth),
+                        'invalid-fields':!aboutObj.sexAssignedAtBirth }">
+                        You must provide an answer to this question to continue.
+                    </div>
+                </div>
+                <!-- Sex identification End -->
+
+                <!-- support content modal start -->
+                <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
+                                    If you feel confused about
+                                    your gender identity, you're not alone</h3>
+                                <div class="col-md-12 mx-auto col-sm-10 col-12">
+                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
+                                        <a href="https://www.nhs.uk/live-well/healthy-body/trans-teenager/"
+                                            target="_blank">
+                                            Learn more
+                                            about Gender Identity - NHS
+                                        </a>
+                                    </p>
+                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
+                                        <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/"
+                                            target="_blank">
+                                            Learn
+                                            More about Gender Identity - Liverpool CAMHS
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- support content modal end -->
+
+                <!-- young sexual orientation - optional Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="form-group m-0">
+                        <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}} -
+                            <b>optional</b></label>
+                        <input type="text" class="form-control input-bg-form-control" id="sexual"
+                            @input="trimWhiteSpace($event,'aboutObj','youngSexualOrientation')"
+                            v-bind:placeholder="sec2dynamicLabel.sexOrientPlacLabel"
+                            v-model="aboutObj.youngSexualOrientation">
+                    </div>
+                </div>
+                <!-- young sexual orientation - optional End -->
+
+                <!-- young ethnicity - optional Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="form-group m-0">
+                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} -
+                            <b>optional</label>
+                        <input type="text" class="form-control input-bg-form-control" id="ethnicity"
+                            @input="trimWhiteSpace($event,'aboutObj','youngEthnicity')"
+                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.youngEthnicity">
+                    </div>
+                </div>
+                <!-- young ethnicity - optional End -->
+
+                <!-- Your household Start -->
+
+                <!-- Add HouseHold Members start -->
+                <h2
+                    class="px-2 px-lg-0 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto ">
+                    {{sec2dynamicLabel.houseHoldLabel}}
+                </h2>
+
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}} - <b>optional</b></label>
+                    <div v-if="checkArrayLength(allHouseHoldMembers)">
+                        <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
+                            <div class="card-body text-capitalize bg-set-on-card">
+                                <div class="d-flex align-items-center justify-content-between my-1">
+                                    <h3 class="link-text">{{item.name}} {{item.lastName}}</h3>
+                                    <!-- <h3 class="link-text">{{item.lastName}}</h3> -->
+                                    <div class="d-flex">
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#houseHoldModal" @click="patchHouseHold(item)">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            </i>
+                                        </span>
+                                        <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
+                                                data-target="#deleteModalAbout" @click="openDeleteModal(item)"
+                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h3 class="link-text">{{item.relationShip}}</h3>
+                                <h3 class="link-text">{{item.dob}}</h3>
+                                <h3 class="link-text">{{item.profession}}</h3>
+                                <h3 v-if="item.manualAddress.profession" class="link-text">
+                                    {{item.manualAddress.profession}}</h3>
+                                <h3 v-if="item.manualAddress.addressLine1" class="link-text">
+                                    {{item.manualAddress.addressLine1}}</h3>
+                                <h3 v-if="item.manualAddress.addressLine2" class="link-text">
+                                    {{item.manualAddress.addressLine2}}</h3>
+                                <h3 v-if="item.manualAddress.city" class="link-text"> {{item.manualAddress.city}}</h3>
+                                <h3 v-if="item.manualAddress.country" class="link-text"> {{item.manualAddress.country}}
+                                </h3>
+                                <h3 v-if="item.manualAddress.postCode" class="link-text">{{item.manualAddress.postCode}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
+                        class="btn px-md-4 py-2 px-3"><span class="btn-terirary-text">Add
+                            members <i class="fa common-fa-fa fa-plus-circle" aria-hidden="true"></i>
+                        </span></button>
+                </div>
+                <!-- Add HouseHold Members end -->
+
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteModalAbout" tabindex="-1" role="dialog"
+                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete household member</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you
+                                    sure want to
+                                    delete this member?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" id="closeModalDeleteAbout"
+                                    @click="deleteHouseHold(storeDeleteData)">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
+
+
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteyoungAddressModal" tabindex="-1" role="dialog"
+                    aria-labelledby="deleteAddresModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font">Delete address</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center">Are you
+                                    sure want to
+                                    delete this address?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" @click="deleteManualAddress('young')">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
+
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteParentAddressModal" tabindex="-1" role="dialog"
+                    aria-labelledby="deleteAddresModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font">Delete address</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center">Are you
+                                    sure want to
+                                    delete this address?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" @click="deleteManualAddress('parent')">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
+
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" id="careNo" value="No" name="youngCareAdult"
+                            v-model="aboutObj.youngCareAdult">
+                        <label class="form-check-label option-font d-flex align-items-center" for="careNo">
+                            No
+                        </label>
+                    </div>
+                    <div class="d-flex form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="youngCareAdult" id="careYes" value="Yes"
+                            v-model="aboutObj.youngCareAdult">
+                        <label class="form-check-label option-font d-flex align-items-center" for="careYes">
+                            Yes
+                        </label>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
+                            data-toggle="modal" data-target="#careForAdultModal" alt="">
+                    </div>
+
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="youngCareAdult" id="careUnsure"
+                            value="Unsure" v-model="aboutObj.youngCareAdult ">
+                        <label class="form-check-label option-font d-flex align-items-center" for="careUnsure">
+                            Unsure
+                        </label>
+                    </div>
+
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngCareAdult),
+                        'invalid-fields':!aboutObj.youngCareAdult }">
+                        You must provide an answer to this question to continue.
+                    </div>
+
+                </div>
+                <!-- Your household End -->
+
+                <!-- support content modal start -->
+                <div class="modal fade" id="careForAdultModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
+                                    Help and support for youngren and
+                                    young people
+                                    who
+                                    are carers</h3>
+                                <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
+                                        <a href="https://www.barnardos.org.uk/what-we-do/services/action-young-carers-liverpool"
+                                            target="_blank">
+                                            > Link
+                                            to
+                                            support and advice
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- support content modal end -->
+
+                <!-- Your parent / carer Start -->
+                <h2 class="px-2 px-lg-0 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    {{sec2dynamicLabel.carerLabel}}</h2>
+                <!-- Your parent / carer firstname Start -->
+                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="form-group my-2">
+                        <label for="carerFirstname" class="question-font">
+                            {{sec2dynamicLabel.yourFirstNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control" id="carerFirstname"
+                                @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
+                                v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
+                                v-model="aboutObj.parentFirstName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentFirstName),
+                            'invalid-fields':!aboutObj.parentFirstName }">
+                            You must provide a first name.
+                        </div>
+                    </div>
+                </div>
+                <!-- Your parent / carer firstname end -->
+
+                <!-- Your parent / carer lastname Start -->
+                <div class="px-2 px-lg-0 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="form-group my-2">
+                        <label for="parentLastName" class="question-font">
+                            {{sec2dynamicLabel.yourLastNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control" id="parentLastName"
+                                @input="trimWhiteSpace($event,'aboutObj','parentLastName')"
+                                v-bind:placeholder="sec2dynamicLabel.yourLastNameLabelPlacLabel"
+                                v-model="aboutObj.parentLastName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentLastName),
+                            'invalid-fields':!aboutObj.parentLastName }">
+                            You must provide a last name.
+                        </div>
+                    </div>
+                </div>
+                <!-- Your parent / carer lastname end -->
+                <!-- Reset Flow Start -->
+
+                <!-- Parental Responsibility start -->
+                <!-- <form id="parentResy-form" data-options="parentialResponsibility">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
+                                name="parentialResponsibility" v-model="aboutFormData.parentialResponsibility"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center"
+                                for="responsibilityNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="parentialResponsibility"
+                                id="responsibilityYes" value="yes" v-model="aboutFormData.parentialResponsibility"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center"
+                                for="responsibilityYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </form> -->
+                <!-- Parental Responsibility end -->
+
+                <!-- Parental Responsibility Toaster container start-->
+                <!-- <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-2 px-lg-0 py-4">
+                    <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">
+                                {{sec2dynamicLabel.responsibilityToastLabel}}
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Parental Responsibility Toaster container end -->
+
+                <!-- Parent or Carer First Name Start -->
+                <!-- <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
+                    <div v-if="aboutFormData.parentialResponsibility == 'no'"
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <div class="form-group py-2 my-2">
+                            <label for="contactNumber"
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="parFirstName2"
+                                    @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
+                                    placeholder="Enter your parent / carer’s first name"
+                                    v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
+                                    v-model="aboutFormData.parentCarerFirstName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerFirstName),
+                                'invalid-fields':(!aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no') }">
+                                You must provide a first name.
+                            </div>
+                        </div>
+                    </div>
+                </form> -->
+                <!-- Parent or Carer First Name End -->
+
+                <!-- Parent or Carer end Name Start -->
+                <!-- <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
+                    <div v-if="aboutFormData.parentialResponsibility == 'no'"
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <div class="form-group py-2 my-2">
+                            <label for="contactNumber"
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerLastNameLabel}}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="parLatname2"
+                                    @input="trimWhiteSpace($event,'aboutFormData','parentCarerLastName')"
+                                    placeholder="Enter your parent / carer’s first name"
+                                    v-bind:placeholder="sec2dynamicLabel.parentOrCarerLastNameLabel"
+                                    v-model="aboutFormData.parentCarerLastName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerLastName),
+                                'invalid-fields':(!aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='no') }">
+                                You must provide a last name.
+                            </div>
+                        </div>
+                    </div>
+                </form> -->
+                <!-- Parent or Carer end Name End -->
+
+
+                <div>
+                    <!-- Parent or Carer Relationship Start -->
+                    <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="relationshipYou"
+                                    class="question-font">{{sec2dynamicLabel.relationShipLabel}}</label>
+                                <input type="text" class="form-control input-bg-form-control" id="relationshipYou"
+                                    name="relationShip"
+                                    @input="trimWhiteSpace($event,'aboutFormData','relationshipToYou')"
+                                    placeholder="eg mother, grandfather, foster parent etc"
+                                    v-model="aboutFormData.relationshipToYou">
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.relationshipToYou),
+                                    'invalid-fields': !aboutFormData.relationshipToYou }">
+                                    You must provide an answer to this question to continue.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Parent or Carer Relationship  End -->
+
+                    <!-- Parent or Carer Contact Start -->
+                    <form id="parentOrCarerContact-form" data-options="contactNumber">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="parentOrCarcontactNumber1"
+                                    class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend cursor-pointer">
+                                        <span class="plain-select custom-mobile-place">
+                                            <select v-model="parentContactMode"
+                                                @change="selectContactTypeParent(parentContactMode)"
+                                                class="custom-select form-control input-bg-form-control">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        id="parentOrCarcontactNumber1" inputmode="tel"
+                                        @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
+                                        v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
+                                        v-model="aboutFormData.contactNumber">
+                                    <div class="input-group-append cursor-pointer">
+                                        <span class="input-group-text px-3 font-25"><i aria-hidden="true"
+                                                class="fa fa-phone"></i></span>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.contactNumber),
+                                    'invalid-fields':!aboutFormData.contactNumber }">
+                                    You must provide a number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)),
+                                    'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid mobile number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)),
+                                'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid landline number.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Parent or Carer Contact End -->
+
+                    <!-- Parent or Carer Email Start -->
+                    <form id="parentOrCarerEmail-form" data-options="emailAddress">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
+                                    - <b>optional</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control" id="emailAddress"
+                                        inputmode="email" @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
+                                        v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
+                                        v-model="aboutFormData.emailAddress">
+                                    <div class="input-group-append cursor-pointer">
+                                        <span class="input-group-text px-3 font-23"><i aria-hidden="true"
+                                                class="fa fa-envelope"></i></span>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)),
+                                    'invalid-fields':(aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)) }">
+                                    You must provide a valid email.
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Parent or Carer Email End -->
+                </div>
+
+                <!-- Live In Same House Start -->
+                <form id="sameHouse-form" data-options="sameHouse">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <p class="question-font m-0">{{sec2dynamicLabel.sameHouseLabel}}
+                        </p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
+                                name="liveInSameHouse" v-model="aboutFormData.sameHouse"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sameHouseNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="liveInSameHouse" id="sameHouseYes"
+                                value="yes" v-model="aboutFormData.sameHouse" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sameHouseYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Live In Same House End -->
+
+                <!-- Parent Or carer's Address Start-->
+                <form id="guardAddress-form" data-options="parentOrCarrerAddress">
+                    <div v-show="aboutFormData.sameHouse=='no'"
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <div class="form-group py-2 m-0">
+                            <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
+                                - <b>optional. Please enter the full postcode.</b></label>
+                            <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
+                                <!-- <input type="text" class="form-control input-bg-form-control" inputmode="search"
+                                    @input="getAddressPostcode($event)" name="parentPostCode"
+                                    v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
+                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress"> -->
+
+                                <multiselect :options="addressOptions" v-model="aboutFormData.parentOrCarrerAddress"
+                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                                </multiselect>
+
+                                <!-- <div class="input-group-append">
+                                    <span class="input-group-text px-3">
+                                        <i class="fa common-fa-fa fa-map-marker " aria-hidden="true"></i>
+                                    </span>
+                                </div> -->
+                            </div>
+                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                id="ab0ea3ad-43c5-4f21-a449-e8087707654b"
+                                @click="getManualAddress('ab0ea3ad-43c5-4f21-a449-e8087707654b')"><u>Enter
+                                    manually</u></p>
+                        </div>
+                    </div>
+                </form>
+                <!-- Parent Or carer's Address End-->
+
+                <div v-if="checkArrayLength(parentManualAddress)">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <label class="question-font">
+                            Manual Address -<b>optional</b></label>
+                        <div class="card text-left mb-2" v-for="(item, index) in parentManualAddress" :key="index">
+                            <div class="card-body text-capitalize bg-set-on-card">
+                                <div class="d-flex align-items-center justify-content-between my-1">
+                                    <h3 class="link-text">{{item.addressLine1}}</h3>
+                                    <div class="d-flex">
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#addressParentModal" @click="patchAddress(item,'parent')">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            </i>
+                                        </span>
+                                        <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
+                                                data-target="#deleteParentAddressModal" class="fa fa-trash-o fa-2x"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h3 class="link-text">{{item.addressLine2}}</h3>
+                                <h3 class="link-text">{{item.city}}</h3>
+                                <h3 class="link-text">{{item.country}}</h3>
+                                <h3 class="link-text">{{item.postCode}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal care Status Start -->
+                <!-- <form id="legalCare-form" data-options="legalCareStatus">
+                    <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                        <div class="form-group py-2 mt-0 mb-2">
+                            <label class="question-font">{{sec2dynamicLabel.legalCareLabel}}
+                            </label>
+                            <div class="input-group">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutFormData.legalCareStatus" name="legalCare">
+                                        <option class='option-text' value="" disabled selected>
+                                            {{sec2dynamicLabel.legalCarePlacLabel}}
+                                        </option>
+                                        <option class='option-text' value="Care of Parent">Care of Parent
+                                        </option>
+                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care of
+                                            Local Authority
+                                            (Liverpool)
+                                        </option>
+                                        <option class='option-text' value="Care of Local Authority (Sefton)">Care of
+                                            Local Authority
+                                            (Sefton)
+                                        </option>
+                                        <option class='option-text' value="Care of Local Authority (Other)">Care of
+                                            Local Authority (Other)
+                                        </option>
+                                        <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
+                                        </option>
+                                        <option class='option-text' value="Accommodated">Accommodated
+                                        </option>
+                                        <option class='option-text' value="Full Care Order">Full Care Order</option>
+                                        <option class='option-text' value="Interim Care Order">Interim Care Order
+                                        </option>
+                                        <option class='option-text' value="Care Order places at home">Care Order places
+                                            at home</option>
+                                        <option class='option-text' value="young Protection Plan">young Protection Plan
+                                        </option>
+                                        <option class='option-text' value="Other Carer">Other Carer</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form> -->
+                <!-- Legal care Status Start -->
+
+                <!-- Dynamic Toaster Scenario 1 start -->
+                <div v-if="aboutFormData.sameHouse">
+                    <div class="px-2 px-lg-0 py-4" v-if="
+                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)))
+                    && aboutObj.youngFirstName
+                    && aboutObj.youngLastName
+                    && (!aboutObj.youngEmail || (aboutObj.youngEmail && emailRegex.test(aboutObj.youngEmail)))
+                    && (aboutObj.youngContactNumber && dynamicRegexyoung.test(aboutObj.youngContactNumber))
+                    && (aboutObj.youngAddress || (!aboutObj.youngAddress && youngManualAddress.length))
+                    && aboutObj.sendPost
+                    && aboutObj.youngGender
+                    && aboutObj.youngIdentity
+                    && aboutObj.youngCareAdult
+                    && aboutObj.parentFirstName
+                    && aboutObj.parentLastName
+                    && ((
+                                aboutFormData.relationshipToYou
+                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
+                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
+                            )
+                        )
+                    && aboutFormData.sameHouse
+                    && aboutObj.sexAssignedAtBirth
+                    && aboutObj.youngNameTitle
+                ">
+                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div>
+                                    <div class="text-center m-0 py-2">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </div>
+                                    <p class="question-font text-center m-0 py-2">
+                                        Another section finished. Let's move on to education, employment and support
+                                        needs.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </div>
+                <!-- Dynamic Toaster Scenario 1 end -->
+
+                <!-- Add Manual address Modal for young Start -->
+                <div class="modal fade" id="addressModal" tabindex="-1" role="dialog"
+                    aria-labelledby="addressModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="addressData.mode == 'update'">
+                                    <h5 class="question-header-font">Edit address</h5>
+                                </template>
+                                <template v-else-if="addressData.mode == ''">
+                                    <h5 class="question-header-font">Add address</h5>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font">Add address</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                    <i @click="resetyoungAddressValue(addressData)"
+                                        class="fal fa-times fa-2x cursor-pointer"></i>
+                                </span>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+
+                                <!-- Address Line1 start-->
+                                <div class="form-group">
+                                    <label for="addressline1young" inputmode="text" class="question-font">Address
+                                        line 1</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressData.addressLine1"
+                                            @input="trimWhiteSpace($event,'addressData','addressLine1')"
+                                            id="addressline1young" placeholder="Enter address line 1">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.addressLine1) }">
+                                        Please provide an address.
+                                    </div>
+                                </div>
+                                <!-- Address Line1 end -->
+
+                                <!-- Address Line2 start -->
+                                <div class="form-group">
+                                    <label for="youngaddressline2" inputmode="text" class="question-font">Address
+                                        line 2 -<b> optional</b></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressData.addressLine2"
+                                            @input="trimWhiteSpace($event,'addressData','addressLine2')"
+                                            id="youngaddressline2" placeholder="Enter address line 2">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Address Line2 end -->
+
+                                <!-- City start-->
+                                <div class="form-group">
+                                    <label for="youngCityInfo" inputmode="text" class="question-font">City</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressData.city"
+                                            @input="trimWhiteSpace($event,'addressData','city')" id="youngCityInfo"
+                                            placeholder="Enter city">
+                                        <!-- <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div> -->
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
+                                        Please provide a city name.
+                                    </div>
+                                </div>
+                                <!-- City end -->
+
+                                <!-- Country start-->
+                                <div class="form-group">
+                                    <label for="youngCountryAdd" inputmode="text" class="question-font">Country -<b>
+                                            optional</b></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressData.country"
+                                            @input="trimWhiteSpace($event,'addressData','country')" id="youngCountryAdd"
+                                            placeholder="Enter country">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Country end -->
+
+                                <!-- Postcode start-->
+                                <div class="form-group">
+                                    <label for="postCodeAddyoung" inputmode="text"
+                                        class="question-font">Postcode</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressData.postCode"
+                                            @input="trimWhiteSpace($event,'addressData','postCode')"
+                                            id="postCodeAddyoung" placeholder="Enter postcode">
+                                        <!-- <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div> -->
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
+                                        Please provide a postcode.
+                                    </div>
+
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                        Please provide a valid postcode.
+                                    </div>
+                                </div>
+                                <!-- Postcode end -->
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn px-md-4 w-50" @click="upsertAddress('young')">
+                                        <template v-if="addressData.mode == 'update'">
+                                            <span class="btn-modal-text">UPDATE
+                                            </span>
+                                        </template>
+                                        <template v-else-if="addressData.mode == ''">
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                        <template v-else>
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Manual address Modal for young End -->
+
+                <!-- Add Manual address Modal for parent Start -->
+                <div class="modal fade" id="addressParentModal" tabindex="-1" role="dialog"
+                    aria-labelledby="addressParentModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="addressParentData.mode == 'update'">
+                                    <h5 class="question-header-font">Edit address</h5>
+                                </template>
+                                <template v-else-if="addressParentData.mode == ''">
+                                    <h5 class="question-header-font">Add address</h5>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font">Add address</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                    <i @click="resetParentAddressValue()" class="fal fa-times fa-2x cursor-pointer"></i>
+                                </span>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+
+                                <!-- Address Line1 start-->
+                                <div class="form-group">
+                                    <label for="addressline1Parent" inputmode="text" class="question-font">Address
+                                        line 1</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressParentData.addressLine1"
+                                            @input="trimWhiteSpace($event,'addressParentData','addressLine1')"
+                                            id="addressline1Parent" placeholder="Enter address line 1">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted  && !addressParentData.addressLine1) }">
+                                        Please provide an address.
+                                    </div>
+                                </div>
+                                <!-- Address Line1 end -->
+
+                                <!-- Address Line2 start -->
+                                <div class="form-group">
+                                    <label for="parentaddressline2" inputmode="text" class="question-font">Address
+                                        line 2 -<b> optional</b></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressParentData.addressLine2"
+                                            @input="trimWhiteSpace($event,'addressParentData','addressLine2')"
+                                            id="parentaddressline2" placeholder="Enter address line 2">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Address Line2 end -->
+
+                                <!-- City start-->
+                                <div class="form-group">
+                                    <label for="parentCityInfo" inputmode="text" class="question-font">City</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressParentData.city"
+                                            @input="trimWhiteSpace($event,'addressParentData','city')"
+                                            id="parentCityInfo" placeholder="Enter city">
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted  && !addressParentData.city) }">
+                                        Please provide a city name.
+                                    </div>
+                                </div>
+                                <!-- City end -->
+
+                                <!-- Country start-->
+                                <div class="form-group">
+                                    <label for="countryAdd" inputmode="text" class="question-font">County -<b>
+                                            optional</b></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressParentData.country"
+                                            @input="trimWhiteSpace($event,'addressParentData','country')"
+                                            id="countryAdd" placeholder="Enter country">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Country end -->
+
+                                <!-- Postcode start-->
+                                <div class="form-group">
+                                    <label for="postCodeAddParent" inputmode="text"
+                                        class="question-font">Postcode</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="addressParentData.postCode"
+                                            @input="trimWhiteSpace($event,'addressParentData','postCode')"
+                                            id="postCodeAddParent" placeholder="Enter postcode">
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted && !addressParentData.postCode) }">
+                                        Please provide a postcode.
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted && (addressParentData.postCode && !postCodeRegex.test(addressParentData.postCode))) }">
+                                        Please provide a valid postcode.
+                                    </div>
+                                </div>
+                                <!-- Postcode end -->
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn px-md-4 w-50" @click="upsertAddress('parent')">
+                                        <template v-if="addressParentData.mode == 'update'">
+                                            <span class="btn-modal-text">UPDATE
+                                            </span>
+                                        </template>
+                                        <template v-else-if="addressParentData.mode == ''">
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                        <template v-else>
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Manual address Modal for parent End -->
+
+                <!-- Add HouseHold Modal Start -->
+                <div class="modal fade" id="houseHoldModal" tabindex="-1" role="dialog" aria-labelledby="houseHoldLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="houseHoldData.mode == 'update'">
+                                    <h5 class="question-header-font">Edit household member</h5>
+                                </template>
+                                <template v-else-if="houseHoldData.mode == ''">
+                                    <h5 class="question-header-font">Add household member</h5>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font">Add household member</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                    @click="clearHouseHoldData()" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+
+                                <!-- Household first name start -->
+                                <div class="form-group">
+                                    <label for="houseHoldName" inputmode="text" class="question-font">First name</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.name"
+                                            @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
+                                            placeholder="Enter first name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name),'invalid-modal-fields':!houseHoldData.name }">
+                                        Please provide a first name.
+                                    </div>
+                                </div>
+                                <!-- Household first name end -->
+
+                                <!-- Household last name start -->
+                                <div class="form-group">
+                                    <label for="houseHoldLastName" inputmode="text" class="question-font">Last
+                                        name</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.lastName"
+                                            @input="trimWhiteSpace($event,'houseHoldData','lastName')"
+                                            id="houseHoldLastName" placeholder="Enter last name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName),'invalid-modal-fields':!houseHoldData.lastName }">
+                                        Please provide a last name.
+                                    </div>
+                                </div>
+                                <!-- Household name end -->
+
+                                <!-- Household Relationship start -->
+                                <div class="form-group">
+                                    <label for="relationship" class="question-font">Relationship -
+                                        <b>optional</b></label>
+                                    <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
+                                        @input="trimWhiteSpace($event,'houseHoldData','relationShip')"
+                                        class="form-control input-bg-form-control" id="relationship"
+                                        placeholder="Enter relationship with CYP">
+                                </div>
+                                <!-- Household Relationship end -->
+
+                                <!-- Household D.O.B start -->
+                                <div class="form-group">
+                                    <label for="manualDobHouseHold" class="question-font">Date of birth -
+                                        <b>optional</b> (DD/MM/YYYY)</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.dob" @keypress="preventRefresh($event)"
+                                            @input="checkValidDateMine($event)" autocomplete="off"
+                                            id="manualDobHouseHold" placeholder="DD/MM/YYYY">
+                                        <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
+                                            @dp-show="setCalendarHeight($event)"
+                                            @dp-change="toggleHouseHoldManualAddress($event)"
+                                            @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
+                                            :config="options" :wrap="dateWrap"></date-picker> -->
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="invalid-feedback d-none mt-2"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
+                                        Please provide a valid date.
+                                    </div> -->
+                                    <div class="text-validation invalid-feedback  d-none"
+                                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
+                                    </div>
+                                </div>
+                                <!-- Household D.O.B end -->
+
+                                <!-- Household School/College/Employment start -->
+                                <div class="form-group"
+                                    v-show="setDatePattern(houseHoldData.dob) && !hasValidDate && getAge(houseHoldData.dob) < 19">
+                                    <div id="94a4bca4-a05e-44d6-974b-0f09e2e4c576">
+                                        <label for="educLocation" style="word-break: break-word;" inputmode="search"
+                                            class="question-font">School/College/Employment-<b>optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                placeholder="Start typing to search" id="educLocation"
+                                                v-model="houseHoldData.profession">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text input-group-secondary-text px-3 font-25">
+                                                    <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <!-- <div class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && houseHoldData.profession && !this.isGoogleAddressSelected),'invalid-modal-fields':houseHoldData.profession && !this.isGoogleAddressSelected }">
+                                                Please provide a valid address.
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                        id="7a53ccec-e9fc-422b-b410-6c5ec82377d7"
+                                        @click="getManualAddressHouseHold('Enter manually')">
+                                        <u>Enter
+                                            manually</u>
+                                    </p>
+                                </div>
+                                <!-- Household School/College/Employment end -->
+
+                                <div v-if="showManualAddressHouseHold">
+                                    <!-- Household School/College/Employment start-->
+                                    <div class="form-group" v-show="getAge(houseHoldData.dob) < 19">
+                                        <label for="school" inputmode="text"
+                                            class="question-font">School/College/Employment</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.profession" id="school"
+                                                placeholder="Enter school/college/employment">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.profession),'invalid-modal-fields':!houseHoldData.manualAddress.profession }">
+                                            Please provide a school/college/university.
+                                        </div>
+                                    </div>
+                                    <!-- Household School/College/Employment end-->
+
+                                    <!-- Address Line1 start-->
+                                    <div class="form-group">
+                                        <label for="addressline1HouseHold" inputmode="text"
+                                            class="question-font">Address
+                                            line 1</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.addressLine1"
+                                                id="addressline1HouseHold" placeholder="Enter address line 1">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.addressLine1),'invalid-modal-fields':!houseHoldData.manualAddress.addressLine1 }">
+                                            Please provide an address.
+                                        </div>
+                                    </div>
+                                    <!-- Address Line1 end -->
+
+                                    <!-- Address Line2 start -->
+                                    <div class="form-group">
+                                        <label for="houseHoldaddressline2" inputmode="text"
+                                            class="question-font">Address
+                                            line 2 -<b> optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.addressLine2"
+                                                id="houseHoldaddressline2" placeholder="Enter address line 2">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Address Line2 end -->
+
+                                    <!-- City start-->
+                                    <div class="form-group">
+                                        <label for="cityInfo" inputmode="text" class="question-font">City</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.city" id="cityInfo"
+                                                placeholder="Enter city">
+                                        </div>
+                                        <div class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.city), 'invalid-modal-fields':!houseHoldData.manualAddress.city}">
+                                            Please provide a city name.
+                                        </div>
+                                    </div>
+                                    <!-- City end -->
+
+                                    <!-- Country start-->
+                                    <div class="form-group">
+                                        <label for="countyAdd" inputmode="text" class="question-font">Country -<b>
+                                                optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.country" id="countyAdd"
+                                                placeholder="Enter country">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                    <i class="fa fa-globe" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Country end -->
+
+                                    <!-- Postcode start-->
+                                    <div class="form-group">
+                                        <label for="postCodeAddHouseHold" inputmode="text"
+                                            class="question-font">Postcode</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="houseHoldData.manualAddress.postCode" id="postCodeAddHouseHold"
+                                                placeholder="Enter postcode">
+                                        </div>
+                                        <div class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode),'invalid-modal-fields': !houseHoldData.manualAddress.postCode}">
+                                            Please provide a postcode.
+                                        </div>
+                                        <div class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))),'invalid-modal-fields': (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))}">
+                                            Please provide a valid postcode.
+                                        </div>
+                                    </div>
+                                    <!-- Postcode end -->
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn px-md-4 w-50" id="closeModalRaj"
+                                        @click="upsertHouseHold()">
+                                        <template v-if="houseHoldData.mode == 'update'">
+                                            <span class="btn-modal-text">UPDATE
+                                            </span>
+                                        </template>
+                                        <template v-else-if="houseHoldData.mode == ''">
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                        <template v-else>
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add HouseHold Modal End -->
+
+            </div>
+        </div>
+
+        {% endraw %}
+    </div>
+</div>
+{% endblock %}

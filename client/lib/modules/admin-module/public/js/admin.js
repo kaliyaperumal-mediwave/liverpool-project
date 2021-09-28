@@ -194,7 +194,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -632,12 +632,13 @@ $(document).ready(function () {
   }
 });
 
-function viewPdf(uuid, role) {
+function viewPdf(uuid, role,other,formType) {
+  console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
   setTimeout(function () {
-    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role +"/" +formType, API_URI);
     if (successData && Object.keys(successData)) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
@@ -733,7 +734,7 @@ function toArrayBuffer(buf) {
   }
   return ab;
 }
-function sendPdf(uuid, role, refCode) {
+function sendPdf(uuid, role, refCode,formType) {
   var buttonElem = document.querySelector('#sendRef');
   buttonElem.disabled = true;
   var useAPI
@@ -743,7 +744,7 @@ function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode + "/" + formType
   // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
   //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   // }
@@ -779,9 +780,9 @@ function sendPdf(uuid, role, refCode) {
     }
   });
 }
-function openSendPopup(uuid, role, refCode, referral_provider) {
+function openSendPopup(uuid, role, refCode, referral_provider,formType) {
   $('#sendProviderModal').modal('show');
-  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + formType + '\')');
   var buttonElem = document.querySelector('#sendRef');
   buttonElem.disabled = false;
 }

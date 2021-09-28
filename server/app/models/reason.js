@@ -86,6 +86,9 @@ module.exports = function modelReferral(sequelize, types) {
       other_eating_difficulties:{
         type: types.TEXT
       },
+      about_our_service: {
+        type: types.TEXT
+      },
     }, {
       tableName: 'reasons',
     });

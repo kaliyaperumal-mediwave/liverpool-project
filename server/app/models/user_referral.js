@@ -1,5 +1,10 @@
 module.exports = function modelUser(sequelize, types) {
   const Referral = sequelize.define('Referral', {
+    id: {
+      primaryKey: true,
+      type: types.INTEGER,
+      autoIncrement: true,
+    },
     uuid: {
       type: types.UUID,
       defaultValue: types.UUIDV4,
@@ -126,6 +131,9 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     child_EHAT: {
+      type: types.TEXT
+    },
+    careLeaver: {
       type: types.TEXT
     },
     child_socialworker: {
@@ -265,6 +273,9 @@ module.exports = function modelUser(sequelize, types) {
     referral_mode: {
       type: types.TEXT
     },
+    referral_type: {
+      type: types.TEXT,
+    }
   }, {
     tableName: 'referrals',
   });
@@ -289,6 +300,38 @@ module.exports = function modelUser(sequelize, types) {
     as: 'professional',
     through: 'ChildProfessional',
   });
+
+
+  Referral.belongsToMany(Referral, {
+    as: 'family',
+    through: 'YoungFamily',
+  });
+  Referral.belongsToMany(Referral, {
+    as: 'professional2',
+    through: 'YoungProfessional',
+  });
+
+
+  // Referral.belongsToMany(Referral, {
+  //   as: 'Family',
+  //   through: 'YoungFamily',
+  //   foreignKey: 'familyId',
+  // });
+
+  Referral.belongsToMany(Referral, {
+    as: 'young_family',
+    through: 'YoungFamily',
+    foreignKey: 'familyId',
+  });
+
+  Referral.belongsToMany(Referral, {
+    as: 'young_professional',
+    through: 'YoungProfessional',
+    foreignKey: 'professionalId'
+  });
+
+
+
   Referral.belongsToMany(Referral, {
     as: 'child_parent',
     through: 'ChildParents',
