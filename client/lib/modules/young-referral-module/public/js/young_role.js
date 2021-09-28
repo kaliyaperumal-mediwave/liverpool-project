@@ -1597,13 +1597,13 @@ $(document).ready(function () {
                     }
                 }
                 else if (roleText == 'professional') {
-                    if (age < 15) {
+                    if (age < 18) {
                         this.elgibilityObj.profBelowAgeLimit = "yes";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.familyConcern = "";
                         this.elgibilityObj.submitProfForm = "false";
                     }
-                    else if (age > 18) {
+                    else if (age > 26) {
                         this.elgibilityObj.profaboveLimit = "yes";
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.familyConcern = "";
