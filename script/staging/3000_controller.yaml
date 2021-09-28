@@ -99,6 +99,8 @@ spec:
           value: $PHR_LIVERPOOL_MAYDEN_API_VENUS
         - name: mayden_apiToken
           value: $PHR_LIVERPOOL_MAYDEN_APITOKEN
+        - name: NEW_FORM
+          value: $PHR_LIVERPOOL_NEW_FORM
       
         ports:
         - containerPort: 3001
