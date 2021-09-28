@@ -100,5 +100,6 @@ var apos = require("apostrophe")({
     "apostrophe-templates": {
       viewsFolderFallback: path.join(__dirname, "views"),
     },
+    "young-referral-module": {},
   },
 });

@@ -120,9 +120,9 @@ module.exports = {
       })
     });
 
-    self.route('get', 'downloadReferral/:refID/:refRole', function (req, res) {
+    self.route('get', 'downloadReferral/:refID/:refRole/:formType', function (req, res) {
       // console.log("get all referal")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole;
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&formType=' + req.params.formType;
       //console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
@@ -146,11 +146,11 @@ module.exports = {
       });
     });
 
-    self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
+    self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider/:refCode/:formType', function (req, res) {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode + '&formType=' + req.params.formType;
       // if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
       //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       // }
@@ -170,13 +170,13 @@ module.exports = {
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
       if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode + '&formType=' + req.params.formType;
       }
       else if (useVenusIaptusAPI == 'false' && req.params.selectedProvider == 'Venus') {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode + '&formType=' + req.params.formType;
       }
       else {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode + '&formType=' + req.params.formType;
       }
 
       //var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;

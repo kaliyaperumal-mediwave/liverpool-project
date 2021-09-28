@@ -32,6 +32,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
                         //console.log("-------------------------------success block");
+                        //location.href = "/young-referral";
                         location.href = "/role";
                         // window.top.location= "/role";
                         // parent.location.href = "/role";

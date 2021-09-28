@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-<script src="/modules/role-module/js/role.js"></script>
+<script src="/modules/young-referral-module/js/young_role.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
@@ -33,7 +33,7 @@
     </div>
     <!-- Loader end -->
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
-        <div id="role-form" class="py-4" v-cloak>
+        <div id="young-role-form" class="py-4" v-cloak>
             <form id="type-form" data-options="role">
                 <div class="px-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="question-font m-0">
@@ -49,21 +49,21 @@
                         }) }}</div>
                     {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0" id="1752a966-f49a-4443-baae-ed131ebb477b">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
-                            id="aboutYou" value="child" @change="onChange($event)">
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
+                            id="aboutYou" value="young" @change="onChange($event)" d>
                         <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
-                            Child / Young Person
+                            Young Person
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="398a82d9-59fe-459c-8d1e-85f803d0319c">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
-                            value="parent" @change="onChange($event)">
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
+                            value="family" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whom">
-                            Parent / Carer
+                            Family / Friend
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="96dda9ca-9328-47e8-ac1a-8cdc972df4d0">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
                             id="profession" value="professional" @change="onChange($event)">
                         <label class="form-check-label d-flex align-items-center option-font" for="profession">
                             Professional
@@ -73,7 +73,7 @@
                 </div>
             </form>
             <form id="interpreter-form" data-options="interpreter">
-                <div v-show="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
+                <div v-show="elgibilityObj.role == 'young' || elgibilityObj.role=='family'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p class="question-font m-0">Do you need an interpreter?</p> -->
                     <div class="question-font m-0"> {{ apos.area(data.page, 'referral1_titleam', {
@@ -106,33 +106,30 @@
             </form>
             <!-- toster-container start -->
             <form id="tostInterYes-form" data-options="tostInterYes">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.interpreter == 'yes'"
+                <div v-show="(elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.interpreter == 'yes'"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Please call <b><u>01512 824911</u></b> to get
-                                help
-                                completing
-                                your referral.</p>
-
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Alternatively, change your
-                                previous answer to continue.</p>
+                            <p class="question-font text-center m-0 py-2">If an interpreter is required for the
+                                referral, could you provide them with the number
+                                <b><u>0151 707 1025</u></b>
+                            </p>
                         </div>
                     </div>
                 </div>
             </form>
             <!-- toster-container start -->
 
-            <!-- calender start child-->
-            <form id="child-Dob-form" data-options="childDob">
-                <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
+            <!-- calender start young-->
+            <form id="young-Dob-form" data-options="youngDob">
+                <div v-show="elgibilityObj.role == 'young' && elgibilityObj.interpreter == 'no'"
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
+                    <!-- <p v-show="elgibilityObj.role=='young'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
-                    <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
+                    <div v-show="elgibilityObj.role=='young'" class="question-font m-0">
                         {{ apos.area(data.page,
                         'referral1_titledate', {
                         widgets: {
@@ -147,8 +144,8 @@
                         {{elgibilityObj.maxDate}}</div>
                     <!-- <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                            v-model="elgibilityObj.childDob" autocomplete="off" @dp-show="resetFlag($event)"
-                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
+                            v-model="elgibilityObj.youngDob" autocomplete="off" @dp-show="resetFlag($event)"
+                            @dp-change="changeDob($event,elgibilityObj.youngDob)" :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
@@ -178,10 +175,10 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.youngDob"
                             @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
-                            id="manualDatePickerParent" placeholder="DD/MM/YYYY">
-                        <div class="input-group-append">
+                            id="manualDatePickerfamily" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
@@ -193,17 +190,17 @@
                     </div>
                 </div>
             </form>
-            <!-- calendar-end  child-->
+            <!-- calendar-end  young-->
 
-            <!-- calender start parent-->
-            <form id="parent-Dob-form" data-options="childDob">
-                <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
+            <!-- calender start family-->
+            <form id="family-Dob-form" data-options="youngDob">
+                <div v-show="elgibilityObj.role=='family' && elgibilityObj.interpreter == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <!-- <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
+                    <!-- <p v-show="elgibilityObj.role=='family'" class="question-font m-0">What is your young’s date of
                         birth?
                     </p> -->
-                    <div v-show="elgibilityObj.role=='parent'" class="question-font mb-2">
-                        {{ apos.area(data.page, 'referral1_titlechild', {
+                    <div v-show="elgibilityObj.role=='family'" class="question-font mb-2">
+                        {{ apos.area(data.page, 'referral1_titleyoung', {
                         widgets: {
                         'apostrophe-rich-text': {
                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -218,7 +215,7 @@
 
                     <!-- <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                          
+
                            :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
@@ -249,10 +246,10 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.youngDob"
                             @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
-                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
-                        <div class="input-group-append">
+                            id="manualDatePickeryoung" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
@@ -266,23 +263,41 @@
                     {% endraw %}
                 </div>
             </form>
-            <!-- calendar-end  parent-->
+            <!-- calendar-end  family-->
 
             <!-- Age under 14 start-->
 
             <!-- toster-container start -->
             {% raw %}
             <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
-                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+                <div v-show="(elgibilityObj.role == 'young' && elgibilityObj.youngDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">If you are under 14 you will need your
-                                parent/carer to complete this referral.
+                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
+                                form from
+                                the beginning on your behalf</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endraw %}
+
+            {% raw %}
+            <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
+                <div v-show="(elgibilityObj.role == 'family' && elgibilityObj.youngDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
+                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
                                 form from
@@ -297,36 +312,34 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="age-aboveLimit-form" data-options="aboveLimit">
-                <div v-show="((elgibilityObj.role == 'child' || elgibilityObj.role=='parent')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.childDob!=null"
+                <div v-show="((elgibilityObj.role == 'young' || elgibilityObj.role=='family')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.youngDob!=null"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <!-- <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
-                                people over 18 years of age</p> -->
-                                <!-- <p v-show="!isUserLoggedIn || elgibilityObj.role=='professional'" class="question-font text-center py-2"><a href="/young-referral">Here you go</a></p> -->
-                                <p class="question-font text-center py-2"><a href="/young-referral">Click here to submit referrals if you are above 18</a></p>
+                            <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
+                                people above 25 years of age</p>
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
-                            <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
                                 your GP
                                 is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
-                            <p v-show="elgibilityObj.role == 'parent'" class="link-secondary text-center m-0 py-2">If
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
                                 the
-                                Child/young person's GP
+                                Young person's GP
                                 is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
 
-                            <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
                                 your GP
                                 is registered in Sefton: <a
                                     href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
                                     target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
-                            <p v-show="elgibilityObj.role == 'parent'" class="link-secondary text-center m-0 py-2">If
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
                                 the
-                                Child/young person's GP is registered
+                                Young person's GP is registered
                                 in
                                 Sefton: <a
                                     href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
@@ -348,8 +361,8 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <form id="contactParent-AgeLimit-form" data-options="contactParent">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no' && elgibilityObj.childDob!=null"
+            <form id="contactfamily-AgeLimit-form" data-options="contactfamily">
+                <div v-show="(elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.contactfamily == 'no' && elgibilityObj.youngDob!=null"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -358,11 +371,11 @@
                             </p>
                             <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
                             <p class="link-text text-center cursor-pointer m-0 py-2"> <a
-                                    href="https://www.childline.org.uk/ " target="_blank"> Childline
+                                    href="https://www.youngline.org.uk/ " target="_blank"> youngline
                                 </a>
                             </p>
                             <p class="link-text text-center cursor-pointer m-0 py-2"> <a
-                                    href="https://www.nspcc.org.uk/keeping-children-safe/our-services/childline/"
+                                    href="https://www.nspcc.org.uk/keeping-youngren-safe/our-services/youngline/"
                                     target="_blank">
                                     NSPCC</a>
                             </p>
@@ -379,18 +392,18 @@
 
             <!-- consent start-->
 
-            <form id="isInformation-form3" data-options="contactParent">
-                <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
+            <form id="isInformation-form3" data-options="contactfamily">
+                <div v-show="elgibilityObj.contactfamily=='yes' && elgibilityObj.youngDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p v-show="elgibilityObj.role=='child'" class="question-font m-0">
+                        <p v-show="elgibilityObj.role=='young'" class="question-font m-0">
                             Do you give consent for us to
                             use
                             the
                             information that you provide and
                             share it
-                            with other CAMHS partners so that we can help you?
-                            <!-- {{ apos.area(data.page, 'referral1_titleChild', {
+                            with other AMHS partners so that we can help you?
+                            <!-- {{ apos.area(data.page, 'referral1_titleyoung', {
                                   widgets: {
                                     'apostrophe-rich-text': {
                                       toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -402,8 +415,8 @@
                                 }) }} -->
                         </p>
 
-                        <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
-                            <!-- Do you have consent from your child
+                        <div v-show="elgibilityObj.role=='family'" class="question-font m-0">
+                            <!-- Do you have consent from your young
                             for
                             us to use the information that you
                             provide, and share it with other CAMHS partners so that we can help them? -->
@@ -445,7 +458,7 @@
 
             <!-- toster-container start -->
             <form id="isInformation-form4" data-options="isInformation">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.childDob!=null"
+                <div v-show="(elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.youngDob!=null"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -455,9 +468,9 @@
                                         data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
-                            <p v-show="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">
+                            <p v-show="elgibilityObj.role=='young'" class="question-font text-center m-0 py-2">
                                 We need your consent to continue.
-                                <!-- {{ apos.area(data.page, 'referral1_childcon', {
+                                <!-- {{ apos.area(data.page, 'referral1_youngcon', {
                                     widgets: {
                                       'apostrophe-rich-text': {
                                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -468,9 +481,9 @@
                                     }
                                   }) }} -->
                             </p>
-                            <p v-show="elgibilityObj.role=='parent'" class="question-font text-center m-0 py-2">
-                                We need your child's consent to continue.
-                                <!-- {{ apos.area(data.page, 'referral1_parentcon', {
+                            <p v-show="elgibilityObj.role=='family'" class="question-font text-center m-0 py-2">
+                                We need your young's consent to continue.
+                                <!-- {{ apos.area(data.page, 'referral1_familycon', {
                                     widgets: {
                                       'apostrophe-rich-text': {
                                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -497,7 +510,7 @@
                                     }) }} -->
                             </p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
-                                    href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
+                                    href="https://www.nhs.uk/conditions/consent-to-treatment/youngren/" target="_blank">
                                     Tell me more about consent
                                     <!-- {{ apos.area(data.page, 'referral1_telConsent', {
                                            widgets: {
@@ -519,26 +532,26 @@
 
             <!-- new flow start -->
             {% raw %}
-            <form id="reason-parentcontact-form" data-options="isInformation">
-                <div v-show="elgibilityObj.role == 'child' && elgibilityObj.childDob!=null && elgibilityObj.isInformation=='yes' &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
+            <form id="reason-familycontact-form" data-options="isInformation" class="d-none">
+                <div v-show="elgibilityObj.role == 'young' && elgibilityObj.youngDob!=null && elgibilityObj.isInformation=='yes' &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Is there any reason why your
-                            parent/carer cannot be contacted by a
+                            family/friend's cannot be contacted by a
                             member of the CAMHS partnership
                             during this referral process?</p>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact"
-                            v-model="elgibilityObj.contact_parent_camhs" id="reasonContactNo" value="no"
+                        <input class="form-check-input" type="radio" name="reasonfamilyContact"
+                            v-model="elgibilityObj.contact_family_camhs" id="reasonContactNo" value="no"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="reasonContactNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact"
-                            v-model="elgibilityObj.contact_parent_camhs" id="reasonContactYes" value="yes"
+                        <input class="form-check-input" type="radio" name="reasonfamilyContact"
+                            v-model="elgibilityObj.contact_family_camhs" id="reasonContactYes" value="yes"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="reasonContactYes">
                             Yes
@@ -549,16 +562,16 @@
             {% endraw %}
             <!-- new flow-end -->
 
-            <!--Tell us why you do not want us to contact your parents or carer -start -->
-            {% raw %} <form id="reasons-not-contact" data-options="reason_contact_parent_camhs">
-                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) && elgibilityObj.isInformation=='yes' && elgibilityObj.contact_parent_camhs =='yes'  &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
+            <!--Tell us why you do not want us to contact your familys or carer -start -->
+            {% raw %} <form id="reasons-not-contact" data-options="reason_contact_family_camhs">
+                <div v-show="(elgibilityObj.role == 'young' && elgibilityObj.youngDob!=null) && elgibilityObj.isInformation=='yes' && elgibilityObj.contact_family_camhs =='yes'  &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-1">
                         <label for="textInfo2" class="question-font">Please explain any reasons why we
-                            should not contact your parent/carer:</label>
+                            should not contact your family/friend's:</label>
                         <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
-                            placeholder="Tell us why you do not want us to contact your parents or carer"
-                            v-model="elgibilityObj.reason_contact_parent_camhs" rows="7"
+                            placeholder="Tell us why you do not want us to contact your familys or carer"
+                            v-model="elgibilityObj.reason_contact_family_camhs" rows="7"
                             @input="clearGP($event)"></textarea>
                         <!-- <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !elgibilityObj.hasAnythingInfo),'invalid-fields':!elgibilityObj.hasAnythingInfo }">
@@ -568,22 +581,21 @@
                 </div>
             </form>
             {% endraw %}
-            <!--Tell us why you do not want us to contact your parents or carer-end -->
+            <!--Tell us why you do not want us to contact your familys or carer-end -->
 
             <!-- GP Location start -->
-            <form id="child-gp-form" data-options="contact_parent_camhs">
-                <!-- <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.childDob!=null" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto"> -->
-                <div v-show=" (elgibilityObj.role=='parent' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.childDob!=null) ||
-                    (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' && elgibilityObj.childDob!=null && elgibilityObj.reason_contact_parent_camhs) ||
-                    (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' && elgibilityObj.childDob!=null) ||
-                    (elgibilityObj.role=='child' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.childDob!=null &&  elgibilityObj.belowAgeLimit == 'yes' ) "
+            <form id="young-gp-form" data-options="contact_family_camhs">
+                <!-- <div v-show=" (elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto"> -->
+                <div v-show=" (elgibilityObj.role=='family' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null) ||
+                    (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'yes' && elgibilityObj.youngDob!=null && elgibilityObj.reason_contact_family_camhs) ||
+                    (elgibilityObj.role=='young' &&  elgibilityObj.isInformation == 'yes' && elgibilityObj.youngDob!=null)"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label v-show="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are
+                        <label v-show="elgibilityObj.role=='young'" for="gpLocation" class="question-font">Which GP are
                             you
                             registered with?</label>
-                        <!-- <div v-show="elgibilityObj.role=='child'" for="gpLocation" class="question-font">
-                             {{ apos.area(data.page, 'referral1_gpChild', {
+                        <!-- <div v-show="elgibilityObj.role=='young'" for="gpLocation" class="question-font">
+                             {{ apos.area(data.page, 'referral1_gpyoung', {
                                   widgets: {
                                     'apostrophe-rich-text': {
                                       toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -594,11 +606,11 @@
                                   }
                                 }) }}
                                 </div> -->
-                        <!-- <label v-show="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is
+                        <!-- <label v-show="elgibilityObj.role=='family'" for="gpLocation" class="question-font">Which GP is
                             your
-                            child registered with?</label> -->
-                        <div v-show="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">
-                            {{ apos.area(data.page, 'referral1_gpParent', {
+                            young registered with?</label> -->
+                        <div v-show="elgibilityObj.role=='family'" for="gpLocation" class="question-font">
+                            {{ apos.area(data.page, 'referral1_gpfamily', {
                             widgets: {
                             'apostrophe-rich-text': {
                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -644,14 +656,14 @@
             <!-- gp school start -->
             {% raw %}
             <!-- <form id="gpNotCovered" data-options="gpSchool">
-                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
+                <div v-show="(elgibilityObj.role=='family' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='young' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto"> -->
 
             <!-- <div class="form-group question-font">
-                        <p v-show="elgibilityObj.role=='child'" for="gpSchool">Where do you go
+                        <p v-show="elgibilityObj.role=='young'" for="gpSchool">Where do you go
                             to school?</p>
-                        <p v-show="elgibilityObj.role=='parent'" for="gpSchool">Where does
-                            your child go to school?</p>
+                        <p v-show="elgibilityObj.role=='family'" for="gpSchool">Where does
+                            your young go to school?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
@@ -708,7 +720,7 @@
             <!-- gp school start -->
             {% raw %}
             <form id="gpNoService" data-options="gpNoService">
-                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
+                <div v-show="(elgibilityObj.role=='family' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='young' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -740,15 +752,15 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form2" data-options="submitForm">
-                <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
+                <!-- <div v-show="(elgibilityObj.role == 'young' || elgibilityObj.role=='family') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '') ) || 
+                <div v-show="(elgibilityObj.role=='family' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '') ) ||
 
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
-                
-                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
-                
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
+
+                (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -770,13 +782,13 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
+            <div v-show="(elgibilityObj.role=='family' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) ||
 
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
-                
-                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
-                
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+
+                (elgibilityObj.role=='young' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
+
+                (elgibilityObj.role=='young' &&  elgibilityObj.contact_family_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.youngDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                 class="text-center py-4">
                 <a>
                     <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
@@ -921,11 +933,11 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="parenting2000" value="Parenting 2000"
+                            v-model="elgibilityObj.seftonService" id="familying2000" value="familying 2000"
                             @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
-                            for="parenting2000">
-                            Parenting 2000
+                            for="familying2000">
+                            familying 2000
                         </label>
                     </div>
                     <div class="form-check py-3 pl-0">
@@ -981,7 +993,7 @@
                                 @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
                                 placeholder="Enter your first name" class="form-control input-bg-form-control"
                                 id="fullFirstName">
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -1001,7 +1013,7 @@
                                 @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')"
                                 placeholder="Enter your last name" class="form-control input-bg-form-control"
                                 id="fullLatstName">
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
@@ -1022,7 +1034,7 @@
                                 @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                                 placeholder="Enter your email address" class="form-control input-bg-form-control"
                                 id="emailAddress">
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-envelope"></i>
                                 </span>
@@ -1055,7 +1067,7 @@
                                 @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                                 placeholder="Enter your contact number" class="form-control input-bg-form-control"
                                 id="contact">
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-25">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-phone"></i>
                                 </span>
@@ -1091,7 +1103,7 @@
                                 :close-on-select="true" placeholder="Search" :custom-label="customLabel"
                                 :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
                             </multiselect>
-                            <!-- 
+                            <!--
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-map-marker fa-2x"></i>
@@ -1147,7 +1159,7 @@
                                 @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
                                 placeholder="Enter your profession" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fas common-fa-fa fa-user-tie"></i>
                                 </span>
@@ -1195,7 +1207,7 @@
                                         v-model="addressData.addressLine1"
                                         @input="trimWhiteSpace($event,'addressData','addressLine1')" id="addressline1"
                                         placeholder="Enter address line 1">
-                                    <div class="input-group-append">
+                                    <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </span>
@@ -1217,7 +1229,7 @@
                                         v-model="addressData.addressLine2"
                                         @input="trimWhiteSpace($event,'addressData','addressLine2')" id="addressline2"
                                         placeholder="Enter address line 2">
-                                    <div class="input-group-append">
+                                    <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </span>
@@ -1250,7 +1262,7 @@
                                         v-model="addressData.country"
                                         @input="trimWhiteSpace($event,'addressData','country')" id="countyAdd"
                                         placeholder="Enter country">
-                                    <div class="input-group-append">
+                                    <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-globe" aria-hidden="true"></i>
                                         </span>
@@ -1334,17 +1346,17 @@
             <!-- Delete Modal End -->
 
             <!-- calender start-->
-            <form id="profChildDob-form" data-options="profChildDobForm">
+            <form id="profyoungDob-form" data-options="profyoungDobForm">
                 {% raw %}
                 <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
+                    <p class="question-font mb-1">What is the young person’s date of birth?</p>
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)"
+                            v-model="elgibilityObj.profyoungDob" @keypress="preventRefresh($event)"
                             @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
                             placeholder="DD/MM/YYYY">
-                        <div class="input-group-append">
+                        <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
@@ -1356,8 +1368,8 @@
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                            v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
-                            @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options"
+                            v-model="elgibilityObj.profyoungDob" @dp-show="resetFlag($event)"
+                            @dp-change="changeDob($event,elgibilityObj.profyoungDob)" :config="options"
                             :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
@@ -1391,11 +1403,32 @@
             {% endraw %}
 
             {% raw %}
+            <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
+                <div v-show="(elgibilityObj.role == 'professional' && elgibilityObj.profyoungDob!=null) &&  elgibilityObj.profBelowAgeLimit == 'yes'"
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
+                                form from
+                                the beginning on your behalf</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endraw %}
+            
+
+            {% raw %}
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
-                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=''"
+                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'no' && elgibilityObj.profyoungDob!='null'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have consent from the child/young person's parent/carer for
+                        <p class="question-font m-0">Do you have consent from the young person's family/friend's for
                             us
                             to
                             use information that you provide, and share it with other CAMHS partners so that we can help
@@ -1404,16 +1437,16 @@
                             data-target="#consentModal" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="contactProfParent"
-                            v-model="elgibilityObj.contactProfParent" id="infoBelogAgeNo" value="no"
+                        <input class="form-check-input" type="radio" name="contactProffamily"
+                            v-model="elgibilityObj.contactProffamily" id="infoBelogAgeNo" value="no"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="infoBelogAgeNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="contactProfParent"
-                            v-model="elgibilityObj.contactProfParent" id="infoBelowAgeYes" value="yes"
+                        <input class="form-check-input" type="radio" name="contactProffamily"
+                            v-model="elgibilityObj.contactProffamily" id="infoBelowAgeYes" value="yes"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="infoBelowAgeYes">
                             Yes
@@ -1426,24 +1459,22 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes' && elgibilityObj.profChildDob!=null"
+            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes' && elgibilityObj.profyoungDob!=null"
                 class="px-4 py-2">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <!-- <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
-                            people over 18 years of age</p> -->
-                            <!-- <p v-show="!isUserLoggedIn || elgibilityObj.role=='professional'" class="question-font text-center py-2"><a href="/young-referral">Here you go</a></p> -->
-                            <p class="question-font text-center py-2"><a href="/young-referral">Click here to submit referrals if you are above 18</a></p>
+                        <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
+                            people over 25 years of age</p>
                         <p class="link-text text-center  py-2">Free mental health services for adults:</p>
-                        <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
+                        <p class="link-secondary text-center m-0 py-2">If young person's GP is registered in
                             Liverpool:
                             <a href="https://www.talkliverpool.nhs.uk/
                             " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
                         </p>
-                        <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
+                        <p class="link-secondary text-center m-0 py-2">If young person's GP is registered in
                             Sefton:
                             <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
                                 target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
@@ -1462,14 +1493,14 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProfParent == 'no' && elgibilityObj.profChildDob!=null"
+            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProffamily == 'no' && elgibilityObj.profyoungDob!=null"
                 class="px-4 py-2">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">We need the child/young person's parents consent
+                        <p class="question-font text-center m-0 py-2">We need the young person's familys consent
                             to continue</p>
                         <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above if
                             you are willing to provide consent.</p>
@@ -1483,13 +1514,13 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <!-- consent parent start-->
+            <!-- consent family start-->
             {% raw %}
-            <form id="contactProfParent-form" data-options="contactProfParent">
-                <div v-show="elgibilityObj.contactProfParent== 'yes' && elgibilityObj.profChildDob!=null"
+            <form id="contactProffamily-form" data-options="contactProffamily">
+                <div v-show="elgibilityObj.contactProffamily== 'yes' && elgibilityObj.profyoungDob!=null"
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have consent from the child / young person for us to use the
+                        <p class="question-font m-0">Do you have consent from the young person for us to use the
                             information that you provide, and share it with other CAMHS partners so that we can help
                             them?
                         </p>
@@ -1497,38 +1528,38 @@
                             data-target="#consentModal" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="aboutYouParentConcern"
-                            v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                        <input class="form-check-input" type="radio" id="aboutYoufamilyConcern"
+                            v-model="elgibilityObj.familyConcernInformation" name="familyConcernSelect"
                             @change="onChange($event)" value="no">
                         <label class="form-check-label option-font d-flex align-items-center"
-                            for="aboutYouParentConcern">
+                            for="aboutYoufamilyConcern">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" id="whomParentConcern" value="yes"
-                            v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                        <input class="form-check-input" type="radio" id="whomfamilyConcern" value="yes"
+                            v-model="elgibilityObj.familyConcernInformation" name="familyConcernSelect"
                             @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="whomParentConcern">
+                        <label class="form-check-label option-font d-flex align-items-center" for="whomfamilyConcern">
                             Yes
                         </label>
                     </div>
                 </div>
             </form>
             {% endraw %}
-            <!-- consent- parent end -->
+            <!-- consent- family end -->
 
             <!-- toster-container start -->
             {% raw %}
-            <form id="parentConcernInformation-form3" data-options="parentConcernInformation">
-                <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null "
+            <form id="familyConcernInformation-form3" data-options="familyConcernInformation">
+                <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.familyConcernInformation == 'no' && elgibilityObj.profyoungDob!=null "
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to
+                            <p class="question-font text-center m-0 py-2">We need the young person’s consent to
                                 continue.</p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above
                                 if
@@ -1545,11 +1576,11 @@
 
             <!-- GP Location start -->
             {% raw %}
-            <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
-                <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
+            <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
+                <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.familyConcernInformation == 'yes' && elgibilityObj.profyoungDob!=null"
                     class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group mb-1">
-                        <label for="gpProfLocation" class="question-font">Which GP is the child / young person
+                        <label for="gpProfLocation" class="question-font">Which GP is the young person
                             registered
                             with?</label>
                         <div class="input-group">
@@ -1588,10 +1619,10 @@
             <!-- prof gp school start -->
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
-                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profyoungDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to
+                        <label for="gpSchool" class="question-font mb-1">Where does the young person go to
                             school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
@@ -1624,7 +1655,7 @@
             <!-- prof gp school -->
             {% raw %}
             <form id="gpNoServiceProf" data-options="gpNoService">
-                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true && elgibilityObj.gpSchool == 'Neither')"
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profyoungDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true && elgibilityObj.gpSchool == 'Neither')"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -1654,7 +1685,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profyoungDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1667,7 +1698,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profyoungDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1683,7 +1714,7 @@
             </form>
             {% endraw %}
             <!-- <div
-                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
+                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profyoungDob!=null && elgibilityObj.gpSchool != 'Neither'">
                 <div class="px-4 py-2 py-lg-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -1701,7 +1732,7 @@
                 </div>
             </div> -->
 
-            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
+            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profyoungDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
                 class="text-center pt-4 pb-2 pb-lg-1">
                 <a>
                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
