@@ -1635,18 +1635,7 @@
                                         @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
-                                        How did you hear about our service:
-                                    </label>
-                                    <textarea
-                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
-                                        name="infoTextAreas" id="hearService" rows="3"
-                                        v-model="section4Data.about_our_service"
-                                        @input="onDetectChange($event,'sect4','section4Data','about_our_service')">{{section4Data.about_our_service}}</textarea>
-                                </div>
-
-
+                               
                                 <div v-if="checkArrayLength(section4Data.local_services)"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1657,6 +1646,17 @@
                                             name="infoTextAreas" placeholder="" rows="3"
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
+                                        How did you hear about our service:
+                                    </label>
+                                    <textarea
+                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
+                                        name="infoTextAreas" id="hearService" rows="3"
+                                        v-model="section4Data.about_our_service"
+                                        @input="onDetectChange($event,'sect4','section4Data','about_our_service')">{{section4Data.about_our_service}}</textarea>
                                 </div>
 
                                 <div class="text-center py-4">

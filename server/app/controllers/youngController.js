@@ -456,12 +456,22 @@ exports.fetchEligibility = ctx => {
 
     } else if (ctx.query.role == "family" || ctx.query.role == "professional") {
 
+      var includeModal;
+      if(ctx.query.role == "professional")
+      {
+        includeModal = "professional"+2
+      }
+      else
+      {
+        includeModal = "family"
+      }
+
       return user.findAll({
         include: [
           {
             model: ctx.orm().Referral,
             nested: true,
-            as: ctx.query.role + 2,
+            as: includeModal,
           },
         ],
         where: {
