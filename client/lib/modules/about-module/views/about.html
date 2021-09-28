@@ -1531,9 +1531,13 @@
                                         </div>
                                     </div>
                                     <!-- <div class="invalid-feedback d-none mt-2"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
-                                        Please provide a valid date.
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (!isFutureDate(houseHoldData.dob) || isCheckUtc) && (houseHoldData.dob && dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && dateRegex.test(houseHoldData.dob) && (!isFutureDate(houseHoldData.dob) || isCheckUtc)) }">
+                                        Please provide a valid date 55.
                                     </div> -->
+                                    <div class="invalid-feedback d-none mt-2"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && houseHoldData.dob && !dateRegex.test(houseHoldData.dob)),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
+                                        Please provide a valid date.
+                                    </div>
                                     <div class="text-validation invalid-feedback  d-none"
                                         v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
                                         Please make sure the DOB is entered in the correct format DD/MM/YYYY.
