@@ -188,7 +188,7 @@ $(document).ready(function () {
             },
             contineReferral: function (refObj) {
                 $.ajax({
-                    url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.viewReferralObj.userRole + "/" + refObj.referral_progress,
+                    url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + refObj.user_role + "/" + refObj.referral_progress,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

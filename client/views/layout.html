@@ -436,8 +436,9 @@ endblock %} {% block extraHead %}
   <p id="uUid">{{data.uuid}}</p>
   <p id="prof_data" class="d-none">{{data.prof_data}}</p>
   <!-- Dont remove this line. it is used in check a referral page -->
-  <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
+  <p id="loginUserFlag">{{data.showLogout}}</p>
   <p id="sessionExp">{{data.sessionExp}}</p>
+  <p id="loginAsAdmin">{{data.loginAsAdmin}}</p>
 
   <div class="d-none">
     <button type="button" onclick="downloadJson()">Download Json!</button>

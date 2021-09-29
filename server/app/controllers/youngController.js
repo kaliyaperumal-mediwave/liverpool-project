@@ -335,11 +335,22 @@ exports.eligibility = ctx => {
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
             professionalUserInfo.setType("3")
-            professionalUserInfo.setProfessional(childUserInfo.id)
+            professionalUserInfo.setProfessional2(childUserInfo.id).then(sc => {
+              console.log(sc);
+            }).catch((error) => {
+              console.log(error)
+            });
             return user.create({
             }).then((parenetUserInfo) => {
-              parenetUserInfo.setType("2")
-              parenetUserInfo.setParent(childUserInfo.id)
+              parenetUserInfo.setType("8")
+              console.log("---------------")
+              parenetUserInfo.setFamily(childUserInfo.id).then(sc => {
+                console.log("----sx-----------")
+                console.log(sc);
+              }).catch((error) => {
+                console.log("----error-----------")
+                console.log(error)
+              });
               const responseData = {
                 userid: professionalUserInfo.uuid,
                 user_role: professionalUserInfo.user_role,
@@ -459,7 +470,7 @@ exports.fetchEligibility = ctx => {
       var includeModal;
       if(ctx.query.role == "professional")
       {
-        includeModal = "professional"+2
+        includeModal = "professional2"
       }
       else
       {
@@ -1081,6 +1092,8 @@ exports.fetchAbout = ctx => {
     attributes: attributes,
   }).then((professionalResult) => {
 
+    console.log(professionalResult)
+
     if (ctx.request.body.role == "young") {
 
       return user.findOne({
@@ -1160,14 +1173,15 @@ exports.fetchAbout = ctx => {
           id: professionalResult.id,
         },
       }).then((childResult) => {
-        var parentId = Number(childResult[0].professional2[0].YoungProfessional.professionalId) + 2
+        console.log(childResult)
+ 
         var parentIdNew = childResult[0].professional2[0].young_family[0].id;
 
         console.log(parentIdNew)
         //  var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
         ////console.log(parentId
-        console.log(parentId)
+      //  console.log(parentId)
         console.log(parentIdNew)
         return user.findAll({
           include: [
@@ -1186,11 +1200,13 @@ exports.fetchAbout = ctx => {
           return ctx.body = parentResult;
 
         }).catch((error) => {
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
 
       }).catch((error) => {
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
