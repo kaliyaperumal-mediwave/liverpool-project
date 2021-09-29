@@ -177,8 +177,13 @@ exports.eligibility = ctx => {
             referral_progress: 20,
             referral_type:"young"
           }).then((parentUserInfo) => {
-            parentUserInfo.setType("2")
-            parentUserInfo.setParent(childUserInfo.id)
+            parentUserInfo.setType("8")
+            console.log(childUserInfo.id)
+            parentUserInfo.setFamily(childUserInfo.id).then(sc => {
+              console.log(sc);
+            }).catch((error) => {
+              console.log(error)
+            });
             const responseData = {
               userid: parentUserInfo.uuid,
               user_role: parentUserInfo.user_role,
