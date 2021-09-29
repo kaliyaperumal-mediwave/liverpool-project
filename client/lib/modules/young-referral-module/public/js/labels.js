@@ -116,7 +116,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.guardEmailLabel = "What is their email address?";
     section2Labels.guardEmailPlacLabel = "Enter your parent/carer's email address";
     section2Labels.sameHouseLabel = "Does this person live in the same house as you?";
-    section2Labels.guardAddress = "What is your parent/carer's address?";
+    section2Labels.guardAddress = "What is your family/friend's address?";
     section2Labels.guardPlacAddress = "Enter your parent/carer's address";
     section2Labels.legalCareLabel = "Your legal care status (“legal care status” means who has legal guardianship over you)";
     section2Labels.legalCarePlacLabel = "Select your legal care status";
