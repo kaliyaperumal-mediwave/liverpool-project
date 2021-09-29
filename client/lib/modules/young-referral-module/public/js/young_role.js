@@ -142,40 +142,32 @@ $(document).ready(function () {
                 this.yearArr.push(i);
             }
             this.isSubmitted = false;
-            var disableyoung = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementyoung;
-            var disablefamily = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementyoung;
-            var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementyoung;
+            var disableyoung = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b');
+            var disablefamily = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c');
+            var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0');
             var profData = document.getElementById('prof_data').innerHTML;
-            // try{
-            //     profData = JSON.parse(JSON.stringify(profData));
-            //     alert(profData)
-            // }
-            // catch(e){
-            //     alert(e)
-            // }
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
                 // $('input[name=role]').attr("disabled", true);
                 // $('#loader').hide();
-                // if (userRole == 'young') {
-                //     disablefamily.style.opacity = '0.6';
-                //     disableProfessional.style.opacity = '0.6';
+                if (userRole == 'young') {
+                    disablefamily.style.opacity = '0.6';
+                    disableProfessional.style.opacity = '0.6';
 
-                // } else if (userRole == 'family') {
-                //     disableyoung.style.opacity = '0.6';
-                //     disableProfessional.style.opacity = '0.6';
+                } else if (userRole == 'family') {
+                    disableyoung.style.opacity = '0.6';
+                    disableProfessional.style.opacity = '0.6';
 
-                // } else if (userRole == 'professional') {
-                //     disableyoung.style.opacity = '0.6';
-                //     disablefamily.style.opacity = '0.6';
+                } else if (userRole == 'professional') {
+                    disableyoung.style.opacity = '0.6';
+                    disablefamily.style.opacity = '0.6';
 
-                // }
+                }
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
-            if(localStorage.getItem('form1')!='yes')
-            {
+            if (localStorage.getItem('form1') != 'yes') {
                 this.fetchSavedData();
             }
             //this.initMaps();
@@ -202,8 +194,8 @@ $(document).ready(function () {
 
             //  console.log(asyncCall())
             //  console.log(gpArray)
-            
-            
+
+
         },
 
         methods: {
