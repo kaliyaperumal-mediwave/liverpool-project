@@ -983,10 +983,10 @@ $(document).ready(function () {
                     }
                     else if (roleText == 'professional') {
                         console.log(age)
-                        console.log(age<18)
+                        console.log(age < 18)
                         if (age < 18) {
                             console.log(age)
-                        console.log(age<18)
+                            console.log(age < 18)
                             this.elgibilityObj.profBelowAgeLimit = "yes";
                             this.elgibilityObj.profaboveLimit = "no";
                             this.elgibilityObj.familyConcern = "";
@@ -1019,14 +1019,14 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'family') {
-                       
+
                         if (age < 18) {
                             this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
-                        }else if (age > 26) {
+                        } else if (age > 26) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactfamily = "";
                             this.elgibilityObj.submitForm = "false";
@@ -1273,17 +1273,53 @@ $(document).ready(function () {
             },
 
             checkValidDateMine: function (e) {
-                if (this.isValidDate(e.target.value)) {
-                    var dateValue = e.target.value;
-                    var dateFormat = "DD/MM/YYYY"
-                    var utc = moment(dateValue, dateFormat, true)
-                    var isUtc = utc.isValid();
-                    console.log(isUtc)
-                    var currentYear = new Date().getFullYear();
-                    var setYearValue = dateValue.split('/');
-                    var getYearValue = setYearValue[2];
-                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value) || !isUtc) {
+                if (e.target.value.length >= 10) {
+                    if (this.isValidDate(e.target.value)) {
+                        var dateValue = e.target.value;
+                        var dateFormat = "DD/MM/YYYY"
+                        var utc = moment(dateValue, dateFormat, true)
+                        var isUtc = utc.isValid();
+                        console.log(isUtc)
+                        var currentYear = new Date().getFullYear();
+                        var setYearValue = dateValue.split('/');
+                        var getYearValue = setYearValue[2];
+                        if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                            if (this.isFutureDate(e.target.value) || !isUtc) {
+                                this.hasValidDate = true;
+                                if (this.elgibilityObj.role == 'professional') {
+                                    this.elgibilityObj.profBelowAgeLimit = "";
+                                    this.elgibilityObj.profaboveLimit = "";
+                                    this.elgibilityObj.familyConcern = "";
+                                    this.elgibilityObj.contactProffamily = "";
+                                    this.elgibilityObj.familyConcernInformation = "";
+                                    this.elgibilityObj.youngConcernInformation = "";
+                                    this.elgibilityObj.submitProfForm = "";
+                                    this.elgibilityObj.regProfGpTxt = "";
+                                }
+                                else if (this.elgibilityObj.role == 'young') {
+                                    this.elgibilityObj.belowAgeLimit = "";
+                                    this.elgibilityObj.aboveLimit = "";
+                                    this.elgibilityObj.contactfamily = "";
+                                    this.elgibilityObj.contact_family_camhs = "";
+                                    this.elgibilityObj.reason_contact_family_camhs = ""
+                                    this.elgibilityObj.submitForm = "";
+                                    this.elgibilityObj.regGpTxt = "";
+                                    this.elgibilityObj.isInformation = "";
+                                }
+                                else {
+                                    this.elgibilityObj.aboveLimit = "";
+                                    this.elgibilityObj.contactfamily = "";
+                                    this.elgibilityObj.submitForm = "";
+                                    this.elgibilityObj.belowAgeLimit = "";
+                                    this.elgibilityObj.regGpTxt = "";
+                                    this.elgibilityObj.isInformation = "";
+                                }
+                            } else {
+                                this.hasValidDate = false;
+                                this.changeDob("", dateValue)
+                            }
+
+                        } else {
                             this.hasValidDate = true;
                             if (this.elgibilityObj.role == 'professional') {
                                 this.elgibilityObj.profBelowAgeLimit = "";
@@ -1313,9 +1349,6 @@ $(document).ready(function () {
                                 this.elgibilityObj.regGpTxt = "";
                                 this.elgibilityObj.isInformation = "";
                             }
-                        } else {
-                            this.hasValidDate = false;
-                            this.changeDob("", dateValue)
                         }
 
                     } else {
@@ -1348,10 +1381,10 @@ $(document).ready(function () {
                             this.elgibilityObj.regGpTxt = "";
                             this.elgibilityObj.isInformation = "";
                         }
-                    }
 
+                    }
                 } else {
-                    this.hasValidDate = true;
+                    this.hasValidDate = false;
                     if (this.elgibilityObj.role == 'professional') {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
@@ -1380,8 +1413,8 @@ $(document).ready(function () {
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
                     }
-
                 }
+
             },
 
             checkValidDate: function (id, obj, key, e) {
@@ -1483,8 +1516,8 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                       console.log(data)
-                       console.log(_self.paramValues)
+                        console.log(data)
+                        console.log(_self.paramValues)
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
@@ -1597,13 +1630,13 @@ $(document).ready(function () {
                     }
                 }
                 else if (roleText == 'professional') {
-                    if (age < 15) {
+                    if (age < 18) {
                         this.elgibilityObj.profBelowAgeLimit = "yes";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.familyConcern = "";
                         this.elgibilityObj.submitProfForm = "false";
                     }
-                    else if (age > 18) {
+                    else if (age > 26) {
                         this.elgibilityObj.profaboveLimit = "yes";
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.familyConcern = "";

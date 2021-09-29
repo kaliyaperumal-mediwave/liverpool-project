@@ -82,12 +82,18 @@
                     </div>
                 </div>
             </div>
-
             <div class="d-flex text-center py-2">
                 <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 mx-auto">
                     <div class="form-group text-left">
                         <label for="feedback" class="referral-feedback m-0 py-2 px-2 text-left">Is there any
-                            other feedback you would like to provide? - <b>optional</b></label>
+                            other feedback you would like to provide? - <b>optional</b> <span
+                                style="font-weight: normal !important;" class="referral-feedback text-left">(This
+                                feedback is about
+                                the form
+                                and the platform only and will be shared with the design/development team. Please do not
+                                include personal information about your healthcare needs as your clinician will not see
+                                it.)</span></label>
+
                         <textarea class="h-100 px-4 form-control my-2 input-bg-form-control" id="feedback"
                             v-model="refFeedbackData.comments"
                             @input="trimWhiteSpace($event,'refFeedbackData','comments')"
@@ -155,8 +161,9 @@
                                     Eligibility
                                 </h2>
                                 <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" data-container="body" @click="editAllSection('young-referral')"
-                                    data-placement="top" title="Edit Section 1"></i>
+                                    data-toggle="tooltip" data-container="body"
+                                    @click="editAllSection('young-referral')" data-placement="top"
+                                    title="Edit Section 1"></i>
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
@@ -551,8 +558,8 @@
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
                                 <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('young-referral/youngAbout')" data-placement="top"
-                                    title="Edit Section 2"></i>
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/youngAbout')"
+                                    data-placement="top" title="Edit Section 2"></i>
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
@@ -563,7 +570,8 @@
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionExample">
-                            <div v-if="userRole == 'professional'" class="py-3 w-100 mx-0 row align-items-center d-none">
+                            <div v-if="userRole == 'professional'"
+                                class="py-3 w-100 mx-0 row align-items-center d-none">
                                 <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
                                     Referral type:
                                 </label>
@@ -959,7 +967,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarName">
-                                        Parent / Carer's first name:
+                                        Emergency contact first name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
@@ -975,7 +983,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarLastName">
-                                        Parent / Carer's last name:
+                                        Emergency contact last name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
@@ -989,7 +997,7 @@
                                     </div>
                                 </div>
 
-                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parResp">
                                         Have parental responsibility:
                                     </label>
@@ -998,7 +1006,7 @@
                                             @input="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parental_responsibility" id="parResp">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="relSec5">
@@ -1210,8 +1218,8 @@
                                     Support needs
                                 </h2>
                                 <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('young-referral/education')" data-placement="top"
-                                    title="Edit Section 3"></i>
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/education')"
+                                    data-placement="top" title="Edit Section 3"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">
@@ -1461,8 +1469,8 @@
                                     {{section5Labels.referralLabel}}
                                 </h2>
                                 <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('young-referral/referral')" data-placement="top"
-                                    title="Edit Section 4"></i>
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/referral')"
+                                    data-placement="top" title="Edit Section 4"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">
@@ -1635,7 +1643,7 @@
                                         @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
                                 </div>
 
-                               
+
                                 <div v-if="checkArrayLength(section4Data.local_services)"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1747,8 +1755,8 @@
 
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToMe"
-                                    value="The child person" v-model="contact_person">
+                                <input class="form-check-input" type="radio" id="sendToMe" value="The child person"
+                                    v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     The child person
                                 </label>
