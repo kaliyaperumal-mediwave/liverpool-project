@@ -108,16 +108,16 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.yourLastNameLabel = "What is your emergency contact last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter the emergency contact last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carer's first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is your parent or carer's last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is your family or friend's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is your family or friend's last name?";
     section2Labels.relationShipLabel = "What is this person's relationship to you?";
     section2Labels.guardContactLabel = "What is their contact number?";
-    section2Labels.guardContactPlacLabel = "Enter your parent/carer's phone number";
+    section2Labels.guardContactPlacLabel = "Enter your family/friend's phone number";
     section2Labels.guardEmailLabel = "What is their email address?";
-    section2Labels.guardEmailPlacLabel = "Enter your parent/carer's email address";
+    section2Labels.guardEmailPlacLabel = "Enter your family/friend's email address";
     section2Labels.sameHouseLabel = "Does this person live in the same house as you?";
     section2Labels.guardAddress = "What is your family/friend's address?";
-    section2Labels.guardPlacAddress = "Enter your parent/carer's address";
+    section2Labels.guardPlacAddress = "Enter your family/friend's address";
     section2Labels.legalCareLabel = "Your legal care status (“legal care status” means who has legal guardianship over you)";
     section2Labels.legalCarePlacLabel = "Select your legal care status";
 
@@ -163,8 +163,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.yourLastNameLabel = "What is your emergency contact last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter your emergency contact last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the family or friend's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the family or friend's last name?";
 
     section2Labels.relationShipLabel = "What is their relationship to your young?";
     section2Labels.guardContactLabel = "What is their contact number?";
@@ -234,8 +234,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.yourLastNameLabel = "What is the last name of the young person's emergency contact?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter the emergency contact last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the family or friend's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the family or friend's last name?";
 
     section2Labels.relationShipLabel = "What is their relationship to the young person?";
     section2Labels.guardContactLabel = "What is their contact number?";
