@@ -6,6 +6,7 @@ const authController = require('./controllers/authController');
 const adminController = require('./controllers/adminController');
 const orchaController = require('./controllers/orchaController');
 const userController = require('./controllers/userController');
+const youngControler = require('./controllers/youngController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
 const auth = require('./middlewares/auth');
@@ -83,5 +84,33 @@ router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSe
 router.get('/admin/downloadJson', validateToken, adminController.toJson);
 router.put('/admin/updateApiValue', validateToken, adminController.updateApiValue);
 router.get('/admin/getApiService', validateToken, adminController.getApiService);
+
+
+//google analytics
+
+router.get('/admin/getCount', adminController.getCount);
+//Apis for form 2 
+//Sec 1
+router.post('/user/youngEligibility', validateToken, youngControler.eligibility);
+router.get('/user/youngFetchEligibility', validateToken, youngControler.fetchEligibility);
+
+//Sec 2
+router.post('/user/saveYoungAbout', validateToken, youngControler.about);
+router.post('/user/fetchYoungAbout', validateToken, youngControler.fetchAbout);
+
+//sec 3
+router.post('/user/saveYoungeducation', validateToken, youngControler.profession);
+router.post('/user/fetchYoungProfession', validateToken, youngControler.fetchProfession);
+// router.put('/user/updateSec3Info', validateToken, referralControler.updateSec3Info);
+
+//sec 4
+router.post('/user/saveYoungReferral', validateToken, youngControler.saveReferal);
+router.post('/user/fetchYoungReferral', validateToken, youngControler.fetchReferral);
+// router.put('/user/updateSec4Info', validateToken, youngControler.updateSec4Info);
+
+//sec 5
+router.get('/user/fetchYoungReview/', validateToken, youngControler.fetchReview);
+router.post('/user/saveYoungReview', validateToken, youngControler.saveReview);
+router.get('/user/getRefNo', validateToken, youngControler.getRefNo);
 
 module.exports = router;

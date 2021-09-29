@@ -1,0 +1,1966 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/young-referral-module/js/labels.js"></script>
+<script src="/modules/young-referral-module/js/young_review.js"></script>
+{% endblock %}
+{% block main %}
+<div id="young-review-form">
+    <div class="py-4 main-min-height">
+        <!-- Loader start -->
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loader end -->
+        <h3 class="question-header-font col-md-9 col-sm-11 col-11 px-2 col-lg-6 col-xl-6 mt-4 mt-md-5 mb-0 mx-auto">
+            Feedback - <b>optional</b>
+        </h3>
+        <div class="secondary-content-area col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto mt-3 mb-4 responsepy"
+            v-cloak>
+
+            <div class="d-flex text-center pt-3 pb-2">
+                <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 pt-2 mx-auto">
+                    <h3 class="referral-feedback m-0 py-2 px-2 text-left">
+                        Can you rate your experience of completing this referral form: 1 star – Really difficult, 5
+                        stars – Really easy
+                    </h3>
+                    <fieldset id="feedBackStars" class="rating m-0 float-left">
+                        <input v-model="refFeedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
+                        <label class="full m-0" for="5star"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="4halfstar" name="rating"
+                            value="4.5" />
+                        <label class="half" for="4halfstar"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="4star" name="rating" value="4" />
+                        <label class="full m-0" for="4star"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="3halfstar" name="rating"
+                            value="3.5" />
+                        <label class="half" for="3halfstar"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="3star" name="rating" value="3" />
+                        <label class="full m-0" for="3star"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="2halfstar" name="rating"
+                            value="2.5" />
+                        <label class="half" for="2halfstar"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="2star" name="rating" value="2" />
+                        <label class="full m-0" for="2star"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="1halfstar" name="rating"
+                            value="1.5" />
+                        <label class="half" for="1halfstar"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="1star" name="rating" value="1" />
+                        <label class="full m-0" for="1star"></label>
+
+                        <input type="radio" v-model="refFeedbackData.ratings" id="halfstar" name="rating" value="0.5" />
+                        <label class="half" for="halfstar"></label>
+                    </fieldset>
+                    <div class="invalid-feedback d-none m-0 float-left text-left px-2"
+                        v-bind:class="{ 'd-block':(isFeedBackFormSubmitted && !refFeedbackData.ratings),'invalid-fields': !refFeedbackData.ratings }">
+                        You must provide rating.
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex text-center py-2">
+                <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 mx-auto">
+                    <div class="form-group text-left">
+                        <label for="feedback" class="referral-feedback m-0 py-2 px-2 text-left">Is there any
+                            other feedback you would like to provide? - <b>optional</b> <span
+                                style="font-weight: normal !important;" class="referral-feedback text-left">(This
+                                feedback is about
+                                the form
+                                and the platform only and will be shared with the design/development team. Please do not
+                                include personal information about your healthcare needs as your clinician will not see
+                                it.)</span></label>
+
+                        <textarea class="h-100 px-4 form-control my-2 input-bg-form-control" id="feedback"
+                            v-model="refFeedbackData.comments"
+                            @input="trimWhiteSpace($event,'refFeedbackData','comments')"
+                            placeholder="You can submit your feedback here" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-3 pb-4 text-center">
+                <button type="button" @click="sendReferralFeedback()" id="secondary"
+                    class="btn px-md-4 px-3 mx-auto w-h-sub">
+                    <span class="btn-quaternary-text">
+                        SUBMIT
+                    </span>
+                </button>
+            </div>
+
+            {% raw %}
+            <!-- Change Password Succuss Modal Start -->
+            <div class="modal fade" id="refFeedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                role="dialog" aria-labelledby="refFeedbackSuccessLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-bg login-safe-pd">
+                        <span aria-hidden="true" class="modal-close" data-dismiss="modal">
+                            <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                        </span>
+                        <div class="modal-header justify-content-center model-text-pd text">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <h5 class="logout-font mt-3 text-center"> {{ feedbackMessage }} </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Change Email Succuss Modal End -->
+            {% endraw %}
+
+        </div>
+
+        <div class="secondary-content-area  col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto responsepy" v-cloak>
+            <div class="px-2 py-4">
+                <div class="review-header-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
+                    'review_referral', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Heading', element: 'h2' },
+                    { name: 'Paragraph', element: 'p' }
+
+                    ]
+                    }
+                    }
+                    }) }}</div>
+                <div class="dropdown-divider mx-3"></div>
+
+                <div class="accordion" id="accordionExample">
+                    {% raw %}
+                    <div class="py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-center" id="headingOne"
+                            data-container="body">
+                            <div class="d-flex align-items-center">
+                                <h2 class="py-2 m-0 question-header-font">
+                                    Eligibility
+                                </h2>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" data-container="body"
+                                    @click="editAllSection('young-referral')" data-placement="top"
+                                    title="Edit Section 1"></i>
+                            </div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" id="toggle1" data-target="#collapseOne" aria-expanded="true"
+                                    @click="toggleArrow($event,1,allSectionData)" aria-controls="collapseOne"></i>
+                            </span>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
+                            <div class="py-1 py-md-2">
+                                <!-- Your Info Start -->
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="iamA">
+                                        I am a:
+                                    </label>
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        v-model="yourInfo" id="iamA">
+                                </div>
+                                <!-- Your Info End -->
+
+                                <!-- Professional Info Start -->
+                                <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="serviceLocation">
+                                            Service location:
+                                        </label>
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.service_location" id="serviceLocation">
+                                        </div>
+                                    </div>
+
+                                    <div v-if="section1Data.service_location!='I do not want to select a service'"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
+                                            Selected service:
+                                        </label>
+                                        <input
+                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.selected_service"
+                                            id="selectedService">
+                                    </div>
+                                    <div v-if="userRole == 'professional' && section1Data.referral_mode"
+                                        class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
+                                            Referral type:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <span class="plain-select">
+                                                <select disabled class="custom-select h-50px    input-bg-form-control"
+                                                    @change="onDetectChange($event,'sect2')"
+                                                    v-model="section1Data.referral_mode">
+                                                    <option class='option-text' value="1">Routine
+                                                    </option>
+                                                    <option class='option-text' value="2">Urgent
+                                                    </option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
+                                            First name:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control input-bg-form-control" type="text"
+                                                    placeholder="Enter first name"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_name')"
+                                                    v-model="section1Data.professional_name" id="profAddressSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
+                                                    'invalid-fields':!section1Data.professional_name }">
+                                                    You must provide a first name.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                            Last name:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control    input-bg-form-control" type="text"
+                                                    placeholder="Enter last name" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')"
+                                                    v-model="section1Data.professional_lastname" id="profLastNameSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
+                                                    'invalid-fields':!section1Data.professional_lastname }">
+                                                    You must provide a last name.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="profEmailSec5">
+                                            Email:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control capitalize-first-letter input-bg-form-control"
+                                                    type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
+                                                    placeholder="Enter email"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_email')"
+                                                    v-model="section1Data.professional_email" id="profEmailSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
+                                                You must provide a valid email.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="profContactSec5">
+                                            Contact number:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend cursor-pointer">
+                                                    <span class="plain-select custom-mobile-place">
+                                                        <select class="custom-select form-control input-bg-form-control"
+                                                            v-model="section1Data.professional_contact_type"
+                                                            @change="onDetectChange($event,'sect1','section1Data','professional_contact_type')">
+                                                            <option selected="selected" value="mobile">Mobile</option>
+                                                            <option value="landline">Landline</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control input-bg-form-control" type="text"
+                                                    placeholder="Enter contact number"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
+                                                    inputmode="tel" v-model="section1Data.professional_contact_number"
+                                                    id="profContactSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_contact_number),
+                                                'invalid-fields':!section1Data.professional_contact_number }">
+                                                You must provide a number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && section1Data.professional_contact_type =='mobile' && !phoneRegex.test(section1Data.professional_contact_number)),
+                                                'invalid-fields':(section1Data.professional_contact_number && section1Data.professional_contact_type =='mobile' && !phoneRegex.test(section1Data.professional_contact_number)) }">
+                                                You must provide a valid mobile number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && section1Data.professional_contact_type =='landline' && !landlineRegex.test(section1Data.professional_contact_number)),
+                                            'invalid-fields':(section1Data.professional_contact_number && section1Data.professional_contact_type =='landline' && !landlineRegex.test(section1Data.professional_contact_number)) }">
+                                                You must provide a valid landline number.
+                                            </small>
+                                        </div>
+                                        </p>
+                                    </div>
+
+                                    <div v-if="section1Data.professional_address"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddress1Sec5">
+                                            Address:
+                                        </label>
+                                        <textarea
+                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.professional_address"
+                                            id="profAddress1Sec5">
+                                                </textarea>
+                                    </div>
+
+                                    <div v-if="checkArrayLength(section1Data.professional_manual_address)"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Address:
+                                        </label>
+                                        <textarea
+                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="showManualAddressForRole">
+                                            </textarea>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profNameSec5">
+                                            Profession:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control    input-bg-form-control" type="text"
+                                                    placeholder="Enter your profession"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')"
+                                                    v-model="section1Data.professional_profession"
+                                                    id="profProfessionSec5">
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
+                                                    'invalid-fields':!section1Data.professional_profession }">
+                                                    You must provide your profession.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Professional Info End -->
+
+                                <!-- Interpreter Needed Start -->
+                                <div v-if="userRole == 'young' || userRole == 'family'"
+                                    class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                    <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
+                                        Interpreter needed:
+                                    </label>
+                                    <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
+                                            data-toggle="popover" data-trigger="focus" data-placement="bottom"
+                                            data-content="My popover content." v-model="section1Data.need_interpreter"
+                                            id="InterpreterNeed">
+                                    </div>
+                                </div>
+                                <!-- Interpreter Needed End -->
+
+                                <!-- Contact Carer -->
+                                <div
+                                    v-if="(userRole == 'young') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
+                                    <div v-if="userRole == 'young'"
+                                        class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                        <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
+                                            Any reason parent/carer cannot be contacted:
+                                        </label>
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control" readonly type="text"
+                                                v-model="section1Data.contact_parent" id="parentOrCarerSec5">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Interpreter Needed End -->
+
+                                <!-- child's DOB Start -->
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobchilds">
+                                        child's D.O.B:
+                                    </label>
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        v-model="section1Data.child_dob" id="dobchilds">
+                                </div>
+                                <!-- child's DOB Start -->
+
+                                <!-- Consent Given Start -->
+                                <!-- child and Parent -->
+                                <div v-if="userRole == 'young' || userRole == 'family'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
+                                            Consent given:
+                                        </label>
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control " readonly type="text"
+                                                v-model="section1Data.consent_child" id="consentGivenSec5">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- child and Parent -->
+
+                                <!-- child -->
+                                <div v-if="userRole == 'young' && section1Data.contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
+                                            Any reason parent/carer cannot be contacted:
+                                        </label>
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- child and Parent -->
+
+                                <!-- child -->
+                                <div
+                                    v-if="userRole == 'young' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
+                                            Reason for no contact:
+                                        </label>
+                                        <input
+                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
+                                            id="reasonCamhs">
+                                    </div>
+                                </div>
+                                <!-- child and Parent -->
+
+                                <!-- Professional -->
+                                <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenchild">
+                                            Consent given by child:
+                                        </label>
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.consent_child" id="consentGivenchild">
+                                        </div>
+                                    </div>
+
+                                    <div v-if="ageFlag < 15"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                            Consent given by parent:
+                                        </label>
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.consent_parent" id="consentGivenPar">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Professional -->
+                                <!-- Consent Given End -->
+
+                                <!-- Gp Start -->
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                        GP:
+                                    </label>
+                                    <textarea
+                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                        </textarea>
+                                </div>
+                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null"
+                                    class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                        child School:
+                                    </label>
+                                    <textarea
+                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
+                                        </textarea>
+                                </div>
+                                <!-- Gp End -->
+
+                            </div>
+
+                            <div class="text-center py-4">
+                                <button
+                                    @click="updateInfo($event,section1Data,'/user/updateEligibilityInfo','beforeSaveSection1')"
+                                    disabled id="sect1" type="button" class="btn px-md-4 py-1 px-3">
+                                    <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        <span class="link-text px-2">Saving Section 1...</span>
+                                    </div> -->
+                                    <span id="beforeSaveSection1" class="btn-secondary-text">Save</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Section1-End -->
+
+                    <div class="dropdown-divider mx-3"></div>
+
+                    <!-- Section2-Start -->
+
+                    <div class="py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-center" id="headingTwo">
+                            <div class="d-flex align-items-center">
+                                <h2 class="py-2 m-0 question-header-font">
+                                    {{ section5Labels.aboutLabel}}
+                                </h2>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/youngAbout')"
+                                    data-placement="top" title="Edit Section 2"></i>
+                            </div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle2" data-target="#collapseTwo"
+                                    @click="toggleArrow($event,2,allSectionData)" aria-expanded="true"
+                                    aria-controls="collapseTwo"></i>
+                            </span>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionExample">
+                            <div v-if="userRole == 'professional'"
+                                class="py-3 w-100 mx-0 row align-items-center d-none">
+                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
+                                    Referral type:
+                                </label>
+                                <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <span class="plain-select">
+                                        <select class="custom-select h-50px    input-bg-form-control"
+                                            @change="onDetectChange($event,'sect2')"
+                                            v-model="section2Data.referral_mode">
+                                            <option class='option-text' value="1">Routine
+                                            </option>
+                                            <option class='option-text' value="2">Urgent
+                                            </option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="py-1 py-md-2">
+                                <!-- NHS Number Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nhsNumberSect5">
+                                        NHS number:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control    input-bg-form-control"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_NHS')"
+                                            type="text" inputmode="numeric" placeholder="Enter NHS number"
+                                            v-model="section2Data.child_NHS" id="nhsNumberSect5">
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
+                                        'invalid-fields':(section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)) }">
+                                            You must provide a valid NHS Number.
+                                        </small>
+                                    </div>
+                                </div>
+                                <!-- NHS Number End -->
+
+                                <!-- child's title Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
+                                        Title:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select
+                                                class="custom-select h-50px custom-select h-50px  input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
+                                                v-model="section2Data.child_name_title">
+                                                <option value="Mr">Mr</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Mx">Mx</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- child's title End -->
+
+                                <!-- Full name Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSecLast">
+                                        First name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <!-- <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.child_name_title"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
+                                                        <option selected="selected" value="Mr">Mr</option>
+                                                        <option value="Miss">Miss</option>
+                                                        <option value="Ms">Ms</option>
+                                                        <option value="Mrs">Mrs</option>
+                                                        <option value="Mx">Mx</option>
+                                                    </select>
+                                                </span>
+                                            </div> -->
+                                            <input class="form-control    input-bg-form-control"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_name')"
+                                                placeholder="Enter first name" type="text"
+                                                v-model="section2Data.child_name" id="nameSecLast">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_name),'invalid-fields':!section2Data.child_name }">
+                                            You must provide a first name.
+                                        </small>
+                                    </div>
+                                </div>
+                                <!-- Full name End -->
+
+                                <!-- last name Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameLastSec5">
+                                        Last name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <input class="form-control    input-bg-form-control"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_lastname')"
+                                                placeholder="Enter last name" type="text"
+                                                v-model="section2Data.child_lastname" id="nameSec5">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_lastname),'invalid-fields':!section2Data.child_lastname }">
+                                            You must provide a last name.
+                                        </small>
+                                    </div>
+                                </div>
+                                <!-- last name End -->
+
+                                <!-- Email Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="emailSec5">
+                                        Email:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <input class="form-control    input-bg-form-control"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_email')"
+                                                placeholder="Enter email" inputmode="email" type="text"
+                                                v-model="section2Data.child_email" id="emailSec5">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_email && !emailRegex.test(section2Data.child_email)),
+                                            'invalid-fields':(section2Data.child_email && !emailRegex.test(section2Data.child_email)) }">
+                                            You must provide a valid email.
+                                        </small>
+                                    </div>
+                                </div>
+                                <!-- Email End -->
+
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.child_contact_type"
+                                                class="custom-select h-50px    input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
+                                        child's contact number:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.child_contact_type"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_contact_type')">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            <input class="form-control    input-bg-form-control"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
+                                                placeholder="Enter contact number" inputmode="tel" type="text"
+                                                v-model="section2Data.child_contact_number" id="cont">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_contact_number),'invalid-fields':!section2Data.child_contact_number }">
+                                            You must provide a number.
+                                        </small>
+
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)),
+                                                'invalid-fields':(section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)) }">
+                                            You must provide a valid mobile number.
+                                        </small>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)),
+                                            'invalid-fields':(section2Data.child_contact_number &&  section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)) }">
+                                            You must provide a valid landline number.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div v-if="section2Data.child_address"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
+                                        Address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control input-bg-form-control" type="text"
+                                            v-model="section2Data.child_address" id="addressSect5">
+                                </textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="checkArrayLength(section2Data.child_manual_address)"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
+                                        Address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control    input-bg-form-control" type="text"
+                                            v-model="showchildManualAddressSection2" id="addressSect5">
+                                </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
+                                        Happy for the post to be sent:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.can_send_post">
+                                                <option class='option-text' value="Yes">Yes
+                                                </option>
+                                                <option class='option-text' value="No">No
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Gender:
+                                    </label>
+                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_gender')"
+                                            placeholder="Enter gender" v-model="section2Data.child_gender"
+                                            id="genderSect5">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
+                                        'invalid-fields':!section2Data.child_gender }">
+                                            You must provide an answer.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Identifies with gender at birth:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                v-model="section2Data.child_gender_birth"
+                                                @change="onDetectChange($event,'sect2')">
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="No">No</option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Sex at birth:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.sex_at_birth"
+                                                class="custom-select h-50px    input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option class='option-text' value="Male">Male</option>
+                                                <option class='option-text' value="Female">Female</option>
+                                                <option class='option-text' value="Prefer not to say">Prefer not to say
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="orientSect5">
+                                        Sexual orientation:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control    input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_sexual_orientation')"
+                                            placeholder="Enter sexual orientation"
+                                            v-model="section2Data.child_sexual_orientation" id="orientSect5">
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
+                                        Ethnicity:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control    input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_ethnicity')"
+                                            placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
+                                            id="ethincitySect5">
+                                    </div>
+                                </div>
+
+                                <div v-if="checkArrayLength(section2Data.household_member)"
+                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
+                                        Household members
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="card text-left mb-2 border-0"
+                                            v-for="(item, index) in section2Data.household_member" :key="index">
+                                            <div class="card-body py-2 px-3 input-bg-form-control">
+                                                <div class="d-flex align-items-center justify-content-between my-1">
+                                                    <h5 class="question-font">{{item.name}} {{item.lastName}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
+                                        Household members
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+
+                                        <div class="panel-group" id="accordianHouseHold" role="tablist"
+                                            aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="card text-left mb-2" v-for="(item, index) in mockData"
+                                                    :key="index">
+                                                    <div class="panel-heading" role="tab" id="headingHouse">
+                                                        <h4 class="panel-title">
+                                                            <a role="button" data-toggle="collapse"
+                                                                data-parent="#accordianHouseHold"
+                                                                :href="'#' + item.randomName" aria-expanded="true"
+                                                                :aria-controls="item.randomName">
+                                                                {{item.name}}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div :id="item.randomName" class="panel-collapse collapse in"
+                                                        role="tabpanel" aria-labelledby="headingHouse">
+                                                        <div class="panel-body">
+                                                            <h3 class="link-text">{{item.relationShip}}</h3>
+                                                            <h3 class="link-text">{{item.dob}}</h3>
+                                                            <h3 class="link-text">{{item.profession}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0   " for="caresAdultSect5">
+                                        Cares for an adult:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.child_care_adult">
+                                                <option class='option-text' value="No">No</option>
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarName">
+                                        Emergency contact first name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','parent_name')"
+                                            placeholder="Enter first name" v-model="section2Data.parent_name"
+                                            id="parCarName">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
+                                    'invalid-fields':!section2Data.parent_name}">
+                                            You must provide first name.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarLastName">
+                                        Emergency contact last name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','parent_lastname')"
+                                            placeholder="Enter last name" v-model="section2Data.parent_lastname"
+                                            id="parCarLastName">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_lastname),
+                                    'invalid-fields':!section2Data.parent_lastname}">
+                                            You must provide last name.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parResp">
+                                        Have parental responsibility:
+                                    </label>
+                                    <div class="col-md-6 capitalize-first-letter col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control" readonly type="text"
+                                            @input="onDetectChange($event,'sect2')"
+                                            v-model="section2Data.parental_responsibility" id="parResp">
+                                    </div>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="relSec5">
+                                        Relationship:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control    input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','child_parent_relationship')"
+                                            placeholder="Enter relationship"
+                                            v-model="section2Data.child_parent_relationship" id="relSec5">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
+                                    'invalid-fields':!section2Data.child_parent_relationship }">
+                                            You must provide an answer.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Your Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.parent_contact_type"
+                                                class="custom-select h-50px    input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
+                                        Parent's contact number:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.parent_contact_type"
+                                                        @change="onDetectChange($event,'sect2','section2Data','parent_contact_type')">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            <input class="form-control input-bg-form-control" type="text"
+                                                inputmode="tel" placeholder="Enter contact number"
+                                                @input="onDetectChange($event,'sect2','section2Data','parent_contact_number')"
+                                                v-model="section2Data.parent_contact_number" id="contSec5">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_contact_number),
+                                    'invalid-fields':!section2Data.parent_contact_number }">
+                                            You must provide a number.
+                                        </small>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)),
+                                    'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)) }">
+                                            You must provide a valid mobile number.
+                                        </small>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)),
+                                'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)) }">
+                                            You must provide a valid landline number.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="emailparentSec5">
+                                        Your email address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <input class="form-control    input-bg-form-control" type="text"
+                                                inputmode="email" placeholder="Enter email"
+                                                @input="onDetectChange($event,'sect2','section2Data','parent_email')"
+                                                v-model="section2Data.parent_email" id="emailparentSec5">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
+                                    'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
+                                            You must provide a valid email.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
+                                        Lives in same house:
+                                    </label>
+                                    <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
+                                            v-model="section2Data.parent_same_house">
+                                    </div>
+                                </div>
+
+                                <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
+                                            Parent/carer's address:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <textarea readonly class="form-control    input-bg-form-control" type="text"
+                                                @input="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.parent_address" id="parCarrerAdd5">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="section2Data.parent_same_house == 'no' && !section2Data.parent_address && checkArrayLength(section2Data.parent_manual_address)"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control    input-bg-form-control" type="text"
+                                            v-model="showParentManualAddressSection2">
+                            </textarea>
+                                    </div>
+                                </div>
+
+                                <!-- <div v-if="section2Data.legal_care_status"
+                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
+                                        The child's legal care status:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select
+                                                class="custom-select h-50px custom-select h-50px  input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.legal_care_status">
+                                                <option class='option-text' value="Care of Parent">Care of Parent
+                                                </option>
+                                                <option class='option-text' value="Care of Local Authority (Liverpool)">
+                                                    Care of Local
+                                                    Authority
+                                                    (Liverpool)
+                                                </option>
+                                                <option class='option-text' value="Care of Local Authority (Sefton)">
+                                                    Care of Local Authority
+                                                    (Sefton)
+                                                </option>
+                                                <option class='option-text' value="Care of Local Authority (Other)">Care
+                                                    of Local Authority
+                                                    (Other)
+                                                </option>
+                                                <option class='option-text' value="Section 20 Voluntary">Section 20
+                                                    Voluntary
+                                                </option>
+                                                <option class='option-text' value="Accommodated">Accommodated
+                                                </option>
+                                                <option class='option-text' value="Full Care Order">Full Care Order
+                                                </option>
+                                                <option class='option-text' value="Interim Care Order">Interim Care
+                                                    Order</option>
+                                                <option class='option-text' value="Care Order places at home">Care Order
+                                                    places at home
+                                                </option>
+                                                <option class='option-text' value="child Protection Plan">child
+                                                    Protection Plan</option>
+                                                <option class='option-text' value="Other Carer">Other Carer</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div> -->
+
+                                <div class="text-center pt-4 pb-2">
+                                    <button
+                                        @click="updateInfo($event,section2Data,'/user/updateAboutInfo','beforeSaveSection2')"
+                                        disabled id="sect2" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="link-text px-2">Saving Section 2...</span>
+                                        </div> -->
+                                        <span id="beforeSaveSection2" class="btn-secondary-text">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Section2-End -->
+
+                    <div class="dropdown-divider mx-3"></div>
+
+                    <!-- Section3-Start -->
+                    <div class="py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-center" id="headingThree">
+                            <div class="d-flex align-items-center">
+                                <h2 class="py-2 m-0 question-header-font">
+                                    Support needs
+                                </h2>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/education')"
+                                    data-placement="top" title="Edit Section 3"></i>
+                            </div>
+
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle3" data-target="#collapseThree"
+                                    @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
+                                    aria-controls="collapseThree"></i>
+                            </span>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#accordionExample">
+                            <div class="py-1 py-md-2">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="eduSect5">
+                                        Education / employment:
+                                    </label>
+                                    <input
+                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section3Data.child_profession">
+                                    <!-- <div class="col-md-4 col-12 px-0">
+                                        <select disabled class="custom-select h-50px    input-bg-form-control"
+                                            v-model="section3Data.child_profession"
+                                            @change="onDetectChange($event,'sect3')">
+                                            <option class='option-text' selected>
+                                                {{section3Data.child_profession}}</option>
+                                            <option class='option-text' v-if="section3Data.child_profession != 'education'"
+                                                value="education">
+                                                Education</option>
+                                            <option class='option-text' v-if="section3Data.child_profession != 'employment'"
+                                                value="employment">
+                                                Employment</option>
+                                            <option class='option-text' v-if="section3Data.child_profession != 'neither'" value="neither">
+                                                Neither</option>
+                                        </select>
+                                    </div> -->
+                                </div>
+
+                                <div v-if="section3Data.child_education_place"
+                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="childEducationPlace">
+                                        School/college:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea class="form-control    input-bg-form-control" type="text"
+                                            v-model="section3Data.child_education_place" id="childEducationPlace"
+                                            @input="onDetectChange($event,'sect3')">
+                                </textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="checkArrayLength(section3Data.child_education_manual_address)"
+                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        School/college:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea class="form-control    input-bg-form-control" type="text" readonly
+                                            v-model="showManualAddress">
+                            </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ehcpSent5">
+                                        EHCP plan:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                v-model="section3Data.child_EHCP"
+                                                @change="onDetectChange($event,'sect3')">
+                                                <option class='option-text' value="No">No </option>
+                                                <option class='option-text' value="Yes">Yes</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ehcpSent5">
+                                        Care leaver:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                v-model="section3Data.careLeaver"
+                                                @change="onDetectChange($event,'sect3')">
+                                                <option class='option-text' value="No">No </option>
+                                                <option class='option-text' value="Yes">Yes</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ehatSent5">
+                                        Open to EHAT
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                v-model="section3Data.child_EHAT"
+                                                @change="onDetectChange($event,'sect3')">
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="No">No
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="isSocialSent5">
+                                        Social worker:
+                                    </label>
+                                    <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
+                                            v-model="section3Data.child_socialworker">
+                                    </div>
+                                </div>
+
+                                <div v-if="section3Data.child_socialworker == 'yes'">
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="socialworkerNameSec5">
+                                            Social worker first name:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control    input-bg-form-control" type="text"
+                                                    placeholder="Enter social worker first name"
+                                                    v-model="section3Data.child_socialworker_firstname"
+                                                    id="socialworkerNameSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_firstname),
+                                                'invalid-fields':!section3Data.child_socialworker_firstname }">
+                                                You must provide a first name.
+                                            </small> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="socialworkerNameSec5">
+                                            Social worker last name:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control    input-bg-form-control" type="text"
+                                                    placeholder="Enter social worker last name"
+                                                    v-model="section3Data.child_socialworker_lastname"
+                                                    id="socialworkerLastNameSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_lastname),
+                                                'invalid-fields':!section3Data.child_socialworker_lastname }">
+                                                You must provide a last name.
+                                            </small> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="socialworkerNumSec5">
+                                            Social worker number:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend cursor-pointer">
+                                                    <span class="plain-select custom-mobile-place">
+                                                        <select class="custom-select form-control input-bg-form-control"
+                                                            v-model="section3Data.child_socialworker_contact_type"
+                                                            @change="onDetectChange($event,'sect3','section3Data','child_socialworker_contact_type')">
+                                                            <option selected="selected" value="mobile">Mobile</option>
+                                                            <option value="landline">Landline</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control input-bg-form-control" type="text"
+                                                    inputmode="tel" placeholder="Enter social worker number"
+                                                    v-model="section3Data.child_socialworker_contact"
+                                                    id="socialworkerNumSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_contact')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_contact),
+                                                'invalid-fields':!section3Data.child_socialworker_contact }">
+                                                You must provide a number.
+                                            </small> -->
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)),
+                                                'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)) }">
+                                                You must provide a valid mobile number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)),
+                                            'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)) }">
+                                                You must provide a valid landline number.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center py-4">
+                                    <button
+                                        @click="updateInfo($event,section3Data,'/user/updateSec3Info','beforeSaveSection3')"
+                                        disabled id="sect3" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="link-text px-2">Saving Section 3...</span>
+                                        </div> -->
+                                        <span id="beforeSaveSection3" class="btn-secondary-text">Save</span>
+                                        <!-- <span id="afterSave" class="btn-secondary-text d-none">Saving...</span> -->
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section3-End -->
+
+                    <div class="dropdown-divider mx-3"></div>
+
+                    <!-- Section4-Start -->
+                    <div class="py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-center" id="headingFour">
+                            <div class="d-flex align-items-center">
+                                <h2 class="py-2 m-0 question-header-font">
+                                    {{section5Labels.referralLabel}}
+                                </h2>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('young-referral/referral')"
+                                    data-placement="top" title="Edit Section 4"></i>
+                            </div>
+
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle4" data-target="#collapseFour"
+                                    @click="toggleArrow($event,4,allSectionData)" aria-expanded="true"
+                                    aria-controls="collapseFour"></i>
+                            </span>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                            data-parent="#accordionExample">
+                            <div class="py-1 py-md-2">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="supportNeedsSect5">
+                                        Support needs:
+                                    </label>
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                </div>
+
+                                <div class=" py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="covid5">
+                                        Covid related?
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px    input-bg-form-control"
+                                                v-model="section4Data.is_covid"
+                                                @change="onDetectChange($event,'sect4')">
+                                                <option class='option-text' value="Yes">Yes
+                                                </option>
+                                                <option class='option-text' value="No">No
+                                                </option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.eating_disorder_difficulties">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Main eating disorder difficulties
+                                        </label>
+                                        <textarea
+                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textInf0red" rows="3"
+                                            v-model="section4Data.eating_disorder_difficulties"
+                                            readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.food_fluid_intake">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Food/fluid intake
+                                        </label>
+                                        <textarea
+                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textFood" rows="3"
+                                            v-model="section4Data.food_fluid_intake"
+                                            readonly>{{section4Data.food_fluid_intake}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.eating_disorder_difficulties">
+                                    <div class=" py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                            Height
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <input class="form-control    input-bg-form-control" type="text"
+                                                placeholder="Enter height" v-model="section4Data.height"
+                                                id="heightSect5"
+                                                @input="onDetectChange($event,'sect4','section4Data', 'height')">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.eating_disorder_difficulties">
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
+                                            Weight
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <input class="form-control    input-bg-form-control" type="text"
+                                                placeholder="Enter weight" v-model="section4Data.weight"
+                                                id="weightSect5"
+                                                @input="onDetectChange($event,'sect4','section4Data', 'weight')">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Main reason for making referral
+                                    </label>
+                                    <textarea
+                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                        name="infoTextAreas" id="textInf0red" rows="3"
+                                        v-model="section4Data.reason_for_referral"
+                                        readonly>{{section4Data.reason_for_referral}}</textarea>
+                                </div>
+
+
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
+                                        Info about issue:
+                                    </label>
+                                    <textarea id="reqTextArea"
+                                        class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control  input-bg-form-control"
+                                        name="infoTextAreas" id="infoAb5" rows="3"
+                                        v-model="section4Data.referral_issues"
+                                        @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
+
+                                    <small class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
+                                        You must provide an answer to this question.
+                                    </small>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                        Info about issue:
+                                    </label>
+                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea id="reqTextArea" class=" h-50 form-control input-bg-form-control"
+                                            name="infoTextAreas" id="infoAb5" rows="3"
+                                            v-model="section4Data.referral_issues"
+                                            @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
+
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
+                                            You must provide an answer to this question.
+                                        </small>
+                                    </div>
+                                </div>
+
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
+                                        Has anything helped?:
+                                    </label>
+                                    <textarea
+                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
+                                        name="infoTextAreas" id="hasHelp5" rows="3"
+                                        v-model="section4Data.has_anything_helped"
+                                        @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font px-0 col-12 col-md-4" for="trig5">
+                                        Triggers:
+                                    </label>
+                                    <textarea
+                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
+                                        name="infoTextAreas" id="trig5" rows="3"
+                                        v-model="section4Data.any_particular_trigger"
+                                        @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
+                                        Disabilities / difficulties:
+                                    </label>
+                                    <textarea
+                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
+                                        name="infoTextAreas" id="textInf0red" rows="3"
+                                        v-model="section4Data.disabilities"
+                                        @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
+                                </div>
+
+
+                                <div v-if="checkArrayLength(section4Data.local_services)"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Accessed Services
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea class="h-50 form-control    input-bg-form-control"
+                                            name="infoTextAreas" placeholder="" rows="3"
+                                            v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
+                                        How did you hear about our service:
+                                    </label>
+                                    <textarea
+                                        class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
+                                        name="infoTextAreas" id="hearService" rows="3"
+                                        v-model="section4Data.about_our_service"
+                                        @input="onDetectChange($event,'sect4','section4Data','about_our_service')">{{section4Data.about_our_service}}</textarea>
+                                </div>
+
+                                <div class="text-center py-4">
+                                    <button
+                                        @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')"
+                                        disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="link-text px-2">Saving Section 4...</span>
+                                        </div> -->
+                                        <span id="beforeSaveSection4" class="btn-secondary-text">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section4-End -->
+
+                    <div class="dropdown-divider mx-3"></div>
+
+                    {% endraw %}
+                </div>
+
+                <!-- Contact preferences Start -->
+                <div id="contact-preference">
+                    <!-- <h2 class="py-2 px-3 m-0 question-header-font">
+                        Contact preferences
+                    </h2>
+                    <p class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12"> How would you like to
+                        be
+                        contacted about the progress of your child’s referral?
+                    </p> -->
+                    <div class="py-2 px-3 m-0 review-header-font">
+                        {{ apos.area(data.page, 'review_contact', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div>
+                    <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        <p class="m-0"> Who would you like us to contact about the progress of the referral?</p>
+
+                    </div>
+
+                    <div class="px-3 m-0 question-header-font">
+                        <div v-if="userRole == 'young'">
+                            <div class="form-check pt-3 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToMe" value="Me"
+                                    v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                    Me
+                                </label>
+                            </div>
+                            <div class="form-check pt-2 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToParCarer" value="My parent/carer"
+                                    v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center"
+                                    for="sendToParCarer">
+                                    My parent/carer
+                                </label>
+                            </div>
+                        </div>
+
+                        <div v-if="userRole == 'family'">
+                            <div class="form-check pt-3 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToMe" value="Me"
+                                    v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                    Me
+                                </label>
+                            </div>
+                            <div class="form-check pt-2 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToParCarer"
+                                    value="My child/ child person" v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center"
+                                    for="sendToParCarer">
+                                    My child/ child person
+                                </label>
+                            </div>
+                        </div>
+
+                        <div v-if="userRole == 'professional'">
+                            <div class="form-check pt-3 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToMe" value="The child person"
+                                    v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                    The child person
+                                </label>
+                            </div>
+                            <div class="form-check pt-2 pb-1 pl-0">
+                                <input class="form-check-input" type="radio" id="sendToParCarer"
+                                    value="Their parent/carer" v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center"
+                                    for="sendToParCarer">
+                                    Their parent/carer
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !contact_person), 'invalid-fields':!contact_person}">
+                        You must provide an answer.
+                    </div>
+
+                    <div v-if="contact_person" class="pt-3">
+                        <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                            {{ apos.area(data.page, 'review_contactSub', {
+                            widgets: {
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+
+                            ]
+                            }
+                            }
+                            }) }}
+                        </div>
+                        <div class="px-3 m-0 question-header-font">
+                            <div class="custom-form-group pt-2 mb-2 pl-0">
+                                <input type="checkbox" id="Post" name="contactPreference" value="post"
+                                    v-model="contactPref">
+                                <label for="Post" class="option-font d-flex align-items-center">
+                                    Post</label>
+                            </div>
+                            <div class="custom-form-group m-0">
+                                <input type="checkbox" id="phone" name="contactPreference" value="phone"
+                                    v-model="contactPref">
+                                <label for="phone" class="option-font d-flex align-items-center">
+                                    Phone call</label>
+                            </div>
+                            <div class="custom-form-group m-0 pb-1">
+                                <input type="checkbox" id="sms" name="contactPreference" value="sms"
+                                    v-model="contactPref">
+                                <label for="sms" class="option-font d-flex align-items-center">
+                                    SMS / text</label>
+                            </div>
+                            <div class="custom-form-group m-0 pb-1">
+                                <input type="checkbox" id="email" name="contactPreference" value="email"
+                                    v-model="contactPref">
+                                <label for="email" class="option-font d-flex align-items-center">
+                                    Email</label>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback d-none m-0 px-3"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
+                            You must provide an answer.
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact preferences Start -->
+
+                <!--Select a provider Start -->
+                <!-- <div v-if="userRole === 'professional'" class="py-3">
+                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                        Do you want to select a provider to receive this referral?
+                    </h2>
+                    <div class="px-3 m-0 question-header-font">
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="resetProvider()"
+                                id="selectProviderYes" value="Yes" v-model="selectProvider">
+                            <label for="selectProviderYes"
+                                class="form-check-label option-font d-flex align-items-center">
+                                Yes</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="resetProvider()" id="selectProviderNo"
+                                value="No" v-model="selectProvider">
+                            <label for="selectProviderNo"
+                                class="form-check-label option-font d-flex align-items-center">
+                                No</label>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !selectProvider), 'invalid-fields':!selectProvider}">
+                        You must provide an answer.
+                    </div>
+                </div> -->
+                <!--Select a provider end -->
+
+                <!-- Provider List Start-->
+                <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
+                <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
+                        Please select Provider:
+                    </h2> -->
+                <!-- <div class="py-2 px-3 m-0 review-header-font">
+                        {{ apos.area(data.page, 'review_contact', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        {{ apos.area(data.page, 'review_contactSub', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Paragraph', element: 'p' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                <!-- <div class="px-3 m-0 question-header-font">
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
+                                value="YPAS" v-model="sendRef">
+                            <label for="YPAS" class="form-check-label option-font d-flex align-items-center">
+                                YPAS</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="venus" @change="changeProvider($event)"
+                                value="Venus" v-model="sendRef">
+                            <label for="venus" class="form-check-label option-font d-flex align-items-center">
+                                Venus</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="IAPTUS" @change="changeProvider($event)"
+                                value="IAPTUS" v-model="sendRef">
+                            <label for="IAPTUS" class="form-check-label option-font d-flex align-items-center">
+                                IAPTUS</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="sendRefDirOther"
+                                @change="changeProvider($event)" value="Other" v-model="sendRef">
+                            <label for="sendRefDirOther" class="form-check-label option-font d-flex align-items-center">
+                                Other</label>
+                        </div>
+                        <div v-if="addMoreOrg">
+                            <div class="form-group pt-4 pb-0 m-0 w-75">
+                                <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
+                                    send
+                                    the referral</label>
+                                <textarea class="h-112 form-control input-bg-form-control" id="whereToSend"
+                                    v-model="nameForOthers" @input="preventWhiteSpaces($event,'other')"
+                                    rows="4"></textarea>
+                            </div>
+                            <div class="invalid-feedback d-none m-0 py-2"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && sendRef =='Other' && !nameForOthers), 'invalid-fields':(isFormSubmitted && sendRef =='Other' && !nameForOthers)}">
+                                You must provide an answer.
+                            </div>
+                        </div>
+
+                    </div> -->
+                <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
+                        You must provide an answer.
+                    </div>
+                </div> -->
+                <!-- Provider List End-->
+
+
+                <!-- Send Start -->
+                <!-- <div id="send" class="">
+                    <div class="review-header-font py-3 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
+                        'review_send', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' },
+                        { name: 'Paragraph', element: 'p' }
+
+                        ]
+                        }
+                        }
+                        }) }}</div>
+                </div> -->
+                <!-- Send End -->
+
+                <div class="text-center pt-2 pb-1">
+                    <a>
+                        <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">ACCEPT &
+                                SEND</span></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
