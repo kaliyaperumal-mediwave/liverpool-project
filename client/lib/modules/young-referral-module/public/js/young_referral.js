@@ -13,7 +13,7 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
             this.userMode = this.paramValues;
-            this.dynamicLabels = getDynamicLabels(this.userRole,undefined,4);
+            this.dynamicLabels = getDynamicLabels(this.userRole, undefined, 4);
             this.fetchSavedData();
             $('#loader').hide();
         },
@@ -32,7 +32,7 @@ $(document).ready(function () {
                 disabilityOrDifficulty: '',
                 accessService: '',
                 listService: '',
-                about_our_service:''
+                about_our_service: ''
             },
             dependent: [
                 // {
@@ -167,7 +167,7 @@ $(document).ready(function () {
                 { id: '9b39fa57-98da-41fa-93a7-4c2c4b191c89', value: 'Kooth' },
                 { id: '652b84d6-3ff4-42ca-8e35-deaf80e2115e', value: 'Merseycare 16-25' },
                 { id: '3d6c3a7e-1948-4eb9-86c8-8177dd132bc0', value: 'Merseyside Youth Association' },
-                { id: '016b2e91-6872-4a5d-a49e-5e3a75cc7521', value: 'PSS spinning World' },
+                { id: '016b2e91-6872-4a5d-a49e-5e3a75cc7521', value: 'Spinning World' },
                 { id: 'e293c060-2cc4-4288-a941-b6bb56ac8ad4', value: 'Venus' },
                 { id: 'e116e2a3-4623-4c01-af34-bbe9ccb8a829', value: 'YPAS' },
                 { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },

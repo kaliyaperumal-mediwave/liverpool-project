@@ -68,7 +68,13 @@
 
                     <!-- young NHS Number Start-->
                     <div class="form-group ">
-                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
+                        <div class="d-flex align-items-start">
+                            <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} -
+                                <b>optional</b></label>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 mb-2 cursor-pointer" alt=""
+                                data-toggle="modal" data-target="#nhsHelperText">
+                        </div>
+                        <!-- <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label> -->
                         <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
                             v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
@@ -78,6 +84,28 @@
                         </div>
                     </div>
                     <!-- young NHS Number End-->
+
+                    <!-- Nhs content modal start -->
+                    <div class="modal fade" id="nhsHelperText" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="px-2 py-4">
+                                    <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                        <span style="color:#023087 ;">
+                                            <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                        <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                            aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                    </div>
+                                    <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
+                                        If you don't have your NHS number, please find it&nbsp;<a
+                                            href="https://www.nhs.uk/nhs-services/online-services/find-nhs-number/"
+                                            target="_blank" class="text-underline cursor-pointer">here</a>.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nhs content modal end -->
 
                     <!-- young title Start-->
                     <div class="form-group py-2 mt-0 mb-2">
@@ -1400,7 +1428,7 @@
                                             v-model="houseHoldData.name"
                                             @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
                                             placeholder="Enter first name">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i aria-hidden="true" class="fa fa-user-circle"></i>
                                             </span>
@@ -1422,7 +1450,7 @@
                                             v-model="houseHoldData.lastName"
                                             @input="trimWhiteSpace($event,'houseHoldData','lastName')"
                                             id="houseHoldLastName" placeholder="Enter last name">
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i aria-hidden="true" class="fa fa-user-circle"></i>
                                             </span>
@@ -1460,16 +1488,20 @@
                                             @dp-change="toggleHouseHoldManualAddress($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker> -->
-                                        <div class="input-group-append cursor-pointer">
+                                        <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
                                     <!-- <div class="invalid-feedback d-none mt-2"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
-                                        Please provide a valid date.
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (!isFutureDate(houseHoldData.dob) || isCheckUtc) && (houseHoldData.dob && dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && dateRegex.test(houseHoldData.dob) && (!isFutureDate(houseHoldData.dob) || isCheckUtc)) }">
+                                        Please provide a valid date 55.
                                     </div> -->
+                                    <div class="invalid-feedback d-none mt-2"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && houseHoldData.dob && !dateRegex.test(houseHoldData.dob)),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
+                                        Please provide a valid date.
+                                    </div>
                                     <div class="text-validation invalid-feedback  d-none"
                                         v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
                                         Please make sure the DOB is entered in the correct format DD/MM/YYYY.
@@ -1516,7 +1548,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.profession" id="school"
                                                 placeholder="Enter school/college/employment">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1538,7 +1570,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.addressLine1"
                                                 id="addressline1HouseHold" placeholder="Enter address line 1">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1560,7 +1592,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.addressLine2"
                                                 id="houseHoldaddressline2" placeholder="Enter address line 2">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                                 </span>
@@ -1592,7 +1624,7 @@
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.country" id="countyAdd"
                                                 placeholder="Enter country">
-                                            <div class="input-group-append cursor-pointer">
+                                            <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-globe" aria-hidden="true"></i>
                                                 </span>

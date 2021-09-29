@@ -704,13 +704,10 @@ $(document).ready(function () {
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
-                console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
-                console.log(this.houseHoldData)
                 var houseHoldForm = this.houseHoldData;
                 var dateFormat = "DD/MM/YYYY"
                 var utc = moment(houseHoldForm.dob, dateFormat, true)
-                // this.isCheckUtcUtc = utc.isValid();
                 var modal = document.getElementById('closeModalRaj');
                 console.log(this.dateRegex.test(houseHoldForm.dob))
                 if (houseHoldForm.name && houseHoldForm.lastName) {
@@ -890,64 +887,6 @@ $(document).ready(function () {
                     this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                     this.showManualAddressHouseHold = false;
                     this.resetHouseholdManualAddressValue();
-                }
-
-            },
-
-            checkValidDate: function (id, obj, key) {
-                var dateElement = document.querySelector(id);
-                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
-
-                var input = dateElement.value;
-                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-                var values = input.split('/').map(function (v) {
-                    return v.replace(/\D/g, '')
-                });
-                var currentDate = {
-                    year: new Date().getFullYear(),
-                    month: parseInt(new Date().getMonth()) + 1,
-                    date: new Date().getDate()
-                }
-                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
-                    values[2] = 2021;
-                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
-                    values[2] = 1900;
-                }
-
-                if (values[1]) {
-                    if (values[2]) {
-                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
-                        values[1] = ("0" + values[1]).slice(-2)
-                    }
-                    values[1] = this.checkValue(values[1], 12);
-                }
-
-                if (values[0]) {
-                    if (values[2]) {
-                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
-                        values[0] = ("0" + values[0]).slice(-2)
-                    }
-                    values[0] = this.checkValue(values[0], 31);
-                }
-
-                var output = values.map(function (v, i) {
-                    return v.length == 2 && i < 2 ? v + ' / ' : v;
-                });
-                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
-                    return v.length == 2 && i < 2 ? v + '/' : v;
-                });
-                // this.isGoogleAddressSelected = false;
-                dateElement.value = copyOutput.join('').substr(0, 14);
-                this[obj][key] = output.join('').substr(0, 14);
-                this.formatter = copyOutput.join('').substr(0, 14);
-                if (!this.dateRegex.test(this.formatter)) {
-                    this.houseHoldData.profession = '';
-                    manualHouseHoldText.innerText = "Enter manually";
-                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
-                    this.showManualAddressHouseHold = false;
-                    this.resetHouseholdManualAddressValue();
-                } else {
-                    this.houseHoldData.dob = this.formatter;
                 }
 
             },

@@ -250,7 +250,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentFirstName", data.family[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.family[0].parent_lastname);
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data.family[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.family[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.family[0].parental_responsibility)
                         // Vue.set(this.aboutFormData, "parentCarerFirstName", data.family[0].responsibility_parent_firstname);
                         // Vue.set(this.aboutFormData, "parentCarerLastName", data.family[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.family[0].child_parent_relationship);
@@ -317,10 +317,10 @@ $(document).ready(function () {
                         this.allHouseHoldMembers = data[0].household_member;
                         this.prevHouseHoldData = data[0].household_member;
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         //  Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         // Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {
@@ -350,7 +350,7 @@ $(document).ready(function () {
                     if (data[0] != undefined && data[0].family[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
-                        if (data[0].family[0].young_name_title != null) {
+                        if (data[0].family[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "youngNameTitle", data[0].family[0].child_name_title);
                         }
                         Vue.set(this.aboutObj, "youngFirstName", data[0].family[0].child_firstname);
@@ -397,10 +397,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         // Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         //Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {
@@ -677,9 +677,10 @@ $(document).ready(function () {
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
-                console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
+                var dateFormat = "DD/MM/YYYY"
+                var utc = moment(houseHoldForm.dob, dateFormat, true)
                 var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name && houseHoldForm.lastName) {
                     if (this.showManualAddressHouseHold) {
@@ -708,7 +709,7 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
@@ -731,7 +732,6 @@ $(document).ready(function () {
                             return;
                         }
                     } else {
-                        //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
                             if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
@@ -741,10 +741,6 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                            //     modal.removeAttribute("data-dismiss", "modal");
-                            //     return false;
-                            // }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -766,10 +762,6 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                            //     modal.removeAttribute("data-dismiss", "modal");
-                            //     return false;
-                            // }
                             houseHoldForm.id = uuidV4();
                             houseHoldForm.mode = 'add';
                             this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -817,20 +809,30 @@ $(document).ready(function () {
 
             checkValidDateMine: function (e) {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
-                if (this.isValidDate(e.target.value)) {
-                    var dateValue = e.target.value;
-                    var dateFormat = "DD/MM/YYYY"
-                    var utc = moment(dateValue, dateFormat, true)
-                    var isUtc = utc.isValid();
-                    var currentYear = new Date().getFullYear();
-                    var setYearValue = dateValue.split('/');
-                    var getYearValue = setYearValue[2];
-                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value) || !isUtc) {
-                            this.hasValidDate = true;
-                            this.houseHoldData.dob = e.target.value;
+                if (e.target.value.length >= 10) {
+                    if (this.isValidDate(e.target.value)) {
+                        var dateValue = e.target.value;
+                        var dateFormat = "DD/MM/YYYY"
+                        var utc = moment(dateValue, dateFormat, true)
+                        var isUtc = utc.isValid();
+                        var currentYear = new Date().getFullYear();
+                        var setYearValue = dateValue.split('/');
+                        var getYearValue = setYearValue[2];
+                        if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                            if (this.isFutureDate(e.target.value) || !isUtc) {
+                                this.hasValidDate = true;
+                                this.houseHoldData.dob = e.target.value;
+                            } else {
+                                this.hasValidDate = false;
+                                this.houseHoldData.profession = '';
+                                manualHouseHoldText.innerText = "Enter manually";
+                                this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                                this.showManualAddressHouseHold = false;
+                                this.resetHouseholdManualAddressValue();
+                            }
+
                         } else {
-                            this.hasValidDate = false;
+                            this.hasValidDate = true;
                             this.houseHoldData.profession = '';
                             manualHouseHoldText.innerText = "Enter manually";
                             this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
@@ -846,71 +848,13 @@ $(document).ready(function () {
                         this.showManualAddressHouseHold = false;
                         this.resetHouseholdManualAddressValue();
                     }
-
                 } else {
-                    this.hasValidDate = true;
+                    this.hasValidDate = false;
                     this.houseHoldData.profession = '';
                     manualHouseHoldText.innerText = "Enter manually";
                     this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                     this.showManualAddressHouseHold = false;
                     this.resetHouseholdManualAddressValue();
-                }
-            },
-
-            checkValidDate: function (id, obj, key) {
-                var dateElement = document.querySelector(id);
-                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
-
-                var input = dateElement.value;
-                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-                var values = input.split('/').map(function (v) {
-                    return v.replace(/\D/g, '')
-                });
-                var currentDate = {
-                    year: new Date().getFullYear(),
-                    month: parseInt(new Date().getMonth()) + 1,
-                    date: new Date().getDate()
-                }
-                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
-                    values[2] = 2021;
-                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
-                    values[2] = 1900;
-                }
-
-                if (values[1]) {
-                    if (values[2]) {
-                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
-                        values[1] = ("0" + values[1]).slice(-2)
-                    }
-                    values[1] = this.checkValue(values[1], 12);
-                }
-
-                if (values[0]) {
-                    if (values[2]) {
-                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
-                        values[0] = ("0" + values[0]).slice(-2)
-                    }
-                    values[0] = this.checkValue(values[0], 31);
-                }
-
-                var output = values.map(function (v, i) {
-                    return v.length == 2 && i < 2 ? v + ' / ' : v;
-                });
-                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
-                    return v.length == 2 && i < 2 ? v + '/' : v;
-                });
-                // this.isGoogleAddressSelected = false;
-                dateElement.value = copyOutput.join('').substr(0, 14);
-                this[obj][key] = output.join('').substr(0, 14);
-                this.formatter = copyOutput.join('').substr(0, 14);
-                if (!this.dateRegex.test(this.formatter)) {
-                    this.houseHoldData.profession = '';
-                    manualHouseHoldText.innerText = "Enter manually";
-                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
-                    this.showManualAddressHouseHold = false;
-                    this.resetHouseholdManualAddressValue();
-                } else {
-                    this.houseHoldData.dob = this.formatter;
                 }
 
             },
@@ -1006,7 +950,6 @@ $(document).ready(function () {
                 }
             },
 
-
             // Getting Manual Address for house hold
             getManualAddressHouseHold: function () {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
@@ -1053,7 +996,6 @@ $(document).ready(function () {
                 this.houseHoldData.manualAddress.country = "";
                 this.houseHoldData.manualAddress.postCode = ""
             },
-
 
             //Delete service logic
             openDeleteModal: function (service) {

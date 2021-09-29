@@ -1124,6 +1124,8 @@ function getRefData(refID, refRole, ctx) {
         });
     }
     else if (refRole == "Parent" || refRole == "parent" || refRole == "Family" || refRole == "family") {
+
+        console.log("123654")
         if (refRole == "Parent" || refRole == "parent") {
             includeModalName = "parent";
         }
@@ -1198,7 +1200,7 @@ function getRefData(refID, refRole, ctx) {
                             attributes: ['id']
                         }).then((referralResult) => {
 
-                            //console.log(elgibilityObj)
+                            console.log(elgibilityObj[0].family[0])
                             var gploc;
                             var getChildAddress;
                             var getChildDob;
@@ -1355,6 +1357,7 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
+                            console.log(responseData);
                             return responseData;
                         }).catch((error) => {
                             console.log(error)
