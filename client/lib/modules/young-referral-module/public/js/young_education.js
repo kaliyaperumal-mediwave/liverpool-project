@@ -9,7 +9,7 @@ $(document).ready(function () {
                 position: '',
                 haveEhcpPlan: '',
                 haveEhat: '',
-                careLeaver:'',
+                careLeaver: '',
                 attendedInfo: '',
                 haveSocialWorker: '',
                 socialWorkName: '',
@@ -65,7 +65,7 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href)
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
-            this.dynamicLabels = getDynamicLabels(this.userRole,null,3);
+            this.dynamicLabels = getDynamicLabels(this.userRole, null, 3);
             this.fetchSavedData();
             this.initMaps();
             $('#loaderEduc').hide();
@@ -185,6 +185,7 @@ $(document).ready(function () {
             },
 
             onOptionChange: function (event) {
+                debugger
                 var _self = this;
                 var questionIdentifier = event.target.name;
                 var data = event.target.value;
@@ -236,7 +237,7 @@ $(document).ready(function () {
                     }
 
                 }
-                else if (questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
+                else if (questionIdentifier == 'EHCP' || questionIdentifier == 'careLeaver' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
                     resetValues(event.target.form, this, 'educAndEmpData');
                 }
             },
@@ -417,7 +418,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].family[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].family[0].child_EHAT);
-                    Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
+                    Vue.set(this.educAndEmpData, "careLeaver", data[0].family[0].careLeaver);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].family[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].family[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].family[0].child_socialworker_lastname);
@@ -447,7 +448,7 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional2[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].professional2[0].child_EHAT);
-                    Vue.set(this.educAndEmpData, "careLeaver", data.careLeaver);
+                    Vue.set(this.educAndEmpData, "careLeaver", data[0].professional2[0].careLeaver);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional2[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional2[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional2[0].child_socialworker_lastname);

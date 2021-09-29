@@ -250,7 +250,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentFirstName", data.family[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.family[0].parent_lastname);
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data.family[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.family[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.family[0].parental_responsibility)
                         // Vue.set(this.aboutFormData, "parentCarerFirstName", data.family[0].responsibility_parent_firstname);
                         // Vue.set(this.aboutFormData, "parentCarerLastName", data.family[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.family[0].child_parent_relationship);
@@ -317,10 +317,10 @@ $(document).ready(function () {
                         this.allHouseHoldMembers = data[0].household_member;
                         this.prevHouseHoldData = data[0].household_member;
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         //  Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         // Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {
@@ -350,7 +350,7 @@ $(document).ready(function () {
                     if (data[0] != undefined && data[0].family[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
-                        if (data[0].family[0].young_name_title != null) {
+                        if (data[0].family[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "youngNameTitle", data[0].family[0].child_name_title);
                         }
                         Vue.set(this.aboutObj, "youngFirstName", data[0].family[0].child_firstname);
@@ -397,10 +397,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         // Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
-                       // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
+                        // this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         // Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         //Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {

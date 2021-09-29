@@ -68,7 +68,13 @@
 
                     <!-- young NHS Number Start-->
                     <div class="form-group ">
-                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
+                        <div class="d-flex align-items-start">
+                            <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} -
+                                <b>optional</b></label>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 mb-2 cursor-pointer" alt=""
+                                data-toggle="modal" data-target="#nhsHelperText">
+                        </div>
+                        <!-- <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label> -->
                         <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
                             v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
@@ -78,6 +84,28 @@
                         </div>
                     </div>
                     <!-- young NHS Number End-->
+
+                    <!-- Nhs content modal start -->
+                    <div class="modal fade" id="nhsHelperText" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="px-2 py-4">
+                                    <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                        <span style="color:#023087 ;">
+                                            <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                        <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                            aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                    </div>
+                                    <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
+                                        If you don't have your NHS number, please find it&nbsp;<a
+                                            href="https://www.nhs.uk/nhs-services/online-services/find-nhs-number/"
+                                            target="_blank" class="text-underline cursor-pointer">here</a>.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nhs content modal end -->
 
                     <!-- young title Start-->
                     <div class="form-group py-2 mt-0 mb-2">
