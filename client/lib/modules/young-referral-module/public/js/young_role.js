@@ -136,6 +136,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            console.log(this.isUserLoggedIn)
             var date = new Date().getFullYear();
             console.log(date)
             for (var i = date; i > 1989; i--) {

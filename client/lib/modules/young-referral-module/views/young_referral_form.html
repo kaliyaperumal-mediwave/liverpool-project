@@ -277,7 +277,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+                            <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot accept referrals from people under 18 years of age</p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
                                 form from
@@ -297,11 +298,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
-
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
-                                form from
-                                the beginning on your behalf</p>
+                            <p  v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot accept referrals from people under 18 years of age</p>
                         </div>
                     </div>
                 </div>
