@@ -182,7 +182,7 @@ exports.eligibility = ctx => {
             parentUserInfo.setFamily(childUserInfo.id).then(sc => {
               console.log(sc);
             }).catch((error) => {
-              console.log(error)
+              console.log(error )
             });
             const responseData = {
               userid: parentUserInfo.uuid,
@@ -316,7 +316,7 @@ exports.eligibility = ctx => {
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
-          childUserInfo.setType("1")
+          childUserInfo.setType("7")
           return user.create({
             referral_mode: ctx.request.body.referral_mode,
             professional_firstname: ctx.request.body.profFirstName,
