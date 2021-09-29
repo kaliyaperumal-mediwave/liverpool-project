@@ -6,19 +6,29 @@ const _ = require('lodash');
 const config = require('../config');
 exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
-    console.log( ctx.request.body.referralData)
+    console.log('=======--------------===============>', ctx.request.body.referralData)
     try {
-        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young" || ctx.request.body.referralData.role == "young")
+        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
+        } else if (ctx.request.body.referralData.role == "Young" || ctx.request.body.referralData.role == "young") {
+            template = fs.readFileSync(path.join(`${__dirname}/./templates/young_referralSendTemplate.html`), 'utf8');           
         }
-        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" ||   ctx.request.body.referralData.role == "Family" || ctx.request.body.referralData.role == "family")
+        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/parent_referralSendTemplate.html`), 'utf8');
         }
-        else
+        else if(ctx.request.body.referralData.role == "Family" || ctx.request.body.referralData.role == "family")
+        {
+            template = fs.readFileSync(path.join(`${__dirname}/./templates/family_referralSendTemplate.html`), 'utf8');
+        }
+        else if((ctx.request.body.referralData.role == "Professional" || ctx.request.body.referralData.role == "professional") && ctx.request.body.referralData.section1.referral_type == "child")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/prof_referralSendTemplate.html`), 'utf8');
+        }
+        else if((ctx.request.body.referralData.role == "Professional" || ctx.request.body.referralData.role == "professional") && ctx.request.body.referralData.section1.referral_type == "young")
+        {
+            template = fs.readFileSync(path.join(`${__dirname}/./templates/prof_young_referralSendTemplate.html`), 'utf8');
         }
         
         let htmlTemplate = _.template(template);
