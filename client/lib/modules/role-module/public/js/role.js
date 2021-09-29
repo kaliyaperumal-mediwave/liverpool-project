@@ -174,7 +174,10 @@ $(document).ready(function () {
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
-            this.fetchSavedData();
+            if(localStorage.getItem('form2')!='yes')
+            {
+                this.fetchSavedData();
+            }
             //this.initMaps();
             // console.log(fetchJSONFile('/modules/role-module/js/data/gplist.json',undefined))
             this.paramValues = getParameter(location.href);
@@ -290,7 +293,7 @@ $(document).ready(function () {
                         this.elgibilityObj.gpNotCovered = true;
                     }
 
-
+                    localStorage.setItem("form1", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -315,6 +318,7 @@ $(document).ready(function () {
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
                         this.elgibilityObj.gpNotCovered = true;
                     }
+                    localStorage.setItem("form1", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -368,7 +372,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
 
                     }
-
+                    localStorage.setItem("form1", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     this.elgibilityObj.editFlag = "editFlag";
