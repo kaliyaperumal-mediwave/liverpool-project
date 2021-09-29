@@ -96,19 +96,39 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (refObj.referral_progress == "20") {
-                            location.href = "/about";
+                        if(refObj.referral_type=="young")
+                        {
+                            if (refObj.referral_progress == "20") {
+                                location.href = "/young-referral/youngAbout";
+                            }
+                            else if (refObj.referral_progress == "40") {
+                                location.href = "/young-referral/education";
+                            }
+                            else if (refObj.referral_progress == "60") {
+                                location.href = "/young-referral/referral";
+    
+                            }
+                            else if (refObj.referral_progress == "80") {
+                                location.href = "/young-referral/review";
+    
+                            }
                         }
-                        else if (refObj.referral_progress == "40") {
-                            location.href = "/education";
-                        }
-                        else if (refObj.referral_progress == "60") {
-                            location.href = "/referral";
-
-                        }
-                        else if (refObj.referral_progress == "80") {
-                            location.href = "/review";
-
+                        else
+                        {
+                            if (refObj.referral_progress == "20") {
+                                location.href = "/about";
+                            }
+                            else if (refObj.referral_progress == "40") {
+                                location.href = "/education";
+                            }
+                            else if (refObj.referral_progress == "60") {
+                                location.href = "/referral";
+    
+                            }
+                            else if (refObj.referral_progress == "80") {
+                                location.href = "/review";
+    
+                            }
                         }
                     },
                     error: function (error) {

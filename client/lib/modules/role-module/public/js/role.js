@@ -156,7 +156,7 @@ $(document).ready(function () {
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
-                $('input[name=role]').attr("disabled", true);
+               // $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
                 if (userRole == 'child') {
                     disableParent.style.opacity = '0.6';
