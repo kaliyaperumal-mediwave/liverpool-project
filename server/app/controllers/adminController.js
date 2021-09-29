@@ -1200,7 +1200,6 @@ function getRefData(refID, refRole, ctx) {
                             attributes: ['id']
                         }).then((referralResult) => {
 
-                            console.log(elgibilityObj[0].family[0])
                             var gploc;
                             var getChildAddress;
                             var getChildDob;
