@@ -162,7 +162,7 @@ exports.eligibility = ctx => {
     else {
       if (ctx.request.decryptedUser != undefined) {
         return user.create({
-          child_dob: ctx.request.body.child_Dob,
+          child_dob: ctx.request.body.young_Dob,
           registered_gp: ctx.request.body.registered_gp,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.registered_gp_postcode
@@ -2123,7 +2123,7 @@ console.log(ctx.query)
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'family',
-                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
+                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
               },
             ],
             where: {
@@ -2200,6 +2200,7 @@ console.log(ctx.query)
                 child_education_manual_address: edu_empObj[0].family[0].child_education_manual_address,
                 child_EHCP: edu_empObj[0].family[0].child_EHCP,
                 child_EHAT: edu_empObj[0].family[0].child_EHAT,
+                careLeaver: edu_empObj[0].family[0].careLeaver,
                 child_socialworker: edu_empObj[0].family[0].child_socialworker,
                 child_socialworker_firstname: edu_empObj[0].family[0].child_socialworker_firstname,
                 child_socialworker_lastname: edu_empObj[0].family[0].child_socialworker_lastname,
@@ -2295,7 +2296,7 @@ console.log(ctx.query)
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'professional2',
-                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
+                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
               },
             ],
             where: {
@@ -2389,6 +2390,7 @@ console.log(ctx.query)
                 child_education_manual_address: edu_empObj[0].professional2[0].child_education_manual_address,
                 child_EHCP: edu_empObj[0].professional2[0].child_EHCP,
                 child_EHAT: edu_empObj[0].professional2[0].child_EHAT,
+                careLeaver: edu_empObj[0].professional2[0].careLeaver,
                 child_socialworker: edu_empObj[0].professional2[0].child_socialworker,
                 child_socialworker_name: edu_empObj[0].professional2[0].child_socialworker_name,
                 child_socialworker_firstname: edu_empObj[0].professional2[0].child_firstname,

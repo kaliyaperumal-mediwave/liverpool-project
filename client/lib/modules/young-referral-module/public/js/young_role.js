@@ -136,7 +136,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            console.log(this.isUserLoggedIn)
             var date = new Date().getFullYear();
             console.log(date)
             for (var i = date; i > 1989; i--) {
@@ -175,7 +174,10 @@ $(document).ready(function () {
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
-            this.fetchSavedData();
+            if(localStorage.getItem('form1')!='yes')
+            {
+                this.fetchSavedData();
+            }
             //this.initMaps();
             // console.log(fetchJSONFile('/modules/role-module/js/data/gplist.json',undefined))
             this.paramValues = getParameter(location.href);
@@ -200,6 +202,8 @@ $(document).ready(function () {
 
             //  console.log(asyncCall())
             //  console.log(gpArray)
+            
+            
         },
 
         methods: {
@@ -291,7 +295,7 @@ $(document).ready(function () {
                         this.elgibilityObj.gpNotCovered = true;
                     }
 
-
+                    localStorage.setItem("form2", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -316,6 +320,7 @@ $(document).ready(function () {
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
                         this.elgibilityObj.gpNotCovered = true;
                     }
+                    localStorage.setItem("form2", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -370,7 +375,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
 
                     }
-
+                    localStorage.setItem("form2", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     this.elgibilityObj.editFlag = "editFlag";

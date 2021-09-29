@@ -88,7 +88,7 @@ $(document).ready(function () {
                 this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'family') {
-                this.yourInfo = 'Parent / Carer';
+                this.yourInfo = 'Family / Friend';
                 this.section5Labels.aboutLabel = "About your child";
                 this.section5Labels.referralLabel = "Your child's reason for referral";
 

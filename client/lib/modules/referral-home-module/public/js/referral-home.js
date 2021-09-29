@@ -25,6 +25,8 @@ $(document).ready(function () {
         methods: {
 
             goToRole: function () {
+                localStorage.setItem("form2", "no");
+                localStorage.setItem("form1", "no");
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/setSessionRefHome/y",
