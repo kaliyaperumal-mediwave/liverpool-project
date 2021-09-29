@@ -185,7 +185,6 @@ $(document).ready(function () {
             },
 
             onOptionChange: function (event) {
-                debugger
                 var _self = this;
                 var questionIdentifier = event.target.name;
                 var data = event.target.value;
