@@ -68,7 +68,7 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode', 'referral_type',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -76,9 +76,6 @@ exports.getReferral = ctx => {
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp_postcode'), sequelize.col('parent.registered_gp_postcode'), sequelize.col('professional.registered_gp_postcode')), 'gp_location_postcode'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
 
                 ],
                 where: query,
@@ -86,82 +83,42 @@ exports.getReferral = ctx => {
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
-                        ]
-                    },
-                    {
-                        model: referralModel,
-                        as: 'family',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
-                        ]
-                    },
-                    {
-                        model: referralModel,
-                        as: 'professional2',
-                        attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
                         ]
                     },
                 ],
                 order: order
             })
             var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
-            var reftest = referrals
-            var jsonStringTest = JSON.stringify(referrals)
-            //referrals = JSON.parse(JSON.stringify(referrals));
-
+            referrals = JSON.parse(JSON.stringify(referrals));
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            var fullName;
-            var dob
-            var referralFullName;
+            //console.log(referrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
                 // console.log(ctx.query.searchValue)
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
-
-                    console.log(refObj)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
-
-                    if (refObj.user_role == 'family') {
-                        refObj.dataValues.name = refObj.family[0].child_firstname;
-                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
-                        refObj.dataValues.dob = refObj.family[0].child_dob;
-                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
-                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
-
-                    }
-                    else if (refObj.user_role == 'professional') {
-                        if (refObj.referral_type == "young") {
-                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
-                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
-                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
-                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
-                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
-                        }
-                    }
-
-
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
-                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.name + " " + refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
+                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -169,18 +126,18 @@ exports.getReferral = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
-                        referral_formType: refObj.dataValues.referral_type
                     }
-                    if (refObj.dataValues.gp_location) {
-                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
-                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.gp_location) {
+                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
+                            var splitLocation = refObj.gp_location.split(',');
+                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.dataValues.gp_location.split(',');
+                            var splitLocation = refObj.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -189,8 +146,6 @@ exports.getReferral = ctx => {
                                 }
                             }
                         }
-
-                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -209,55 +164,36 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
-                    console.log(refObj.dataValues.referral_type)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
-
-                    if (refObj.user_role == 'family') {
-                        refObj.dataValues.name = refObj.family[0].child_firstname;
-                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
-                        refObj.dataValues.dob = refObj.family[0].child_dob;
-                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
-                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
-
-                    }
-                    else if (refObj.user_role == 'professional') {
-                        if (refObj.referral_type == "young") {
-                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
-                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
-                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
-                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
-                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
-                        }
-                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
-                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.name + " " + refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
+                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                         refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
-                        referral_status: refObj.referral_status,
-                        referral_formType: refObj.dataValues.referral_type
+                        referral_status: refObj.referral_status
                     }
-                    if (refObj.dataValues.gp_location) {
-                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
-                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.gp_location) {
+                        //  console.log(refObj.gp_location_postcode)
+                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
+                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.dataValues.gp_location.split(',');
+                            var splitLocation = refObj.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -266,8 +202,6 @@ exports.getReferral = ctx => {
                                 }
                             }
                         }
-
-                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     referrals[index] = referralObj;
                 });
@@ -286,7 +220,6 @@ exports.getReferral = ctx => {
                         totalReferrals: totalReferrals,
                         filteredReferrals: filteredReferrals,
                         data: referrals,
-                        reftest: reftest,
                         activity: referralsActivity
                     }
                 })
@@ -332,52 +265,35 @@ exports.getArchived = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode', 'referral_type',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp_postcode'), sequelize.col('parent.registered_gp_postcode'), sequelize.col('professional.registered_gp_postcode')), 'gp_location_postcode'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    //[sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
-
                 ],
                 where: query,
                 include: [
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
-                        ]
-                    },
-                    {
-                        model: referralModel,
-                        as: 'family',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
-                        ]
-                    },
-                    {
-                        model: referralModel,
-                        as: 'professional2',
-                        attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
                         ]
                     },
                 ],
                 order: order
             });
 
-            //referrals = JSON.parse(JSON.stringify(referrals));
+            referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
             // with search
@@ -390,29 +306,12 @@ exports.getArchived = ctx => {
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
-                    if (refObj.user_role == 'family') {
-                        refObj.dataValues.name = refObj.family[0].child_firstname;
-                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
-                        refObj.dataValues.dob = refObj.family[0].child_dob;
-                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
-                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
-
-                    }
-                    else if (refObj.user_role == 'professional') {
-                        if (refObj.referral_type == "young") {
-                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
-                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
-                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
-                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
-                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
-                        }
-                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
-                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.name + " " + refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
+                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -420,18 +319,17 @@ exports.getArchived = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
-                        referral_formType: refObj.dataValues.referral_type
                     }
-                    if (refObj.dataValues.gp_location) {
-                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
-                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.gp_location) {
+                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
+                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.dataValues.gp_location.split(',');
+                            var splitLocation = refObj.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -440,8 +338,6 @@ exports.getArchived = ctx => {
                                 }
                             }
                         }
-
-                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     //////console.log()(referralObj)
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -466,30 +362,12 @@ exports.getArchived = ctx => {
                     } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
-
-                    if (refObj.user_role == 'family') {
-                        refObj.dataValues.name = refObj.family[0].child_firstname;
-                        refObj.dataValues.lastname = refObj.family[0].child_lastname;
-                        refObj.dataValues.dob = refObj.family[0].child_dob;
-                        refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
-                        refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
-
-                    }
-                    else if (refObj.user_role == 'professional') {
-                        if (refObj.referral_type == "young") {
-                            refObj.dataValues.name = refObj.professional2[0].child_firstname;
-                            refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
-                            refObj.dataValues.dob = refObj.professional2[0].child_dob;
-                            refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
-                            refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
-                        }
-                    }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
-                        dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
+                        name: refObj.name + " " + refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
+                        referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
@@ -497,18 +375,17 @@ exports.getArchived = ctx => {
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
-                        referral_formType: refObj.dataValues.referral_type
                     }
-                    if (refObj.dataValues.gp_location) {
-                        if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
-                            if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                    if (refObj.gp_location) {
+                        if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
+                            if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
+                            } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                         else {
-                            var splitLocation = refObj.dataValues.gp_location.split(',');
+                            var splitLocation = refObj.gp_location.split(',');
                             if (splitLocation.length > 1) {
                                 if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                     referralObj.gp_location = gpCodes[0].type;
@@ -517,8 +394,6 @@ exports.getArchived = ctx => {
                                 }
                             }
                         }
-
-                        //referralObj.name= "refObj.family[0].child_firstname" + " " + "refObj.family[0].child_lastname"
                     }
                     referrals[index] = referralObj;
                 });
@@ -777,7 +652,7 @@ exports.sendReferral = async ctx => {
 
     console.log(ctx.request.body.emailToProvider == 'YPAS')
     console.log(ctx.request.body.emailToProvider == 'Venus')
-    console.log("--------------------------------------------------------------------------")
+    console.log(referralData)
 
     const flagTbl = ctx.orm().miscellaneousFlag;
     return flagTbl.findOne({
@@ -812,7 +687,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-
+        
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -837,7 +712,7 @@ exports.sendReferral = async ctx => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
-
+        
                         }).catch(error => {
                             //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -937,18 +812,10 @@ exports.sendReferralByApi = async ctx => {
 }
 
 function getRefData(refID, refRole, ctx) {
+    console.log("getrefdata")
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
-    var includeModalName;
-    console.log("---------------------", ctx.query.refRole)
-    if (refRole == "Child" || refRole == "child" || refRole == "Young" || refRole == "young") {
-        if (refRole == "Child" || refRole == "child") {
-            includeModalName = "parent";
-        }
-        else {
-            includeModalName = "family";
-        }
-        console.log(includeModalName)
+    if (refRole == "Child" || refRole == "child") {
         return user.findOne({
             where: {
                 uuid: refID,
@@ -960,7 +827,7 @@ function getRefData(refID, refRole, ctx) {
                 include: [
                     {
                         model: ctx.orm().Referral,
-                        as: includeModalName,
+                        as: 'parent',
                         attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'responsibility_parent_lastname']
                     },
                 ],
@@ -980,20 +847,9 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: eligibilityObj.id,
                     },
-                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
                 }).then((educationObj) => {
-                    
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
-
-                    var parentAddress;
-                    if (ctx.query.formType == 'child') {
-                        parentAddres = aboutObj.parent[0].parent_address_postcode ? aboutObj.parent[0].parent_address + ', ' + aboutObj.parent[0].parent_address_postcode : aboutObj.parent[0].parent_address
-            
-                    }
-                    else {
-                        parentAddres = aboutObj.family[0].parent_address_postcode ? aboutObj.family[0].parent_address + ', ' + aboutObj.family[0].parent_address_postcode : aboutObj.family[0].parent_address
-                    }
-                
                     const section2Obj = {
                         child_id: aboutObj.id,
                         child_NHS: aboutObj.child_NHS,
@@ -1013,20 +869,20 @@ function getRefData(refID, refRole, ctx) {
                         household_member: aboutObj.household_member,
                         child_contact_type: aboutObj.child_contact_type,
                         sex_at_birth: aboutObj.sex_at_birth,
-                        parent_id: aboutObj.parent ? aboutObj.parent[0].id : aboutObj.family[0].id,
-                        parent_name: aboutObj.parent ? aboutObj.parent[0].parent_firstname : aboutObj.family[0].parent_firstname,
-                        parent_lastname: aboutObj.parent ? aboutObj.parent[0].parent_lastname : aboutObj.family[0].parent_lastname,
-                        parental_responsibility: aboutObj.parent ? aboutObj.parent[0].parental_responsibility : aboutObj.family[0].parental_responsibility,
-                        responsibility_parent_firstname: aboutObj.parent ? aboutObj.parent[0].responsibility_parent_firstname : aboutObj.family[0].responsibility_parent_firstname,
-                        responsibility_parent_lastname: aboutObj.parent ? aboutObj.parent[0].responsibility_parent_lastname : aboutObj.family[0].responsibility_parent_lastname,
-                        child_parent_relationship: aboutObj.parent ? aboutObj.parent[0].child_parent_relationship : aboutObj.family[0].child_parent_relationship,
-                        parent_contact_number: aboutObj.parent ? aboutObj.parent[0].parent_contact_number : aboutObj.family[0].parent_contact_number,
-                        parent_email: aboutObj.parent ? aboutObj.parent[0].parent_email : aboutObj.family[0].parent_email,
-                        parent_same_house: aboutObj.parent ? aboutObj.parent[0].parent_same_house : aboutObj.family[0].parent_same_house,
-                        parent_address: parentAddres,
-                        parent_manual_address: aboutObj.parent ? aboutObj.parent[0].parent_manual_address : aboutObj.family[0].parent_manual_address,
-                        parent_contact_type: aboutObj.parent ? aboutObj.parent[0].parent_contact_type : aboutObj.family[0].parent_contact_type,
-                        legal_care_status: aboutObj.parent ? aboutObj.parent[0].legal_care_status : aboutObj.family[0].legal_care_status,
+                        parent_id: aboutObj.parent[0].id,
+                        parent_name: aboutObj.parent[0].parent_firstname,
+                        parent_lastname: aboutObj.parent[0].parent_lastname,
+                        parental_responsibility: aboutObj.parent[0].parental_responsibility,
+                        responsibility_parent_firstname: aboutObj.parent[0].responsibility_parent_firstname,
+                        responsibility_parent_lastname: aboutObj.parent[0].responsibility_parent_lastname,
+                        child_parent_relationship: aboutObj.parent[0].child_parent_relationship,
+                        parent_contact_number: aboutObj.parent[0].parent_contact_number,
+                        parent_email: aboutObj.parent[0].parent_email,
+                        parent_same_house: aboutObj.parent[0].parent_same_house,
+                        parent_address: aboutObj.parent[0].parent_address_postcode ? aboutObj.parent[0].parent_address + ', ' + aboutObj.parent[0].parent_address_postcode : aboutObj.parent[0].parent_address,
+                        parent_manual_address: aboutObj.parent[0].parent_manual_address,
+                        parent_contact_type: aboutObj.parent[0].parent_contact_type,
+                        legal_care_status: aboutObj.parent[0].legal_care_status,
                     }
                     var services;
                     var displayServicesPdf;
@@ -1106,30 +962,23 @@ function getRefData(refID, refRole, ctx) {
                         status: "ok",
                         role: ctx.query.refRole
                     }
-                    console.log(responseData)
                     return responseData;
                 }).catch((error) => {
-                    console.log("1")
-                    console.log(error)
+                    //////console.log()("1")
+                    //////console.log()(error)
                     sequalizeErrorHandler.handleSequalizeError(ctx, error)
                 });
             }).catch((error) => {
-                console.log("2")
+                //////console.log()("2")
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
         }).catch((error) => {
-            console.log()(error)
+            //////console.log()(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
-    else if (refRole == "Parent" || refRole == "parent" || refRole == "Family" || refRole == "family") {
-        if (refRole == "Parent" || refRole == "parent") {
-            includeModalName = "parent";
-        }
-        else {
-            includeModalName = "family";
-        }
+    else if (refRole == "Parent" || refRole == "parent") {
         return user.findOne({
             where: {
                 uuid: refID,
@@ -1141,7 +990,7 @@ function getRefData(refID, refRole, ctx) {
                     {
                         model: ctx.orm().Referral,
                         nested: true,
-                        as: includeModalName,
+                        as: 'parent',
                         attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode']
                     },
                 ],
@@ -1158,7 +1007,7 @@ function getRefData(refID, refRole, ctx) {
                         {
                             model: ctx.orm().Referral,
                             nested: true,
-                            as: includeModalName,
+                            as: 'parent',
                             aattributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
                         },
                     ],
@@ -1173,8 +1022,8 @@ function getRefData(refID, refRole, ctx) {
                             {
                                 model: ctx.orm().Referral,
                                 nested: true,
-                                as: includeModalName,
-                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                                as: 'parent',
+                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address']
                             },
                         ],
                         where: {
@@ -1198,53 +1047,38 @@ function getRefData(refID, refRole, ctx) {
                             attributes: ['id']
                         }).then((referralResult) => {
 
-                            //console.log(elgibilityObj)
-                            var gploc;
-                            var getChildAddress;
-                            var getChildDob;
-
-                            if (ctx.query.formType == 'child') {
-                                gploc = elgibilityObj[0].parent[0].registered_gp_postcode ? elgibilityObj[0].parent[0].registered_gp + ", " + elgibilityObj[0].parent[0].registered_gp_postcode : elgibilityObj[0].parent[0].registered_gp
-                                getChildAddress= aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ", " + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address
-                                getChildDob = convertDate(elgibilityObj[0].parent[0].child_dob)
-                    
-                            }
-                            else {
-                                gploc = elgibilityObj[0].family[0].registered_gp_postcode ? elgibilityObj[0].family[0].registered_gp + ", " + elgibilityObj[0].family[0].registered_gp_postcode : elgibilityObj[0].family[0].registered_gp
-                                getChildAddress = aboutObj[0].family[0].child_address_postcode ? aboutObj[0].family[0].child_address + ", " + aboutObj[0].family[0].child_address_postcode : aboutObj[0].family[0].child_address
-                                getChildDob = convertDate(elgibilityObj[0].family[0].child_dob)
-                            }
+                            //////console.log()(aboutObj)
 
                             const section1Obj = {
-                                child_id: elgibilityObj[0].parent ? elgibilityObj[0].parent[0].id : elgibilityObj[0].family[0].id,
-                                child_dob: elgibilityObj[0].parent ? elgibilityObj[0].parent[0].child_dob : elgibilityObj[0].family[0].child_dob,
-                                registered_gp: gploc,
+                                child_id: elgibilityObj[0].parent[0].id,
+                                child_dob: elgibilityObj[0].parent[0].child_dob,
+                                registered_gp: elgibilityObj[0].parent[0].registered_gp_postcode ? elgibilityObj[0].parent[0].registered_gp + ", " + elgibilityObj[0].parent[0].registered_gp_postcode : elgibilityObj[0].parent[0].registered_gp,
                                 parent_id: elgibilityObj[0].id,
                                 consent_child: elgibilityObj[0].consent_child,
                                 consent_parent: elgibilityObj[0].consent_parent,
                                 need_interpreter: elgibilityObj[0].need_interpreter,
-                                gp_school: elgibilityObj[0].parent ? elgibilityObj[0].parent[0].gp_school : elgibilityObj[0].family[0].gp_school
+                                gp_school: elgibilityObj[0].parent[0].gp_school
                             }
                             const section2Obj = {
-                                child_id: aboutObj[0].parent ? aboutObj[0].parent[0].id : aboutObj[0].family[0].id,
-                                child_NHS: aboutObj[0].parent ? aboutObj[0].parent[0].child_NHS : aboutObj[0].family[0].child_NHS,
-                                child_name: aboutObj[0].parent ? aboutObj[0].parent[0].child_firstname : aboutObj[0].family[0].child_firstname,
-                                child_lastname: aboutObj[0].parent ? aboutObj[0].parent[0].child_lastname : aboutObj[0].family[0].child_lastname,
-                                child_name_title: aboutObj[0].parent ? aboutObj[0].parent[0].child_name_title : aboutObj[0].family[0].child_name_title,
-                                child_email: aboutObj[0].parent ? aboutObj[0].parent[0].child_email : aboutObj[0].family[0].child_email,
-                                child_contact_number: aboutObj[0].parent ? aboutObj[0].parent[0].child_contact_number : aboutObj[0].family[0].child_contact_number,
-                                child_contact_type: aboutObj[0].parent ? aboutObj[0].parent[0].child_contact_type : aboutObj[0].family[0].child_contact_type,
-                                child_address: getChildAddress,
-                                child_manual_address: aboutObj[0].parent ? aboutObj[0].parent[0].child_manual_address : aboutObj[0].family[0].child_manual_address,
-                                can_send_post: aboutObj[0].parent ? aboutObj[0].parent[0].can_send_post : aboutObj[0].family[0].can_send_post,
-                                child_gender: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender : aboutObj[0].family[0].child_gender,
-                                child_gender_birth: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender_birth : aboutObj[0].family[0].child_gender_birth,
-                                child_sexual_orientation: aboutObj[0].parent ? aboutObj[0].parent[0].child_sexual_orientation : aboutObj[0].family[0].child_sexual_orientation,
-                                child_ethnicity: aboutObj[0].parent ? aboutObj[0].parent[0].child_ethnicity : aboutObj[0].family[0].child_ethnicity,
-                                child_care_adult: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
-                                household_member: aboutObj[0].parent ? aboutObj[0].parent[0].household_member : aboutObj[0].family[0].household_member,
-                                contact_type: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
-                                sex_at_birth: aboutObj[0].parent ? aboutObj[0].parent[0].sex_at_birth : aboutObj[0].family[0].sex_at_birth,
+                                child_id: aboutObj[0].parent[0].id,
+                                child_NHS: aboutObj[0].parent[0].child_NHS,
+                                child_name: aboutObj[0].parent[0].child_firstname,
+                                child_lastname: aboutObj[0].parent[0].child_lastname,
+                                child_name_title: aboutObj[0].parent[0].child_name_title,
+                                child_email: aboutObj[0].parent[0].child_email,
+                                child_contact_number: aboutObj[0].parent[0].child_contact_number,
+                                child_contact_type: aboutObj[0].parent[0].child_contact_type,
+                                child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ", " + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
+                                child_manual_address: aboutObj[0].parent[0].child_manual_address,
+                                can_send_post: aboutObj[0].parent[0].can_send_post,
+                                child_gender: aboutObj[0].parent[0].child_gender,
+                                child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
+                                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
+                                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                child_care_adult: aboutObj[0].parent[0].child_care_adult,
+                                household_member: aboutObj[0].parent[0].household_member,
+                                contact_type: aboutObj[0].parent[0].child_care_adult,
+                                sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
                                 parent_id: aboutObj[0].id,
                                 parent_name: aboutObj[0].parent_firstname,
                                 parent_lastname: aboutObj[0].parent_lastname,
@@ -1264,18 +1098,17 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             const section3Obj = {
-                                child_id: edu_empObj[0].parent ? edu_empObj[0].parent[0].id : edu_empObj[0].family[0].id,
-                                child_profession: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_profession : edu_empObj[0].family[0].child_profession,
-                                child_education_place: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_education_place : edu_empObj[0].family[0].child_education_place,
-                                child_education_manual_address: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_education_manual_address : edu_empObj[0].family[0].child_education_manual_address,
-                                child_EHCP: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_EHCP : edu_empObj[0].family[0].child_EHCP,
-                                child_EHAT: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_EHAT : edu_empObj[0].family[0].child_EHAT,
-                                child_socialworker: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker : edu_empObj[0].family[0].child_socialworker,
-                                child_socialworker_firstname: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_firstname : edu_empObj[0].family[0].child_socialworker_firstname,
-                                child_socialworker_lastname: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_lastname : edu_empObj[0].family[0].child_socialworker_lastname,
-                                child_socialworker_contact: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact : edu_empObj[0].family[0].child_socialworker_contact,
-                                child_socialworker_contact_type: edu_empObj[0].parent ? edu_empObj[0].parent[0].child_socialworker_contact_type : edu_empObj[0].family[0].child_socialworker_contact_type,
-                                careLeaver: edu_empObj[0].parent ? edu_empObj[0].parent[0].careLeaver : edu_empObj[0].family[0].careLeaver,
+                                child_id: edu_empObj[0].parent[0].id,
+                                child_profession: edu_empObj[0].parent[0].child_profession,
+                                child_education_place: edu_empObj[0].parent[0].child_education_place,
+                                child_education_manual_address: edu_empObj[0].parent[0].child_education_manual_address,
+                                child_EHCP: edu_empObj[0].parent[0].child_EHCP,
+                                child_EHAT: edu_empObj[0].parent[0].child_EHAT,
+                                child_socialworker: edu_empObj[0].parent[0].child_socialworker,
+                                child_socialworker_firstname: edu_empObj[0].parent[0].child_socialworker_firstname,
+                                child_socialworker_lastname: edu_empObj[0].parent[0].child_socialworker_lastname,
+                                child_socialworker_contact: edu_empObj[0].parent[0].child_socialworker_contact,
+                                child_socialworker_contact_type: edu_empObj[0].parent[0].child_socialworker_contact_type,
                             }
 
 
@@ -1349,12 +1182,13 @@ function getRefData(refID, refRole, ctx) {
                                 section1: section1Obj,
                                 section2: section2Obj,
                                 section3: section3Obj,
-                                child_dob: getChildDob,
+                                child_dob: convertDate(elgibilityObj[0].parent[0].child_dob),
                                 section4: referralResult.referral_reason[0],
                                 section4LocalService: displayServicesPdf,
                                 status: "ok",
                                 role: refRole
                             }
+                            console.log(responseData)
                             return responseData;
                         }).catch((error) => {
                             console.log(error)
@@ -1375,26 +1209,10 @@ function getRefData(refID, refRole, ctx) {
             });
 
         }).catch((error) => {
-            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
     else if (refRole == "Professional" || refRole == "professional") {
-
-        var includeRelationModal;
-        var getChildYoungModal
-
-        if (ctx.query.formType == 'child') {
-            includeRelationModal = 'child_parent';
-            includeModalName = 'professional';
-            getChildYoungModal = "parent";
-
-        }
-        else {
-            includeRelationModal = 'young_family';
-            includeModalName = 'professional2';
-            getChildYoungModal = "family";
-        }
         return user.findOne({
 
             where: {
@@ -1405,11 +1223,11 @@ function getRefData(refID, refRole, ctx) {
             return user.findOne({
                 include: [{
                     model: ctx.orm().Referral,
-                    as: includeModalName,
+                    as: 'professional',
                     attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
                     include: [{
                         model: ctx.orm().Referral,
-                        as: includeRelationModal,
+                        as: 'child_parent',
                     }]
                 }],
                 where: {
@@ -1417,28 +1235,21 @@ function getRefData(refID, refRole, ctx) {
                 },
                 attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode']
             }).then((elgibilityObj) => {
+                //return ctx.body = elgibilityObj.professional[0].child_parent[0];
+                var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
+                var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
+                //////console.log()(childIdNew);
+                //////console.log()(childId);
 
-                var childIdNew;
-                var childId
-                if (ctx.query.formType == 'child') {
-                    includeRelationModal = 'child_parent';
-                    childIdNew = elgibilityObj.professional[0].child_parent[0].id;
-                    childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
-
-                }
-                else {
-                    includeRelationModal = 'young_family'
-                    childIdNew = elgibilityObj.professional2[0].young_family[0].id;
-                    childId = Number(elgibilityObj.professional2[0].YoungProfessional.professionalId) + 2
-                }
-
+                //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
+                //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
                 return user.findAll({
                     include: [
                         //childData
                         {
                             model: ctx.orm().Referral,
                             nested: true,
-                            as: getChildYoungModal,
+                            as: 'parent',
                             attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
                         },
                     ],
@@ -1454,8 +1265,8 @@ function getRefData(refID, refRole, ctx) {
                             {
                                 model: ctx.orm().Referral,
                                 nested: true,
-                                as: includeModalName,
-                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                                as: 'professional',
+                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
                             },
                         ],
                         where: {
@@ -1478,175 +1289,80 @@ function getRefData(refID, refRole, ctx) {
                             },
                             attributes: ['id']
                         }).then((referralResult) => {
-
-                            var section1Obj = {};
-                            var section2Obj = {};
-                            var section3Obj = {};
-                            var getChildDob;
-                            var getChildAge;
-
-                            if (ctx.query.formType == 'child') {
-                                section1Obj = {
-                                    child_id: elgibilityObj.professional[0].id,
-                                    child_dob: elgibilityObj.professional[0].child_dob,
-                                    registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp + ', ' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
-                                    gp_school: elgibilityObj.professional[0].gp_school,
-                                    professional_id: elgibilityObj.id,
-                                    consent_child: elgibilityObj.consent_child,
-                                    consent_parent: elgibilityObj.consent_parent,
-                                    referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
-                                    professional_name: elgibilityObj.professional_firstname,
-                                    professional_lastname: elgibilityObj.professional_lastname,
-                                    professional_email: elgibilityObj.professional_email,
-                                    professional_contact_type: elgibilityObj.professional_contact_type,
-                                    professional_contact_number: elgibilityObj.professional_contact_number,
-                                    professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address + ',' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
-                                    professional_manual_address: elgibilityObj.professional_manual_address,
-                                    professional_profession: elgibilityObj.professional_profession,
-                                    service_location: capitalizeFirstLetter(elgibilityObj.service_location),
-                                    selected_service: elgibilityObj.selected_service,
-                                    reference_code: elgibilityObj.reference_code,
-                                    contact_preferences: elgibilityObj.contact_preferences,
-                                    contact_person: elgibilityObj.contact_person,
-
-                                }
-                                section2Obj = {
-                                    child_id: aboutObj[0].parent[0].id,
-                                    child_NHS: aboutObj[0].parent[0].child_NHS,
-                                    child_name: aboutObj[0].parent[0].child_firstname,
-                                    child_lastname: aboutObj[0].parent[0].child_lastname,
-                                    child_name_title: aboutObj[0].parent[0].child_name_title,
-                                    child_email: aboutObj[0].parent[0].child_email,
-                                    child_contact_number: aboutObj[0].parent[0].child_contact_number,
-                                    child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ', ' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
-                                    child_manual_address: aboutObj[0].parent[0].child_manual_address,
-                                    can_send_post: aboutObj[0].parent[0].can_send_post,
-                                    //referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
-                                    child_gender: aboutObj[0].parent[0].child_gender,
-                                    child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
-                                    child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
-                                    child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
-                                    child_care_adult: aboutObj[0].parent[0].child_care_adult,
-                                    household_member: aboutObj[0].parent[0].household_member,
-                                    child_contact_type: aboutObj[0].parent[0].child_contact_type,
-                                    sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
-                                    parent_id: aboutObj[0].id,
-                                    parent_name: aboutObj[0].parent_firstname,
-                                    parent_lastname: aboutObj[0].parent_lastname,
-                                    parental_responsibility: aboutObj[0].parental_responsibility,
-                                    responsibility_parent_firstname: aboutObj[0].responsibility_parent_firstname,
-                                    responsibility_parent_lastname: aboutObj[0].responsibility_parent_lastname,
-                                    child_parent_relationship: aboutObj[0].child_parent_relationship,
-                                    parent_contact_type: aboutObj[0].parent_contact_type,
-                                    parent_contact_number: aboutObj[0].parent_contact_number,
-                                    parent_email: aboutObj[0].parent_email,
-                                    parent_same_house: aboutObj[0].parent_same_house,
-                                    parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address + ', ' + aboutObj[0].parent_address_postcode : aboutObj[0].parent_address,
-                                    parent_manual_address: aboutObj[0].parent_manual_address,
-                                    legal_care_status: aboutObj[0].legal_care_status,
-                                }
-
-                                section3Obj = {
-                                    child_id: edu_empObj[0].professional[0].id,
-                                    child_profession: edu_empObj[0].professional[0].child_profession,
-                                    child_education_place: edu_empObj[0].professional[0].child_education_place,
-                                    child_education_manual_address: edu_empObj[0].professional[0].child_education_manual_address,
-                                    child_EHCP: edu_empObj[0].professional[0].child_EHCP,
-                                    child_EHAT: edu_empObj[0].professional[0].child_EHAT,
-                                    child_socialworker: edu_empObj[0].professional[0].child_socialworker,
-                                    child_socialworker_name: edu_empObj[0].professional[0].child_socialworker_name,
-                                    child_socialworker_firstname: edu_empObj[0].professional[0].child_socialworker_firstname,
-                                    child_socialworker_lastname: edu_empObj[0].professional[0].child_socialworker_lastname,
-                                    child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
-                                    child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
-                                    careLeaver: edu_empObj[0].professional[0].careLeaver,
-                                }
-
-                                 getChildDob = convertDate(elgibilityObj.professional[0].child_dob);
-                                 getChildAge = calculateAge(elgibilityObj.professional[0].child_dob);
-
+                            const section1Obj = {
+                                child_id: elgibilityObj.professional[0].id,
+                                child_dob: elgibilityObj.professional[0].child_dob,
+                                registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp + ', ' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
+                                gp_school: elgibilityObj.professional[0].gp_school,
+                                professional_id: elgibilityObj.id,
+                                consent_child: elgibilityObj.consent_child,
+                                consent_parent: elgibilityObj.consent_parent,
+                                referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
+                                professional_name: elgibilityObj.professional_firstname,
+                                professional_lastname: elgibilityObj.professional_lastname,
+                                professional_email: elgibilityObj.professional_email,
+                                professional_contact_type: elgibilityObj.professional_contact_type,
+                                professional_contact_number: elgibilityObj.professional_contact_number,
+                                professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address + ',' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
+                                professional_manual_address: elgibilityObj.professional_manual_address,
+                                professional_profession: elgibilityObj.professional_profession,
+                                service_location: capitalizeFirstLetter(elgibilityObj.service_location),
+                                selected_service: elgibilityObj.selected_service,
+                                reference_code: elgibilityObj.reference_code,
+                                contact_preferences: elgibilityObj.contact_preferences,
+                                contact_person: elgibilityObj.contact_person,
 
                             }
-                            else {
-                                section1Obj = {
-                                    child_id: elgibilityObj.professional2[0].id,
-                                    child_dob: elgibilityObj.professional2[0].child_dob,
-                                    registered_gp: elgibilityObj.professional2[0].registered_gp_postcode ? elgibilityObj.professional2[0].registered_gp + ', ' + elgibilityObj.professional2[0].registered_gp_postcode : elgibilityObj.professional2[0].registered_gp,
-                                    gp_school: elgibilityObj.professional2[0].gp_school,
-                                    professional_id: elgibilityObj.id,
-                                    consent_child: elgibilityObj.consent_child,
-                                    consent_parent: elgibilityObj.consent_parent,
-                                    referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
-                                    professional_name: elgibilityObj.professional_firstname,
-                                    professional_lastname: elgibilityObj.professional_lastname,
-                                    professional_email: elgibilityObj.professional_email,
-                                    professional_contact_type: elgibilityObj.professional_contact_type,
-                                    professional_contact_number: elgibilityObj.professional_contact_number,
-                                    professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address + ',' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
-                                    professional_manual_address: elgibilityObj.professional_manual_address,
-                                    professional_profession: elgibilityObj.professional_profession,
-                                    service_location: capitalizeFirstLetter(elgibilityObj.service_location),
-                                    selected_service: elgibilityObj.selected_service,
-                                    reference_code: elgibilityObj.reference_code,
-                                    contact_preferences: elgibilityObj.contact_preferences,
-                                    contact_person: elgibilityObj.contact_person,
-
-                                }
-                                section2Obj = {
-                                    child_id: aboutObj[0].family[0].id,
-                                    child_NHS: aboutObj[0].family[0].child_NHS,
-                                    child_name: aboutObj[0].family[0].child_firstname,
-                                    child_lastname: aboutObj[0].family[0].child_lastname,
-                                    child_name_title: aboutObj[0].family[0].child_name_title,
-                                    child_email: aboutObj[0].family[0].child_email,
-                                    child_contact_number: aboutObj[0].family[0].child_contact_number,
-                                    child_address: aboutObj[0].family[0].child_address_postcode ? aboutObj[0].family[0].child_address + ', ' + aboutObj[0].family[0].child_address_postcode : aboutObj[0].family[0].child_address,
-                                    child_manual_address: aboutObj[0].family[0].child_manual_address,
-                                    can_send_post: aboutObj[0].family[0].can_send_post,
-                                    //referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
-                                    child_gender: aboutObj[0].family[0].child_gender,
-                                    child_gender_birth: aboutObj[0].family[0].child_gender_birth,
-                                    child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
-                                    child_ethnicity: aboutObj[0].family[0].child_ethnicity,
-                                    child_care_adult: aboutObj[0].family[0].child_care_adult,
-                                    household_member: aboutObj[0].family[0].household_member,
-                                    child_contact_type: aboutObj[0].family[0].child_contact_type,
-                                    sex_at_birth: aboutObj[0].family[0].sex_at_birth,
-                                    parent_id: aboutObj[0].id,
-                                    parent_name: aboutObj[0].parent_firstname,
-                                    parent_lastname: aboutObj[0].parent_lastname,
-                                    parental_responsibility: aboutObj[0].parental_responsibility,
-                                    responsibility_parent_firstname: aboutObj[0].responsibility_parent_firstname,
-                                    responsibility_parent_lastname: aboutObj[0].responsibility_parent_lastname,
-                                    child_parent_relationship: aboutObj[0].child_parent_relationship,
-                                    parent_contact_type: aboutObj[0].parent_contact_type,
-                                    parent_contact_number: aboutObj[0].parent_contact_number,
-                                    parent_email: aboutObj[0].parent_email,
-                                    parent_same_house: aboutObj[0].parent_same_house,
-                                    parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address + ', ' + aboutObj[0].parent_address_postcode : aboutObj[0].parent_address,
-                                    parent_manual_address: aboutObj[0].parent_manual_address,
-                                    legal_care_status: aboutObj[0].legal_care_status,
-                                }
-
-                                section3Obj = {
-                                    child_id: edu_empObj[0].professional2[0].id,
-                                    child_profession: edu_empObj[0].professional2[0].child_profession,
-                                    child_education_place: edu_empObj[0].professional2[0].child_education_place,
-                                    child_education_manual_address: edu_empObj[0].professional2[0].child_education_manual_address,
-                                    child_EHCP: edu_empObj[0].professional2[0].child_EHCP,
-                                    child_EHAT: edu_empObj[0].professional2[0].child_EHAT,
-                                    child_socialworker: edu_empObj[0].professional2[0].child_socialworker,
-                                    child_socialworker_name: edu_empObj[0].professional2[0].child_socialworker_name,
-                                    child_socialworker_firstname: edu_empObj[0].professional2[0].child_socialworker_firstname,
-                                    child_socialworker_lastname: edu_empObj[0].professional2[0].child_socialworker_lastname,
-                                    child_socialworker_contact: edu_empObj[0].professional2[0].child_socialworker_contact,
-                                    child_socialworker_contact_type: edu_empObj[0].professional2[0].child_socialworker_contact_type,
-                                    careLeaver: edu_empObj[0].professional2[0].careLeaver,
-                                }
-                                getChildDob = convertDate(elgibilityObj.professional2[0].child_dob);
-                                 getChildAge = calculateAge(elgibilityObj.professional2[0].child_dob);
+                            const section2Obj = {
+                                child_id: aboutObj[0].parent[0].id,
+                                child_NHS: aboutObj[0].parent[0].child_NHS,
+                                child_name: aboutObj[0].parent[0].child_firstname,
+                                child_lastname: aboutObj[0].parent[0].child_lastname,
+                                child_name_title: aboutObj[0].parent[0].child_name_title,
+                                child_email: aboutObj[0].parent[0].child_email,
+                                child_contact_number: aboutObj[0].parent[0].child_contact_number,
+                                child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ', ' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
+                                child_manual_address: aboutObj[0].parent[0].child_manual_address,
+                                can_send_post: aboutObj[0].parent[0].can_send_post,
+                                //referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
+                                child_gender: aboutObj[0].parent[0].child_gender,
+                                child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
+                                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
+                                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                child_care_adult: aboutObj[0].parent[0].child_care_adult,
+                                household_member: aboutObj[0].parent[0].household_member,
+                                child_contact_type: aboutObj[0].parent[0].child_contact_type,
+                                sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
+                                parent_id: aboutObj[0].id,
+                                parent_name: aboutObj[0].parent_firstname,
+                                parent_lastname: aboutObj[0].parent_lastname,
+                                parental_responsibility: aboutObj[0].parental_responsibility,
+                                responsibility_parent_firstname: aboutObj[0].responsibility_parent_firstname,
+                                responsibility_parent_lastname: aboutObj[0].responsibility_parent_lastname,
+                                child_parent_relationship: aboutObj[0].child_parent_relationship,
+                                parent_contact_type: aboutObj[0].parent_contact_type,
+                                parent_contact_number: aboutObj[0].parent_contact_number,
+                                parent_email: aboutObj[0].parent_email,
+                                parent_same_house: aboutObj[0].parent_same_house,
+                                parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address + ', ' + aboutObj[0].parent_address_postcode : aboutObj[0].parent_address,
+                                parent_manual_address: aboutObj[0].parent_manual_address,
+                                legal_care_status: aboutObj[0].legal_care_status,
                             }
 
+                            const section3Obj = {
+                                child_id: edu_empObj[0].professional[0].id,
+                                child_profession: edu_empObj[0].professional[0].child_profession,
+                                child_education_place: edu_empObj[0].professional[0].child_education_place,
+                                child_education_manual_address: edu_empObj[0].professional[0].child_education_manual_address,
+                                child_EHCP: edu_empObj[0].professional[0].child_EHCP,
+                                child_EHAT: edu_empObj[0].professional[0].child_EHAT,
+                                child_socialworker: edu_empObj[0].professional[0].child_socialworker,
+                                child_socialworker_name: edu_empObj[0].professional[0].child_socialworker_name,
+                                child_socialworker_firstname: edu_empObj[0].professional[0].child_socialworker_firstname,
+                                child_socialworker_lastname: edu_empObj[0].professional[0].child_socialworker_lastname,
+                                child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
+                                child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
+                            }
 
                             //  return ctx.body = section1Obj;
                             var services;
@@ -1722,8 +1438,8 @@ function getRefData(refID, refRole, ctx) {
                                 userid: refID,
                                 section1: section1Obj,
                                 section2: section2Obj,
-                                child_dob: getChildDob,
-                                child_age: getChildAge,
+                                child_dob: convertDate(elgibilityObj.professional[0].child_dob),
+                                child_age: calculateAge(elgibilityObj.professional[0].child_dob),
                                 section3: section3Obj,
                                 section4: referralResult.referral_reason[0],
                                 section4LocalService: displayServicesPdf,
@@ -1736,21 +1452,17 @@ function getRefData(refID, refRole, ctx) {
                         });
 
                     }).catch((error) => {
-                        console.log(error)
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
                     });
                 })
                     .catch((error) => {
-                        console.log(error)
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
                     });
             })
                 .catch((error) => {
-                    console.log(error)
                     sequalizeErrorHandler.handleSequalizeError(ctx, error)
                 });
         }).catch((error) => {
-            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
@@ -1771,7 +1483,8 @@ exports.referralStatusUpdate = async (ctx) => {
         if (ctx.request.body.status === 'Referral to other team') {
             updateValue.referral_provider_other = ctx.request.body.other;
         }
-        if (ctx.request.body.status && (ctx.request.body.status).substring(0, 8) === 'Accepted') {
+        if( ctx.request.body.status && (ctx.request.body.status).substring(0, 8)  === 'Accepted')
+        {
             updateValue.referral_provider_other = ctx.request.decryptedUser.service_type
         }
 
@@ -2110,10 +1823,9 @@ exports.getApiService = async (ctx) => {
                     message: reponseMessages[1009]
                 });
             }
-        }).catch(error => {
+        }).catch(error => { 
             console.log(error)
-            sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+            sequalizeErrorHandler.handleSequalizeError(ctx, error) });
     } catch (e) {
         console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);

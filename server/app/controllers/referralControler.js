@@ -2804,7 +2804,7 @@ exports.updateEligibilityInfo = ctx => {
 //for login user
 
 exports.getIncompleteReferral = ctx => {
-  ////console.log("===>", ctx.request.decryptedUser)
+  console.log("===>", ctx.request.decryptedUser)
   const userReferral = ctx.orm().Referral;
   const refId = [];
   const childDataId = [];
