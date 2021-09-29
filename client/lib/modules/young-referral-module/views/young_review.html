@@ -428,7 +428,7 @@
                                 <!-- child's DOB Start -->
                                 <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobchilds">
-                                        child's D.O.B:
+                                        Young person's D.O.B:
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
                                         v-model="section1Data.child_dob" id="dobchilds">
@@ -737,7 +737,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
-                                        child's contact number:
+                                        Young person's contact number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
@@ -1042,7 +1042,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
-                                        Parent's contact number:
+                                        Family/friend's contact number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
@@ -1120,7 +1120,7 @@
                                 <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
-                                            Parent/carer's address:
+                                            Family/friend's address:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <textarea readonly class="form-control    input-bg-form-control" type="text"
@@ -1726,11 +1726,11 @@
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToParCarer" value="My parent/carer"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" id="sendToParCarer"
+                                    value="My family/friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    My parent/carer
+                                    My family/friend
                                 </label>
                             </div>
                         </div>
@@ -1744,29 +1744,29 @@
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToParCarer"
-                                    value="My child/ child person" v-model="contact_person">
+                                <input class="form-check-input" type="radio" id="sendToParCarer" value="My young person"
+                                    v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    My child/ child person
+                                    My young person
                                 </label>
                             </div>
                         </div>
 
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToMe" value="The child person"
+                                <input class="form-check-input" type="radio" id="sendToMe" value="The young person"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
-                                    The child person
+                                    The young person
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToParCarer"
-                                    value="Their parent/carer" v-model="contact_person">
+                                    value="Their family/friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    Their parent/carer
+                                    Their family/friend
                                 </label>
                             </div>
                         </div>
