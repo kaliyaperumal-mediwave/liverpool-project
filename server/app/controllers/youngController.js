@@ -508,7 +508,6 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
-  console.log("#343333333333333333333333333333333333333")
   const user = ctx.orm().Referral;
   console.log(ctx.request.body)
   if (ctx.request.body.role == "young") {
@@ -560,7 +559,7 @@ exports.about = ctx => {
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
                 child_gender_birth: ctx.request.body.aboutData.childIdentity,
-                child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+                child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.childEthnicity,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
@@ -662,7 +661,7 @@ exports.about = ctx => {
               can_send_post: ctx.request.body.aboutData.sendPost,
               child_gender: ctx.request.body.aboutData.youngGender,
               child_gender_birth: ctx.request.body.aboutData.youngIdentity,
-              child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+              child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
               parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
               household_member: ctx.request.body.allHouseHoldMembers,
@@ -773,7 +772,7 @@ exports.about = ctx => {
             can_send_post: ctx.request.body.aboutData.sendPost,
             child_gender: ctx.request.body.aboutData.youngGender,
             child_gender_birth: ctx.request.body.aboutData.youngIdentity,
-            child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+            child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
             child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
             parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
             household_member: ctx.request.body.allHouseHoldMembers,
@@ -1266,8 +1265,8 @@ exports.profession = ctx => {
             {
               child_profession: ctx.request.body.educAndEmpData.position,
               child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-              child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
-              child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
+              child_education_place_postcode: ctx.request.body.educAndEmpData.young_education_place_postcode,
+              child_education_manual_address: ctx.request.body.educAndEmpData.youngEducationManualAddress,
               child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
               child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
               careLeaver: ctx.request.body.educAndEmpData.careLeaver,
@@ -1345,8 +1344,8 @@ exports.profession = ctx => {
           {
             child_profession: ctx.request.body.educAndEmpData.position,
             child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-            child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
-            child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
+            child_education_manual_address: ctx.request.body.educAndEmpData.youngEducationManualAddress,
+            child_education_place_postcode: ctx.request.body.educAndEmpData.young_education_place_postcode,
             child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
             child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
             careLeaver: ctx.request.body.educAndEmpData.careLeaver,
@@ -1411,8 +1410,8 @@ exports.profession = ctx => {
         {
           child_profession: ctx.request.body.educAndEmpData.position,
           child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-          child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
-          child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
+          child_education_place_postcode: ctx.request.body.educAndEmpData.young_education_place_postcode,
+          child_education_manual_address: ctx.request.body.educAndEmpData.youngEducationManualAddress,
           child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
           child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
           careLeaver: ctx.request.body.educAndEmpData.careLeaver,

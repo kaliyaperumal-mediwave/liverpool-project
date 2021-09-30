@@ -4308,7 +4308,7 @@ div#IEFormatRemove,div#MobileFormatRemove {
     margin: 0px 18px;
 }
 .flex-c-div {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
 }

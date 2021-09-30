@@ -295,8 +295,8 @@ $(document).ready(function () {
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
                         }
-                        if (data[0].family[0].young_manual_address && data[0].family[0].young_manual_address.length) {
-                            Vue.set(this, "youngManualAddress", data[0].family[0].young_manual_address);
+                        if (data[0].family[0].child_manual_address && data[0].family[0].child_manual_address.length) {
+                            Vue.set(this, "youngManualAddress", data[0].family[0].child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
                         Vue.set(this.aboutObj, "sendPost", data[0].family[0].can_send_post);
