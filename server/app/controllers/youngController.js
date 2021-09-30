@@ -743,7 +743,6 @@ exports.about = ctx => {
       },
       attributes: ['id', 'uuid']
     }).then((result) => {
-
       return user.findAll({
         include: [
           {
@@ -881,7 +880,7 @@ exports.about = ctx => {
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.youngGender,
                 child_gender_birth: ctx.request.body.aboutData.youngIdentity,
-                child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+                child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
                 parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
@@ -1008,7 +1007,7 @@ exports.about = ctx => {
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.youngGender,
                 child_gender_birth: ctx.request.body.aboutData.youngIdentity,
-                child_sexual_orientation: ctx.request.body.aboutData.youngexualOrientation,
+                child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
                 parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
