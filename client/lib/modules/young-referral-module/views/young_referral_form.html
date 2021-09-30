@@ -49,22 +49,25 @@
                         }) }}</div>
                     {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0" id="1752a966-f49a-4443-baae-ed131ebb477b">
-                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
-                            id="aboutYou" value="young" @change="onChange($event)" d>
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio"
+                            v-model="elgibilityObj.role" name="role" id="aboutYou" value="young"
+                            @change="onChange($event)" d>
                         <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                             Young Person
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="398a82d9-59fe-459c-8d1e-85f803d0319c">
-                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
-                            value="family" @change="onChange($event)">
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio"
+                            v-model="elgibilityObj.role" name="role" id="whom" value="family"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whom">
                             Family / Friend
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="96dda9ca-9328-47e8-ac1a-8cdc972df4d0">
-                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio" v-model="elgibilityObj.role" name="role"
-                            id="profession" value="professional" @change="onChange($event)">
+                        <input class="form-check-input" :disabled="isUserLoggedIn" type="radio"
+                            v-model="elgibilityObj.role" name="role" id="profession" value="professional"
+                            @change="onChange($event)">
                         <label class="form-check-label d-flex align-items-center option-font" for="profession">
                             Professional
                         </label>
@@ -277,8 +280,14 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
-                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot accept referrals from people under 18 years of age</p>
+                            <!-- <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here
+                                    to submit referrals if you are under 18</a></p> -->
+                            <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                <a href="/role" target="_blank"><b class="cursor-pointer"><u>here</u></b></a>
+                                to submit referrals if you are in the 18-25 age group.
+                            </p>
+                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
+                                accept referrals from people under 18 years of age</p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
                                 form from
@@ -298,8 +307,14 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p  v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
-                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot accept referrals from people under 18 years of age</p>
+                            <!-- <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here
+                                    to submit referrals if you are under 18</a></p> -->
+                            <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                <a href="/role" target="_blank"><b class="cursor-pointer"><u>here</u></b></a>
+                                to submit referrals if you are in the 18-25 age group.
+                            </p>
+                            <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
+                                accept referrals from people under 18 years of age</p>
                         </div>
                     </div>
                 </div>
@@ -429,8 +444,8 @@
                             }
                             }) }}
                         </div>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon"
-                            data-toggle="modal" data-target="#consentModal" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" data-toggle="modal"
+                            data-target="#consentModal" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="camhsSelect"
@@ -592,21 +607,6 @@
                         <label v-show="elgibilityObj.role=='young'" for="gpLocation" class="question-font">Which GP are
                             you
                             registered with?</label>
-                        <!-- <div v-show="elgibilityObj.role=='young'" for="gpLocation" class="question-font">
-                             {{ apos.area(data.page, 'referral1_gpyoung', {
-                                  widgets: {
-                                    'apostrophe-rich-text': {
-                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                      styles: [
-                                        { name: 'Heading', element: 'p' }
-                                      ]
-                                    }
-                                  }
-                                }) }}
-                                </div> -->
-                        <!-- <label v-show="elgibilityObj.role=='family'" for="gpLocation" class="question-font">Which GP is
-                            your
-                            young registered with?</label> -->
                         <div v-show="elgibilityObj.role=='family'" for="gpLocation" class="question-font">
                             {{ apos.area(data.page, 'referral1_gpfamily', {
                             widgets: {
@@ -1409,7 +1409,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if you are under 18</a></p>
+                            <p class="question-font text-center py-2"><a href="/role">Click here to submit referrals if
+                                    you are under 18</a></p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please ask them to start this
                                 form from
