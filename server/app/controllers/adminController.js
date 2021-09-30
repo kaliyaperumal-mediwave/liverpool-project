@@ -953,7 +953,7 @@ function getRefData(refID, refRole, ctx) {
             where: {
                 uuid: refID,
             },
-            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'registered_gp_postcode', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school', 'contact_person', 'contact_preferences', 'reference_code']
+            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'registered_gp_postcode', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school', 'contact_person', 'contact_preferences', 'reference_code','referral_type']
         }).then((eligibilityObj) => {
 
             return user.findOne({
