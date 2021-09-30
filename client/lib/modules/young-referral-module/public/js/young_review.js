@@ -262,7 +262,7 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
+                            this.payloadData.referral_provider = "YPAS";
                         }
                         buttonElem.setAttribute('disabled', true)
                         var trimmedPayload = trimObj(this.payloadData);

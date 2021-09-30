@@ -2468,19 +2468,14 @@ exports.saveReview = ctx => {
           role: ctx.request.body.role,
           refNo: uniqueNo
         }
-        //return ctx.body = responseData;
-        // if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
-        //   ctx.query.selectedProvider = "MHST";
-        // }
         if (ctx.request.body.referral_provider != "") {
           console.log("ref ----------------------------------------------------- " + ctx.request.body.referral_provider)
-          // if (ctx.request.body.referral_provider == "Mental Health Support Team") {
-          //   ctx.query.selectedProvider = "MHST";
-          // }
-          // else {
-          //   ctx.query.selectedProvider = ctx.request.body.referral_provider;
-          // }
-          ctx.query.selectedProvider = "newForm";
+          if (ctx.request.body.referral_provider == "Mental Health Support Team") {
+            ctx.query.selectedProvider = "MHST";
+          }
+          else {
+            ctx.query.selectedProvider = ctx.request.body.referral_provider;
+          }
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
