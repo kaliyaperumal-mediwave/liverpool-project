@@ -166,12 +166,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.parentOrCarerFirstNameLabel = "What is the family or friend's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is the family or friend's last name?";
 
-    section2Labels.relationShipLabel = "What is their relationship to your young?";
+    section2Labels.relationShipLabel = "What is their relationship to your young person?";
     section2Labels.guardContactLabel = "What is their contact number?";
     section2Labels.guardContactPlacLabel = "Enter phone number";
     section2Labels.guardEmailLabel = "What is their email address?";
     section2Labels.guardEmailPlacLabel = "Enter their email address";
-    section2Labels.sameHouseLabel = "Do they live in the same house as your young?";
+    section2Labels.sameHouseLabel = "Do they live in the same house as the young person?";
     section2Labels.guardAddress = "What is their address?";
     section2Labels.guardPlacAddress = "Enter their address";
     section2Labels.legalCareLabel = "Their young ’s legal care status (“legal care status” means who has legal guardianship over the young person)";
