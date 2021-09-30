@@ -1418,7 +1418,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode','referral_type']
             }).then((elgibilityObj) => {
 
                 var childIdNew;
@@ -1488,6 +1488,8 @@ function getRefData(refID, refRole, ctx) {
                             var getChildDob;
                             var getChildAge;
 
+                            console.log('----------elgibilityObj--------------',elgibilityObj);
+
                             if (ctx.query.formType == 'child') {
                                 section1Obj = {
                                     child_id: elgibilityObj.professional[0].id,
@@ -1511,6 +1513,7 @@ function getRefData(refID, refRole, ctx) {
                                     reference_code: elgibilityObj.reference_code,
                                     contact_preferences: elgibilityObj.contact_preferences,
                                     contact_person: elgibilityObj.contact_person,
+                                    referral_type:elgibilityObj.referral_type
 
                                 }
                                 section2Obj = {
@@ -1593,7 +1596,7 @@ function getRefData(refID, refRole, ctx) {
                                     reference_code: elgibilityObj.reference_code,
                                     contact_preferences: elgibilityObj.contact_preferences,
                                     contact_person: elgibilityObj.contact_person,
-
+                                    referral_type:elgibilityObj.referral_type
                                 }
                                 section2Obj = {
                                     child_id: aboutObj[0].family[0].id,
