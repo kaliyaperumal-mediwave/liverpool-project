@@ -4,7 +4,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#completed-form',
         data: {
-            ackObj: { refCode: '123', role: '', professional_email: '',refPdfCode : "",referralCode:"" },
+            ackObj: { refCode: '123', role: '', professional_email: '', refPdfCode: "", referralCode: "" },
             refSignUpData: {
                 first_name: '',
                 last_name: '',
@@ -51,10 +51,28 @@ $(document).ready(function () {
                     this.showSignUpForm = true;
                     var successData = apiCallGet('get', '/getReferalByCode/' + this.reference_code, API_URI);
                     if (successData && successData.length) {
-                        Vue.set(this.refSignUpData, "role", successData[0].user_role);
-                        Vue.set(this.refSignUpData, "email", successData[0][this.refSignUpData.role + '_email']);
-                        Vue.set(this.refSignUpData, "first_name", successData[0][this.refSignUpData.role + '_firstname']);
-                        Vue.set(this.refSignUpData, "last_name", successData[0][this.refSignUpData.role + '_lastname']);
+                        if (successData[0].referral_type != "young") {
+                            Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                            Vue.set(this.refSignUpData, "email", successData[0][this.refSignUpData.role + '_email']);
+                            Vue.set(this.refSignUpData, "first_name", successData[0][this.refSignUpData.role + '_firstname']);
+                            Vue.set(this.refSignUpData, "last_name", successData[0][this.refSignUpData.role + '_lastname']);
+                        }
+                        else {
+                            if (successData[0].user_role == "family") {
+                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "email", successData[0].parent_email);
+                                Vue.set(this.refSignUpData, "first_name", successData[0].parent_firstname);
+                                Vue.set(this.refSignUpData, "last_name", successData[0].parent_lastname);
+                            }
+                            else if (successData[0].user_role == "young") {
+                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "email", successData[0].child_email);
+                                Vue.set(this.refSignUpData, "first_name", successData[0].child_firstname);
+                                Vue.set(this.refSignUpData, "last_name", successData[0].child_lastname);
+                            }
+
+                        }
+
                         $('#loader').hide();
                     } else {
                         $('#loader').hide();
@@ -62,6 +80,7 @@ $(document).ready(function () {
                 } else {
                     this.showSignUpForm = false;
                 }
+                console.log(this.refSignUpData)
             },
 
             //Function to send feedback for referral form
@@ -106,7 +125,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                      //  console.log(data)
+                        //  console.log(data)
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
                         _self.ackObj.role = data.user_role;
@@ -129,7 +148,7 @@ $(document).ready(function () {
                 console.log("working")
                 $('#loader').show();
                 $.ajax({
-                    url: API_URI + "/sendReferralToMe/" ,
+                    url: API_URI + "/sendReferralToMe/",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
