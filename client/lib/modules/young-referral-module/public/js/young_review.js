@@ -83,19 +83,19 @@ $(document).ready(function () {
             //  this.section5Labels = section5Labels;
             this.userRole = document.getElementById('uRole').innerHTML;
             if (this.userRole === 'young') {
-                this.yourInfo = 'young person';
+                this.yourInfo = 'Young person';
                 this.section5Labels.aboutLabel = "About you";
                 this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'family') {
-                this.yourInfo = 'Parent / Carer';
-                this.section5Labels.aboutLabel = "About your child";
-                this.section5Labels.referralLabel = "Your child's reason for referral";
+                this.yourInfo = 'Family/Friend';
+                this.section5Labels.aboutLabel = "About your young person";
+                this.section5Labels.referralLabel = "Your young person's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
-                this.section5Labels.aboutLabel = "About the child";
-                this.section5Labels.referralLabel = "The child's reason for referral";
+                this.section5Labels.aboutLabel = "About the young person";
+                this.section5Labels.referralLabel = "The young person's reason for referral";
 
             }
             this.userId = document.getElementById('uUid').innerHTML;
