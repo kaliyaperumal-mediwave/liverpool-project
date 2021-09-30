@@ -10,7 +10,6 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             showLoadingSpinner: "",
-            isUserLoggedIn: document.getElementById('loginUserFlag').innerHTML == "true" ? true : false,
             //dateMask: "##/##/####",
             optionsProxy: [],
             selectedResources: [],
@@ -156,7 +155,7 @@ $(document).ready(function () {
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
-               // $('input[name=role]').attr("disabled", true);
+                $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
                 if (userRole == 'child') {
                     disableParent.style.opacity = '0.6';
@@ -174,10 +173,7 @@ $(document).ready(function () {
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
-            if(localStorage.getItem('form2')!='yes')
-            {
-                this.fetchSavedData();
-            }
+            this.fetchSavedData();
             //this.initMaps();
             // console.log(fetchJSONFile('/modules/role-module/js/data/gplist.json',undefined))
             this.paramValues = getParameter(location.href);
@@ -293,7 +289,7 @@ $(document).ready(function () {
                         this.elgibilityObj.gpNotCovered = true;
                     }
 
-                    localStorage.setItem("form1", "yes");
+
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -318,7 +314,6 @@ $(document).ready(function () {
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
                         this.elgibilityObj.gpNotCovered = true;
                     }
-                    localStorage.setItem("form1", "yes");
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -372,7 +367,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
 
                     }
-                    localStorage.setItem("form1", "yes");
+
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     this.elgibilityObj.editFlag = "editFlag";
@@ -1189,6 +1184,10 @@ $(document).ready(function () {
                                 if (this.elgibilityObj.profChildDob) {
                                     this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
                                 }
+
+                                if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
+                                    this.elgibilityObj.referral_mode = null;
+                                }
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1266,53 +1265,17 @@ $(document).ready(function () {
             },
 
             checkValidDateMine: function (e) {
-                if (e.target.value.length >= 10) {
-                    if (this.isValidDate(e.target.value)) {
-                        var dateValue = e.target.value;
-                        var dateFormat = "DD/MM/YYYY"
-                        var utc = moment(dateValue, dateFormat, true)
-                        var isUtc = utc.isValid();
-                        console.log(isUtc)
-                        var currentYear = new Date().getFullYear();
-                        var setYearValue = dateValue.split('/');
-                        var getYearValue = setYearValue[2];
-                        if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                            if (this.isFutureDate(e.target.value) || !isUtc) {
-                                this.hasValidDate = true;
-                                if (this.elgibilityObj.role == 'professional') {
-                                    this.elgibilityObj.profBelowAgeLimit = "";
-                                    this.elgibilityObj.profaboveLimit = "";
-                                    this.elgibilityObj.parentConcern = "";
-                                    this.elgibilityObj.contactProfParent = "";
-                                    this.elgibilityObj.parentConcernInformation = "";
-                                    this.elgibilityObj.childConcernInformation = "";
-                                    this.elgibilityObj.submitProfForm = "";
-                                    this.elgibilityObj.regProfGpTxt = "";
-                                }
-                                else if (this.elgibilityObj.role == 'child') {
-                                    this.elgibilityObj.belowAgeLimit = "";
-                                    this.elgibilityObj.aboveLimit = "";
-                                    this.elgibilityObj.contactParent = "";
-                                    this.elgibilityObj.contact_parent_camhs = "";
-                                    this.elgibilityObj.reason_contact_parent_camhs = ""
-                                    this.elgibilityObj.submitForm = "";
-                                    this.elgibilityObj.regGpTxt = "";
-                                    this.elgibilityObj.isInformation = "";
-                                }
-                                else {
-                                    this.elgibilityObj.aboveLimit = "";
-                                    this.elgibilityObj.contactParent = "";
-                                    this.elgibilityObj.submitForm = "";
-                                    this.elgibilityObj.belowAgeLimit = "";
-                                    this.elgibilityObj.regGpTxt = "";
-                                    this.elgibilityObj.isInformation = "";
-                                }
-                            } else {
-                                this.hasValidDate = false;
-                                this.changeDob("", dateValue)
-                            }
-
-                        } else {
+                if (this.isValidDate(e.target.value)) {
+                    var dateValue = e.target.value;
+                    var dateFormat = "DD/MM/YYYY"
+                    var utc = moment(dateValue, dateFormat, true)
+                    var isUtc = utc.isValid();
+                    console.log(isUtc)
+                    var currentYear = new Date().getFullYear();
+                    var setYearValue = dateValue.split('/');
+                    var getYearValue = setYearValue[2];
+                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                        if (this.isFutureDate(e.target.value) ||  !isUtc) {
                             this.hasValidDate = true;
                             if (this.elgibilityObj.role == 'professional') {
                                 this.elgibilityObj.profBelowAgeLimit = "";
@@ -1342,6 +1305,9 @@ $(document).ready(function () {
                                 this.elgibilityObj.regGpTxt = "";
                                 this.elgibilityObj.isInformation = "";
                             }
+                        } else {
+                            this.hasValidDate = false;
+                            this.changeDob("", dateValue)
                         }
 
                     } else {
@@ -1374,10 +1340,10 @@ $(document).ready(function () {
                             this.elgibilityObj.regGpTxt = "";
                             this.elgibilityObj.isInformation = "";
                         }
-
                     }
+
                 } else {
-                    this.hasValidDate = false;
+                    this.hasValidDate = true;
                     if (this.elgibilityObj.role == 'professional') {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
@@ -1406,8 +1372,8 @@ $(document).ready(function () {
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
                     }
-                }
 
+                }
             },
 
             checkValidDate: function (id, obj, key, e) {
