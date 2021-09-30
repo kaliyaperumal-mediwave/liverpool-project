@@ -218,7 +218,7 @@
 
                     <!-- <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                          
+
                            :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
@@ -419,7 +419,7 @@
                             }
                             }) }}
                         </div>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer"
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon"
                             data-toggle="modal" data-target="#consentModal" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
@@ -743,12 +743,12 @@
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '') ) || 
+                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '') ) ||
 
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
-                
+
                 (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
-                
+
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
@@ -771,12 +771,12 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) ||
 
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
-                
+
                 (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
-                
+
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                 class="text-center py-4">
                 <a>
@@ -1092,7 +1092,7 @@
                                 :close-on-select="true" placeholder="Search" :custom-label="customLabel"
                                 :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
                             </multiselect>
-                            <!-- 
+                            <!--
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-map-marker fa-2x"></i>
@@ -1402,7 +1402,7 @@
                             use information that you provide, and share it with other CAMHS partners so that we can help
                             them?</p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
-                            data-target="#consentModal" class="px-3 cursor-pointer" alt="">
+                            data-target="#consentModal" class="info-icon" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="contactProfParent"
@@ -1495,7 +1495,7 @@
                             them?
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
-                            data-target="#consentModal" class="px-3 cursor-pointer" alt="">
+                            data-target="#consentModal" class="info-icon" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="aboutYouParentConcern"

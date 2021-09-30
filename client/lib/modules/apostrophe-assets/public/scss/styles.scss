@@ -4308,7 +4308,14 @@ div#IEFormatRemove,div#MobileFormatRemove {
     margin: 0px 18px;
 }
 .flex-c-div {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+}
+img.info-icon {
+    height: 26px;
+    padding-left: 1rem!important;
+    padding-right: 1rem!important;
+    margin: auto 0px;
+    cursor: pointer;
 }
