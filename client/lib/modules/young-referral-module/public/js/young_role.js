@@ -334,8 +334,8 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "profyoungDob", this.convertDate(data[0].professional2[0].child_dob));
                     this.duplicateYearArray = this.elgibilityObj.profyoungDob.slice(this.elgibilityObj.profyoungDob.length - 4);
                     this.fetchAgeLogic(data[0].professional2[0].child_dob, roleType)
-                    Vue.set(this.elgibilityObj, "contactProffamily", data[0].consent_family);
-                    Vue.set(this.elgibilityObj, "familyConcernInformation", data[0].consent_young);
+                    //Vue.set(this.elgibilityObj, "contactProffamily", data[0].consent_parent);
+                    Vue.set(this.elgibilityObj, "familyConcernInformation", data[0].consent_child);
 
                     if (data[0].selected_service == 'Alder Hey - Liverpool CAMHS' || data[0].selected_service == 'Alder Hey - Liverpool EDYS' || data[0].selected_service == 'Alder Hey - Sefton CAMHS' || data[0].selected_service == 'Alder Hey - Sefton EDYS') {
                         Vue.set(this.elgibilityObj, "referral_mode", data[0].referral_mode);
@@ -1150,6 +1150,7 @@ $(document).ready(function () {
                     this.dynamicRegexPattern = this.landlineRegex;
                 }
                 var role = this.elgibilityObj.role;
+                console.log(this.elgibilityObj)
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
                     if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
@@ -1180,20 +1181,25 @@ $(document).ready(function () {
                                         this.elgibilityObj.referral_mode = null;
                                     }
 
-
                                     this.apiRequest(this.elgibilityObj, role);
                                 } else {
                                     scrollToInvalidInput();
                                     return false;
                                 }
                             } else {
-                                $('#loader').show();
+                              //  $('#loader').show();
                                 if (this.elgibilityObj.youngDob) {
                                     this.elgibilityObj.youngDob = this.elgibilityObj.youngDob.replace(/\s/g, "");
                                 }
                                 if (this.elgibilityObj.profyoungDob) {
                                     this.elgibilityObj.profyoungDob = this.elgibilityObj.profyoungDob.replace(/\s/g, "");
                                 }
+
+
+                                if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
+                                    this.elgibilityObj.referral_mode = null;
+                                }
+                                
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1642,6 +1648,7 @@ $(document).ready(function () {
                     }
                     else {
                         this.elgibilityObj.familyConcern = "show";
+                        this.elgibilityObj.contactProffamily = "yes";
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.submitProfForm = "false";
