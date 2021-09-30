@@ -307,7 +307,10 @@
                             <!-- <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
                                 people over 18 years of age</p> -->
                                 <!-- <p v-show="!isUserLoggedIn || elgibilityObj.role=='professional'" class="question-font text-center py-2"><a href="/young-referral">Here you go</a></p> -->
-                                <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/young-referral">Click here to submit referrals if you are above 18</a></p>
+                                <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                    <a href="/young-referral" ><b class="cursor-pointer"><u>here</u></b></a>
+                                    to submit referrals if you are in the 18-25 age group.
+                                </p>
                                 <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot accept referrals from people over 18 years of age</p>
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
@@ -1437,7 +1440,10 @@
                         <!-- <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
                             people over 18 years of age</p> -->
                             <!-- <p v-show="!isUserLoggedIn || elgibilityObj.role=='professional'" class="question-font text-center py-2"><a href="/young-referral">Here you go</a></p> -->
-                            <p class="question-font text-center py-2"><a href="/young-referral">Click here to submit referrals if you are above 18</a></p>
+                            <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                <a href="/young-referral"><b class="cursor-pointer"><u>here</u></b></a>
+                                to submit referrals if you are in the 18-25 age group.
+                            </p>
                         <p class="link-text text-center  py-2">Free mental health services for adults:</p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:
