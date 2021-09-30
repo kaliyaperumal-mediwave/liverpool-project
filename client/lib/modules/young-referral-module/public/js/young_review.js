@@ -306,7 +306,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = this.section1Data.selected_service;
                         }
                         else if (this.section1Data.selected_service == "") {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
+                            this.payloadData.referral_provider = "YPAS";
                         }
                         buttonElem.setAttribute('disabled', true);
                         var trimmedPayload = trimObj(this.payloadData);

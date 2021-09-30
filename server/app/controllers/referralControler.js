@@ -3004,7 +3004,7 @@ exports.getReferalByCode = ctx => {
         ['createdAt', 'DESC'],
       ],
     }).then((result) => {
-      ////console.log(result);
+      console.log(result);
       return ctx.body = result
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
