@@ -1892,14 +1892,14 @@ exports.getActivity = async (ctx) => {
             }
         }
     }
-    console.log(query, "query========");
+    //console.log(query, "query========");
     return referralActivityModel.findAll({
         where: query,
         include: [
             { model: ctx.orm().User, as: 'userInfo' },
             {
                 model: ctx.orm().Referral, as: 'referralInfo', attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status','referral_type',
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_firstname'), sequelize.col('referralInfo.professional.child_firstname'), sequelize.col('referralInfo.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_lastname'), sequelize.col('referralInfo.professional.child_lastname'), sequelize.col('referralInfo.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp'), sequelize.col('referralInfo.parent.registered_gp'), sequelize.col('referralInfo.professional.registered_gp')), 'gp_location'],
@@ -1912,14 +1912,27 @@ exports.getActivity = async (ctx) => {
                     {
                         model: ctx.orm().Referral,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode','referral_type',
                         ]
                     },
                     {
                         model: ctx.orm().Referral,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode','referral_type',
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'family',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'professional2',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                         ]
                     },
                 ],
@@ -1941,7 +1954,7 @@ exports.getActivity = async (ctx) => {
         }
         var referrals = await referralModel.findAll({
             attributes: [
-                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'referral_complete_status', 'registered_gp_postcode',
+                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'referral_complete_status', 'registered_gp_postcode', 'referral_type',
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -1956,14 +1969,27 @@ exports.getActivity = async (ctx) => {
                 {
                     model: referralModel,
                     as: 'parent',
-                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
+                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status', 'referral_type'
                     ]
                 },
                 {
                     model: referralModel,
                     as: 'professional',
                     attributes: [
-                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status'
+                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_complete_status', 'referral_type'
+                    ]
+                },
+                {
+                    model: referralModel,
+                    as: 'family',
+                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
+                    ]
+                },
+                {
+                    model: referralModel,
+                    as: 'professional2',
+                    attributes: [
+                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type'
                     ]
                 },
             ],
@@ -1984,19 +2010,35 @@ exports.getActivity = async (ctx) => {
         // });
 
         var allReferralData = _.concat(mappedReferralData, referalActivityArray)
-        console.log(allReferralData.length, referrals.length, data.length, "allReferralData")
+        //console.log(allReferralData.length, referrals.length, data.length, "allReferralData")
 
         _.forEach(allReferralData, function (obj, index) {
             refObj = obj.referralInfo ? obj.referralInfo : obj
-
-            console.log(refObj, refObj.user_role, refObj.dataValues.user_role, "refObj===", (obj.referralInfo ? true : false));
-
             if (refObj.referral_provider == null) {
                 refObj.referral_provider = "Archived"
             } else {
                 refObj.referral_provider = refObj.referral_provider
             }
-            console.log(refObj.dataValues.referral_complete_status, "refObj.dataValues.referral_complete_status==========");
+            console.log(refObj)
+            if (refObj.dataValues.user_role == 'family') {
+                refObj.dataValues.name = refObj.family[0].child_firstname;
+                refObj.dataValues.lastname = refObj.family[0].child_lastname;
+                refObj.dataValues.dob = refObj.family[0].child_dob;
+                refObj.dataValues.gp_location = refObj.family[0].dataValues.registered_gp;
+                refObj.dataValues.gp_location_postcode = refObj.family[0].dataValues.registered_gp_postcode;
+
+            }
+            else if (refObj.dataValues.user_role == 'professional') {
+                if (refObj.dataValues.referral_type == "young") {
+                    refObj.dataValues.name = refObj.professional2[0].child_firstname;
+                    refObj.dataValues.lastname = refObj.professional2[0].child_lastname;
+                    refObj.dataValues.dob = refObj.professional2[0].child_dob;
+                    refObj.dataValues.gp_location = refObj.professional2[0].dataValues.registered_gp;
+                    refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
+                }
+            }
+            
+
             var referralObj = {
                 uuid: refObj.uuid,
                 name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
