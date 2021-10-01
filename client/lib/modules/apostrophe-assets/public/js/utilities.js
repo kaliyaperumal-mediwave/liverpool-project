@@ -529,7 +529,7 @@ function setTextSize() {
     var textSize = localStorage.getItem('textSize');
     if (textSize && Number(textSize) >= 16) {
         var inc = Number(textSize) - Number(currentTextSize);
-        $('p,h1,h2,h3,h4,h5,h6,label,span,button,input,a,textarea,select,option,li,div').each(function (res) {
+        $('p,h1,h2,h3,h4,h5,h6,label,span,button,input,a,textarea,select,option,li').each(function (res) {
             var fontsize = parseInt($(this).css('font-size'));
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
