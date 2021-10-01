@@ -50,6 +50,7 @@ $(document).ready(function () {
                 if (isLoggedInUser == 'false') {
                     this.showSignUpForm = true;
                     var successData = apiCallGet('get', '/getReferalByCode/' + this.reference_code, API_URI);
+                    console.log(successData);
                     if (successData && successData.length) {
                         if (successData[0].referral_type != "young") {
                             Vue.set(this.refSignUpData, "role", successData[0].user_role);
@@ -59,16 +60,23 @@ $(document).ready(function () {
                         }
                         else {
                             if (successData[0].user_role == "family") {
-                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "role", "Family/Friend");
                                 Vue.set(this.refSignUpData, "email", successData[0].parent_email);
                                 Vue.set(this.refSignUpData, "first_name", successData[0].parent_firstname);
                                 Vue.set(this.refSignUpData, "last_name", successData[0].parent_lastname);
                             }
                             else if (successData[0].user_role == "young") {
-                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "role", "Young Person");
                                 Vue.set(this.refSignUpData, "email", successData[0].child_email);
                                 Vue.set(this.refSignUpData, "first_name", successData[0].child_firstname);
                                 Vue.set(this.refSignUpData, "last_name", successData[0].child_lastname);
+                            }
+                            else if (successData[0].user_role == "professional") {
+                                console.log("-------------")
+                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "email", successData[0].professional_email);
+                                Vue.set(this.refSignUpData, "first_name", successData[0].professional_firstname);
+                                Vue.set(this.refSignUpData, "last_name", successData[0].professional_lastname);
                             }
 
                         }
@@ -184,6 +192,7 @@ $(document).ready(function () {
 
             noLoginSignUp: function () {
                 let formData = this.refSignUpData;
+                console.log(formData)
                 this.isFormSubmitted = true;
                 if ((formData.email && this.emailRegex.test(formData.email)) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
                     $('#loader').show();
