@@ -41,8 +41,6 @@ $(document).ready(function () {
             this.loginFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
             //this.resetForm();
             this.getRefNo();
-            var emailFieldElement = document.getElementById("refEmail");
-            emailFieldElement.removeAttribute("readonly")
         },
 
         methods: {
@@ -68,7 +66,7 @@ $(document).ready(function () {
                                 Vue.set(this.refSignUpData, "last_name", successData[0].parent_lastname);
                             }
                             else if (successData[0].user_role == "young") {
-                                Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                                Vue.set(this.refSignUpData, "role", "Young Person");
                                 Vue.set(this.refSignUpData, "email", successData[0].child_email);
                                 Vue.set(this.refSignUpData, "first_name", successData[0].child_firstname);
                                 Vue.set(this.refSignUpData, "last_name", successData[0].child_lastname);
@@ -195,7 +193,6 @@ $(document).ready(function () {
             noLoginSignUp: function () {
                 let formData = this.refSignUpData;
                 console.log(formData)
-                return;
                 this.isFormSubmitted = true;
                 if ((formData.email && this.emailRegex.test(formData.email)) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
                     $('#loader').show();
