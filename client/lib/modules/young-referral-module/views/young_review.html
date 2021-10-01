@@ -1651,7 +1651,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea class="h-50 form-control    input-bg-form-control"
-                                            name="infoTextAreas" placeholder="" rows="3"
+                                            name="infoTextAreas" placeholder="" rows="3" readonly
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
                                 </div>
@@ -1719,14 +1719,14 @@
                     <div class="px-3 m-0 question-header-font">
                         <div v-if="userRole == 'young'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToMe" value="Me"
+                                <input class="form-check-input" type="radio" name="young_radio1"  id="sendToMe" value="Me"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToParCarer"
+                                <input class="form-check-input" type="radio" name="young_radio1" id="sendToParCarer"
                                     value="My family/friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
@@ -1737,14 +1737,14 @@
 
                         <div v-if="userRole == 'family'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToMe" value="Me"
+                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToMe" value="Me"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToParCarer" value="My young person"
+                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToParCarer" value="My young person"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
@@ -1755,14 +1755,14 @@
 
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToMe" value="The young person"
+                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToMe" value="The young person"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     The young person
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" id="sendToParCarer"
+                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToParCarer"
                                     value="Their family/friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
