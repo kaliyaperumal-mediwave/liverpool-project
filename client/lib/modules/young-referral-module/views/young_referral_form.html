@@ -288,6 +288,37 @@
                             </p>
                             <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
                                 accept referrals from people under 18 years of age</p>
+                                <p class="link-text text-center py-2">Free mental health services for adults:</p>
+                                <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                    your GP
+                                    is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                                    " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+                                <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                    the
+                                    Child/young person's GP
+                                    is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                                    " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+    
+                                <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                    your GP
+                                    is registered in Sefton: <a
+                                        href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                        target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
+                                <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                    the
+                                    Child/young person's GP is registered
+                                    in
+                                    Sefton: <a
+                                        href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                        target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
+                                </p>
+                                <p class="link-secondary text-center m-0 py-2">
+                                    <a href="https://www.samaritans.org/ " target="_blank"><b
+                                            class="cursor-pointer"><u>Samaritans</u></b></a>
+                                    is
+                                    available via
+                                    phone for anyone
+                                </p>
 
                         </div>
                     </div>
@@ -306,12 +337,44 @@
                             </p>
                             <!-- <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here
                                     to submit referrals if you are under 18</a></p> -->
-                            <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
-                                <a href="/role"><b class="cursor-pointer"><u>here</u></b></a>
-                                to submit referrals if you are in the 18-25 age group.
-                            </p>
+                                    <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                        <a href="/role"><b class="cursor-pointer"><u>here</u></b></a>
+                                        to submit referrals if you are in under 18 age group.
+                                    </p>
                             <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
                                 accept referrals from people under 18 years of age</p>
+
+                                <p class="link-text text-center py-2">Free mental health services for adults:</p>
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                your GP
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                                " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                the
+                                Child/young person's GP
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                                " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                your GP
+                                is registered in Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                the
+                                Child/young person's GP is registered
+                                in
+                                Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
+                            </p>
+                            <p class="link-secondary text-center m-0 py-2">
+                                <a href="https://www.samaritans.org/ " target="_blank"><b
+                                        class="cursor-pointer"><u>Samaritans</u></b></a>
+                                is
+                                available via
+                                phone for anyone
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -1407,11 +1470,27 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
 
-                            <p  class="link-text cursor-pointer text-center m-0 py-2">Click
+                            <p class="link-text cursor-pointer text-center m-0 py-2">Click
                                 <a href="/role"><b class="cursor-pointer"><u>here</u></b></a>
-                                to submit referrals if you are in the 18-25 age group.
+                                to submit referrals if you are in under 18 age group.
                             </p>
-
+                            <p class="link-text text-center  py-2">Free mental health services for adults:</p>
+                            <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
+                                Liverpool:
+                                <a href="https://www.talkliverpool.nhs.uk/
+                                " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
+                            </p>
+                            <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
+                                Sefton:
+                                <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
+                            </p>
+                            <p class="link-secondary text-center m-0 py-2"> <a href="https://www.samaritans.org/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Samaritans</u></b></a>
+                                is
+                                available via
+                                phone for anyone
+                            </p>
                         </div>
                     </div>
                 </div>
