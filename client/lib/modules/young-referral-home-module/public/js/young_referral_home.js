@@ -24,6 +24,42 @@ $(document).ready(function () {
 
         methods: {
 
+            // goToRole: function () {
+            //     localStorage.setItem("form2", "no");
+            //     localStorage.setItem("form1", "no");
+            //     var _self = this;
+            //     $.ajax({
+            //         url: API_URI + "/setSessionRefHome/y",
+            //         type: 'get',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         cache: false,
+            //         success: function (data) {
+
+            //             if (_self.loginObj.user_role == "young" || _self.loginObj.user_role == "family") {
+            //                 location.href = "/young-referral";
+            //             }
+            //             else {
+            //                 //console.log("-------------------------------success block");
+            //                 //location.href = "/young-referral";
+            //                 location.href = "/role";
+            //                 // window.top.location= "/role";
+            //                 // parent.location.href = "/role";
+            //                 if (window != window.top) {
+            //                     // the page is inside an iframe
+            //                     // window.location.href = "/role"
+            //                 }
+            //             }
+
+            //         },
+            //         error: function (error) {
+            //             //console.log(error)
+            //             showError(error.responseJSON.message, error.status);
+            //         }
+            //     })
+            // }
+
+
             goToRole: function () {
                 localStorage.setItem("form2", "no");
                 localStorage.setItem("form1", "no");
@@ -41,8 +77,8 @@ $(document).ready(function () {
                         }
                         else {
                             //console.log("-------------------------------success block");
-                            //location.href = "/young-referral";
-                            location.href = "/role";
+                            location.href = "/young-referral";
+                            //location.href = "/role";
                             // window.top.location= "/role";
                             // parent.location.href = "/role";
                             if (window != window.top) {
@@ -58,6 +94,7 @@ $(document).ready(function () {
                     }
                 })
             }
+
         }
 
     })
