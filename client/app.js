@@ -29,11 +29,11 @@ var apos = require("apostrophe")({
       alias: "LIVERPOOLMODULE",
       // NOTE: LIVE ENV FILE . Comment when working in local.
       "phr-module": process.env.SERVICE_PHR,
-       // 'phr-module': 'https://192.168.0.67:3010'
+      // 'phr-module': 'https://192.168.0.67:3010'
       "useVenusIaptusAPI": process.env.useVenusIaptusAPI,
       "apiIntegrationPassword": process.env.apiIntegrationPassword,
-      'blobStorage' : process.env.AZURE_DOMAIN_PATH,
-     
+      'blobStorage': process.env.AZURE_DOMAIN_PATH,
+
     },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING,
@@ -57,7 +57,7 @@ var apos = require("apostrophe")({
     "auth-module": {},
     "about-module": {},
     "admin-module": {},
-    "orcha-module":{},
+    "orcha-module": {},
     "dashboard-module": {},
     "Resources": {},
     "Resources-pages": { perPage: 999 },
@@ -84,6 +84,7 @@ var apos = require("apostrophe")({
     "liverpool-about-service-pages": { perPage: 999 },
     "home-module": {},
     "referral-home-module": {},
+    "young-referral-home-module": {},
     "referral-module": {},
     "education-employment-module": {},
     "review-module": {},
