@@ -192,7 +192,14 @@ $(document).ready(function () {
 
             noLoginSignUp: function () {
                 let formData = this.refSignUpData;
-                console.log(formData)
+                if(formData.role=="Young Person")
+                {
+                    formData.role = "young"
+                }
+                else if(formData.role=="Family/Friend")
+                {
+                    formData.role = "family"
+                }
                 this.isFormSubmitted = true;
                 if ((formData.email && this.emailRegex.test(formData.email)) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
                     $('#loader').show();
