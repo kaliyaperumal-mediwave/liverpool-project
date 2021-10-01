@@ -939,7 +939,7 @@ exports.about = ctx => {
 
         return user.update(
           {
-            referral_progress: ctx.request.body.referral_progress
+            referral_progress: ctx.request.body.aboutData.referral_progress
           },
           {
             where:

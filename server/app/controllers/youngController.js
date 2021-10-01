@@ -833,7 +833,7 @@ exports.about = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
-    //  ////console.log(ctx.request.body)
+    console.log(ctx.request.body)
     if (ctx.request.body.editFlag != null) {
       //   ////console.log(ctx.request.body)
       // return ctx.body = ctx.request.body;
@@ -843,6 +843,8 @@ exports.about = ctx => {
         },
         attributes: ['id', 'uuid']
       }).then((result) => {
+        console.log("result.id " + result.id)
+        console.log(result.id)
         return user.update(
           {
             referral_progress: ctx.request.body.aboutData.referral_progress
@@ -964,16 +966,19 @@ exports.about = ctx => {
         },
         attributes: ['id', 'uuid']
       }).then((result) => {
-
+        console.log("result.id " + result.id)
+        console.log(result.id)
         return user.update(
           {
-            referral_progress: ctx.request.body.referral_progress
+            referral_progress: ctx.request.body.aboutData.referral_progress
           },
           {
             where:
-              { id: result.id }
+              { uuid: result.uuid }
           }
         ).then((updateResult) => {
+          console.log("----------------------------------------------------")
+          console.log(updateResult)
           return user.findAll({
             include: [{
               model: ctx.orm().Referral,
@@ -1022,6 +1027,7 @@ exports.about = ctx => {
                   { id: childId }
               }
             ).then((updateResult) => {
+              console.log(updateResult)
               return user.update({
                 parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parent_lastname: ctx.request.body.aboutData.parentLastName,
