@@ -140,7 +140,7 @@
                 <form>
                     <div class="form-group py-2 m-0">
                         <label for="refEmail" class="auth-font my-1">Email</label>
-                        <input type="text" placeholder="Enter your email"
+                        <input readonly  autocomplete="off" type="text" placeholder="Enter your email"
                             class="form-control auth-border input-bg-form-control" id="refEmail"
                             v-model="refSignUpData.email" @input="trimWhiteSpace($event,'refSignUpData','email')">
                         <div class="invalid-feedback px-1 d-none"
