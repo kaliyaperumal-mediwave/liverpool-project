@@ -28,6 +28,10 @@ module.exports = {
       label: 'Referral Home Module'
     },
     {
+      name: 'young-referral-home-module',
+      label: 'Young Referral Home Module'
+    },
+    {
       name: 'education-employment-module',
       label: 'Education Employment Module'
     },
