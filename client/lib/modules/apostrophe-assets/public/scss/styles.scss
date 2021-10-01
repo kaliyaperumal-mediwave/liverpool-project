@@ -3195,6 +3195,9 @@ $color-scheme: (
     .link-text {
       color: $secondary;
     }
+    .link-secondary {
+      color: $secondary;
+    }
     .link-text > a {
       color: $secondary !important;
     }
