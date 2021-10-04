@@ -180,6 +180,17 @@ $(document).ready(function () {
               };
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
+                console.log(referralRes.data.data[i].referrer_type)
+                var referralRole;
+                if (referralRes.data.data[i].referrer_type == "Young") {
+                  referralRole = "Young Person";
+                }
+                else if (referralRes.data.data[i].referrer_type == "Family") {
+                  referralRole = "Family / Friend";
+                }
+                else {
+                  referralRole = referralRes.data.data[i].referrer_type;
+                }
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -187,7 +198,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].reference_code,
                   referralRes.data.data[i].referrer,
                   referralRes.data.data[i].gp_location,
-                  referralRes.data.data[i].referrer_type,
+                  referralRole,
                   referralRes.data.data[i].refDate,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
@@ -241,7 +252,17 @@ $(document).ready(function () {
                   else {
                     alterOtherTeam = result.data.filter_referrals[i].referral_status
                   }
-                  console.log(result.data.filter_referrals[i].activity_action)
+
+                  var referralRole;
+                  if (result.data.filter_referrals[i].referrer_type== "Young") {
+                    referralRole = "Young Person";
+                  }
+                  else if (result.data.filter_referrals[i].referrer_type == "Family") {
+                    referralRole = "Family / Friend";
+                  }
+                  else {
+                    referralRole = result.data.filter_referrals[i].referrer_type;
+                  }
                   const current_status = result.data.filter_referrals[i].referral_current_status
                   const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
                   rows.push([
@@ -250,7 +271,7 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].reference_code,
                     result.data.filter_referrals[i].referrer,
                     result.data.filter_referrals[i].gp_location,
-                    result.data.filter_referrals[i].referrer_type,
+                    referralRole,
                     result.data.filter_referrals[i].refDate,
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
@@ -321,10 +342,10 @@ $(document).ready(function () {
         $('#loader').hide();
       },
 
-       capitalizeFirstLetter: function (string) {
+      capitalizeFirstLetter: function (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       },
-      
+
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -632,13 +653,13 @@ $(document).ready(function () {
   }
 });
 
-function viewPdf(uuid, role,other,formType) {
+function viewPdf(uuid, role, other, formType) {
   console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
   setTimeout(function () {
-    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role +"/" +formType, API_URI);
+    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role + "/" + formType, API_URI);
     if (successData && Object.keys(successData)) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
@@ -734,7 +755,7 @@ function toArrayBuffer(buf) {
   }
   return ab;
 }
-function sendPdf(uuid, role, refCode,formType) {
+function sendPdf(uuid, role, refCode, formType) {
   var buttonElem = document.querySelector('#sendRef');
   buttonElem.disabled = true;
   var useAPI
@@ -780,7 +801,7 @@ function sendPdf(uuid, role, refCode,formType) {
     }
   });
 }
-function openSendPopup(uuid, role, refCode, referral_provider,formType) {
+function openSendPopup(uuid, role, refCode, referral_provider, formType) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + formType + '\')');
   var buttonElem = document.querySelector('#sendRef');
