@@ -26,7 +26,7 @@ module.exports = {
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
-        headerDescription: "Before we get too far, let’s check we can support you",
+        headerDescription: "Before we get too far, let’s check how we can support you.	",
         backContent: '',
         home: false,
         showHeader: true,
