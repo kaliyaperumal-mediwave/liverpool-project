@@ -2744,7 +2744,8 @@ exports.updateEligibilityInfo = ctx => {
     professional_email: ctx.request.body.section1Data.professional_email,
     professional_contact_number: ctx.request.body.section1Data.professional_contact_number,
     professional_profession: ctx.request.body.section1Data.professional_profession,
-    professional_contact_type: ctx.request.body.section1Data.professional_contact_type
+    professional_contact_type: ctx.request.body.section1Data.professional_contact_type,
+    referral_mode: ctx.request.body.section1Data.referral_mode,
   },
     {
       where: {
@@ -2761,7 +2762,7 @@ exports.updateEligibilityInfo = ctx => {
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service', 'professional_address_postcode']
+          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service', 'professional_address_postcode','referral_mode']
         }).then((professionalObj) => {
           // if (professionalObj.selected_service == 'MHST Liverpool') {
           //   professionalObj.selected_service = 'Liverpool - Mental Health Support Team'
@@ -2787,6 +2788,7 @@ exports.updateEligibilityInfo = ctx => {
             professional_profession: professionalObj.professional_profession,
             service_location: professionalObj.service_location,
             selected_service: professionalObj.selected_service,
+            referral_mode:professionalObj.referral_mode
           }
           return ctx.res.ok({
             data: section1Obj,
