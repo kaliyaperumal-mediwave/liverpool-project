@@ -43,9 +43,9 @@ module.exports = {
     };
 
     self.young_referral_about = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       console.log("3434")
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
@@ -73,9 +73,9 @@ module.exports = {
     };
 
     self.young_education = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
@@ -99,9 +99,9 @@ module.exports = {
     };
 
     self.young_referral = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
@@ -125,9 +125,9 @@ module.exports = {
     };
 
     self.young_review = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
