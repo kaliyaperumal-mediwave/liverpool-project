@@ -77,7 +77,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.contactPlacLabel = "Enter your contact number";
     section2Labels.addressLabel = "Your address";
     section2Labels.postLabel =
-      "Are you happy for the post to be sent to this address?";
+      "Are you happy with the post to be sent to this address?";
     section2Labels.genderLabel = "Your gender?";
     section2Labels.genderPlacLabel = "Enter your gender";
     section2Labels.identityLabel =
