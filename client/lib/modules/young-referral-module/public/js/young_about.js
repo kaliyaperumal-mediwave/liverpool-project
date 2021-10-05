@@ -264,7 +264,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "sameHouse", data.family[0].parent_same_house);
                         // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         if (data.family[0].parent_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address + ' ,' + data.parent[0].parent_address_postcode);
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address + ' ,' + data.family[0].parent_address_postcode);
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address);
