@@ -123,7 +123,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
 
   } else if (currentLocation === "family") {
     section2Labels.headerLabel = "Section 2 of 5: About your young person's & their household";
-    section2Labels.aboutYouLabel = "About your young person's";
+    section2Labels.aboutYouLabel = "About your young person";
     section2Labels.houseHoldLabel = "Your young person's household";
     section2Labels.houseHoldAddMemberLabel = "Add your young person's household members";
     section2Labels.carerLabel = "Your emergency contact";
@@ -266,12 +266,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section3Labels.socialWorkerContactLabel = "What is the contact number for your social worker";
 
   } else if (currentLocation === "family") {
-    section3Labels.postionLabel = "Your young is in";
+    section3Labels.postionLabel = "Your young person is in";
     section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
-    section3Labels.ehcpPlanLabel = "Does your young have an Education & Health Care Plan (EHCP)?";
-    section3Labels.ehatToolLabel = "Do your young have an open Early Help Assessment Tool (EHAT)?";
+    section3Labels.ehcpPlanLabel = "Does your young person have an Education & Health Care Plan (EHCP)??";
+    section3Labels.ehatToolLabel = "Do your young person have an open Early Help Assessment Tool (EHAT)??";
     section3Labels.careLeaver = "Are you a care leaver?";
-    section3Labels.isSocialWorkerLabel = "Does your young have a social worker?";
+    section3Labels.isSocialWorkerLabel = "Does your young person have a social worker?";
     section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
     section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
     section3Labels.socialWorkerContactLabel = "What is the contact number for their social worker";
@@ -335,7 +335,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
       "Have you accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
     allLabels.about_our_service = "How did you hear about our service?";
   } else if (currentLocation === "family") {
-    allLabels.supportNeedsLabel = "What are the support needs of your young?";
+    allLabels.supportNeedsLabel = "What are the support needs of your young person?";
     allLabels.briefOutlineLabel = "your young's";
     allLabels.diagnosisLabel =
       "Does your young have a mental health diagnosis?";
@@ -345,7 +345,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     allLabels.referralLabel =
       "Please provide more information on the main referral issues.";
     allLabels.referralSubLabel =
-      "(Please include how long this has been an issue and how it is impacting your young's day-to-day life).";
+      "(Please include how long this has been an issue and how it is impacting your young person's day-to-day life).";
     allLabels.referralPlaceHolder =
       "Tell us more about the issues they are facing.";
     allLabels.anythingHelpedPlaceHolder =
@@ -359,7 +359,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     allLabels.disabilitiesPlaceHolder =
       "Tell us about any disabilities, difficulties, health conditions or challenging behaviours the young person might have.";
     allLabels.prevAccessedServiceLabel =
-      "Has your young previously accessed any other services?";
+      "Has your young person previously accessed any other services?";
     allLabels.listServiceLabel =
       "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
     allLabels.about_our_service = "How did you hear about our service?";
