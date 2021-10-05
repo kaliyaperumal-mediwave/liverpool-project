@@ -288,37 +288,37 @@
                             </p>
                             <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
                                 accept referrals from people under 18 years of age</p>
-                                <p class="link-text text-center py-2">Free mental health services for adults:</p>
-                                <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
-                                    your GP
-                                    is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                            <p class="link-text text-center py-2">Free mental health services for adults:</p>
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                your GP
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                     " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
-                                <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
-                                    the
-                                    Child/young person's GP
-                                    is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                the
+                                Child/young person's GP
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                     " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
-    
-                                <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
-                                    your GP
-                                    is registered in Sefton: <a
-                                        href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
-                                        target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
-                                <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
-                                    the
-                                    Child/young person's GP is registered
-                                    in
-                                    Sefton: <a
-                                        href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
-                                        target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
-                                </p>
-                                <p class="link-secondary text-center m-0 py-2">
-                                    <a href="https://www.samaritans.org/ " target="_blank"><b
-                                            class="cursor-pointer"><u>Samaritans</u></b></a>
-                                    is
-                                    available via
-                                    phone for anyone
-                                </p>
+
+                            <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
+                                your GP
+                                is registered in Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
+                            <p v-show="elgibilityObj.role == 'family'" class="link-secondary text-center m-0 py-2">If
+                                the
+                                Child/young person's GP is registered
+                                in
+                                Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
+                            </p>
+                            <p class="link-secondary text-center m-0 py-2">
+                                <a href="https://www.samaritans.org/ " target="_blank"><b
+                                        class="cursor-pointer"><u>Samaritans</u></b></a>
+                                is
+                                available via
+                                phone for anyone
+                            </p>
 
                         </div>
                     </div>
@@ -337,14 +337,14 @@
                             </p>
                             <!-- <p v-if="!isUserLoggedIn" class="question-font text-center py-2"><a href="/role">Click here
                                     to submit referrals if you are under 18</a></p> -->
-                                    <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
-                                        <a href="/role"><b class="cursor-pointer"><u>here</u></b></a>
-                                        to submit referrals if you are in under 18 age group.
-                                    </p>
+                            <p v-if="!isUserLoggedIn" class="link-text cursor-pointer text-center m-0 py-2">Click
+                                <a href="/role"><b class="cursor-pointer"><u>here</u></b></a>
+                                to submit referrals if you are in under 18 age group.
+                            </p>
                             <p v-if="isUserLoggedIn" class="question-font text-center py-2">Unfortunately we cannot
                                 accept referrals from people under 18 years of age</p>
 
-                                <p class="link-text text-center py-2">Free mental health services for adults:</p>
+                            <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'young'" class="link-secondary text-center m-0 py-2">If
                                 your GP
                                 is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
@@ -470,12 +470,8 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p v-show="elgibilityObj.role=='young'" class="question-font m-0">
-                            Do you give consent for us to
-                            use
-                            the
-                            information that you provide and
-                            share it
-                            with other AMHS partners so that we can help you?
+                            Do you give consent for us to use the information you provide and share it with other AMHS
+                            partners to help you?
                             <!-- {{ apos.area(data.page, 'referral1_titleyoung', {
                                   widgets: {
                                     'apostrophe-rich-text': {
@@ -555,7 +551,7 @@
                                   }) }} -->
                             </p>
                             <p v-show="elgibilityObj.role=='family'" class="question-font text-center m-0 py-2">
-                                We need your young's consent to continue.
+                                We need your young person's consent to continue.
                                 <!-- {{ apos.area(data.page, 'referral1_familycon', {
                                     widgets: {
                                       'apostrophe-rich-text': {
@@ -568,9 +564,8 @@
                                   }) }} -->
                             </p>
                             <p class="link-text cursor-pointer text-center m-0 py-2">
-                                Please change your answer above
-                                if
-                                you are willing to provide consent.
+                                Would you please change your answer above if you are willing to provide consent?
+
                                 <!-- {{ apos.area(data.page, 'referral1_change', {
                                       widgets: {
                                         'apostrophe-rich-text': {
@@ -1636,9 +1631,8 @@
                             </p>
                             <p class="question-font text-center m-0 py-2">We need the young person’s consent to
                                 continue.</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above
-                                if
-                                you are willing to provide consent.</p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Would you please change your answer above if you are willing to provide consent?
+</p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text"
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                     Tell me more about consent
