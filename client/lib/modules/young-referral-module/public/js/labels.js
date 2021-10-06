@@ -138,10 +138,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.contactLabel = "Your young person's contact number";
     section2Labels.contactPlacLabel = "Enter your young person's contact number";
     section2Labels.addressLabel = "Your young person's address";
-    section2Labels.postLabel = "Are you and your young person happy with the post to be sent to this address?";
+    section2Labels.postLabel = "Are you and your young person happy for the post to be sent to this address?";
     section2Labels.genderLabel = "Your young person's gender";
     section2Labels.genderPlacLabel = "Enter your young person's gender";
-    section2Labels.identityLabel = "Does your young person identify with the gender you were assigned at birth?";
+    section2Labels.identityLabel = "Does your young person's identity with the gender you were assigned at birth?";
     section2Labels.sexAssignedLabel = "What sex was your young person assigned at birth?";
     section2Labels.sexOrientLabel = "Your young person's sexual orientation";
     section2Labels.sexOrientPlacLabel = "Enter your young person's sexual orientation (e.g. straight, pan, bi etc.)";
@@ -200,7 +200,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
       "Enter young person's contact number";
     section2Labels.addressLabel = "The young person's address";
     section2Labels.postLabel =
-      "Is the young person happy with the post to be sent to this address?";
+      "Is the young person happy for the post to be sent to this address?";
     section2Labels.genderLabel = "The young person’s gender";
     section2Labels.genderPlacLabel = "Enter the young person’s gender";
     section2Labels.identityLabel =
@@ -268,8 +268,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
   } else if (currentLocation === "family") {
     section3Labels.postionLabel = "Your young person is in";
     section3Labels.locationLabel = "Which school/ college / university / does your young attend?";
-    section3Labels.ehcpPlanLabel = "Does your young person have an Education & Health Care Plan (EHCP)??";
-    section3Labels.ehatToolLabel = "Do your young person have an open Early Help Assessment Tool (EHAT)??";
+    section3Labels.ehcpPlanLabel = "Does your young person have an Education & Health Care Plan (EHCP)?";
+    section3Labels.ehatToolLabel = "Do your young person have an open Early Help Assessment Tool (EHAT)?";
     section3Labels.careLeaver = "Are you a care leaver?";
     section3Labels.isSocialWorkerLabel = "Does your young person have a social worker?";
     section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
