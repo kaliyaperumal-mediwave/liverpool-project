@@ -55,6 +55,7 @@ $(document).ready(function () {
       showManualYPasForm1: false,
       showManualYPasForm2: false,
       yPasOrgTypes: "",
+      yPasAlderHey: "",
       yPasDate: "",
       yPasTime: ""
     },
@@ -369,6 +370,7 @@ $(document).ready(function () {
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
           _self.yPasTime = "";
+          _self.yPasAlderHey = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
 
@@ -376,6 +378,7 @@ $(document).ready(function () {
           $("#yPasArea").show();
           $("#appointNeededArea").show();
           _self.yPasOrgTypes = "";
+          _self.yPasAlderHey = "";
           _self.yPasDate = "";
           _self.yPasTime = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
@@ -399,6 +402,7 @@ $(document).ready(function () {
           $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
           _self.yPasDateField = "";
           _self.yPasTimeField = "";
+          _self.yPasAlderHey = "";
 
         });
 
@@ -899,7 +903,6 @@ function createActivity(activity, referral) {
 }
 
 function changeAppointment(e) {
-  debugger
   if (e.target.checked) {
     if (e.target.id == 'manualYPasBook') {
       $("#appointNeededArea").hide();
@@ -908,7 +911,6 @@ function changeAppointment(e) {
     } else if (e.target.id == 'appointNeeded') {
       $("#yPasArea").hide();
       $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
-      Vue.set(yPasDate, "");
     }
   } else {
     if (e.target.id == 'manualYPasBook') {
