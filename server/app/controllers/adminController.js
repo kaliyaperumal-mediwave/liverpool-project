@@ -982,18 +982,18 @@ function getRefData(refID, refRole, ctx) {
                     },
                     attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
                 }).then((educationObj) => {
-                    
+
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
 
                     var parentAddress;
                     if (ctx.query.formType == 'child') {
                         parentAddres = aboutObj.parent[0].parent_address_postcode ? aboutObj.parent[0].parent_address + ', ' + aboutObj.parent[0].parent_address_postcode : aboutObj.parent[0].parent_address
-            
+
                     }
                     else {
                         parentAddres = aboutObj.family[0].parent_address_postcode ? aboutObj.family[0].parent_address + ', ' + aboutObj.family[0].parent_address_postcode : aboutObj.family[0].parent_address
                     }
-                
+
                     const section2Obj = {
                         child_id: aboutObj.id,
                         child_NHS: aboutObj.child_NHS,
@@ -1205,9 +1205,9 @@ function getRefData(refID, refRole, ctx) {
 
                             if (ctx.query.formType == 'child') {
                                 gploc = elgibilityObj[0].parent[0].registered_gp_postcode ? elgibilityObj[0].parent[0].registered_gp + ", " + elgibilityObj[0].parent[0].registered_gp_postcode : elgibilityObj[0].parent[0].registered_gp
-                                getChildAddress= aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ", " + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address
+                                getChildAddress = aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ", " + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address
                                 getChildDob = convertDate(elgibilityObj[0].parent[0].child_dob)
-                    
+
                             }
                             else {
                                 gploc = elgibilityObj[0].family[0].registered_gp_postcode ? elgibilityObj[0].family[0].registered_gp + ", " + elgibilityObj[0].family[0].registered_gp_postcode : elgibilityObj[0].family[0].registered_gp
@@ -1562,8 +1562,8 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
                                 }
 
-                                 getChildDob = convertDate(elgibilityObj.professional[0].child_dob);
-                                 getChildAge = calculateAge(elgibilityObj.professional[0].child_dob);
+                                getChildDob = convertDate(elgibilityObj.professional[0].child_dob);
+                                getChildAge = calculateAge(elgibilityObj.professional[0].child_dob);
 
 
                             }
@@ -1643,7 +1643,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_socialworker_contact_type: edu_empObj[0].professional2[0].child_socialworker_contact_type,
                                 }
                                 getChildDob = convertDate(elgibilityObj.professional2[0].child_dob);
-                                 getChildAge = calculateAge(elgibilityObj.professional2[0].child_dob);
+                                getChildAge = calculateAge(elgibilityObj.professional2[0].child_dob);
                             }
 
 
@@ -2133,34 +2133,34 @@ exports.getCount = async (ctx) => {
             try {
                 return referralModel.count({
                     where:
-                        { 
-                            referral_complete_status: {
-                                [sequelize.Op.in]: ['completed','archived','deleted']
-                            }
+                    {
+                        referral_complete_status: {
+                            [sequelize.Op.in]: ['completed', 'archived', 'deleted']
                         }
+                    }
                 }
                 ).then((completedReferralCount) => {
                     console.log(completedReferralCount)
                     try {
                         return referralModel.count({
                             where:
-                                { 
-                                    referral_complete_status: {
-                                        [sequelize.Op.in]: ['incomplete']
-                                    }
+                            {
+                                referral_complete_status: {
+                                    [sequelize.Op.in]: ['incomplete']
                                 }
+                            }
                         }
                         ).then((incompletedReferralCount) => {
                             console.log(incompletedReferralCount)
 
                             return ctx.res.ok({
-                                data: { 
+                                data: {
                                     Complted_Referrals: completedReferralCount,
                                     Partial_Referrals: incompletedReferralCount,
-                                    Total_Users : userCount
-                                 }
+                                    Total_Users: userCount
+                                }
                             });
-        
+
                         }).catch(error => {
                             console.log(error)
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2187,4 +2187,34 @@ exports.getCount = async (ctx) => {
         console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
+}
+
+
+
+
+
+
+
+// appointments
+
+exports.appointmentDetails = async (ctx) => {
+    if (ctx.request.status != booking) {
+        // send service and call saveAppointments
+        // return
+    } else {
+        if (service == "ypas") {
+            // send hccomms and call saveAppointments
+            // return
+        } else {
+            // saveAppointments  
+        }
+
+    }
+}
+
+function saveAppointments(appointmentData) {
+    const Appointment = await appointment.create(appointmentData).catch((err) => {
+        console.log("error===", err);
+    })
+    return Appointment
 }
