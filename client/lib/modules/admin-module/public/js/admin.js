@@ -1,4 +1,5 @@
 var API_URI = "/modules/admin-module";
+
 $(document).ready(function () {
   $('#uniqueLogo').hide();
   $('#footer-placement').hide()
@@ -50,7 +51,12 @@ $(document).ready(function () {
       integrationData: "",
       loggedServiceAdmin: "",
       hasValidDate1: false,
-      hasValidDate2: false
+      hasValidDate2: false,
+      showManualYPasForm1: false,
+      showManualYPasForm2: false,
+      yPasOrgTypes: "",
+      yPasDate: "",
+      yPasTime: ""
     },
 
     beforeMount: function () {
@@ -205,7 +211,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -254,7 +260,7 @@ $(document).ready(function () {
                   }
 
                   var referralRole;
-                  if (result.data.filter_referrals[i].referrer_type== "Young") {
+                  if (result.data.filter_referrals[i].referrer_type == "Young") {
                     referralRole = "Young Person";
                   }
                   else if (result.data.filter_referrals[i].referrer_type == "Family") {
@@ -335,6 +341,64 @@ $(document).ready(function () {
             $('#downloadCSV').modal('show');
             return false;
           }
+
+        });
+
+        $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
+          if (e.target.checked) {
+            if (e.target.id == 'manualYPasBook') {
+              $("#appointNeededArea").hide();
+              $("#showYPasOrgs").removeClass('d-none').addClass('d-block');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            } else if (e.target.id == 'appointNeeded') {
+              $("#yPasArea").hide();
+              $("#showAppointsNeedEmail").removeClass('d-none').addClass('d-block');
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+            }
+          } else {
+            if (e.target.id == 'manualYPasBook') {
+              $("#appointNeededArea").show();
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            } else if (e.target.id == 'appointNeeded') {
+              $("#yPasArea").show();
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            }
+          }
+          _self.yPasOrgTypes = "";
+          _self.yPasDate = "";
+          _self.yPasTime = "";
+          $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+        });
+
+        $("#766dc4f6-a911-4717-a684-e3345a97d53b").on("click", function (e) {
+          $("#yPasArea").show();
+          $("#appointNeededArea").show();
+          _self.yPasOrgTypes = "";
+          _self.yPasDate = "";
+          _self.yPasTime = "";
+          $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+          $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+          $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+          $("#manualYPasBook").prop("checked", false);
+          $("#appointNeeded").prop("checked", false);
+          $('#appointmentsModal').modal('hide');
+        });
+
+        $("#appointsNeedEmail").on("click", function (e) {
+          console.log('clicked');
+        });
+
+        $("#submitYpas").on("click", function (e) {
+          console.log('clicked');
+        });
+
+
+        $("#SelectYPasOrgTypes").on("change", function (e) {
+          $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
+          _self.yPasDateField = "";
+          _self.yPasTimeField = "";
 
         });
 
@@ -707,6 +771,12 @@ function downloadCSV(uuid, value, other_value) {
   $('#downloadCSV').modal('show');
 }
 
+function openAppointmentsPopup(uuid, value, other_value) {
+  $('#appointmentsModal').modal('show');
+  // document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+}
+
+
 function updateStatus(uuid) {
   $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
@@ -827,3 +897,37 @@ function createActivity(activity, referral) {
   }
   apiCallPut('put', '/referralStatusUpdate', postData);
 }
+
+function changeAppointment(e) {
+  debugger
+  if (e.target.checked) {
+    if (e.target.id == 'manualYPasBook') {
+      $("#appointNeededArea").hide();
+      $("#showYPasOrgs").removeClass('d-none').addClass('d-block');
+
+    } else if (e.target.id == 'appointNeeded') {
+      $("#yPasArea").hide();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+      Vue.set(yPasDate, "");
+    }
+  } else {
+    if (e.target.id == 'manualYPasBook') {
+      $("#appointNeededArea").show();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+    } else if (e.target.id == 'appointNeeded') {
+      $("#yPasArea").show();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+    }
+  }
+  $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+}
+
+// function closeAppointsModal() {
+//   $("#yPasArea").show();
+//   $("#appointNeededArea").show();
+//   $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+//   $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+//   $("#manualYPasBook").prop("checked", false);
+//   $("#appointNeeded").prop("checked", false);
+//   $('#appointmentsModal').modal('hide');
+// }

@@ -464,6 +464,108 @@
     <!-- DownloadCSV End -->
 
 
+    <!-- Appointments Modal Start -->
+    <div class="modal fade" id="appointmentsModal" tabindex="-1" data-backdrop="static" data-keyboard="false"
+        role="dialog" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Book Appointment</h5>
+                    <span aria-hidden="true" class="modal-close" id="766dc4f6-a911-4717-a684-e3345a97d53b">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="appointmentsModal-div px-4 py-2">
+                    <div class="form-group px-2">
+                        <p for="fromDate" style="font-weight: bold !important;" class="question-font">Select your type
+                            of booking</p>
+
+                        <div class="checkbox-other switcher py-2" id="yPasArea">
+                            <label for="manualYPasBook">
+                                <input type="checkbox" class="7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3" id="manualYPasBook"
+                                    value="Manual YPAS booking">
+                                <span><small></small></span>
+                                <span class="question-font px-2">Manual YPAS booking</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-other switcher py-2" id="appointNeededArea">
+                            <label for="appointNeeded">
+                                <input type="checkbox" class="7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3" id="appointNeeded"
+                                    value="Appointments needed">
+                                <span><small></small></span>
+                                <span class="question-font px-2">Appointments needed but currently not available</span>
+                            </label>
+                        </div>
+
+                        <div class="py-2 d-none" id="showYPasOrgs">
+                            <div class="input-group w-100">
+                                <label style="font-weight: bold !important;" class="question-font">Book Now:</label>
+                                <span class="plain-select">
+                                    <select style="background: #fff !important;" v-model="yPasOrgTypes"
+                                        id="SelectYPasOrgTypes"
+                                        class="custom-select form-control input-bg-form-control height-44">
+                                        <option class='option-text' value="" disabled selected>
+                                            Select an organization
+                                        </option>
+                                        <option class='option-text' value="Alder Hey CAMHS">Alder Hey CAMHS
+                                        </option>
+                                        <option class='option-text' value="Alder Hey EDYS">Alder Hey EDYS
+                                        </option>
+                                        <option class='option-text' value="YPAS">YPAS
+                                        </option>
+                                        <option class='option-text' value="VENUS">VENUS
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="py-2 d-none" id="showAppointsNeedEmail">
+                            <p style="font-weight: bold !important;" class="question-font py-3">Send an email to SPA to
+                                notify them.</p>
+                            <div class="d-flex"><button type="button" id="appointsNeedEmail"
+                                    class="download-csv-btn">SUBMIT</button></div>
+                        </div>
+
+                        <div class="d-none" id="showCAMHSAndEDYS">
+                            <div class="py-2">
+                                <label for="yPasDateField" style="font-weight: bold !important;"
+                                    class="question-font">Alder Hey No</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
+                                        id="yPasDateField" placeholder="Enter Date">
+                                </div>
+                            </div>
+                            <div class="py-2">
+                                <label for="yPasDateField" style="font-weight: bold !important;"
+                                    class="question-font">Date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
+                                        id="yPasDateField" placeholder="Enter Date">
+                                </div>
+                            </div>
+
+                            <div class="py-2" id="showCAMHSAndEDYS">
+                                <label for="yPasTimeField" style="font-weight: bold !important;"
+                                    class="question-font">Time</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control" v-model="yPasTime"
+                                        id="yPasTimeField" placeholder="Enter time">
+                                </div>
+                            </div>
+                            <div class="d-flex"><button type="button" id="submitYpas"
+                                    class="download-csv-btn">SUBMIT</button></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Appointments Modal End -->
+
+
     <!-- Mail Succuss Modal Start -->
     <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
         role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
