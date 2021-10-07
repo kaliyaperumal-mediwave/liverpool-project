@@ -2,9 +2,10 @@ var API_URI = "/modules/admin-module";
 
 $(document).ready(function () {
   $('#uniqueLogo').hide();
-  $('#footer-placement').hide()
+  $('#footer-placement').hide();
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
+  Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
   }
@@ -57,7 +58,13 @@ $(document).ready(function () {
       yPasOrgTypes: "",
       yPasAlderHey: "",
       yPasDate: "",
-      yPasTime: ""
+      //yPasTime: "",
+      yPasTime: {
+        HH: "",
+        mm: "",
+        A: ""
+      },
+
     },
 
     beforeMount: function () {
@@ -346,6 +353,7 @@ $(document).ready(function () {
         });
 
         $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
+          debugger
           if (e.target.checked) {
             if (e.target.id == 'manualYPasBook') {
               $("#appointNeededArea").hide();
@@ -369,7 +377,9 @@ $(document).ready(function () {
           }
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
@@ -380,7 +390,9 @@ $(document).ready(function () {
           _self.yPasOrgTypes = "";
           _self.yPasAlderHey = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');

@@ -18,6 +18,9 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.umd.min.js"></script>
+
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -549,9 +552,12 @@
                             <div class="py-2" id="showCAMHSAndEDYS">
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
-                                <div class="input-group">
+                                <!-- <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" v-model="yPasTime"
                                         id="yPasTimeField" placeholder="Enter time">
+                                </div> -->
+                                <div class="input-group">
+                                    <vue-timepicker format="hh:mm A" v-model="yPasTime"></vue-timepicker>
                                 </div>
                             </div>
                             <div class="d-flex"><button type="button" id="submitYpas"
