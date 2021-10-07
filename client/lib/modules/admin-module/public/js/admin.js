@@ -2,9 +2,10 @@ var API_URI = "/modules/admin-module";
 
 $(document).ready(function () {
   $('#uniqueLogo').hide();
-  $('#footer-placement').hide()
+  $('#footer-placement').hide();
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
+  Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
   }
@@ -57,7 +58,15 @@ $(document).ready(function () {
       yPasOrgTypes: "",
       yPasAlderHey: "",
       yPasDate: "",
-      yPasTime: ""
+      //yPasTime: "",
+      yPasTime: {
+        HH: "",
+        mm: "",
+        A: ""
+      },
+      checkYPasDateField: false,
+      isYPasFormSubmitted: false
+
     },
 
     beforeMount: function () {
@@ -344,6 +353,7 @@ $(document).ready(function () {
         });
 
         $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
+          debugger
           if (e.target.checked) {
             if (e.target.id == 'manualYPasBook') {
               $("#appointNeededArea").hide();
@@ -367,18 +377,47 @@ $(document).ready(function () {
           }
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+        });
+
+        $("#yPasDateField").on("keyup", function (e) {
+          if (_self.isValidDate(e.target.value)) {
+            var dateValue = e.target.value;
+            var dateFormat = "DD/MM/YYYY"
+            var utc = moment(dateValue, dateFormat, true)
+            var isUtc = utc.isValid();
+            var currentYear = new Date().getFullYear();
+            var setYearValue = dateValue.split('/');
+            var getYearValue = setYearValue[2];
+            if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+              if (_self.isFutureDate(e.target.value) || !isUtc) {
+                _self.checkYPasDateField = true;
+              } else {
+                _self.checkYPasDateField = false;
+              }
+            } else {
+              _self.checkYPasDateField = true;
+            }
+          } else {
+            _self.checkYPasDateField = true;
+          }
+
         });
 
         $("#766dc4f6-a911-4717-a684-e3345a97d53b").on("click", function (e) {
           $("#yPasArea").show();
           $("#appointNeededArea").show();
+          _self.isYPasFormSubmitted = false;
           _self.yPasOrgTypes = "";
           _self.yPasAlderHey = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -389,10 +428,24 @@ $(document).ready(function () {
 
         $("#appointsNeedEmail").on("click", function (e) {
           console.log('clicked');
+          _self.isYPasFormSubmitted = true;
         });
 
         $("#submitYpas").on("click", function (e) {
           console.log('clicked');
+          _self.isYPasFormSubmitted = true;
+          if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+            if (!_self.checkYPasDateField) {
+              console.log('send respective payload')
+            } else {
+              $('#appointmentsModal').show();
+              return;
+            }
+
+          } else {
+            $('#appointmentsModal').show();
+            return;
+          }
         });
 
 
@@ -601,49 +654,6 @@ $(document).ready(function () {
         }
       },
 
-      checkValidDate: function (id, key, duplicateKey) {
-        var dateElement = document.querySelector(id);
-        var input = dateElement.value;
-        if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-        var values = input.split('/').map(function (v) {
-          return v.replace(/\D/g, '')
-        });
-        var currentDate = {
-          year: new Date().getFullYear(),
-          month: parseInt(new Date().getMonth()) + 1,
-          date: new Date().getDate()
-        }
-        if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
-          values[2] = 2021;
-        } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
-          values[2] = 1900;
-        }
-        if (values[1]) {
-          if (values[2]) {
-            values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
-            values[1] = ("0" + values[1]).slice(-2)
-          }
-          values[1] = this.checkValue(values[1], 12);
-        }
-        if (values[0]) {
-          if (values[2]) {
-            values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
-            values[0] = ("0" + values[0]).slice(-2)
-          }
-          values[0] = this.checkValue(values[0], 31);
-        }
-        var output = values.map(function (v, i) {
-          return v.length == 2 && i < 2 ? v + ' / ' : v;
-        });
-        copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
-          return v.length == 2 && i < 2 ? v + '/' : v;
-        });
-        dateElement.value = copyOutput.join('').substr(0, 14);
-        this[key] = output.join('').substr(0, 14);
-        this[duplicateKey] = copyOutput.join('').substr(0, 14);
-      },
-
-
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
@@ -772,6 +782,21 @@ function downloadCSV(uuid, value, other_value) {
   document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
   $('#downloadCSV').modal('show');
 }
+
+// function openAppointmentsPopup(uuid, value, other_value) {
+//   debugger
+//   var payloadData = {
+//     uuid: uuid,
+//     value: value,
+//     other_value: other_value
+//   }
+//   var modalData = document.getElementById('appointmentsModal');
+//   modalData.setAttribute("payloads111", payloadData);
+//   // $('#payloadData').data('payload',payloadData);
+//   $('#appointmentsModal').modal('show');
+//   // document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+// }
+
 
 function updateStatus(uuid) {
   $('#loader').show();

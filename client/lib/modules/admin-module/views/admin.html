@@ -18,6 +18,9 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.umd.min.js"></script>
+
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -66,6 +69,7 @@
     <!-- Loader end -->
 
     <div class="admin-mid-contain w-100">
+        <p id="payloadData" class="d-none">payload</p>
         <div class="row w-100 mr-0 ml-0">
             <div id="admin-slider" class="admin-slider-left d-none">
                 <div class="slider-inside-contain w-100">
@@ -536,6 +540,9 @@
                                     <textarea class="h-112 form-control input-bg-form-control" id="yPasAlderHeyNoField"
                                         v-model="yPasAlderHey" rows="4"></textarea>
                                 </div>
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasAlderHey),'invalid-fields':(hasValidDate2 && !yPasAlderHey)  }">
+                                    Please provide an answer. </div>
                             </div>
                             <div class="py-2">
                                 <label for="yPasDateField" style="font-weight: bold !important;"
@@ -544,15 +551,26 @@
                                     <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
                                         id="yPasDateField" placeholder="Enter Date">
                                 </div>
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasDate),'invalid-fields':(isYPasFormSubmitted && !yPasDate)  }">
+                                    Please provide a date. </div>
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && yPasDate && checkYPasDateField),'invalid-fields':(isYPasFormSubmitted && checkYPasDateField)  }">
+                                    Please make sure the DOB is entered in the correct format DD/MM/YYYY. </div>
                             </div>
 
                             <div class="py-2" id="showCAMHSAndEDYS">
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="yPasTime"
-                                        id="yPasTimeField" placeholder="Enter time">
+                                    <vue-timepicker format="hh:mm A" v-model="yPasTime"></vue-timepicker>
                                 </div>
+                                <!-- <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A ))  }">
+                                    Please provide a time. </div> -->
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || !yPasTime.A ))  }">
+                                    Please provide a time. </div>
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
                                     class="download-csv-btn">SUBMIT</button></div>

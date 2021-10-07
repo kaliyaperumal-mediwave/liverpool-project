@@ -1193,6 +1193,13 @@ table.dataTable tbody th.select-checkbox:before {
 
 body {
   font-family: "century-gothic" !important; }
+  body .vue__time-picker input.display-time {
+    width: 100%;
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important; }
   body .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -5298,7 +5305,7 @@ div.collapse-container.collapsing {
     margin: auto; } }
 
 .actionlogbody {
-  border-bottom: 2px solid #E2A100;
+  border-bottom: 2px solid #e2a100;
   margin-bottom: 20px;
   padding-bottom: 15px; }
 
@@ -5519,7 +5526,8 @@ div.collapse-container.collapsing {
   text-align: right; }
 
 @media (max-width: 576px) {
-  .pdf-heading, .pdf-icon-mobile {
+  .pdf-heading,
+  .pdf-icon-mobile {
     margin: 0; } }
 
 @media (max-width: 992px) {
@@ -5529,7 +5537,7 @@ div.collapse-container.collapsing {
 .pdf-heading h4 {
   font-size: 30px;
   line-height: 28px;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-weight: 500;
   text-align: right;
   color: #fff; }
@@ -5611,7 +5619,8 @@ div.collapse-container.collapsing {
 .view_pdf_div {
   padding: 14px 18px 8px 18px; }
 
-div#IEFormatRemove, div#MobileFormatRemove {
+div#IEFormatRemove,
+div#MobileFormatRemove {
   display: flex;
   align-items: center;
   text-align: center;
