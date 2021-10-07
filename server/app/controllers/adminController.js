@@ -2259,7 +2259,7 @@ exports.appointmentDetails = async (ctx) => {
     }
 }
 
-function saveAppointments(appointmentData) {
+async function saveAppointments(appointmentData) {
     const Appointment = await appointment.create(appointmentData).catch((err) => {
         console.log("error===", err);
     })

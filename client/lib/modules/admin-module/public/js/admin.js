@@ -78,8 +78,6 @@ $(document).ready(function () {
         this.yearArr.push(i);
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
-      console.log(this.archivePage)
-      console.log(document.getElementById('loginAsAdmin').innerHTML)
       if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
         this.loggedServiceAdmin = "Accepted - Alder Hey";
       }
@@ -178,7 +176,6 @@ $(document).ready(function () {
             cache: false,
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
-              console.log(referralRes, "referralRes");
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -198,6 +195,7 @@ $(document).ready(function () {
                 else {
                   referralRole = referralRes.data.data[i].referrer_type;
                 }
+                console.log(referralRes.data.data[i])
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -212,7 +210,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i] + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -775,12 +773,6 @@ function downloadCSV(uuid, value, other_value) {
   $('#downloadCSV').modal('show');
 }
 
-function openAppointmentsPopup(uuid, value, other_value) {
-  $('#appointmentsModal').modal('show');
-  // document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
-}
-
-
 function updateStatus(uuid) {
   $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
@@ -924,6 +916,24 @@ function changeAppointment(e) {
   $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
 }
 
+function openAppointmentsPopup(uuid, referralType, referranceCode,formType) {
+  $('#appointmentsModal').modal('show');
+   document.getElementById('btnSubmitAppointments').setAttribute('onclick', 'bookAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
+}
+
+
+function bookAppointment(uuid,referralType,referranceCode,formType)
+{
+  var sendAppointmentObj={};
+  sendAppointmentObj.uuid = uuid;
+  sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
+  sendAppointmentObj.status = $('#SelectYPasOrgTypes').val();
+  sendAppointmentObj.automatic_booking = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? 'yes' : false;
+  sendAppointmentObj.date = $('#yPasDateField').val();
+  sendAppointmentObj.time = $('#yPasTimeField').val();
+  console.log(sendAppointmentObj);
+
+}
 // function closeAppointsModal() {
 //   $("#yPasArea").show();
 //   $("#appointNeededArea").show();
