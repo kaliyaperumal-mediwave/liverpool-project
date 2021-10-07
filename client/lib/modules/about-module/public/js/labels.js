@@ -75,7 +75,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.contactPlacLabel = "Enter your contact number";
     section2Labels.addressLabel = "Your address";
     section2Labels.postLabel =
-      "Are you happy for the post to be sent to this address?";
+      "Are you happy with the post to be sent to this address?";
     section2Labels.genderLabel = "Your gender?";
     section2Labels.genderPlacLabel = "Enter your gender";
     section2Labels.identityLabel =
@@ -147,7 +147,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.contactPlacLabel = "Enter your child's contact number";
     section2Labels.addressLabel = "Your child's address";
     section2Labels.postLabel =
-      "Are you and your child happy for the post to be sent to this address?";
+      "Are you and your child happy with the post to be sent to this address?";
     section2Labels.genderLabel = "Your child's gender";
     section2Labels.genderPlacLabel = "Enter your child's gender";
     section2Labels.identityLabel =
@@ -235,7 +235,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Enter child / young person's contact number";
     section2Labels.addressLabel = "The child/young person's address";
     section2Labels.postLabel =
-      "Is the child/young person happy for the post to be sent to this address?";
+      "Is the child/young person happy with the post to be sent to this address?";
     section2Labels.genderLabel = "The child / young person’s gender";
     section2Labels.genderPlacLabel = "Enter the child / young person’s gender";
     section2Labels.identityLabel =
