@@ -34,7 +34,7 @@ module.exports = {
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('young_referral_form', {
         headerContent: "Section 1 of 5: Eligibility",
-        headerDescription: "Before we get too far, let’s check we can support you",
+        headerDescription: "Before we get too far, let’s check how we can support you.	",
         backContent: '',
         home: false,
         showHeader: true,
@@ -43,9 +43,9 @@ module.exports = {
     };
 
     self.young_referral_about = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       console.log("3434")
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
@@ -73,9 +73,9 @@ module.exports = {
     };
 
     self.young_education = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
@@ -99,9 +99,9 @@ module.exports = {
     };
 
     self.young_referral = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }
@@ -125,9 +125,9 @@ module.exports = {
     };
 
     self.young_review = function (req, callback) {
-      // if (!req.session.user_role) {
-      //   return req.res.redirect("/")
-      // }
+      if (!req.session.user_role) {
+        return req.res.redirect("/")
+      }
       if (req.session.referralCode) {
         return req.res.redirect("/acknowledge")
       }

@@ -213,8 +213,8 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <span class="plain-select">
-                                                <select disabled class="custom-select h-50px    input-bg-form-control"
-                                                    @change="onDetectChange($event,'sect2')"
+                                                <select class="custom-select h-50px    input-bg-form-control"
+                                                    @change="onDetectChange($event,'sect1','section1Data','referral_mode')"
                                                     v-model="section1Data.referral_mode">
                                                     <option class='option-text' value="1">Routine
                                                     </option>
@@ -483,7 +483,7 @@
                                 <div v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenchild">
-                                            Consent given by child:
+                                            Consent given by young person:
                                         </label>
                                         <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                             <input class="form-control input-bg-form-control" readonly type="text"
@@ -967,7 +967,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarName">
-                                        Emergency contact first name:
+                                        Emergency contact's first name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
@@ -983,7 +983,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarLastName">
-                                        Emergency contact last name:
+                                        Emergency contact's last name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
@@ -1042,7 +1042,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
-                                        Family/friend's contact number:
+                                        Family / friend's contact number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
@@ -1120,7 +1120,7 @@
                                 <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
-                                            Family/friend's address:
+                                            Family / friend's address:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <textarea readonly class="form-control    input-bg-form-control" type="text"
@@ -1651,7 +1651,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea class="h-50 form-control    input-bg-form-control"
-                                            name="infoTextAreas" placeholder="" rows="3"
+                                            name="infoTextAreas" placeholder="" rows="3" readonly
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
                                 </div>
@@ -1719,33 +1719,33 @@
                     <div class="px-3 m-0 question-header-font">
                         <div v-if="userRole == 'young'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio1"  id="sendToMe" value="Me"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="young_radio1" id="sendToMe"
+                                    value="Me" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" name="young_radio1" id="sendToParCarer"
-                                    value="My family/friend" v-model="contact_person">
+                                    value="My family / friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    My family/friend
+                                    My family / friend
                                 </label>
                             </div>
                         </div>
 
                         <div v-if="userRole == 'family'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToMe" value="Me"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToMe"
+                                    value="Me" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToParCarer" value="My young person"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToParCarer"
+                                    value="My young person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
                                     My young person
@@ -1755,18 +1755,18 @@
 
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToMe" value="The young person"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToMe"
+                                    value="The young person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     The young person
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" name="young_radio3" id="sendToParCarer"
-                                    value="Their family/friend" v-model="contact_person">
+                                    value="Their family / friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    Their family/friend
+                                    Their family / friend
                                 </label>
                             </div>
                         </div>

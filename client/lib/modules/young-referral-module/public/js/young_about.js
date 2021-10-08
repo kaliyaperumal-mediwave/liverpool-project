@@ -264,13 +264,13 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "sameHouse", data.family[0].parent_same_house);
                         // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         if (data.family[0].parent_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address + ' ,' + data.parent[0].parent_address_postcode);
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address + ' ,' + data.family[0].parent_address_postcode);
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.family[0].parent_address);
                         }
                         if (!data.family[0].parent_address && data.family[0].parent_manual_address && data.family[0].parent_manual_address.length) {
-                            Vue.set(this, "parentManualAddress", data.parent[0].parent_manual_address);
+                            Vue.set(this, "parentManualAddress", data.family[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                         }
                         Vue.set(this.aboutFormData, "legalCareStatus", data.family[0].legal_care_status);
