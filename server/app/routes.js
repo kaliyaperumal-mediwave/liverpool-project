@@ -89,6 +89,14 @@ router.get('/admin/getApiService', validateToken, adminController.getApiService)
 //google analytics
 
 router.get('/admin/getCount', adminController.getCount);
+
+
+
+
+// Appointments
+router.post('/appointment/create', adminController.createAppointmentDetails);
+router.get('/appointment/get', adminController.getAppointmentDetails);
+
 //Apis for form 2 
 //Sec 1
 router.post('/user/youngEligibility', validateToken, youngControler.eligibility);

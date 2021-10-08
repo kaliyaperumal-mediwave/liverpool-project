@@ -342,5 +342,13 @@ module.exports = function modelUser(sequelize, types) {
     through: 'ChildProfessional',
     foreignKey: 'professionalId'
   });
+
+
+  Referral.belongsToMany(sequelize.models.appointments, {
+    as: 'referralAppointments',
+    through: 'Referralappointments',
+    foreignKey: 'ReferralId'
+  });
+
   return Referral;
 };
