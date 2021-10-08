@@ -2197,19 +2197,53 @@ exports.getCount = async (ctx) => {
 
 // appointments
 
-exports.appointmentDetails = async (ctx) => {
+exports.createAppointmentDetails = async (ctx) => {
+    let appointmentData = {};
     if (ctx.request.status != booking) {
         // send service and call saveAppointments
+        saveAppointments(appointmentData)
         // return
     } else {
         if (service == "ypas") {
-            // send hccomms and call saveAppointments
-            // return
+
+            let obj = {
+                "title": "Mr",
+                "first_name": "Thiru Prasath",
+                "last_name": "Ganesan",
+                "nhs_number": "",
+                "phone_number": "",
+                "email": "thiru@mindwaveventures.com",
+                "notifications_consent": "",
+                "alderHey_number": "",
+                "clinic_code": "CC1",
+                "selected_provider": "AlderHey - Sefton CAMHS",
+                "appointment_detail": "30/06/2021 11.30",
+                "DOB": "2003-06-14 00:00:00"
+            }
+
+            let data = await axios({
+                method: 'post',
+                url: config.hccommsurl,
+                headers: { 'api-key': config.hccommskey, 'Content-Type': 'application/json' },
+                data: JSON.stringify(obj)
+            })
+            console.log(data, "datadata");
+            // success
+            if (data.response) {
+                saveAppointments(appointmentData)
+            }
+
         } else {
             // saveAppointments  
+            saveAppointments(appointmentData)
         }
 
     }
+}
+
+
+exports.getAppointmentDetails = async (ctx) => {
+    // find  by refferal
 }
 
 function saveAppointments(appointmentData) {
