@@ -2248,6 +2248,7 @@ exports.createAppointmentDetails = async (ctx) => {
     let appointmentData = {};
     if (ctx.request.status != booking) {
         // send service and call saveAppointments
+        //Appointment needed but 
         saveAppointments(appointmentData)
         // return
     } else {
@@ -2281,7 +2282,7 @@ exports.createAppointmentDetails = async (ctx) => {
             }
 
         } else {
-            // saveAppointments  
+            // saveAppointments   --Venus
             saveAppointments(appointmentData)
         }
 
@@ -2293,9 +2294,12 @@ exports.getAppointmentDetails = async (ctx) => {
     // find  by refferal
 }
 
-function saveAppointments(appointmentData) {
-    const Appointment = await appointment.create(appointmentData).catch((err) => {
-        console.log("error===", err);
-    })
-    return Appointment
+async function saveAppointments(appointmentData) {
+    try {
+        const Appointment = await appointment.create(appointmentData);
+        return Appointment
+    } catch(error) {
+        console.log("error===", error);
+        // return error;
+    }
 }
