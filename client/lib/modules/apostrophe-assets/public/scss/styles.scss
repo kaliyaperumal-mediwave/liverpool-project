@@ -4322,3 +4322,10 @@ img.info-icon {
     margin: auto 0px;
     cursor: pointer;
 }
+@media (max-width: 568px) {
+  #feedBackStars.rating {
+      margin-left: -35px;
+      width: calc(100% + 50px);
+      float: left;
+  }
+}
