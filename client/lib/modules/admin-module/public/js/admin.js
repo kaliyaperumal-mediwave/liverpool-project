@@ -104,7 +104,7 @@ $(document).ready(function () {
       }
       if (localStorage.role) {
         this.role = localStorage.role;
-        //console.log(this.role);
+        //////console.log(this.role);
       }
       this.fetchReferral();
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
       },
       fetchReferral: function () {
         var _self = this;
-        console.log(_self.urlToLoadData)
+        ////console.log(_self.urlToLoadData)
         $('th').on("click", function (event) {
           if ($(event.target).is("div"))
             event.stopImmediatePropagation();
@@ -193,7 +193,7 @@ $(document).ready(function () {
               };
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
-                console.log(referralRes.data.data[i].referrer_type)
+                ////console.log(referralRes.data.data[i].referrer_type)
                 var referralRole;
                 if (referralRes.data.data[i].referrer_type == "Young") {
                   referralRole = "Young Person";
@@ -204,7 +204,7 @@ $(document).ready(function () {
                 else {
                   referralRole = referralRes.data.data[i].referrer_type;
                 }
-                console.log(referralRes.data.data[i])
+                ////console.log(referralRes.data.data[i])
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -239,7 +239,7 @@ $(document).ready(function () {
           toDateCsv.move(0, 1);
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
-          console.log(finalFromRes, finalToRes)
+          // ////console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
           if (_self.hasValidDate1 || _self.hasValidDate2) {
@@ -251,11 +251,11 @@ $(document).ready(function () {
                 _self.showInvalidToDate = false;
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
-                console.log('from and to', getFromData, getToData)
+                ////console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
-                console.log(result)
+                ////console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
@@ -301,12 +301,12 @@ $(document).ready(function () {
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-                // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
-                //console.log(rows)
+                // ////console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                //////console.log(rows)
                 var encodedUri = encodeURI(csvContent);
-                //console.log(csvContent)
+                //////console.log(csvContent)
                 var blob = new Blob([csvContent], { type: "text/csv" });
-                //console.log(blob)
+                //////console.log(blob)
                 download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
@@ -353,7 +353,6 @@ $(document).ready(function () {
         });
 
         $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
-          debugger
           if (e.target.checked) {
             if (e.target.id == 'manualYPasBook') {
               $("#appointNeededArea").hide();
@@ -427,25 +426,12 @@ $(document).ready(function () {
         });
 
         $("#appointsNeedEmail").on("click", function (e) {
-          console.log('clicked');
+          ////console.log('clicked');
           _self.isYPasFormSubmitted = true;
         });
 
         $("#submitYpas").on("click", function (e) {
-          console.log('clicked');
-          _self.isYPasFormSubmitted = true;
-          if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-            if (!_self.checkYPasDateField) {
-              console.log('send respective payload')
-            } else {
-              $('#appointmentsModal').show();
-              return;
-            }
-
-          } else {
-            $('#appointmentsModal').show();
-            return;
-          }
+          ////console.log('clicked');
         });
 
 
@@ -463,6 +449,41 @@ $(document).ready(function () {
 
       capitalizeFirstLetter: function (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+
+      callAppointmentApi: function (sendAppointmentObj) {
+        console.log(sendAppointmentObj);
+        var _self = this;
+        _self.isYPasFormSubmitted = true;
+        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+          // if (_self.checkYPasDateField) {
+          // if target service provider is alder hey. we save the info to just db
+
+          $.ajax({
+            url: API_URI + '/bookAppointment',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(sendAppointmentObj),
+            success: function (res) {
+
+            },
+            error: function (error) {
+
+            }
+          });
+
+          console.log('send respective payload')
+          // } else {
+          //   $('#appointmentsModal').show();
+          //   return;
+          // }
+
+        } else {
+          $('#appointmentsModal').show();
+          return;
+        }
       },
 
 
@@ -654,6 +675,20 @@ $(document).ready(function () {
         }
       },
 
+      setDate: function (dbDate) {
+        var dateArray = dbDate.split("/");
+        var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+        var date = new Date(toOldFmt)
+        var yyyy = date.getFullYear().toString();
+        var mm = (date.getMonth() + 1).toString();
+        var dd = date.getDate().toString();
+
+        var mmChars = mm.split('');
+        var ddChars = dd.split('');
+        var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+        return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+      },
+
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
@@ -683,7 +718,7 @@ $(document).ready(function () {
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
-        //console.log()(successData)
+        //////console.log()(successData)
       },
       getActivity: function (uuid, value) {
         let result = apiCallGet('get', '/getActivity', API_URI);
@@ -692,13 +727,13 @@ $(document).ready(function () {
           o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
 
           // o['time'] = moment(o.createdAt).format('h:mm:ss')
-          //console.log(moment(o.createdAt).format('h:mm:ss'))
+          //////console.log(moment(o.createdAt).format('h:mm:ss'))
           return o.ReferralId == uuid;
         })
         specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-        //  console.log(specificReferral, "specificReferral");
+        //  ////console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-        // console.log(this.groupByActivityDate);
+        // ////console.log(this.groupByActivityDate);
       },
       setIntegration: function (e) {
         if (e.target.checked) {
@@ -715,7 +750,7 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-    // console.log('Datatables reload');
+    // ////console.log('Datatables reload');
     vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {
@@ -727,10 +762,25 @@ $(document).ready(function () {
     vueApp.getActivity(uuid, value);
     $('#actionlogModal').modal('show');
   }
+
+  bookAppointment = function (uuid, referralType, referranceCode, formType) {
+    var sendAppointmentObj = {};
+    sendAppointmentObj.ReferralId = uuid;
+    sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
+    sendAppointmentObj.status = $('#SelectYPasOrgTypes').val();
+    sendAppointmentObj.automatic_booking = {}
+    sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
+  //  sendAppointmentObj.date = $('#yPasDateField').val();
+    sendAppointmentObj.time = $('#yPasTimeField').val();
+    sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
+    sendAppointmentObjotherInfo = {};
+
+    vueApp.callAppointmentApi(sendAppointmentObj);
+  }
 });
 
 function viewPdf(uuid, role, other, formType) {
-  console.log(formType)
+  ////console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
@@ -801,7 +851,7 @@ function downloadCSV(uuid, value, other_value) {
 function updateStatus(uuid) {
   $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
-  console.log(status)
+  ////console.log(status)
   if (status) {
     setTimeout(function () {
       var postData = {
@@ -941,24 +991,13 @@ function changeAppointment(e) {
   $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
 }
 
-function openAppointmentsPopup(uuid, referralType, referranceCode,formType) {
+function openAppointmentsPopup(uuid, referralType, referranceCode, formType) {
   $('#appointmentsModal').modal('show');
-   document.getElementById('btnSubmitAppointments').setAttribute('onclick', 'bookAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
+  document.getElementById('btnSubmitAppointments').setAttribute('onclick', 'bookAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
 }
 
 
-function bookAppointment(uuid,referralType,referranceCode,formType)
-{
-  var sendAppointmentObj={};
-  sendAppointmentObj.uuid = uuid;
-  sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
-  sendAppointmentObj.status = $('#SelectYPasOrgTypes').val();
-  sendAppointmentObj.automatic_booking = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? 'yes' : false;
-  sendAppointmentObj.date = $('#yPasDateField').val();
-  sendAppointmentObj.time = $('#yPasTimeField').val();
-  console.log(sendAppointmentObj);
 
-}
 // function closeAppointsModal() {
 //   $("#yPasArea").show();
 //   $("#appointNeededArea").show();

@@ -4,12 +4,16 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable(
       'appointments', {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
       ReferralId: {
         type: Sequelize.UUID,
         references: {
           model: 'referrals',
           key: 'uuid',
-        },
+        }
       },
       status: {
         type: Sequelize.TEXT

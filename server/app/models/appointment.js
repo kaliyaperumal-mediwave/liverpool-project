@@ -1,5 +1,5 @@
 module.exports = function modelType(sequelize, types) {
-  const Type = sequelize.define('appointments', {
+  const appointments = sequelize.define('appointments', {
     ReferralId: {
       type: types.UUID,
       references: {
@@ -28,5 +28,5 @@ module.exports = function modelType(sequelize, types) {
   }, {
     tableName: 'appointments',
   });
-  return Type;
+  return appointments;
 };

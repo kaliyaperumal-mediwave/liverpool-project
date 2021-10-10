@@ -20,7 +20,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
-    console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
+    //console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             // console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -63,8 +63,6 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 //console.log(order)
             }
-
-            console.log(query)
 
             var referrals = await referralModel.findAll({
                 attributes: [
@@ -130,7 +128,7 @@ exports.getReferral = ctx => {
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
 
-                    console.log(refObj)
+                    //console.log(refObj)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
@@ -209,7 +207,7 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
-                    console.log(refObj.dataValues.referral_type)
+                    //console.log(refObj.dataValues.referral_type)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
@@ -2245,15 +2243,19 @@ exports.getCount = async (ctx) => {
 // appointments
 
 exports.createAppointmentDetails = async (ctx) => {
+
+    console.log("==========================gettting in==============================")
     let appointmentData = {};
-    if (ctx.request.status != booking) {
+    console.log(ctx.request.body)
+    if (ctx.request.status == "booking") {
         // send service and call saveAppointments
         //Appointment needed but 
-        saveAppointments(appointmentData)
+        //saveAppointments(appointmentData)
         // return
     } else {
-        if (service == "ypas") {
-
+        console.log("========================================================")
+        console.log(ctx.request.body.callHCC)
+        if (ctx.request.body.callHCC) {
             let obj = {
                 "title": "Mr",
                 "first_name": "Thiru Prasath",
@@ -2269,21 +2271,22 @@ exports.createAppointmentDetails = async (ctx) => {
                 "DOB": "2003-06-14 00:00:00"
             }
 
-            let data = await axios({
-                method: 'post',
-                url: config.hccommsurl,
-                headers: { 'api-key': config.hccommskey, 'Content-Type': 'application/json' },
-                data: JSON.stringify(obj)
-            })
-            console.log(data, "datadata");
-            // success
-            if (data.response) {
-                saveAppointments(appointmentData)
-            }
+            // let data = await axios({
+            //     method: 'post',
+            //     url: config.hccommsurl,
+            //     headers: { 'api-key': config.hccommskey, 'Content-Type': 'application/json' },
+            //     data: JSON.stringify(obj)
+            // })
+            // console.log(data, "datadata");
+            // // success
+            // if (data.response) {
+            //     saveAppointments(appointmentData)
+            // }
 
         } else {
             // saveAppointments   --Venus
-            saveAppointments(appointmentData)
+            console.log("getting in else part")
+            saveAppointments(ctx,ctx.request.body)
         }
 
     }
@@ -2294,9 +2297,14 @@ exports.getAppointmentDetails = async (ctx) => {
     // find  by refferal
 }
 
-async function saveAppointments(appointmentData) {
+async function saveAppointments(ctx,appointmentData) {
+    console.log("getting in appointmentData")
+    console.log(appointmentData)
+    const appointmentModel = ctx.orm().appointments;
+    console.log("appointmentModel :"+appointmentModel)
     try {
-        const Appointment = await appointment.create(appointmentData);
+        const Appointment = await appointmentModel.create(appointmentData);
+        console.log("Appointment: "+ Appointment)
         return Appointment
     } catch(error) {
         console.log("error===", error);
