@@ -2349,8 +2349,8 @@ exports.appointmentNeeded = async (ctx) => {
     console.log("ctx.request.body.referralData", ctx.request.body.ReferralId + ',' + ctx.request.body.role + ',' + ctx.request.body.service);
     let referralData = await getRefData(ctx.request.body.ReferralId, ctx.request.body.role, ctx);
     ctx.request.body.referralData = referralData;
-    ctx.request.body.emailToProvider = ctx.request.body.professional_email;
-    // ctx.request.body.referralCode = ctx.request.body.referralCode;
+    ctx.request.body.emailToProvider = ctx.request.body.service;
+    ctx.request.body.referralCode = ctx.request.body.referranceCode;
     ctx.request.body.sendProf = true;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
