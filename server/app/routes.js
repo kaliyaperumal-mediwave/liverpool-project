@@ -96,6 +96,7 @@ router.get('/admin/getCount', adminController.getCount);
 // Appointments
 router.post('/appointment/create', adminController.createAppointmentDetails);
 router.get('/appointment/get', adminController.getAppointmentDetails);
+router.post('/appointment/sendMail', adminController.appointmentNeeded);
 
 //Apis for form 2 
 //Sec 1

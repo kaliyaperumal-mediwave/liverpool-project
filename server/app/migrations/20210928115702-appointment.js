@@ -10,6 +10,7 @@ module.exports = {
       },
       ReferralId: {
         type: Sequelize.UUID,
+        unique: true,
         references: {
           model: 'referrals',
           key: 'uuid',

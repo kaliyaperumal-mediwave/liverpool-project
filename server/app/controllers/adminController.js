@@ -8,6 +8,8 @@ const email = require('../utils/email');
 const pdf = require('../utils/pdfgenerate');
 const callIaptusApi = require('../utils/sendReferralByApi');
 const convertToJson = require('../utils/convertCsvTOJson');
+var axios = require('axios');
+const config = require('../config');
 
 const gpCodes = [
     {
@@ -772,11 +774,6 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-
-    console.log(ctx.request.body.emailToProvider == 'YPAS')
-    console.log(ctx.request.body.emailToProvider == 'Venus')
-    console.log("--------------------------------------------------------------------------")
-
     const flagTbl = ctx.orm().miscellaneousFlag;
     return flagTbl.findOne({
         attributes: ['flag', 'value'],
@@ -951,7 +948,7 @@ function getRefData(refID, refRole, ctx) {
             where: {
                 uuid: refID,
             },
-            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'registered_gp_postcode', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school', 'contact_person', 'contact_preferences', 'reference_code','referral_type']
+            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'registered_gp_postcode', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school', 'contact_person', 'contact_preferences', 'reference_code', 'referral_type']
         }).then((eligibilityObj) => {
 
             return user.findOne({
@@ -978,7 +975,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: eligibilityObj.id,
                     },
-                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
                 }).then((educationObj) => {
 
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
@@ -1174,7 +1171,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
                             },
                         ],
                         where: {
@@ -1414,7 +1411,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode','referral_type']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode', 'referral_type']
             }).then((elgibilityObj) => {
 
                 var childIdNew;
@@ -1454,7 +1451,7 @@ function getRefData(refID, refRole, ctx) {
                                 model: ctx.orm().Referral,
                                 nested: true,
                                 as: includeModalName,
-                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
                             },
                         ],
                         where: {
@@ -1484,7 +1481,7 @@ function getRefData(refID, refRole, ctx) {
                             var getChildDob;
                             var getChildAge;
 
-                            console.log('----------elgibilityObj--------------',elgibilityObj);
+                            console.log('----------elgibilityObj--------------', elgibilityObj);
 
                             if (ctx.query.formType == 'child') {
                                 section1Obj = {
@@ -1509,7 +1506,7 @@ function getRefData(refID, refRole, ctx) {
                                     reference_code: elgibilityObj.reference_code,
                                     contact_preferences: elgibilityObj.contact_preferences,
                                     contact_person: elgibilityObj.contact_person,
-                                    referral_type:elgibilityObj.referral_type
+                                    referral_type: elgibilityObj.referral_type
 
                                 }
                                 section2Obj = {
@@ -1592,7 +1589,7 @@ function getRefData(refID, refRole, ctx) {
                                     reference_code: elgibilityObj.reference_code,
                                     contact_preferences: elgibilityObj.contact_preferences,
                                     contact_person: elgibilityObj.contact_person,
-                                    referral_type:elgibilityObj.referral_type
+                                    referral_type: elgibilityObj.referral_type
                                 }
                                 section2Obj = {
                                     child_id: aboutObj[0].family[0].id,
@@ -1895,7 +1892,7 @@ exports.getActivity = async (ctx) => {
             { model: ctx.orm().User, as: 'userInfo' },
             {
                 model: ctx.orm().Referral, as: 'referralInfo', attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status','referral_type',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode', 'referral_complete_status', 'referral_type',
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_firstname'), sequelize.col('referralInfo.professional.child_firstname'), sequelize.col('referralInfo.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_lastname'), sequelize.col('referralInfo.professional.child_lastname'), sequelize.col('referralInfo.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp'), sequelize.col('referralInfo.parent.registered_gp'), sequelize.col('referralInfo.professional.registered_gp')), 'gp_location'],
@@ -1908,14 +1905,14 @@ exports.getActivity = async (ctx) => {
                     {
                         model: ctx.orm().Referral,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode','referral_type',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type',
                         ]
                     },
                     {
                         model: ctx.orm().Referral,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode','referral_type',
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode', 'referral_type',
                         ]
                     },
                     {
@@ -2033,7 +2030,7 @@ exports.getActivity = async (ctx) => {
                     refObj.dataValues.gp_location_postcode = refObj.professional2[0].dataValues.registered_gp_postcode
                 }
             }
-            
+
 
             var referralObj = {
                 uuid: refObj.uuid,
@@ -2256,37 +2253,51 @@ exports.createAppointmentDetails = async (ctx) => {
         console.log("========================================================")
         console.log(ctx.request.body.callHCC)
         if (ctx.request.body.callHCC) {
-            let obj = {
-                "title": "Mr",
-                "first_name": "Thiru Prasath",
-                "last_name": "Ganesan",
-                "nhs_number": "",
-                "phone_number": "",
-                "email": "thiru@mindwaveventures.com",
-                "notifications_consent": "",
-                "alderHey_number": "",
-                "clinic_code": "CC1",
-                "selected_provider": "AlderHey - Sefton CAMHS",
-                "appointment_detail": "30/06/2021 11.30",
-                "DOB": "2003-06-14 00:00:00"
-            }
+            try {
 
-            // let data = await axios({
-            //     method: 'post',
-            //     url: config.hccommsurl,
-            //     headers: { 'api-key': config.hccommskey, 'Content-Type': 'application/json' },
-            //     data: JSON.stringify(obj)
-            // })
-            // console.log(data, "datadata");
-            // // success
-            // if (data.response) {
-            //     saveAppointments(appointmentData)
-            // }
+                // const payloadData=await appointmentModel.findOne(
+                //     { where: {ReferralId : appointmentData.ReferralId},}
+                //     )
+
+                let obj = {
+                    "title": "Mr",
+                    "first_name": "Thiru Prasath",
+                    "last_name": "Ganesan",
+                    "nhs_number": "",
+                    "phone_number": "",
+                    "email": "thiru@mindwaveventures.com",
+                    "notifications_consent": "",
+                    "alderHey_number": "",
+                    "clinic_code": "CC1",
+                    "selected_provider": "AlderHey - Sefton CAMHS",
+                    "appointment_detail": "30/06/2021 11.30",
+                    "DOB": "2003-06-14 00:00:00"
+                }
+
+                // let data = await axios({
+                //     method: 'post',
+                //     url: config.hccommsurl,
+                //     headers: { 'key': config.hccommskey, 'Content-Type': 'application/json' },
+                //     data: JSON.stringify(obj)
+                // })
+                // console.log(data.data.response[0].code)
+                // console.log(data.response, "datadata");
+                // // success
+                // if (data.data.response[0].code==1002) {
+                //     saveAppointments(ctx, ctx.request.body)
+                // }
+                // else
+                // {
+                //     console.log("There is error in HCC comms API")
+                // }
+            } catch (error) {
+                console.log(error)
+            }
 
         } else {
             // saveAppointments   --Venus
             console.log("getting in else part")
-            saveAppointments(ctx,ctx.request.body)
+            saveAppointments(ctx, ctx.request.body)
         }
 
     }
@@ -2297,16 +2308,58 @@ exports.getAppointmentDetails = async (ctx) => {
     // find  by refferal
 }
 
-async function saveAppointments(ctx,appointmentData) {
+
+exports.appointmentNeeded = async (ctx) => {
+    console.log(ctx.request.body)
+    console.log("ctx.request.body.referralData", ctx.request.body.ReferralId + ',' + ctx.request.body.role + ',' + ctx.request.body.service);
+    let referralData = await getRefData(ctx.request.body.ReferralId, ctx.request.body.role, ctx);
+    ctx.request.body.referralData = referralData;
+    ctx.request.body.emailToProvider = ctx.request.body.professional_email;
+    // ctx.request.body.referralCode = ctx.request.body.referralCode;
+    ctx.request.body.sendProf = true;
+    try {
+        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+            console.log(sendReferralStatus)
+            return ctx.res.ok({
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            console.log("false")
+            return false;
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+async function saveAppointments(ctx, appointmentData) {
     console.log("getting in appointmentData")
     console.log(appointmentData)
     const appointmentModel = ctx.orm().appointments;
-    console.log("appointmentModel :"+appointmentModel)
+    console.log("appointmentModel :" + appointmentModel)
     try {
-        const Appointment = await appointmentModel.create(appointmentData);
-        console.log("Appointment: "+ Appointment)
-        return Appointment
-    } catch(error) {
+        const updateOrCreate=await appointmentModel.findOne(
+            { where: {ReferralId : appointmentData.ReferralId},}
+            )
+        if(!updateOrCreate)
+        {
+            const bookAppointment = await appointmentModel.create(appointmentData);
+            console.log("Book Appointment: " + bookAppointment)
+            return Appointment
+        }
+       else
+       {
+        const updateAppointment = await appointmentModel.update(appointmentData, {
+            where: {
+                ReferralId : appointmentData.ReferralId,
+            },
+            returning: true,
+          });
+          console.log("update Appointment: " + updateAppointment)
+       }
+       
+    } catch (error) {
         console.log("error===", error);
         // return error;
     }

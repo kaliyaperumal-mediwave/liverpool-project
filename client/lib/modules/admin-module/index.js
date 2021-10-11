@@ -245,8 +245,19 @@ module.exports = {
 
     self.route('post', 'bookAppointment', function (req, res) {
       console.log("bookAppointment")
-      console.log(req.body)
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/appointment/create';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+      //  //console.log(data)
+        return res.send(data);
+      }).catch((error) => {
+        //console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+    self.route('post', 'needAppointment', function (req, res) {
+      console.log("needAppointment")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/appointment/sendMail';
       self.middleware.post(req, res, url, req.body).then((data) => {
       //  //console.log(data)
         return res.send(data);

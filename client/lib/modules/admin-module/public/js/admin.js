@@ -65,7 +65,8 @@ $(document).ready(function () {
         A: ""
       },
       checkYPasDateField: false,
-      isYPasFormSubmitted: false
+      isYPasFormSubmitted: false,
+      emailServiceProvider:''
 
     },
 
@@ -428,6 +429,7 @@ $(document).ready(function () {
         $("#appointsNeedEmail").on("click", function (e) {
           ////console.log('clicked');
           _self.isYPasFormSubmitted = true;
+
         });
 
         $("#submitYpas").on("click", function (e) {
@@ -486,6 +488,23 @@ $(document).ready(function () {
         }
       },
 
+      callNeedAppointmentApi: function (sendAppointmentObj) {
+        console.log(sendAppointmentObj);
+          $.ajax({
+            url: API_URI + '/needAppointment',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(sendAppointmentObj),
+            success: function (res) {
+
+            },
+            error: function (error) {
+
+            }
+          });
+      },
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -763,19 +782,30 @@ $(document).ready(function () {
     $('#actionlogModal').modal('show');
   }
 
-  bookAppointment = function (uuid, referralType, referranceCode, formType) {
+  bookAppointment = function (uuid, role, referranceCode, formType) {
     var sendAppointmentObj = {};
     sendAppointmentObj.ReferralId = uuid;
     sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
-    sendAppointmentObj.status = $('#SelectYPasOrgTypes').val();
+    sendAppointmentObj.status = "Appointment booked";
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
   //  sendAppointmentObj.date = $('#yPasDateField').val();
     sendAppointmentObj.time = $('#yPasTimeField').val();
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
+    sendAppointmentObj.role = role;
     sendAppointmentObjotherInfo = {};
 
     vueApp.callAppointmentApi(sendAppointmentObj);
+  }
+
+  needAppointment = function (uuid, role, referranceCode, formType) {
+    var sendAppointmentObj = {};
+    sendAppointmentObj.ReferralId = uuid;
+    sendAppointmentObj.service = $('#SelectedProvider').val();
+    sendAppointmentObj.status = "Appointment needed";
+    sendAppointmentObj.role = role;
+    sendAppointmentObj.referranceCode = referranceCode;
+    vueApp.callNeedAppointmentApi(sendAppointmentObj);
   }
 });
 
@@ -994,6 +1024,7 @@ function changeAppointment(e) {
 function openAppointmentsPopup(uuid, referralType, referranceCode, formType) {
   $('#appointmentsModal').modal('show');
   document.getElementById('btnSubmitAppointments').setAttribute('onclick', 'bookAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
+  document.getElementById('appointsNeedEmail').setAttribute('onclick', 'needAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
 }
 
 
