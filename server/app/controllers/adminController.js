@@ -64,7 +64,7 @@ exports.getReferral = ctx => {
                 //console.log(order)
             }
 
-            console.log(query)
+            //console.log(query)
 
             var referrals = await referralModel.findAll({
                 attributes: [
@@ -209,7 +209,7 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
-                    console.log(refObj.dataValues.referral_type)
+                   // console.log(refObj.dataValues.referral_type)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
