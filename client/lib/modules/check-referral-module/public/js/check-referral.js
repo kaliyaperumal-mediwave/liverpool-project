@@ -77,7 +77,7 @@ $(document).ready(function () {
                     success: function (data) {
                         $('#loader').hide();
                         let setObj = {};
-                        ////console.log(data)
+                        console.log(data)
                         _self.displayReferrals = data;
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];

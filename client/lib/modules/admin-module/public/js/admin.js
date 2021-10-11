@@ -469,10 +469,16 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(sendAppointmentObj),
             success: function (res) {
-
+              $('#appointmentsModal').modal('hide');
+              _self.successMessage = res.message;
+              
+              $('#deletedSuccess').modal('show');
             },
             error: function (error) {
-
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
             }
           });
 
@@ -490,6 +496,7 @@ $(document).ready(function () {
 
       callNeedAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
+        var _self = this;
           $.ajax({
             url: API_URI + '/needAppointment',
             type: 'post',
@@ -498,10 +505,16 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(sendAppointmentObj),
             success: function (res) {
-
+              $('#appointmentsModal').modal('hide');
+              _self.successMessage = res.message;
+              
+              $('#deletedSuccess').modal('show');
             },
             error: function (error) {
-
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
             }
           });
       },

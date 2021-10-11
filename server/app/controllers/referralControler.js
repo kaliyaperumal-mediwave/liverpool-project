@@ -2958,6 +2958,13 @@ exports.getUserReferral = ctx => {
     query.login_id = ctx.request.decryptedUser.id;
   }
   return ref.findAll({
+    include: [
+      {
+        model: ctx.orm().appointments,
+        as: 'referralAppointments',
+      },
+    ],
+    
     where: query,
     order: [
       ['updatedAt', 'DESC'],
@@ -2975,7 +2982,10 @@ exports.getUserReferral = ctx => {
     })
 
     return ctx.body = result
-  })
+  }).catch((error) => {
+    console.log(error)
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 }
 function convertDate(date) {
   var yyyy = date.getFullYear().toString();
