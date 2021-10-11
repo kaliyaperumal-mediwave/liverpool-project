@@ -2240,7 +2240,7 @@ exports.getCount = async (ctx) => {
 // appointments
 
 exports.createAppointmentDetails = async (ctx) => {
-
+    const referralModel = ctx.orm().Referral;
     console.log("==========================gettting in==============================")
     let appointmentData = {};
     console.log(ctx.request.body)
@@ -2254,47 +2254,82 @@ exports.createAppointmentDetails = async (ctx) => {
         console.log(ctx.request.body.callHCC)
         if (ctx.request.body.callHCC) {
             try {
-
-                // const payloadData=await appointmentModel.findOne(
-                //     { where: {ReferralId : appointmentData.ReferralId},}
-                //     )
-
+                ctx.request.body.ReferralId = "8f73581c-4e0c-4c85-bb68-4c0c1e0e67ba"
+                var referral = await referralModel.findOne({
+                    attributes: [
+                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS',
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    ],
+                    where: {
+                        uuid: ctx.request.body.ReferralId
+                    },
+                    include: [
+                        {
+                            model: referralModel,
+                            as: 'parent',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'professional',
+                            attributes: [
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'family',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'professional2',
+                            attributes: [
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob'
+                            ]
+                        },
+                    ],
+                })
                 let obj = {
                     "title": "Mr",
-                    "first_name": "Thiru Prasath",
-                    "last_name": "Ganesan",
-                    "nhs_number": "",
-                    "phone_number": "",
-                    "email": "thiru@mindwaveventures.com",
-                    "notifications_consent": "",
+                    "first_name": referral.name,
+                    "last_name": referral.lastname,
+                    "nhs_number": referral.child_NHS,
+                    "phone_number": referral.child_contact_number,
+                    "email": referral.child_email ? referral.child_email : null,
+                    "notifications_consent": referral.contact_preferences ? referral.contact_preferencesconsent : null,
                     "alderHey_number": "",
                     "clinic_code": "CC1",
-                    "selected_provider": "AlderHey - Sefton CAMHS",
-                    "appointment_detail": "30/06/2021 11.30",
-                    "DOB": "2003-06-14 00:00:00"
+                    "selected_provider": referral.referral_provider,
+                    "appointment_detail": appointmentData.datetime,
+                    "DOB": referral.dob
                 }
-
-                // let data = await axios({
-                //     method: 'post',
-                //     url: config.hccommsurl,
-                //     headers: { 'key': config.hccommskey, 'Content-Type': 'application/json' },
-                //     data: JSON.stringify(obj)
-                // })
-                // console.log(data.data.response[0].code)
-                // console.log(data.response, "datadata");
-                // // success
-                // if (data.data.response[0].code==1002) {
-                //     saveAppointments(ctx, ctx.request.body)
-                // }
-                // else
-                // {
-                //     console.log("There is error in HCC comms API")
-                // }
+                console.log(obj, "obj========");
+                let data = await axios({
+                    method: 'post',
+                    url: config.hccommsurl,
+                    headers: { 'key': config.hccommskey, 'Content-Type': 'application/json' },
+                    data: JSON.stringify(obj)
+                })
+                console.log(data.data.response[0].code)
+                console.log(data.response, "datadata");
+                // success
+                if (data.data.response[0].code == 1002) {
+                    saveAppointments(ctx, ctx.request.body)
+                }
+                else {
+                    console.log("There is error in HCC comms API")
+                }
             } catch (error) {
                 console.log(error)
             }
 
-        } else {
+        }
+        else {
             // saveAppointments   --Venus
             console.log("getting in else part")
             saveAppointments(ctx, ctx.request.body)
@@ -2339,26 +2374,24 @@ async function saveAppointments(ctx, appointmentData) {
     const appointmentModel = ctx.orm().appointments;
     console.log("appointmentModel :" + appointmentModel)
     try {
-        const updateOrCreate=await appointmentModel.findOne(
-            { where: {ReferralId : appointmentData.ReferralId},}
-            )
-        if(!updateOrCreate)
-        {
+        const updateOrCreate = await appointmentModel.findOne(
+            { where: { ReferralId: appointmentData.ReferralId }, }
+        )
+        if (!updateOrCreate) {
             const bookAppointment = await appointmentModel.create(appointmentData);
             console.log("Book Appointment: " + bookAppointment)
             return Appointment
         }
-       else
-       {
-        const updateAppointment = await appointmentModel.update(appointmentData, {
-            where: {
-                ReferralId : appointmentData.ReferralId,
-            },
-            returning: true,
-          });
-          console.log("update Appointment: " + updateAppointment)
-       }
-       
+        else {
+            const updateAppointment = await appointmentModel.update(appointmentData, {
+                where: {
+                    ReferralId: appointmentData.ReferralId,
+                },
+                returning: true,
+            });
+            console.log("update Appointment: " + updateAppointment)
+        }
+
     } catch (error) {
         console.log("error===", error);
         // return error;
