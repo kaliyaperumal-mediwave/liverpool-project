@@ -2295,7 +2295,7 @@ exports.createAppointmentDetails = async (ctx) => {
                     ],
                 })
                 let obj = {
-                    "title": "Mr",
+                    "title": referral.child_name_title,
                     "first_name": referral.name,
                     "last_name": referral.lastname,
                     "nhs_number": referral.child_NHS,
