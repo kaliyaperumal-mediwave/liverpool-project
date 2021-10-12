@@ -2948,6 +2948,7 @@ exports.getIncompleteReferral = ctx => {
 }
 exports.getUserReferral = ctx => {
   const ref = ctx.orm().Referral;
+  console.log(ctx.orm().appointments)
   var query = {
     referral_progress: {
       [Op.ne]: null
@@ -2961,7 +2962,6 @@ exports.getUserReferral = ctx => {
     include: [
       {
         model: ctx.orm().appointments,
-        as: 'referralAppointments',
       },
     ],
     
@@ -3006,6 +3006,11 @@ exports.getReferalByCode = ctx => {
   if (!ctx.request.decryptedUser) //checking login user or not.for logged user we must fetch referrals made by them. 
   {
     return ref.findAll({
+      include: [
+        {
+          model: ctx.orm().appointments,
+        },
+      ],
       where: {
         reference_code: {
           [Op.like]: '%' + ctx.query.reqCode + '%'
@@ -3024,6 +3029,11 @@ exports.getReferalByCode = ctx => {
   }
   else {
     return ref.findAll({
+      include: [
+        {
+          model: ctx.orm().appointments,
+        },
+      ],
       where: {
         login_id: ctx.request.decryptedUser.id,
 
@@ -3050,6 +3060,12 @@ exports.searchReferalByCode = ctx => {
   if (!ctx.request.decryptedUser) //checking login user or not.for logged user we must fetch referrals made by them. 
   {
     return ref.findAll({
+      include: [
+        {
+          model: ctx.orm().appointments,
+        },
+      ],
+
       where: {
         reference_code: ctx.query.reqCode,
         referral_complete_status: 'completed'
@@ -3063,6 +3079,11 @@ exports.searchReferalByCode = ctx => {
   }
   else {
     return ref.findAll({
+      include: [
+        {
+          model: ctx.orm().appointments,
+        },
+      ],
       where: {
         reference_code: ctx.query.reqCode,
         login_id: ctx.request.decryptedUser.id,

@@ -343,12 +343,11 @@ module.exports = function modelUser(sequelize, types) {
     foreignKey: 'professionalId'
   });
 
-
-  Referral.belongsToMany(sequelize.models.appointments, {
-    as: 'referralAppointments',
-    through: 'Referralappointments',
-    foreignKey: 'ReferralId'
-  });
+  Referral.associate = models => {
+    Referral.hasOne(models.appointments, { 
+      sourceKey:"uuid",
+      foreignKey: "ReferralId" }) // If only one portfolio per user
+}
 
   return Referral;
 };

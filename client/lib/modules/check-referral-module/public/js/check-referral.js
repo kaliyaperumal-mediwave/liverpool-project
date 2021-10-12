@@ -269,6 +269,7 @@ $(document).ready(function () {
                         contentType: 'application/json',
                         cache: false,
                         success: function (data) {
+                            console.log(data)
                             _self.searchReferrals = data
 
                             if (_self.searchReferrals[0].referral_status == 'Accepted - Alder Hey') //2
@@ -318,6 +319,14 @@ $(document).ready(function () {
                                 var refStatus = _self.searchReferrals[0].referral_status
                                 refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                                 _self.searchReferrals[0].referral_status = refStatus
+                            }
+
+                            if(_self.searchReferrals[0].appointment!=null)
+                            {
+                                if(_self.searchReferrals[0].appointment.status=='Appointment booked')
+                                {
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on" +  _self.searchReferrals[0].appointment.date + _self.searchReferrals[0].appointment.time
+                                }
                             }
 
 

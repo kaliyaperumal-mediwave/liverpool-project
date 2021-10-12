@@ -29,12 +29,8 @@ module.exports = function modelType(sequelize, types) {
     tableName: 'appointments',
   });
 
-  appointments.associate = function (models) {
-    appointments.belongsTo(models.Referral, {
-        as: 'referralInfo',
-        foreignKey: 'ReferralId',
-        targetKey: 'uuid'
-    })
+  appointments.associate = models => {
+    appointments.belongsTo(models.Referral, { foreignKey: "ReferralId" })
 }
 
   return appointments;
