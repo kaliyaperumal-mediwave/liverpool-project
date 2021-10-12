@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     var userPlatform = getMobileOperatingSystem();
+    var dynamicVoiceOverContent = $('#dynamicVoiceOverContent').text();
     if (userPlatform == 'Android') {
         var ssu = new SpeechSynthesisUtterance();
         var myEvent = window.attachEvent || window.addEventListener;
@@ -14,7 +15,7 @@ $(document).ready(function () {
         }
         var title = $('#voiceOverTitle').text();
         title = title.trim();
-        var description = $('#voiceOverDescription').text();
+        var description = $('#' + dynamicVoiceOverContent).text();
         description = description.trim();
 
         $('#playAndroidButton').on('click', function (e) {
@@ -87,7 +88,7 @@ $(document).ready(function () {
             }
             var title = $('#voiceOverTitle').text();
             title = title.trim();
-            var description = $('#voiceOverDescription').text();
+            var description = $('#' + dynamicVoiceOverContent).text();
             description = description.trim();
             // optimisation needed
             // $("#playButton").hide();
