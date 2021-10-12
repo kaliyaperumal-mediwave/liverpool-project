@@ -342,5 +342,12 @@ module.exports = function modelUser(sequelize, types) {
     through: 'ChildProfessional',
     foreignKey: 'professionalId'
   });
+
+  Referral.associate = models => {
+    Referral.hasOne(models.appointments, { 
+      sourceKey:"uuid",
+      foreignKey: "ReferralId" }) // If only one portfolio per user
+}
+
   return Referral;
 };

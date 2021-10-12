@@ -77,7 +77,7 @@ $(document).ready(function () {
                     success: function (data) {
                         $('#loader').hide();
                         let setObj = {};
-                        ////console.log(data)
+                        console.log(data)
                         _self.displayReferrals = data;
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];
@@ -132,6 +132,18 @@ $(document).ready(function () {
                                     var refStatus = _self.displayReferrals[i].referral_status
                                     refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                                     _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                if(_self.displayReferrals[i].appointment)
+                                {
+                                    if(_self.displayReferrals[i].appointment.status=='Appointment booked')
+                                    {
+                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) +" at "+  _self.displayReferrals[i].appointment.time
+                                    }
+
+                                    if(_self.displayReferrals[i].appointment.status=='Appointment needed')
+                                    {
+                                        _self.displayReferrals[i].appointment_status = "Appointment needed"
+                                    }
                                 }
                             }
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
@@ -269,6 +281,7 @@ $(document).ready(function () {
                         contentType: 'application/json',
                         cache: false,
                         success: function (data) {
+                            console.log(data)
                             _self.searchReferrals = data
 
                             if (_self.searchReferrals[0].referral_status == 'Accepted - Alder Hey') //2
@@ -320,6 +333,14 @@ $(document).ready(function () {
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
 
+                            if(_self.searchReferrals[0].appointment!=null)
+                            {
+                                if(_self.searchReferrals[0].appointment.status=='Appointment booked')
+                                {
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
+                                }
+                            }
+
 
                             //console.log(data)
                         },
@@ -331,6 +352,20 @@ $(document).ready(function () {
                         }
                     });
                 }
+            },
+
+
+            convertDate: function (dbDate) {
+                var date = new Date(dbDate)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString();
+                var dd = date.getDate().toString();
+
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                this.dateFmt = yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
+                return showDate;
             },
 
 
@@ -396,6 +431,13 @@ $(document).ready(function () {
                             var refStatus = _self.searchReferrals[0].referral_status
                             refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                             _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        if(_self.searchReferrals[0].appointment!=null)
+                        {
+                            if(_self.searchReferrals[0].appointment.status=='Appointment booked')
+                            {
+                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
+                            }
                         }
 
                         _self.viewReferralObj.searchTxt = searchCode;

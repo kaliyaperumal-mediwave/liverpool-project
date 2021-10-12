@@ -1,9 +1,11 @@
 var API_URI = "/modules/admin-module";
+
 $(document).ready(function () {
   $('#uniqueLogo').hide();
-  $('#footer-placement').hide()
+  $('#footer-placement').hide();
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
+  Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
   }
@@ -50,7 +52,22 @@ $(document).ready(function () {
       integrationData: "",
       loggedServiceAdmin: "",
       hasValidDate1: false,
-      hasValidDate2: false
+      hasValidDate2: false,
+      showManualYPasForm1: false,
+      showManualYPasForm2: false,
+      yPasOrgTypes: "",
+      yPasAlderHey: "",
+      yPasDate: "",
+      //yPasTime: "",
+      yPasTime: {
+        HH: "",
+        mm: "",
+        A: ""
+      },
+      checkYPasDateField: false,
+      isYPasFormSubmitted: false,
+      emailServiceProvider:''
+
     },
 
     beforeMount: function () {
@@ -71,8 +88,6 @@ $(document).ready(function () {
         this.yearArr.push(i);
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
-      console.log(this.archivePage)
-      console.log(document.getElementById('loginAsAdmin').innerHTML)
       if (document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Liverpool CAMHS" || document.getElementById('loginAsAdmin').innerHTML == "Alder Hey - Sefton CAMHS") {
         this.loggedServiceAdmin = "Accepted - Alder Hey";
       }
@@ -90,7 +105,7 @@ $(document).ready(function () {
       }
       if (localStorage.role) {
         this.role = localStorage.role;
-        //console.log(this.role);
+        //////console.log(this.role);
       }
       this.fetchReferral();
 
@@ -114,7 +129,7 @@ $(document).ready(function () {
       },
       fetchReferral: function () {
         var _self = this;
-        console.log(_self.urlToLoadData)
+        ////console.log(_self.urlToLoadData)
         $('th').on("click", function (event) {
           if ($(event.target).is("div"))
             event.stopImmediatePropagation();
@@ -171,7 +186,6 @@ $(document).ready(function () {
             cache: false,
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
-              console.log(referralRes, "referralRes");
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -180,7 +194,7 @@ $(document).ready(function () {
               };
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
-                console.log(referralRes.data.data[i].referrer_type)
+                ////console.log(referralRes.data.data[i].referrer_type)
                 var referralRole;
                 if (referralRes.data.data[i].referrer_type == "Young") {
                   referralRole = "Young Person";
@@ -191,6 +205,7 @@ $(document).ready(function () {
                 else {
                   referralRole = referralRes.data.data[i].referrer_type;
                 }
+                ////console.log(referralRes.data.data[i])
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -205,7 +220,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i] + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -225,7 +240,7 @@ $(document).ready(function () {
           toDateCsv.move(0, 1);
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
-          console.log(finalFromRes, finalToRes)
+          // ////console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
           if (_self.hasValidDate1 || _self.hasValidDate2) {
@@ -237,11 +252,11 @@ $(document).ready(function () {
                 _self.showInvalidToDate = false;
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
-                console.log('from and to', getFromData, getToData)
+                ////console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
-                console.log(result)
+                ////console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
@@ -254,7 +269,7 @@ $(document).ready(function () {
                   }
 
                   var referralRole;
-                  if (result.data.filter_referrals[i].referrer_type== "Young") {
+                  if (result.data.filter_referrals[i].referrer_type == "Young") {
                     referralRole = "Young Person";
                   }
                   else if (result.data.filter_referrals[i].referrer_type == "Family") {
@@ -287,12 +302,12 @@ $(document).ready(function () {
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-                // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
-                //console.log(rows)
+                // ////console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                //////console.log(rows)
                 var encodedUri = encodeURI(csvContent);
-                //console.log(csvContent)
+                //////console.log(csvContent)
                 var blob = new Blob([csvContent], { type: "text/csv" });
-                //console.log(blob)
+                //////console.log(blob)
                 download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
@@ -338,6 +353,98 @@ $(document).ready(function () {
 
         });
 
+        $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
+          if (e.target.checked) {
+            if (e.target.id == 'manualYPasBook') {
+              $("#appointNeededArea").hide();
+              $("#showYPasOrgs").removeClass('d-none').addClass('d-block');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            } else if (e.target.id == 'appointNeeded') {
+              $("#yPasArea").hide();
+              $("#showAppointsNeedEmail").removeClass('d-none').addClass('d-block');
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+            }
+          } else {
+            if (e.target.id == 'manualYPasBook') {
+              $("#appointNeededArea").show();
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            } else if (e.target.id == 'appointNeeded') {
+              $("#yPasArea").show();
+              $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+              $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            }
+          }
+          _self.yPasOrgTypes = "";
+          _self.yPasDate = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
+          _self.yPasAlderHey = "";
+          $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+        });
+
+        $("#yPasDateField").on("keyup", function (e) {
+          if (_self.isValidDate(e.target.value)) {
+            var dateValue = e.target.value;
+            var dateFormat = "DD/MM/YYYY"
+            var utc = moment(dateValue, dateFormat, true)
+            var isUtc = utc.isValid();
+            var currentYear = new Date().getFullYear();
+            var setYearValue = dateValue.split('/');
+            var getYearValue = setYearValue[2];
+            if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+              if (_self.isFutureDate(e.target.value) || !isUtc) {
+                _self.checkYPasDateField = true;
+              } else {
+                _self.checkYPasDateField = false;
+              }
+            } else {
+              _self.checkYPasDateField = true;
+            }
+          } else {
+            _self.checkYPasDateField = true;
+          }
+
+        });
+
+        $("#766dc4f6-a911-4717-a684-e3345a97d53b").on("click", function (e) {
+          $("#yPasArea").show();
+          $("#appointNeededArea").show();
+          _self.isYPasFormSubmitted = false;
+          _self.yPasOrgTypes = "";
+          _self.yPasAlderHey = "";
+          _self.yPasDate = "";
+          _self.yPasTime.hh = "";
+          _self.yPasTime.mm = "";
+          _self.yPasTime.A = "";
+          $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+          $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+          $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+          $("#manualYPasBook").prop("checked", false);
+          $("#appointNeeded").prop("checked", false);
+          $('#appointmentsModal').modal('hide');
+        });
+
+        $("#appointsNeedEmail").on("click", function (e) {
+          ////console.log('clicked');
+          _self.isYPasFormSubmitted = true;
+
+        });
+
+        $("#submitYpas").on("click", function (e) {
+          ////console.log('clicked');
+        });
+
+
+        $("#SelectYPasOrgTypes").on("change", function (e) {
+          $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
+          _self.yPasDateField = "";
+          _self.yPasTimeField = "";
+          _self.yPasAlderHey = "";
+
+        });
+
         this.referral_ids = [];
         $('#loader').hide();
       },
@@ -346,6 +453,71 @@ $(document).ready(function () {
         return string.charAt(0).toUpperCase() + string.slice(1);
       },
 
+      callAppointmentApi: function (sendAppointmentObj) {
+        console.log(sendAppointmentObj);
+        var _self = this;
+        _self.isYPasFormSubmitted = true;
+        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+          // if (_self.checkYPasDateField) {
+          // if target service provider is alder hey. we save the info to just db
+
+          $.ajax({
+            url: API_URI + '/bookAppointment',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(sendAppointmentObj),
+            success: function (res) {
+              $('#appointmentsModal').modal('hide');
+              _self.successMessage = res.message;
+              
+              $('#deletedSuccess').modal('show');
+            },
+            error: function (error) {
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
+            }
+          });
+
+          console.log('send respective payload')
+          // } else {
+          //   $('#appointmentsModal').show();
+          //   return;
+          // }
+
+        } else {
+          $('#appointmentsModal').show();
+          return;
+        }
+      },
+
+      callNeedAppointmentApi: function (sendAppointmentObj) {
+        console.log(sendAppointmentObj);
+        var _self = this;
+          $.ajax({
+            url: API_URI + '/needAppointment',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(sendAppointmentObj),
+            success: function (res) {
+              $('#appointmentsModal').modal('hide');
+              _self.successMessage = res.message;
+              
+              $('#deletedSuccess').modal('show');
+            },
+            error: function (error) {
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
+            }
+          });
+      },
 
       selectcheck: function (checked, id) {
         if (checked) {
@@ -535,48 +707,19 @@ $(document).ready(function () {
         }
       },
 
-      checkValidDate: function (id, key, duplicateKey) {
-        var dateElement = document.querySelector(id);
-        var input = dateElement.value;
-        if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-        var values = input.split('/').map(function (v) {
-          return v.replace(/\D/g, '')
-        });
-        var currentDate = {
-          year: new Date().getFullYear(),
-          month: parseInt(new Date().getMonth()) + 1,
-          date: new Date().getDate()
-        }
-        if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
-          values[2] = 2021;
-        } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
-          values[2] = 1900;
-        }
-        if (values[1]) {
-          if (values[2]) {
-            values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
-            values[1] = ("0" + values[1]).slice(-2)
-          }
-          values[1] = this.checkValue(values[1], 12);
-        }
-        if (values[0]) {
-          if (values[2]) {
-            values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
-            values[0] = ("0" + values[0]).slice(-2)
-          }
-          values[0] = this.checkValue(values[0], 31);
-        }
-        var output = values.map(function (v, i) {
-          return v.length == 2 && i < 2 ? v + ' / ' : v;
-        });
-        copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
-          return v.length == 2 && i < 2 ? v + '/' : v;
-        });
-        dateElement.value = copyOutput.join('').substr(0, 14);
-        this[key] = output.join('').substr(0, 14);
-        this[duplicateKey] = copyOutput.join('').substr(0, 14);
-      },
+      setDate: function (dbDate) {
+        var dateArray = dbDate.split("/");
+        var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+        var date = new Date(toOldFmt)
+        var yyyy = date.getFullYear().toString();
+        var mm = (date.getMonth() + 1).toString();
+        var dd = date.getDate().toString();
 
+        var mmChars = mm.split('');
+        var ddChars = dd.split('');
+        var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+        return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+      },
 
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
@@ -607,7 +750,7 @@ $(document).ready(function () {
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
-        //console.log()(successData)
+        //////console.log()(successData)
       },
       getActivity: function (uuid, value) {
         let result = apiCallGet('get', '/getActivity', API_URI);
@@ -616,13 +759,13 @@ $(document).ready(function () {
           o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
 
           // o['time'] = moment(o.createdAt).format('h:mm:ss')
-          //console.log(moment(o.createdAt).format('h:mm:ss'))
+          //////console.log(moment(o.createdAt).format('h:mm:ss'))
           return o.ReferralId == uuid;
         })
         specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-        //  console.log(specificReferral, "specificReferral");
+        //  ////console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-        // console.log(this.groupByActivityDate);
+        // ////console.log(this.groupByActivityDate);
       },
       setIntegration: function (e) {
         if (e.target.checked) {
@@ -639,7 +782,7 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-    // console.log('Datatables reload');
+    // ////console.log('Datatables reload');
     vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {
@@ -651,10 +794,36 @@ $(document).ready(function () {
     vueApp.getActivity(uuid, value);
     $('#actionlogModal').modal('show');
   }
+
+  bookAppointment = function (uuid, role, referranceCode, formType) {
+    var sendAppointmentObj = {};
+    sendAppointmentObj.ReferralId = uuid;
+    sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
+    sendAppointmentObj.status = "Appointment booked";
+    sendAppointmentObj.automatic_booking = {}
+    sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
+  //  sendAppointmentObj.date = $('#yPasDateField').val();
+    sendAppointmentObj.time = $('#yPasTimeField').val();
+    sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
+    sendAppointmentObj.role = role;
+    sendAppointmentObjotherInfo = {};
+
+    vueApp.callAppointmentApi(sendAppointmentObj);
+  }
+
+  needAppointment = function (uuid, role, referranceCode, formType) {
+    var sendAppointmentObj = {};
+    sendAppointmentObj.ReferralId = uuid;
+    sendAppointmentObj.service = $('#SelectedProvider').val();
+    sendAppointmentObj.status = "Appointment needed";
+    sendAppointmentObj.role = role;
+    sendAppointmentObj.referranceCode = referranceCode;
+    vueApp.callNeedAppointmentApi(sendAppointmentObj);
+  }
 });
 
 function viewPdf(uuid, role, other, formType) {
-  console.log(formType)
+  ////console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
@@ -707,10 +876,25 @@ function downloadCSV(uuid, value, other_value) {
   $('#downloadCSV').modal('show');
 }
 
+// function openAppointmentsPopup(uuid, value, other_value) {
+//   debugger
+//   var payloadData = {
+//     uuid: uuid,
+//     value: value,
+//     other_value: other_value
+//   }
+//   var modalData = document.getElementById('appointmentsModal');
+//   modalData.setAttribute("payloads111", payloadData);
+//   // $('#payloadData').data('payload',payloadData);
+//   $('#appointmentsModal').modal('show');
+//   // document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+// }
+
+
 function updateStatus(uuid) {
   $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
-  console.log(status)
+  ////console.log(status)
   if (status) {
     setTimeout(function () {
       var postData = {
@@ -827,3 +1011,43 @@ function createActivity(activity, referral) {
   }
   apiCallPut('put', '/referralStatusUpdate', postData);
 }
+
+function changeAppointment(e) {
+  if (e.target.checked) {
+    if (e.target.id == 'manualYPasBook') {
+      $("#appointNeededArea").hide();
+      $("#showYPasOrgs").removeClass('d-none').addClass('d-block');
+
+    } else if (e.target.id == 'appointNeeded') {
+      $("#yPasArea").hide();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+    }
+  } else {
+    if (e.target.id == 'manualYPasBook') {
+      $("#appointNeededArea").show();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+    } else if (e.target.id == 'appointNeeded') {
+      $("#yPasArea").show();
+      $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+    }
+  }
+  $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+}
+
+function openAppointmentsPopup(uuid, referralType, referranceCode, formType) {
+  $('#appointmentsModal').modal('show');
+  document.getElementById('btnSubmitAppointments').setAttribute('onclick', 'bookAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
+  document.getElementById('appointsNeedEmail').setAttribute('onclick', 'needAppointment(\'' + uuid + '\',\'' + referralType + '\',\'' + referranceCode + '\',\'' + formType + '\')');
+}
+
+
+
+// function closeAppointsModal() {
+//   $("#yPasArea").show();
+//   $("#appointNeededArea").show();
+//   $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+//   $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+//   $("#manualYPasBook").prop("checked", false);
+//   $("#appointNeeded").prop("checked", false);
+//   $('#appointmentsModal').modal('hide');
+// }

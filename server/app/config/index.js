@@ -31,11 +31,12 @@ const configs = {
     alder_hey_email: process.env.ALDER_HEY_FORMS_EMAIL,
     mhst_email: process.env.MHST_EMAIL,
     use_sendgrid: process.env.USE_SENDGRID,
-    mayden_api_ypas:process.env.mayden_api_ypas,
-    mayden_api_venus:process.env.mayden_api_venus,
-    mayden_apiToken:process.env.mayden_apiToken,
+    mayden_api_ypas: process.env.mayden_api_ypas,
+    mayden_api_venus: process.env.mayden_api_venus,
+    mayden_apiToken: process.env.mayden_apiToken,
     new_form: process.env.NEW_FORM,
-
+    hccommsurl: process.env.HCCOMMS_URL,
+    hccommskey: process.env.HCCOMMS_KEY,
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),

@@ -212,15 +212,15 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 
         else {
             toAddress = ctx.request.body.emailToProvider;
-            ctx.request.body.refCode = ctx.request.body.referralCode
             sendProf = true;
         }
-        console.log('toAddress----------', toAddress);
+        ctx.request.body.refCode = ctx.request.body.referralCode
+        console.log('toAddress----------', toAddress,ctx.request.body.refCode);
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,true);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -255,8 +255,13 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 });
 
 
-function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
-    const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
+function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
+    let template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
+    let subject = null;
+    if (appoinment) {
+        template = fs.readFileSync(path.join(`${__dirname}/./templates/appointment_needed.html`), 'utf8');
+        subject = 'Appontment needed';
+    }
     let htmlTemplate = _.template(template);
     htmlTemplate = htmlTemplate({
         refCode: ctx.request.body.refCode,
@@ -271,7 +276,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: subject ? subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -294,7 +299,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
                 attachmentFiles = {
                     from: config.email_from_address,
                     to: toAddress,
-                    subject: '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
+                    subject: subject ? subject : '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
                     attachments: [{
                         filename: ctx.request.body.refCode + ".pdf",
                         content: pdfReferral,
@@ -313,7 +318,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
                 attachmentFiles = {
                     from: config.email_from_address,
                     to: toAddress,
-                    subject: '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
+                    subject: subject ? subject :'[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
                     attachments: [{
                         filename: ctx.request.body.refCode + ".pdf",
                         content: pdfReferral,
