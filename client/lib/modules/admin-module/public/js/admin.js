@@ -460,7 +460,6 @@ $(document).ready(function () {
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           // if (_self.checkYPasDateField) {
           // if target service provider is alder hey. we save the info to just db
-
           $.ajax({
             url: API_URI + '/bookAppointment',
             type: 'post',
@@ -471,6 +470,7 @@ $(document).ready(function () {
             success: function (res) {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
+              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
               
               $('#deletedSuccess').modal('show');
             },
@@ -507,7 +507,7 @@ $(document).ready(function () {
             success: function (res) {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
-              
+              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
               $('#deletedSuccess').modal('show');
             },
             error: function (error) {
