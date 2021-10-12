@@ -30,6 +30,15 @@ body {
   //   display: none;
   // }
 
+  .vue__time-picker input.display-time {
+    width: 100%;
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important;
+  }
+
   .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -141,7 +150,7 @@ body {
     }
     textarea {
       color: #8f979e !important;
-     // height: 70px !important;
+      // height: 70px !important;
     }
     @include placeholder(#8f979e);
   }
@@ -297,8 +306,6 @@ body {
   top: 0;
   right: -11px;
 }
-
-
 
 .swiper-button-prev.swiper-button-disabled {
   display: none !important;
@@ -1074,7 +1081,6 @@ body {
   }
 }
 
-
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
   @include xs-screen {
@@ -1165,7 +1171,6 @@ body {
     @include md-screen-min {
       font-size: 19px;
     }
-
   }
 }
 
@@ -2958,11 +2963,11 @@ $color-scheme: (
       color: $secondary;
     }
     .view-pdf::after {
-        content: "";
-        background-color: $secondary;
+      content: "";
+      background-color: $secondary;
     }
-    .logout-font{
-    color: $secondary;
+    .logout-font {
+      color: $secondary;
     }
     .video-title-top {
       color: $secondary;
@@ -2971,7 +2976,7 @@ $color-scheme: (
       color: $secondary;
     }
     .inside-cont-slider a {
-        color: #023047 !important;
+      color: #023047 !important;
     }
     .video-para-bottom a {
       color: $secondary !important;
@@ -3249,7 +3254,7 @@ $color-scheme: (
     .selectSource {
       color: $secondary;
     }
-    .logout-font{
+    .logout-font {
       color: $secondary;
     }
     .title-thing-to-watch {
@@ -3925,99 +3930,98 @@ div.collapse-container.collapsing {
   color: black;
 }
 .actionloguser_info {
-    display: flex;
-    width: 90%;
-    margin: auto;
+  display: flex;
+  width: 90%;
+  margin: auto;
 }
 .actionloginfo {
-    width: 475px;
-    margin: auto;
+  width: 475px;
+  margin: auto;
 }
-.downloadCSV-div{
+.downloadCSV-div {
   width: 400px;
   margin: auto;
 }
 @media (max-width: 568px) {
   .actionloginfo {
-      width: 90%;
-      margin: auto;
+    width: 90%;
+    margin: auto;
   }
-  .downloadCSV-div{
+  .downloadCSV-div {
     width: 90%;
     margin: auto;
   }
 }
 .actionlogbody {
-    border-bottom: 2px solid #E2A100;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+  border-bottom: 2px solid #e2a100;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
 }
 .actionlogdata h6 {
-    width: 90%;
-    margin: auto;
-    text-align: left;
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: bold;
-    letter-spacing: 0.8px;
-    color: #023047;
-    margin-bottom: 20px;
+  width: 90%;
+  margin: auto;
+  text-align: left;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  color: #023047;
+  margin-bottom: 20px;
 }
 .actionloguser_info p {
-    text-align: left;
-    font-size: 18px;
-    line-height: 25px;
-    font-weight: normal;
-    letter-spacing: 0.72px;
-    color: #023047;
-    margin-bottom: 5px;
-    padding-left: 8px;
+  text-align: left;
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: normal;
+  letter-spacing: 0.72px;
+  color: #023047;
+  margin-bottom: 5px;
+  padding-left: 8px;
 }
 .actionloguser_info label {
-    text-align: left;
-    font-size: 18px;
-    line-height: 25px;
-    font-weight: bold;
-    letter-spacing: 0.72px;
-    color: #023047;
-    margin-bottom: 5px;
+  text-align: left;
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: bold;
+  letter-spacing: 0.72px;
+  color: #023047;
+  margin-bottom: 5px;
 }
 .actionlogbody.lastuserlog {
-    border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 .download-csv-btn {
-    display: inline-block;
-    font-weight: bold;
-    color: #212529;
-    text-align: center;
-    vertical-align: middle;
-    width: 275px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: #219ebc;
-    box-shadow: 0 3px 6px #00000029!important;
-    border-radius: 10px!important;
-    border: none;
-    padding: 0.375rem 0.75rem;
-    font-size: 18px;
-    line-height: 1.5;
-    margin: 20px auto 40px;
+  display: inline-block;
+  font-weight: bold;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  width: 275px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #219ebc;
+  box-shadow: 0 3px 6px #00000029 !important;
+  border-radius: 10px !important;
+  border: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 20px auto 40px;
 }
 
 .downloadCSV-div .input-group-text {
-    background: #ced4da 0 0 no-repeat padding-box!important;
+  background: #ced4da 0 0 no-repeat padding-box !important;
 }
 .downloadCSV-div .row {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .view-pdf {
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
 }
-
 
 @media (min-width: 300px) {
   .pdf-overlay {
@@ -4027,7 +4031,7 @@ div.collapse-container.collapsing {
     right: 0px;
     position: fixed;
     z-index: 1000;
-    background-color: rgba(255,255,255,0.60);
+    background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0 5px 7px #00000080;
     display: flex;
     align-items: center;
@@ -4046,7 +4050,7 @@ div.collapse-container.collapsing {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background-color: rgba(255,255,255,0.60);
+    background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0px 5px 7px #00000080;
     width: 100%;
   }
@@ -4062,7 +4066,7 @@ div.collapse-container.collapsing {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background-color: rgba(255,255,255,0.60);
+    background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0px 5px 7px #00000080;
     /* width: 75%; */
   }
@@ -4078,7 +4082,7 @@ div.collapse-container.collapsing {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background-color: rgba(255,255,255,0.60);
+    background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0px 5px 7px #00000080;
     width: 100%;
   }
@@ -4088,27 +4092,26 @@ div.collapse-container.collapsing {
   height: 85vh;
   position: absolute;
   top: 0px;
-  bottom:0;
-  left:0;
+  bottom: 0;
+  left: 0;
   right: 0;
   margin: auto;
   width: 70%;
 }
-@media(max-width: 1400px) {
+@media (max-width: 1400px) {
   .overlay-block.careflow {
     width: 95%;
   }
 }
-@media(max-width: 992px) {
+@media (max-width: 992px) {
   .overlay-block.careflow {
     min-height: 90vh;
-    height:auto;
-    top:20px;
+    height: auto;
+    top: 20px;
     bottom: 20px;
-    left:20px;
+    left: 20px;
     right: 20px;
     width: auto;
-
   }
   .col-lg-9.pdf-resources {
     justify-content: center;
@@ -4116,17 +4119,17 @@ div.collapse-container.collapsing {
   }
 }
 .col-lg-9.pdf-resources {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 }
 .pdf-align {
-    display: flex;
+  display: flex;
 }
 .IEformat {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
 }
 .pdf-icon-mobile {
   width: auto;
@@ -4161,72 +4164,73 @@ div.collapse-container.collapsing {
   }
 }
 .upload-right {
-    background-color: #fff;
-    width: 41px;
-    height: 41px;
-    border-radius: 50%;
-    box-shadow: 1px 1px 6px #2a4c7b29;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    cursor: pointer;
+  background-color: #fff;
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  box-shadow: 1px 1px 6px #2a4c7b29;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 .overlay-upload-close {
-    color: #212035;
-    display: flex!important;
-    align-items: center;
-    justify-content: center;
+  color: #212035;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 .pdf-heading {
-    margin-top: 0;
-    width: 90%;
-    display: inline-block;
-    text-align: right;
+  margin-top: 0;
+  width: 90%;
+  display: inline-block;
+  text-align: right;
 }
-@media (max-width: 576px){
-.pdf-heading, .pdf-icon-mobile {
+@media (max-width: 576px) {
+  .pdf-heading,
+  .pdf-icon-mobile {
     margin: 0;
+  }
 }
-}
-@media (max-width: 992px){
-.pdf-heading {
+@media (max-width: 992px) {
+  .pdf-heading {
     width: auto;
-}
+  }
 }
 
-.pdf-heading h4{
+.pdf-heading h4 {
   font-size: 30px;
-    line-height: 28px;
-    margin-bottom: .5rem;
-    font-weight: 500;
-    text-align: right;
-    color: #fff;
+  line-height: 28px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  text-align: right;
+  color: #fff;
 }
 .pdf-clinic {
-    list-style-type: none;
-    padding: 0;
-    display: inline-block;
+  list-style-type: none;
+  padding: 0;
+  display: inline-block;
 }
 .info-status {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .info-status .material-icons {
-    cursor: pointer;
+  cursor: pointer;
 }
 .info-status .material-icons {
-    color: #f09503;
-    font-size: 25px!important;
-    margin: 0 10px;
+  color: #f09503;
+  font-size: 25px !important;
+  margin: 0 10px;
 }
 .overlay-block {
-    background-color: #023047;
-    display: flex;
-    width: auto;
-    justify-content: center;
+  background-color: #023047;
+  display: flex;
+  width: auto;
+  justify-content: center;
 }
 .pdf-margins {
-    padding: 30px 0;
+  padding: 30px 0;
 }
 @media (min-width: 300px) {
   .pdf-icon {
@@ -4258,69 +4262,70 @@ div.collapse-container.collapsing {
   }
 }
 .m-t-20 {
-    margin-top: 20px!important;
+  margin-top: 20px !important;
 }
-@media (min-width: 300px){
-.pdf-text-icon {
+@media (min-width: 300px) {
+  .pdf-text-icon {
     display: flex;
     justify-content: space-between;
-}
-iframe#uploadedDoc {
+  }
+  iframe#uploadedDoc {
     height: 450px;
+  }
 }
-}
-@media (min-width: 768px){
-.pdf-text-icon {
+@media (min-width: 768px) {
+  .pdf-text-icon {
     display: flex;
     justify-content: space-between;
-}
-iframe#uploadedDoc {
+  }
+  iframe#uploadedDoc {
     height: 75vh;
+  }
 }
-}
-@media (min-width: 992px){
-.pdf-text-icon {
+@media (min-width: 992px) {
+  .pdf-text-icon {
     display: flex;
-}
-iframe#uploadedDoc {
+  }
+  iframe#uploadedDoc {
     height: 76vh;
-}
+  }
 }
 .view_pdf_div {
-    padding: 14px 18px 8px 18px;
+  padding: 14px 18px 8px 18px;
 }
-div#IEFormatRemove,div#MobileFormatRemove {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    height: 85vh;
-    color: #fff;
+div#IEFormatRemove,
+div#MobileFormatRemove {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 85vh;
+  color: #fff;
 }
-.p-w-100 p{
+.p-w-100 p {
   width: 100%;
 }
 
 .view-pdf::after {
-    content: "";
-    width: 100%;
-    position: absolute;
-    display: block;
-    height: 1px;
+  content: "";
+  width: 100%;
+  position: absolute;
+  display: block;
+  height: 1px;
 }
 .view-pdf.v-pdf-alg {
-    margin: 0px 18px;
+  margin: 0px 18px;
 }
 .flex-c-div {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 img.info-icon {
-    height: 26px;
-    padding-left: 1rem!important;
-    padding-right: 1rem!important;
-    margin: auto 0px;
-    cursor: pointer;
+  height: 26px;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  margin: auto 0px;
+  cursor: pointer;
 }
 @media (max-width: 568px) {
   #feedBackStars.rating {

@@ -8,6 +8,9 @@ const email = require('../utils/email');
 const pdf = require('../utils/pdfgenerate');
 const callIaptusApi = require('../utils/sendReferralByApi');
 const convertToJson = require('../utils/convertCsvTOJson');
+var axios = require('axios');
+const config = require('../config');
+const { update } = require('lodash');
 
 const gpCodes = [
     {
@@ -20,7 +23,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
-    console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
+    //console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             // console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -63,8 +66,6 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 //console.log(order)
             }
-
-            //console.log(query)
 
             var referrals = await referralModel.findAll({
                 attributes: [
@@ -130,7 +131,7 @@ exports.getReferral = ctx => {
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
 
-                    console.log(refObj)
+                    //console.log(refObj)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
@@ -209,7 +210,7 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
-                   // console.log(refObj.dataValues.referral_type)
+                    //console.log(refObj.dataValues.referral_type)
                     if (refObj.referral_provider == null) {
                         refObj.referral_provider = "Pending"
                     } else {
@@ -774,11 +775,6 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-
-    console.log(ctx.request.body.emailToProvider == 'YPAS')
-    console.log(ctx.request.body.emailToProvider == 'Venus')
-    console.log("--------------------------------------------------------------------------")
-
     const flagTbl = ctx.orm().miscellaneousFlag;
     return flagTbl.findOne({
         attributes: ['flag', 'value'],
@@ -940,7 +936,9 @@ function getRefData(refID, refRole, ctx) {
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
     var includeModalName;
-    console.log("---------------------", ctx.query.refRole)
+    console.log("---------------------", refID)
+    console.log("---------------------", refRole)
+
     if (refRole == "Child" || refRole == "child" || refRole == "Young" || refRole == "young") {
         if (refRole == "Child" || refRole == "child") {
             includeModalName = "parent";
@@ -948,7 +946,6 @@ function getRefData(refID, refRole, ctx) {
         else {
             includeModalName = "family";
         }
-        console.log(includeModalName)
         return user.findOne({
             where: {
                 uuid: refID,
@@ -2249,4 +2246,249 @@ exports.getCount = async (ctx) => {
         console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
+}
+
+
+
+
+
+
+
+// appointments
+
+exports.createAppointmentDetails = async (ctx) => {
+    const referralModel = ctx.orm().Referral;
+    console.log("==========================gettting in==============================")
+    let appointmentData = {};
+    console.log(ctx.request.body)
+    if (ctx.request.status == "booking") {
+        // send service and call saveAppointments
+        //Appointment needed but 
+        //saveAppointments(appointmentData)
+        // return
+    } else {
+        console.log("========================================================")
+        //  console.log(ctx.request.body.time)
+        var dateTime = convertTo24Hour(ctx.request.body.date, ctx.request.body.time);
+        if (ctx.request.body.callHCC) {
+            try {
+                //ctx.request.body.ReferralId =  "8f73581c-4e0c-4c85-bb68-4c0c1e0e67ba"
+                var referral = await referralModel.findOne({
+                    attributes: [
+                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS',
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_name_title'), sequelize.col('professional.child_name_title'), sequelize.col('Referral.child_name_title')), 'child_name_title'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_contact_number'), sequelize.col('professional.child_contact_number'), sequelize.col('Referral.child_contact_number')), 'child_contact_number'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_email'), sequelize.col('professional.child_email'), sequelize.col('Referral.child_email')), 'child_email'],
+                        [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_name_title'), sequelize.col('professional2.child_name_title'), sequelize.col('Referral.child_name_title')), 'child_name_title'],
+
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_firstname'), sequelize.col('professional2.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_lastname'), sequelize.col('professional2.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_contact_number'), sequelize.col('professional2.child_contact_number'), sequelize.col('Referral.child_contact_number')), 'child_contact_number'],
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_email'), sequelize.col('professional2.child_email'), sequelize.col('Referral.child_email')), 'child_email'],
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional2.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    ],
+                    where: {
+                        uuid: ctx.request.body.ReferralId
+                    },
+                    include: [
+                        {
+                            model: referralModel,
+                            as: 'parent',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'professional',
+                            attributes: [
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'family',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            ]
+                        },
+                        {
+                            model: referralModel,
+                            as: 'professional2',
+                            attributes: [
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            ]
+                        },
+                    ],
+                })
+                console.log(referral);
+                let obj = {
+                    "title": referral.dataValues.child_name_title,
+                    "first_name": referral.dataValues.name,
+                    "last_name": referral.dataValues.lastname,
+                    "nhs_number": referral.dataValues.child_NHS,
+                    "phone_number": referral.dataValues.child_contact_number,
+                    "email": referral.dataValues.child_email ? referral.dataValues.child_email : null,
+                    //"notifications_consent": referral.dataValues.contact_preferences ? referral.dataValues.contact_preferences : null,
+                    "alderHey_number": "",
+                    "clinic_code": "CC1",
+                    "selected_provider": referral.dataValues.referral_provider,
+                    "appointment_detail": dateTime,
+                    "DOB": referral.dataValues.dob
+                }
+                let data = await axios({
+                    method: 'post',
+                    url: config.hccommsurl,
+                    headers: { 'key': config.hccommskey, 'Content-Type': 'application/json' },
+                    data: JSON.stringify(obj)
+                })
+                console.log(data.data.response[0].code)
+                console.log(data.response, "datadata");
+                // success
+                if (data.data.response[0].code == 1002) {
+                    let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
+                    if (insertBookingdetails) {
+                        return ctx.res.ok({
+                            message: reponseMessages[1023],
+                        });
+                    }
+                    else {
+                        return ctx.res.ok({
+                            message: reponseMessages[1024],
+                        });
+                    }
+                }
+                else {
+                    return ctx.res.ok({
+                        message: reponseMessages[1024],
+                    });
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+        else {
+            // saveAppointments   --Venus
+            console.log("getting in else part")
+            let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
+            console.log(insertBookingdetails)
+            if (insertBookingdetails) {
+                return ctx.res.ok({
+                    message: reponseMessages[1023],
+                });
+            }
+            else {
+                return ctx.res.ok({
+                    message: reponseMessages[1024],
+                });
+            }
+        }
+
+    }
+}
+
+
+exports.getAppointmentDetails = async (ctx) => {
+    // find  by refferal
+}
+
+
+exports.appointmentNeeded = async (ctx) => {
+    console.log(ctx.request.body)
+    console.log("ctx.request.body.referralData", ctx.request.body.ReferralId + ',' + ctx.request.body.role + ',' + ctx.request.body.service);
+    ctx.query.refID = ctx.request.body.ReferralId;
+    ctx.query.refRole = ctx.request.body.role;
+    let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
+    ctx.request.body.referralData = referralData;
+    ctx.request.body.emailToProvider = ctx.request.body.service;
+    ctx.request.body.referralCode = ctx.request.body.referranceCode;
+    ctx.request.body.sendProf = true;
+    try {
+        return email.sendReferralWithData(ctx).then(async (sendReferralStatus) => {
+            console.log(sendReferralStatus);
+            let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
+            if (insertBookingdetails) {
+                return ctx.res.ok({
+                    message: reponseMessages[1023],
+                });
+            }
+            else {
+                return ctx.res.ok({
+                    message: reponseMessages[1024],
+                });
+            }
+        }).catch(error => {
+            return ctx.res.ok({
+                message: reponseMessages[1024],
+            });
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+async function saveAppointments(ctx, appointmentData) {
+    console.log("getting in appointmentData")
+    console.log(appointmentData)
+    const appointmentModel = ctx.orm().appointments;
+    console.log("appointmentModel :" + appointmentModel)
+    try {
+        const updateOrCreate = await appointmentModel.findOne(
+            { where: { ReferralId: appointmentData.ReferralId }, }
+        )
+        if (!updateOrCreate) {
+            const bookAppointment = await appointmentModel.create(appointmentData);
+            console.log("Book Appointment: " + bookAppointment)
+            return bookAppointment
+        }
+        else {
+            const updateAppointment = await appointmentModel.update(appointmentData, {
+                where: {
+                    ReferralId: appointmentData.ReferralId,
+                },
+                returning: true,
+            });
+            console.log("update Appointment: " + updateAppointment)
+            return updateAppointment
+        }
+
+    } catch (error) {
+        console.log("error===", error);
+        // return error;
+    }
+}
+
+function convertTo24Hour(date, timeStr) {
+    const [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':');
+    if (hours === '12') {
+        hours = '00';
+    }
+    if (modifier === 'PM') {
+        hours = parseInt(hours, 10) + 12;
+    }
+    var modifiedDate = new Date(date)
+    modifiedDate.setHours(hours);
+    modifiedDate.setMinutes(minutes);
+    console.log(modifiedDate)
+    console.log(modifiedDate.getHours())
+    console.log(modifiedDate.getMinutes())
+    return modifiedDate;
+    //return `${hours}:${minutes}`;
+
+
+    // console.log(time)
+    // var d = new Date(date),
+    //     s = "01.25 PM",
+    //     parts = s.match(/(\d+)\.(\d+) (\w+)/),
+    //     hours = /am/i.test(parts[3]) ? parseInt(parts[1], 10) : parseInt(parts[1], 10) + 12,
+    //     minutes = parseInt(parts[2], 10);
+
+    // d.setHours(hours);
+    // d.setMinutes(minutes)
+    // return d;
 }
