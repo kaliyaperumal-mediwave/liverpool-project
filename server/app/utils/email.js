@@ -260,7 +260,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
     let subject = null;
     if (appoinment) {
         template = fs.readFileSync(path.join(`${__dirname}/./templates/appointment_needed.html`), 'utf8');
-        subject = 'Appontment needed';
+        subject = 'Appointment request';
     }
     let htmlTemplate = _.template(template);
     htmlTemplate = htmlTemplate({
