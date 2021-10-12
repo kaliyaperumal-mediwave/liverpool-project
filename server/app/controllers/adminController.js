@@ -1423,6 +1423,7 @@ function getRefData(refID, refRole, ctx) {
 
                 var childIdNew;
                 var childId
+                console.log(ctx.query.formType)
                 if (ctx.query.formType == 'child') {
                     includeRelationModal = 'child_parent';
                     childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2402,6 +2403,7 @@ exports.appointmentNeeded = async (ctx) => {
     console.log("ctx.request.body.referralData", ctx.request.body.ReferralId + ',' + ctx.request.body.role + ',' + ctx.request.body.service);
     ctx.query.refID = ctx.request.body.ReferralId;
     ctx.query.refRole = ctx.request.body.role;
+    ctx.query.formType = ctx.request.body.formType;
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.request.body.service;
