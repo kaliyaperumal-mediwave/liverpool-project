@@ -94,12 +94,15 @@
                                         {{refObj.reference_code}}
                                     </div>
 
-                                    <div class="collapse-title">
-                                        Appointment details
+                                    <div v-show="viewReferralObj.user_role != 'professional' ">
+                                        <div class="collapse-title">
+                                            Appointment details
+                                        </div>
+                                        <div  class="collapse-para">
+                                            {{refObj.appointment_status}}
+                                        </div>
                                     </div>
-                                    <div  class="collapse-para">
-                                        {{refObj.appointment_status}}
-                                    </div>
+
 
                                     <!-- <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Appointment details
@@ -247,11 +250,14 @@
                                                 {{refObj.reference_code}}
                                             </p>
                                         </div>
-                                        <div class="collapse-title">
-                                            Appointment details
-                                        </div>
-                                        <div  class="collapse-para">
-                                            {{refObj.appointment_status}}
+
+                                        <div v-show="viewReferralObj.user_role != 'professional' ">
+                                            <div class="collapse-title">
+                                                Appointment details
+                                            </div>
+                                            <div  class="collapse-para">
+                                                {{refObj.appointment_status}}
+                                            </div>
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
                                             class="container pr-0 float-btn-cont">
@@ -368,11 +374,13 @@
                                                 {{refObj.reference_code}}
                                             </p>
                                         </div>
-                                        <div class="collapse-title">
-                                            Appointment details
-                                        </div>
-                                        <div  class="collapse-para">
-                                            {{refObj.appointment_status}}
+                                        <div v-show="viewReferralObj.user_role != 'professional' ">
+                                            <div class="collapse-title">
+                                                Appointment details
+                                            </div>
+                                            <div  class="collapse-para">
+                                                {{refObj.appointment_status}}
+                                            </div>
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
                                             class="container pr-0 float-btn-cont">
