@@ -101,7 +101,11 @@ spec:
           value: $PHR_LIVERPOOL_MAYDEN_APITOKEN
         - name: NEW_FORM
           value: $PHR_LIVERPOOL_NEW_FORM
-      
+        - name: HCCOMMS_URL
+          value: $PHR_HCCOMMS_URL
+        - name: HCCOMMS_KEY
+          value: $PHR_HCCOMMS_KEY
+
         ports:
         - containerPort: 3001
 ---
