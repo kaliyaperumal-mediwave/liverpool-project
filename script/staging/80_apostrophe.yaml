@@ -51,6 +51,8 @@ spec:
           value: $PHR_LIVERPOOL_apiIntegrationPassword
         - name: useVenusIaptusAPI
           value: $PHR_LIVERPOOL_USERVENUSIAPTUSAPI
+        - name: GA_CODE
+          value: $PHR_LIVERPOOL_GA_CODE
         ports:
         - containerPort: 80
         imagePullPolicy: Always

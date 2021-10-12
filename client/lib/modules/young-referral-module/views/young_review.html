@@ -41,7 +41,7 @@
                         Can you rate your experience of completing this referral form: 1 star – Really difficult, 5
                         stars – Really easy
                     </h3>
-                    <fieldset id="feedBackStars" class="rating m-0 float-left">
+                    <fieldset id="feedBackStars" class="rating float-left">
                         <input v-model="refFeedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
                         <label class="full m-0" for="5star"></label>
 
@@ -1042,7 +1042,7 @@
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
-                                        Family/friend's contact number:
+                                        Family / friend's contact number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
@@ -1120,7 +1120,7 @@
                                 <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
-                                            Family/friend's address:
+                                            Family / friend's address:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <textarea readonly class="form-control    input-bg-form-control" type="text"
@@ -1727,10 +1727,10 @@
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" name="young_radio1" id="sendToParCarer"
-                                    value="My family/friend" v-model="contact_person">
+                                    value="My family / friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    My family/friend
+                                    My family / friend
                                 </label>
                             </div>
                         </div>
@@ -1763,10 +1763,10 @@
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" name="young_radio3" id="sendToParCarer"
-                                    value="Their family/friend" v-model="contact_person">
+                                    value="Their family / friend" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
                                     for="sendToParCarer">
-                                    Their family/friend
+                                    Their family / friend
                                 </label>
                             </div>
                         </div>

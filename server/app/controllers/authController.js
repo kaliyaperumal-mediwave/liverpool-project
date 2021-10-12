@@ -157,6 +157,7 @@ exports.login = async (ctx) => {
             }
 
         }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }

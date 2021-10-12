@@ -1062,7 +1062,9 @@ function getRefData(refID, refRole, ctx) {
                     educationObj.registered_gp = educationObj.registered_gp_postcode ? educationObj.registered_gp + ', ' + educationObj.registered_gp_postcode : educationObj.registered_gp
 
                     if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
-                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode;
+
+                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + (section2Obj.child_manual_address[0].addressLine2 ? section2Obj.child_manual_address[0].addressLine2 + ',' : '') + section2Obj.child_manual_address[0].city + ',' + (section2Obj.child_manual_address[0].country != '' ? section2Obj.child_manual_address[0].country + ',' : '') + section2Obj.child_manual_address[0].postCode
+
                         //Below code for iaptus api
                         section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
                         section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
@@ -1084,12 +1086,15 @@ function getRefData(refID, refRole, ctx) {
                         section2Obj.pat_postcode = childAdrArray[2];
                     }
 
+
                     if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
-                        section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ',' + section2Obj.parent_manual_address[0].postCode
+                        section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
                     }
+
                     if (educationObj.child_education_manual_address != null && educationObj.child_education_manual_address[0] != null) {
-                        educationObj.child_education_place = educationObj.child_education_manual_address[0].school + ',' + educationObj.child_education_manual_address[0].addressLine1 + ',' + educationObj.child_education_manual_address[0].addressLine2 + ' ' + educationObj.child_education_manual_address[0].city + ',' + educationObj.child_education_manual_address[0].country + ',' + educationObj.child_education_manual_address[0].postCode
+                        educationObj.child_education_place = educationObj.child_education_manual_address[0].school + ',' + educationObj.child_education_manual_address[0].addressLine1 + ',' + (educationObj.child_education_manual_address[0].addressLine2 != '' ? educationObj.child_education_manual_address[0].addressLine2 + ',' : '') + educationObj.child_education_manual_address[0].city + ',' + (educationObj.child_education_manual_address[0].country != '' ? educationObj.child_education_manual_address[0].country + ',' : '') + educationObj.child_education_manual_address[0].postCode
                     }
+
 
 
                     const responseData = {
@@ -1310,7 +1315,8 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
-                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode;
+
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + (section2Obj.child_manual_address[0].addressLine2 ? section2Obj.child_manual_address[0].addressLine2 + ',' : '') + section2Obj.child_manual_address[0].city + ',' + (section2Obj.child_manual_address[0].country != '' ? section2Obj.child_manual_address[0].country + ',' : '') + section2Obj.child_manual_address[0].postCode
                                 //Below code for iaptus api
                                 section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
                                 section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
@@ -1331,13 +1337,12 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_county = "";
                                 section2Obj.pat_postcode = childAdrArray[2];
                             }
-
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
-                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ',' + section2Obj.parent_manual_address[0].postCode
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
                             }
 
                             if (section3Obj.child_education_manual_address != null && section3Obj.child_education_manual_address[0] != null) {
-                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school + ',' + section3Obj.child_education_manual_address[0].addressLine1 + ',' + section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ',' + section3Obj.child_education_manual_address[0].postCode
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school + ',' + section3Obj.child_education_manual_address[0].addressLine1 + ',' + (section3Obj.child_education_manual_address[0].addressLine2 != '' ? section3Obj.child_education_manual_address[0].addressLine2 + ',' : '') + section3Obj.child_education_manual_address[0].city + ',' + (section3Obj.child_education_manual_address[0].country != '' ? section3Obj.child_education_manual_address[0].country + ',' : '') + section3Obj.child_education_manual_address[0].postCode
                             }
 
 
@@ -1418,6 +1423,7 @@ function getRefData(refID, refRole, ctx) {
 
                 var childIdNew;
                 var childId
+                console.log(ctx.query.formType)
                 if (ctx.query.formType == 'child') {
                     includeRelationModal = 'child_parent';
                     childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -1685,7 +1691,9 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
-                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode
+
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + (section2Obj.child_manual_address[0].addressLine2 ? section2Obj.child_manual_address[0].addressLine2 + ',' : '') + section2Obj.child_manual_address[0].city + ',' + (section2Obj.child_manual_address[0].country != '' ? section2Obj.child_manual_address[0].country + ',' : '') + section2Obj.child_manual_address[0].postCode
+
                                 //Below code for iaptus api
                                 section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
                                 section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
@@ -1707,17 +1715,24 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_postcode = childAdrArray[2];
                             }
 
+
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
-                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ',' + section2Obj.parent_manual_address[0].postCode
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
                             }
+        
+                            if (section3Obj.child_education_manual_address != null && section3Obj.child_education_manual_address[0] != null) {
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school + ',' + section3Obj.child_education_manual_address[0].addressLine1 + ',' + (section3Obj.child_education_manual_address[0].addressLine2 != '' ? section3Obj.child_education_manual_address[0].addressLine2 + ',' : '') + section3Obj.child_education_manual_address[0].city + ',' + (section3Obj.child_education_manual_address[0].country != '' ? section3Obj.child_education_manual_address[0].country + ',' : '') + section3Obj.child_education_manual_address[0].postCode
+                            }
+
 
                             if (section1Obj.professional_manual_address != null && section1Obj.professional_manual_address[0] != null) {
-                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1 + ',' + section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ',' + section1Obj.professional_manual_address[0].postCode
+
+
+                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1 + ',' + (section1Obj.professional_manual_address[0].addressLine2 ? section1Obj.professional_manual_address[0].addressLine2 + ',' : '') + section1Obj.professional_manual_address[0].city + ',' + (section1Obj.professional_manual_address[0].country != '' ? section1Obj.professional_manual_address[0].country + ',' : '') + section1Obj.professional_manual_address[0].postCode
+
                             }
 
-                            if (section3Obj.child_education_manual_address != null && section3Obj.child_education_manual_address[0] != null) {
-                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school + ',' + section3Obj.child_education_manual_address[0].addressLine1 + ',' + section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ',' + section3Obj.child_education_manual_address[0].postCode
-                            }
+
 
                             const responseData = {
                                 userid: refID,
@@ -1733,6 +1748,7 @@ function getRefData(refID, refRole, ctx) {
                             }
                             return ctx.body = responseData;
                         }).catch((error) => {
+                            console.log(error)
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
                         });
 
@@ -2387,6 +2403,7 @@ exports.appointmentNeeded = async (ctx) => {
     console.log("ctx.request.body.referralData", ctx.request.body.ReferralId + ',' + ctx.request.body.role + ',' + ctx.request.body.service);
     ctx.query.refID = ctx.request.body.ReferralId;
     ctx.query.refRole = ctx.request.body.role;
+    ctx.query.formType = ctx.request.body.formType;
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.request.body.service;

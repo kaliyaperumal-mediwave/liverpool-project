@@ -166,6 +166,8 @@ function createPayload(ctx) {
     var concatString = ", ";
     var payLoad = {};
     var householdMembers = [];
+    console.log("------------------------",ctx.query.formType)
+    console.log("==============="+ctx.request.body.referralData.role )
     for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
         var name = ctx.request.body.referralData.section2.household_member[index].name;
         var lastName = ctx.request.body.referralData.section2.household_member[index].lastName;
@@ -209,10 +211,18 @@ function createPayload(ctx) {
             "08d_ethnicity": formatingInput(ctx.request.body.referralData.section2.child_ethnicity),
             "13_is_a_carer_for_an_adult": formatingInput(ctx.request.body.referralData.section2.child_care_adult),
             "12_household_members": checkArray(householdMembers),
-            "14a_parent_or_carer_details_with_parental_responsibility": formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + "-" + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship),
-            "14b_parent_or_carer_contact_number": formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number,
-            "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
-            "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
+
+            "14a_parent_or_carer_details_with_parental_responsibility": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.parental_responsibility) +concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship):alternativeBlankSpace,
+
+            "14b_parent_or_carer_contact_number": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number : alternativeBlankSpace,
+
+            "14c_parent_or_carer_email": ctx.query.formType =="child" && ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
+
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType =="child"? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
+
+            "14a_emergency_contact_details": ctx.query.formType =="young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString +   ctx.request.body.referralData.section2.parent_email!=undefined  ? ctx.request.body.referralData.section2.parent_email : ""  :alternativeBlankSpace,
+
+
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
             "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
@@ -220,6 +230,7 @@ function createPayload(ctx) {
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "16a_care_leaver" : formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
@@ -234,13 +245,14 @@ function createPayload(ctx) {
             "24_problem_any_particular_trigger": formatingInput(ctx.request.body.referralData.section4.any_particular_trigger),
             "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": formatingInput(ctx.request.body.referralData.section4.disabilities),
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.join(', ') : alternativeBlankSpace,
+            "26a_how_heard_about_service": formatingInput(ctx.request.body.referralData.section4.about_our_service),
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section1.contact_person + concatString + ctx.request.body.referralData.section1.contact_preferences.join(', '),
             "30_mindwave_id": ctx.request.body.referralData.section1.reference_code
         }
     }
 
-    else if (ctx.request.body.referralData.role == "Parent") {
+    else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "Family") {
         console.log(ctx.request.body.referralData)
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
@@ -270,10 +282,15 @@ function createPayload(ctx) {
             "08d_ethnicity": formatingInput(ctx.request.body.referralData.section2.child_ethnicity),
             "13_is_a_carer_for_an_adult": formatingInput(ctx.request.body.referralData.section2.child_care_adult),
             "12_household_members": checkArray(householdMembers),
-            "14a_parent_or_carer_details_with_parental_responsibility": formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + "-" + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship),
-            "14b_parent_or_carer_contact_number": formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number,
-            "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
-            "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
+
+            "14a_parent_or_carer_details_with_parental_responsibility": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.parental_responsibility) +concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship):alternativeBlankSpace,
+
+            "14a_emergency_contact_details": ctx.query.formType =="young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString +  (ctx.request.body.referralData.section2.parent_email!=undefined  ?  ctx.request.body.referralData.section2.parent_email : "")  :alternativeBlankSpace,
+            
+
+            "14b_parent_or_carer_contact_number":ctx.query.formType =="child" ?  formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number :alternativeBlankSpace ,
+            "14c_parent_or_carer_email": ctx.query.formType =="child" ?  ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace :alternativeBlankSpace ,
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace ,
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
             "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
@@ -281,6 +298,7 @@ function createPayload(ctx) {
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "16a_care_leaver" : formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
@@ -295,12 +313,13 @@ function createPayload(ctx) {
             "24_problem_any_particular_trigger": formatingInput(ctx.request.body.referralData.section4.any_particular_trigger),
             "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": formatingInput(ctx.request.body.referralData.section4.disabilities),
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.join(', ') : alternativeBlankSpace,
+            "26a_how_heard_about_service": formatingInput(ctx.request.body.referralData.section4.about_our_service),
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section2.contact_person + concatString + ctx.request.body.referralData.section2.contact_preferences.join(', '),
             "30_mindwave_id": ctx.request.body.refCode
         }
     }
-    else {
+    else  if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "Young") {
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
@@ -332,10 +351,15 @@ function createPayload(ctx) {
             "08d_ethnicity": formatingInput(ctx.request.body.referralData.section2.child_ethnicity),
             "13_is_a_carer_for_an_adult": formatingInput(ctx.request.body.referralData.section2.child_care_adult),
             "12_household_members": checkArray(householdMembers),
-            "14a_parent_or_carer_details_with_parental_responsibility": formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + "-" + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship),
-            "14b_parent_or_carer_contact_number": formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number,
-            "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
-            "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
+
+            "14a_parent_or_carer_details_with_parental_responsibility": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.parental_responsibility) +concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship):alternativeBlankSpace,
+
+            "14a_emergency_contact_details": ctx.query.formType =="young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString +  (ctx.request.body.referralData.section2.parent_email!=undefined  ?  ctx.request.body.referralData.section2.parent_email : "")  :alternativeBlankSpace,
+
+
+            "14b_parent_or_carer_contact_number": ctx.query.formType =="child" ? formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number :alternativeBlankSpace,
+            "14c_parent_or_carer_email": ctx.query.formType =="child" && ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType =="child" ?  formatingInput(ctx.request.body.referralData.section2.parent_same_house) :alternativeBlankSpace ,
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
             "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
@@ -343,6 +367,7 @@ function createPayload(ctx) {
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
@@ -357,6 +382,7 @@ function createPayload(ctx) {
             "24_problem_any_particular_trigger": formatingInput(ctx.request.body.referralData.section4.any_particular_trigger),
             "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": formatingInput(ctx.request.body.referralData.section4.disabilities),
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.join(', ') : alternativeBlankSpace,
+            "26a_how_heard_about_service": formatingInput(ctx.request.body.referralData.section4.about_our_service),
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section1.contact_person + concatString + ctx.request.body.referralData.section1.contact_preferences.join(', '),
             "30_mindwave_id": ctx.request.body.referralData.section1.reference_code

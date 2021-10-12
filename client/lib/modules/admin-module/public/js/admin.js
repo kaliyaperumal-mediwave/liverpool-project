@@ -220,7 +220,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i] + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -460,7 +460,6 @@ $(document).ready(function () {
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           // if (_self.checkYPasDateField) {
           // if target service provider is alder hey. we save the info to just db
-
           $.ajax({
             url: API_URI + '/bookAppointment',
             type: 'post',
@@ -471,6 +470,7 @@ $(document).ready(function () {
             success: function (res) {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
+              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
               
               $('#deletedSuccess').modal('show');
             },
@@ -507,7 +507,7 @@ $(document).ready(function () {
             success: function (res) {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
-              
+              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
               $('#deletedSuccess').modal('show');
             },
             error: function (error) {
@@ -818,6 +818,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment needed";
     sendAppointmentObj.role = role;
     sendAppointmentObj.referranceCode = referranceCode;
+    sendAppointmentObj.formType = formType
     vueApp.callNeedAppointmentApi(sendAppointmentObj);
   }
 });
