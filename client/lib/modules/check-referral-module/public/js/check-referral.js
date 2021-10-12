@@ -133,6 +133,13 @@ $(document).ready(function () {
                                     refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
+                                if(_self.displayReferrals[i].appointment)
+                                {
+                                    if(_self.displayReferrals[i].appointment.status=='Appointment booked')
+                                    {
+                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) + _self.displayReferrals[i].appointment.time
+                                    }
+                                }
                             }
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
                             // var date = _self.displayReferrals[i].createdAt;
@@ -325,7 +332,7 @@ $(document).ready(function () {
                             {
                                 if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                                 {
-                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on" +  _self.searchReferrals[0].appointment.date + _self.searchReferrals[0].appointment.time
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) + _self.searchReferrals[0].appointment.time
                                 }
                             }
 
@@ -340,6 +347,20 @@ $(document).ready(function () {
                         }
                     });
                 }
+            },
+
+
+            convertDate: function (dbDate) {
+                var date = new Date(dbDate)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString();
+                var dd = date.getDate().toString();
+
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                this.dateFmt = yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
+                return showDate;
             },
 
 
@@ -405,6 +426,13 @@ $(document).ready(function () {
                             var refStatus = _self.searchReferrals[0].referral_status
                             refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                             _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        if(_self.searchReferrals[0].appointment!=null)
+                        {
+                            if(_self.searchReferrals[0].appointment.status=='Appointment booked')
+                            {
+                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) + _self.searchReferrals[0].appointment.time
+                            }
                         }
 
                         _self.viewReferralObj.searchTxt = searchCode;

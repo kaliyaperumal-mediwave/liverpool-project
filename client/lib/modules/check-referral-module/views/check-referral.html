@@ -247,6 +247,12 @@
                                                 {{refObj.reference_code}}
                                             </p>
                                         </div>
+                                        <div class="collapse-title">
+                                            Appointment details
+                                        </div>
+                                        <div  class="collapse-para">
+                                            {{refObj.appointment_status}}
+                                        </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
                                             class="container pr-0 float-btn-cont">
                                             <button class="float-btn" type="button" @click="contineReferral(refObj)">
@@ -361,6 +367,12 @@
                                             <p class="collapse-para m-0">
                                                 {{refObj.reference_code}}
                                             </p>
+                                        </div>
+                                        <div class="collapse-title">
+                                            Appointment details
+                                        </div>
+                                        <div  class="collapse-para">
+                                            {{refObj.appointment_status}}
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
                                             class="container pr-0 float-btn-cont">
