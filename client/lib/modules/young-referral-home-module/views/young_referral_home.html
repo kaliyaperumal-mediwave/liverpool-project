@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block extraBody %}
 <script src="/modules/young-referral-home-module/js/young_referral_home.js"></script>
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
 {% endblock %}
 {% block main
 %}
@@ -29,7 +30,31 @@
     </div>
     <!-- Loader end -->
     <div class="col-md-8 col-lg-8 col-xl-6 col-sm-10 col-12 col-12 mx-auto py-4">
-        <div class="main-content-area mx-auto">
+      <div class="d-flex w-100 align-items-center main-content-area mx-auto pt-4 px-4">
+          <p id="dynamicVoiceOverContent" class="d-none">aboutContent</p>
+          <div class="read-cont-h1 col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle"></div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+              id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+              <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+                  role="button">Play</button>
+              <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
+                  role="button">Pause</button>
+              <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
+                  role="button">Resume</button>
+
+              <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
+                  disabled id="stopButton" role="button">Stop</button>
+          </div>
+
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+              <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+                  role="button">Play</button>
+              <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
+                  disabled id="stopAndroidButton" role="button">Stop</button>
+          </div>
+      </div>
+      <div  id="aboutContent">
+        <div class="mid-content-area mx-auto">
             <div class="pb-2">
                 <!-- <h3 class="py-2 py-md-4 px-2 px-md-4 content-header-text text-center">Discover how we can support you -
                     Receive a
@@ -121,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="last-content-area mx-auto">
+        <div class="mid-content-area mx-auto">
             <div class="px-2 py-2 py-md-4">
                 <p class="text-center m-0 cursor-pointer pt-2 pt-md-1">
                     <img src="/modules/my-apostrophe-assets/img/support.svg" alt="logo" class="support-logo">
@@ -176,24 +201,7 @@
                         may have to share this information with
                         other agencies as your safety is what is most important to us.
                     </h3> -->
-                    <div class="pt-4 pt-md-5 pb-2 pb-md-3 text-center">
-                        <div class="py-2 d-none" id="8b91a47a-018a-4916-8804-0c2b197fdaa1">
-                            <a href="/users/sign_up">
-                                <button type="button" @click="submitLogin()" id="secondary"
-                                    class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span
-                                        class="btn-quaternary-text">CREATE
-                                        ACCOUNT
-                                    </span></button>
-                            </a>
-                        </div>
-                        <div class="py-2 mb-2 mb-lg-3">
-                            <button type="button" @click="goToRole()"
-                                class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span
-                                    class="btn-quaternary-text"> PROCEED
-                                </span></button>
-                        </div>
 
-                    </div>
 
 
                     <!-- <div class="text-center py-2 py-md-3" @click="goToRole()">
@@ -217,6 +225,28 @@
           </div> -->
                 </div>
             </div>
+        </div>
+      </div>
+      <div class="last-content-area mx-auto">
+      <div class="col-md-10 col-lg-9 px-sm-3 px-0 px-md-4 col-xl-8 mx-auto col-sm-10 col-12">
+        <div class="pt-4 pt-md-5 pb-2 pb-md-3 text-center">
+            <div class="py-2 d-none" id="8b91a47a-018a-4916-8804-0c2b197fdaa1">
+                <a href="/users/sign_up">
+                    <button type="button" @click="submitLogin()" id="secondary"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span
+                            class="btn-quaternary-text">CREATE
+                            ACCOUNT
+                        </span></button>
+                </a>
+            </div>
+            <div class="py-2 mb-2 mb-lg-3">
+                <button type="button" @click="goToRole()"
+                    class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span
+                        class="btn-quaternary-text"> PROCEED
+                    </span></button>
+            </div>
+          </div>
+        </div>
         </div>
     </div>
 </div>
