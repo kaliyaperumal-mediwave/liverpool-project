@@ -2398,7 +2398,7 @@ exports.appointmentNeeded = async (ctx) => {
             let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
             if (insertBookingdetails) {
                 return ctx.res.ok({
-                    message: reponseMessages[1023],
+                    message: reponseMessages[1025],
                 });
             }
             else {

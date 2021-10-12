@@ -22,6 +22,7 @@ const messageCodes = {
   1021: 'Activities retrived successfully',
   1022: 'Email notification sent to SPA.',
   1023: 'Appointment booked successfully',
-  1024: 'Something went wrong please try again'
+  1024: 'Something went wrong please try again',
+  1025: 'Appointment request mail sent successfully',
 };
 module.exports = messageCodes;
