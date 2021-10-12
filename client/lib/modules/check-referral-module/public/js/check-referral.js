@@ -137,7 +137,12 @@ $(document).ready(function () {
                                 {
                                     if(_self.displayReferrals[i].appointment.status=='Appointment booked')
                                     {
-                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) + _self.displayReferrals[i].appointment.time
+                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) +" at "+  _self.displayReferrals[i].appointment.time
+                                    }
+
+                                    if(_self.displayReferrals[i].appointment.status=='Appointment needed')
+                                    {
+                                        _self.displayReferrals[i].appointment_status = "Appointment needed"
                                     }
                                 }
                             }
@@ -332,7 +337,7 @@ $(document).ready(function () {
                             {
                                 if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                                 {
-                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) + _self.searchReferrals[0].appointment.time
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
                                 }
                             }
 
@@ -431,7 +436,7 @@ $(document).ready(function () {
                         {
                             if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                             {
-                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) + _self.searchReferrals[0].appointment.time
+                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
                             }
                         }
 

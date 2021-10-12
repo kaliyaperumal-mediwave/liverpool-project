@@ -2393,11 +2393,19 @@ exports.appointmentNeeded = async (ctx) => {
     ctx.request.body.referralCode = ctx.request.body.referranceCode;
     ctx.request.body.sendProf = true;
     try {
-        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-            console.log(sendReferralStatus)
-            return ctx.res.ok({
-                message: reponseMessages[1022],
-            });
+        return email.sendReferralWithData(ctx).then(async (sendReferralStatus) => {
+            console.log(sendReferralStatus);
+            let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
+            if (insertBookingdetails) {
+                return ctx.res.ok({
+                    message: reponseMessages[1023],
+                });
+            }
+            else {
+                return ctx.res.ok({
+                    message: reponseMessages[1024],
+                });
+            }
         }).catch(error => {
             return ctx.res.ok({
                 message: reponseMessages[1024],
