@@ -69,6 +69,7 @@ $(document).ready(function () {
         A: ""
       },
       checkYPasDateField: false,
+      checkValidYPasTime: false,
       isYPasFormSubmitted: false,
       emailServiceProvider: ''
 
@@ -398,8 +399,28 @@ $(document).ready(function () {
             var setYearValue = dateValue.split('/');
             var getYearValue = setYearValue[2];
             if (currentYear <= Number(getYearValue)) {
-              if (!utc.isBefore() && !isUtc) {
-                _self.checkYPasDateField = true;
+              if (utc.isBefore() || isUtc) {
+                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+                  var hours = Number(_self.yPasTime.hh);
+                  var mins = Number(_self.yPasTime.mm);
+                  var tmZone = _self.yPasTime.A;
+                  if (tmZone == 'PM') {
+                    utc._d.setHours(hours + 12, mins);
+                  } else {
+                    utc._d.setHours(hours, mins);
+                  }
+                  if (utc.isBefore()) {
+                    _self.checkValidYPasTime = true;
+                    _self.checkYPasDateField = false;
+
+                  } else {
+                    _self.checkValidYPasTime = false;
+                    _self.checkYPasDateField = false;
+                  }
+                } else {
+                  _self.checkYPasDateField = true;
+                }
+
               } else {
                 _self.checkYPasDateField = false;
               }
@@ -462,7 +483,7 @@ $(document).ready(function () {
         var _self = this;
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-          if (!_self.checkYPasDateField) {
+          if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $.ajax({
               url: API_URI + '/bookAppointment',
               type: 'post',
@@ -670,6 +691,34 @@ $(document).ready(function () {
               }
             }
           });
+        }
+      },
+
+
+      changeTime: function (e) {
+        var _self = this;
+        var dateValue = _self.yPasDate;
+        var dateFormat = "DD/MM/YYYY"
+        var utc = moment(dateValue, dateFormat, true)
+        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+          var hours = Number(_self.yPasTime.hh);
+          var mins = Number(_self.yPasTime.mm);
+          var tmZone = _self.yPasTime.A;
+          if (tmZone == 'PM') {
+            utc._d.setHours(hours + 12, mins);
+          } else {
+            utc._d.setHours(hours, mins);
+          }
+          if (utc.isBefore()) {
+            _self.checkValidYPasTime = true;
+            _self.checkYPasDateField = false;
+
+          } else {
+            _self.checkValidYPasTime = false;
+            _self.checkYPasDateField = false;
+          }
+        } else {
+          _self.checkYPasDateField = true;
         }
       },
 
