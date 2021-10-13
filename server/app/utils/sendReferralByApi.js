@@ -229,7 +229,7 @@ function createPayload(ctx) {
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
-            "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "19b_early_help_assessment_tool_EHAT": ctx.query.formType =="child"? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver" : formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
@@ -297,7 +297,7 @@ function createPayload(ctx) {
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
-            "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "19b_early_help_assessment_tool_EHAT": ctx.query.formType =="child"? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver" : formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
@@ -366,7 +366,7 @@ function createPayload(ctx) {
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
-            "19b_early_help_assessment_tool_EHAT": formatingInput(ctx.request.body.referralData.section3.child_EHAT),
+            "19b_early_help_assessment_tool_EHAT": ctx.query.formType =="child"? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information" : ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname,ctx.request.body.referralData.section3.child_socialworker_lastname,ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
             // //section4
