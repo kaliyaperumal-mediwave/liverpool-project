@@ -355,7 +355,7 @@ $(document).ready(function () {
                 else if (this.userRole == "professional") {
                     console.log(data[0].family[0].registered_gp_postcode)
                     this.gpPostCode = data[0].family[0].registered_gp_postcode
-                    
+
                     if (data[0] != undefined && data[0].family[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
@@ -688,8 +688,6 @@ $(document).ready(function () {
 
             //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
-                console.log("flowowkr")
-                return;
                 var responseData = apiCallPost('post', '/saveYoungAbout', payload);
                 if (responseData && Object.keys(responseData)) {
 
