@@ -1,6 +1,8 @@
 {% extends "layout.html" %} {% block extraBody %}
 <script src="/modules/home-module/js/home.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+
 {% endblock %} {% block main %}
 <div id="landing-page">
   <!-- Loader start -->
@@ -81,16 +83,42 @@
       </div>
     </div>
     <div class="d-flex text-center py-2">
-      <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-3 py-md-4 mx-auto home-primary-content-bg home-primary-content">
-        <h4 class="m-0 pt-md-0 pt-1 px-2 text-left home-primary-content">
-          Sefton & Liverpool CAMHS services aim to promote the mental health and
-          wellbeing of all children, young people, families and carers.
-        </h4>
-        <h4 class="mb-1 pt-1 pt-md-2 px-2 text-left font-weight-bold home-primary-content">
-          This platform provides you with useful resources to support mental health and wellbeing for children and young
-          people. It also allows young people 14 and over, parents / carers and professionals to make referrals to
-          Sefton & Liverpool CAMHS services.
-        </h4>
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-3 mx-auto home-primary-content-bg home-primary-content">
+        <div class="d-flex w-100 align-items-center py-2">
+          <p id="dynamicVoiceOverContent" class="d-none">homePageVoiceOverContent</p>
+          <div class="col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle"></div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+            id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+              role="button">Play</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
+              role="button">Pause</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
+              role="button">Resume</button>
+
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopButton" role="button">Stop</button>
+          </div>
+
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+              role="button">Play</button>
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopAndroidButton" role="button">Stop</button>
+          </div>
+        </div>
+        <div id="homePageVoiceOverContent">
+          <h4 class="m-0 pt-md-0 pt-1 px-2 text-left home-primary-content">
+            Sefton & Liverpool CAMHS services aim to promote the mental health and
+            wellbeing of all children, young people, families and carers.
+          </h4>
+          <h4 class="mb-1 pt-1 pt-md-2 px-2 text-left font-weight-bold home-primary-content">
+            This platform provides you with useful resources to support mental health and wellbeing for children and
+            young
+            people. It also allows young people 14 and over, parents / carers and professionals to make referrals to
+            Sefton & Liverpool CAMHS services.
+          </h4>
+        </div>
       </div>
     </div>
   </div>
