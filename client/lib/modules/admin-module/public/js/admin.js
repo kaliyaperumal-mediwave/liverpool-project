@@ -3,11 +3,15 @@ var API_URI = "/modules/admin-module";
 $(document).ready(function () {
   $('#uniqueLogo').hide();
   $('#footer-placement').hide();
+  var roleOfAdmin = document.getElementById('loginAsAdmin');
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
-  Vue.component('vue-timepicker', window.VueTimepicker.default);
+  //Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
+  }
+  if (roleOfAdmin.innerHTML == "Alder Hey - Liverpool CAMHS" || roleOfAdmin.innerHTML == "Alder Hey - Sefton CAMHS" || roleOfAdmin.innerHTML == "admin") {
+    Vue.component('vue-timepicker', window.VueTimepicker.default);
   }
   var vueApp = new Vue({
     el: '#admin',
@@ -66,7 +70,7 @@ $(document).ready(function () {
       },
       checkYPasDateField: false,
       isYPasFormSubmitted: false,
-      emailServiceProvider:''
+      emailServiceProvider: ''
 
     },
 
@@ -220,7 +224,7 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i] + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -460,7 +464,6 @@ $(document).ready(function () {
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           // if (_self.checkYPasDateField) {
           // if target service provider is alder hey. we save the info to just db
-
           $.ajax({
             url: API_URI + '/bookAppointment',
             type: 'post',
@@ -471,7 +474,8 @@ $(document).ready(function () {
             success: function (res) {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
-              
+              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+
               $('#deletedSuccess').modal('show');
             },
             error: function (error) {
@@ -497,26 +501,26 @@ $(document).ready(function () {
       callNeedAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
         var _self = this;
-          $.ajax({
-            url: API_URI + '/needAppointment',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(sendAppointmentObj),
-            success: function (res) {
-              $('#appointmentsModal').modal('hide');
-              _self.successMessage = res.message;
-              
-              $('#deletedSuccess').modal('show');
-            },
-            error: function (error) {
-              $('#loader').hide();
-              if (error) {
-                showError(error.responseJSON.message, error.status);
-              }
+        $.ajax({
+          url: API_URI + '/needAppointment',
+          type: 'post',
+          dataType: 'json',
+          async: false,
+          contentType: 'application/json',
+          data: JSON.stringify(sendAppointmentObj),
+          success: function (res) {
+            $('#appointmentsModal').modal('hide');
+            _self.successMessage = res.message;
+            createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+            $('#deletedSuccess').modal('show');
+          },
+          error: function (error) {
+            $('#loader').hide();
+            if (error) {
+              showError(error.responseJSON.message, error.status);
             }
-          });
+          }
+        });
       },
 
       selectcheck: function (checked, id) {
@@ -802,7 +806,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment booked";
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
-  //  sendAppointmentObj.date = $('#yPasDateField').val();
+    //  sendAppointmentObj.date = $('#yPasDateField').val();
     sendAppointmentObj.time = $('#yPasTimeField').val();
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
@@ -818,6 +822,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment needed";
     sendAppointmentObj.role = role;
     sendAppointmentObj.referranceCode = referranceCode;
+    sendAppointmentObj.formType = formType
     vueApp.callNeedAppointmentApi(sendAppointmentObj);
   }
 });
