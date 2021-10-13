@@ -694,6 +694,50 @@ $(document).ready(function () {
         }
       },
 
+      changeTime1: function () {
+        var _self = this;
+        var dateValue = _self.yPasDate;
+        if (dateValue && _self.isValidDate(dateValue)) {
+          var dateFormat = "DD/MM/YYYY"
+          var utc = moment(dateValue, dateFormat, true)
+          var isUtc = utc.isValid();
+          var currentYear = new Date().getFullYear();
+          var setYearValue = dateValue.split('/');
+          var getYearValue = setYearValue[2];
+          if (currentYear <= Number(getYearValue)) {
+            if (utc.isBefore() || isUtc) {
+              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+                var hours = Number(_self.yPasTime.hh);
+                var mins = Number(_self.yPasTime.mm);
+                var tmZone = _self.yPasTime.A;
+                if (tmZone == 'PM') {
+                  utc._d.setHours(hours + 12, mins);
+                } else {
+                  utc._d.setHours(hours, mins);
+                }
+                if (utc.isBefore()) {
+                  _self.checkValidYPasTime = true;
+                  _self.checkYPasDateField = false;
+
+                } else {
+                  _self.checkValidYPasTime = false;
+                  _self.checkYPasDateField = false;
+                }
+              } else {
+                _self.checkYPasDateField = true;
+              }
+
+            } else {
+              _self.checkYPasDateField = false;
+            }
+          } else {
+            _self.checkYPasDateField = true;
+          }
+        } else {
+          _self.checkYPasDateField = true;
+        }
+      },
+
 
       changeTime: function (e) {
         var _self = this;
