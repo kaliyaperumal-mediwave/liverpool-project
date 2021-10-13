@@ -77,7 +77,7 @@ exports.sendReferralData = async ctx =>{
             ctx.request.body.referralData.section2.child_land_number = ctx.request.body.referralData.section2.child_contact_number;
             ctx.request.body.referralData.section2.child_contact_number = "No";
         }
-        var resultObj = createPayload(ctx)
+       var resultObj = createPayload(ctx)
         console.log(resultObj);
         console.log(JSON.stringify(resultObj))
            //console.log(ctx.request.body.referralData.section2)
@@ -195,8 +195,8 @@ function createPayload(ctx) {
             "pat_title": formatingInput(ctx.request.body.referralData.section2.child_name_title),
             "pat_firstname": formatingInput(ctx.request.body.referralData.section2.child_name),
             "pat_lastname": formatingInput(ctx.request.body.referralData.section2.child_lastname),
-            "pat_email": ctx.request.body.referralData.section2.child_email ? ctx.request.body.referralData.section2.child_email : alternativeBlankSpace,
-            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number,
+            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number ? ctx.request.body.referralData.section2.child_land_number  :alternativeBlankSpace,
+            "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number ? ctx.request.body.referralData.section2.child_mobile_number :alternativeBlankSpace,
             "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number,
             "pat_address1": formatingInput(ctx.request.body.referralData.section2.pat_address1),
             "pat_address2": formatingInput(ctx.request.body.referralData.section2.pat_address2),
@@ -204,7 +204,7 @@ function createPayload(ctx) {
             "pat_county": formatingInput(ctx.request.body.referralData.section2.pat_county),
             "pat_postcode": (ctx.request.body.referralData.section2.pat_postcode).trim(),
             "10_consent_to_contact_via_post": formatingInput(ctx.request.body.referralData.section2.can_send_post),
-            "08a_gender_child_indentifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
+            "08a_gender_child_identifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
             "pat_gender": formatingInput(ctx.request.body.referralData.section2.sex_at_birth),
             "08b_does_child_identify_with_birth_gender": formatingInput(ctx.request.body.referralData.section2.child_gender_birth),
             "08c_sexual_orientation": formatingInput(ctx.request.body.referralData.section2.child_sexual_orientation),
@@ -254,8 +254,9 @@ function createPayload(ctx) {
 
     else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "Family") {
         console.log(ctx.request.body.referralData)
+        
         payLoad = { //Section 1
-            "00a_referrer": ctx.request.body.referralData.role,
+            "00a_referrer": ctx.request.body.referralData.role != "Family" ? ctx.request.body.referralData.role : "Family / friends",
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
             "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_child),
@@ -267,15 +268,15 @@ function createPayload(ctx) {
             "pat_firstname": formatingInput(ctx.request.body.referralData.section2.child_name),
             "pat_lastname": formatingInput(ctx.request.body.referralData.section2.child_lastname),
             "pat_email": ctx.request.body.referralData.section2.child_email ? ctx.request.body.referralData.section2.child_email : alternativeBlankSpace,
-            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number,
-            "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number,
+            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number != "No" ? ctx.request.body.referralData.section2.child_land_number  :alternativeBlankSpace,
+            "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number != "No" ? ctx.request.body.referralData.section2.child_mobile_number :alternativeBlankSpace,
             "pat_address1": formatingInput(ctx.request.body.referralData.section2.pat_address1),
             "pat_address2": formatingInput(ctx.request.body.referralData.section2.pat_address2),
             "pat_town_city": formatingInput(ctx.request.body.referralData.section2.pat_town_city),
             "pat_county": formatingInput(ctx.request.body.referralData.section2.pat_county),
             "pat_postcode": ctx.request.body.referralData.section2.pat_postcode,
             "10_consent_to_contact_via_post": formatingInput(ctx.request.body.referralData.section2.can_send_post),
-            "08a_gender_child_indentifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
+            "08a_gender_child_identifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
             "pat_gender": formatingInput(ctx.request.body.referralData.section2.sex_at_birth),
             "08b_does_child_identify_with_birth_gender": formatingInput(ctx.request.body.referralData.section2.child_gender_birth),
             "08c_sexual_orientation": formatingInput(ctx.request.body.referralData.section2.child_sexual_orientation),
@@ -321,30 +322,30 @@ function createPayload(ctx) {
     }
     else  if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "Young") {
         payLoad = { //Section 1
-            "00a_referrer": ctx.request.body.referralData.role,
+            "00a_referrer": ctx.request.body.referralData.role != "Young" ? ctx.request.body.referralData.role : "Young Person",
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
             "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_child),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
-            "03_any_reason_not_to_contact_parent_or_carer": formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1reason_contact_parent_camhs),
+            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType =="child" ?  formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1reason_contact_parent_camhs) :alternativeBlankSpace,
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
             //Section 2
-            "09_nhs_number_provided": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "No",
+            "09_nhs_number_provided": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : alternativeBlankSpace,
             "pat_title": formatingInput(ctx.request.body.referralData.section2.child_name_title),
             "pat_firstname": formatingInput(ctx.request.body.referralData.section2.child_name),
             "pat_lastname": formatingInput(ctx.request.body.referralData.section2.child_lastname),
             "pat_email": ctx.request.body.referralData.section2.child_email ? ctx.request.body.referralData.section2.child_email : alternativeBlankSpace,
-            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number,
-            "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number,
+            "pat_home_tel": ctx.request.body.referralData.section2.child_land_number ? ctx.request.body.referralData.section2.child_land_number  :alternativeBlankSpace,
+            "pat_mob_tel": ctx.request.body.referralData.section2.child_mobile_number ? ctx.request.body.referralData.section2.child_mobile_number :alternativeBlankSpace,
             "pat_address1": formatingInput(ctx.request.body.referralData.section2.pat_address1),
             "pat_address2": formatingInput(ctx.request.body.referralData.section2.pat_address2),
             "pat_town_city": formatingInput(ctx.request.body.referralData.section2.pat_town_city),
             "pat_county": formatingInput(ctx.request.body.referralData.section2.pat_county),
             "pat_postcode": ctx.request.body.referralData.section2.pat_postcode,
             "10_consent_to_contact_via_post": formatingInput(ctx.request.body.referralData.section2.can_send_post),
-            "08a_gender_child_indentifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
+            "08a_gender_child_identifies_as": formatingInput(ctx.request.body.referralData.section2.child_gender),
             "pat_gender": formatingInput(ctx.request.body.referralData.section2.sex_at_birth),
             "08b_does_child_identify_with_birth_gender": formatingInput(ctx.request.body.referralData.section2.child_gender_birth),
             "08c_sexual_orientation": formatingInput(ctx.request.body.referralData.section2.child_sexual_orientation),

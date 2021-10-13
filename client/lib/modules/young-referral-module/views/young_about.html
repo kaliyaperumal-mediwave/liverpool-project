@@ -249,6 +249,11 @@
                             </multiselect>
 
                             <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.sameGpYoungAddress)),'invalid-fields':(!aboutObj.sameGpYoungAddress) }">
+                                You must be either Liverpool in address or GP.
+                            </div>
+
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.youngAddress && !youngManualAddress.length)),'invalid-fields':(!aboutObj.youngAddress && !youngManualAddress.length) }">
                                 You must provide a address.
                             </div>
@@ -1064,7 +1069,7 @@
                     && aboutObj.youngLastName
                     && (!aboutObj.youngEmail || (aboutObj.youngEmail && emailRegex.test(aboutObj.youngEmail)))
                     && (aboutObj.youngContactNumber && dynamicRegexyoung.test(aboutObj.youngContactNumber))
-                    && (aboutObj.youngAddress || (!aboutObj.youngAddress && youngManualAddress.length))
+                    && (sameGpYoungAddress && (aboutObj.youngAddress || (!aboutObj.youngAddress && youngManualAddress.length)))
                     && aboutObj.sendPost
                     && aboutObj.youngGender
                     && aboutObj.youngIdentity
