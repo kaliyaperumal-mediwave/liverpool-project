@@ -397,8 +397,8 @@ $(document).ready(function () {
             var currentYear = new Date().getFullYear();
             var setYearValue = dateValue.split('/');
             var getYearValue = setYearValue[2];
-            if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-              if (_self.isFutureDate(e.target.value) || !isUtc) {
+            if (currentYear <= Number(getYearValue)) {
+              if (!utc.isBefore() && !isUtc) {
                 _self.checkYPasDateField = true;
               } else {
                 _self.checkYPasDateField = false;
@@ -462,40 +462,60 @@ $(document).ready(function () {
         var _self = this;
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-          // if (_self.checkYPasDateField) {
-          // if target service provider is alder hey. we save the info to just db
-          $.ajax({
-            url: API_URI + '/bookAppointment',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(sendAppointmentObj),
-            success: function (res) {
-              $('#appointmentsModal').modal('hide');
-              _self.successMessage = res.message;
-              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
-
-              $('#deletedSuccess').modal('show');
-            },
-            error: function (error) {
-              $('#loader').hide();
-              if (error) {
-                showError(error.responseJSON.message, error.status);
+          if (!_self.checkYPasDateField) {
+            $.ajax({
+              url: API_URI + '/bookAppointment',
+              type: 'post',
+              dataType: 'json',
+              async: false,
+              contentType: 'application/json',
+              data: JSON.stringify(sendAppointmentObj),
+              success: function (res) {
+                console.log('send respective payload')
+                $('#appointmentsModal').modal('hide');
+                _self.successMessage = res.message;
+                createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+                _self.resetAppointmentsForm(_self);
+                $('#appointmentsModal').hide();
+                $('#deletedSuccess').modal('show');
+              },
+              error: function (error) {
+                $('#loader').hide();
+                _self.resetAppointmentsForm();
+                $('#appointmentsModal').hide();
+                if (error) {
+                  showError(error.responseJSON.message, error.status);
+                }
               }
-            }
-          });
+            });
 
-          console.log('send respective payload')
-          // } else {
-          //   $('#appointmentsModal').show();
-          //   return;
-          // }
-
+          } else {
+            $('#appointmentsModal').show();
+            return;
+          }
         } else {
           $('#appointmentsModal').show();
           return;
         }
+      },
+
+      resetAppointmentsForm: function (_self) {
+        $("#yPasArea").show();
+        $("#appointNeededArea").show();
+        _self.isYPasFormSubmitted = false;
+        _self.yPasOrgTypes = "";
+        _self.yPasAlderHey = "";
+        _self.yPasDate = "";
+        _self.yPasTime.hh = "";
+        _self.yPasTime.mm = "";
+        _self.yPasTime.A = "";
+        $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+        $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+        $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+        $("#manualYPasBook").prop("checked", false);
+        $("#appointNeeded").prop("checked", false);
+        $('#appointmentsModal').modal('hide');
+
       },
 
       callNeedAppointmentApi: function (sendAppointmentObj) {
