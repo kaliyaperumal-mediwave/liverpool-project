@@ -3,11 +3,15 @@ var API_URI = "/modules/admin-module";
 $(document).ready(function () {
   $('#uniqueLogo').hide();
   $('#footer-placement').hide();
+  var roleOfAdmin = document.getElementById('loginAsAdmin');
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
-  Vue.component('vue-timepicker', window.VueTimepicker.default);
+  //Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
+  }
+  if (roleOfAdmin.innerHTML == "Alder Hey - Liverpool CAMHS" || roleOfAdmin.innerHTML == "Alder Hey - Sefton CAMHS" || roleOfAdmin.innerHTML == "admin") {
+    Vue.component('vue-timepicker', window.VueTimepicker.default);
   }
   var vueApp = new Vue({
     el: '#admin',
@@ -66,7 +70,7 @@ $(document).ready(function () {
       },
       checkYPasDateField: false,
       isYPasFormSubmitted: false,
-      emailServiceProvider:''
+      emailServiceProvider: ''
 
     },
 
@@ -471,7 +475,7 @@ $(document).ready(function () {
               $('#appointmentsModal').modal('hide');
               _self.successMessage = res.message;
               createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
-              
+
               $('#deletedSuccess').modal('show');
             },
             error: function (error) {
@@ -497,26 +501,26 @@ $(document).ready(function () {
       callNeedAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
         var _self = this;
-          $.ajax({
-            url: API_URI + '/needAppointment',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(sendAppointmentObj),
-            success: function (res) {
-              $('#appointmentsModal').modal('hide');
-              _self.successMessage = res.message;
-              createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
-              $('#deletedSuccess').modal('show');
-            },
-            error: function (error) {
-              $('#loader').hide();
-              if (error) {
-                showError(error.responseJSON.message, error.status);
-              }
+        $.ajax({
+          url: API_URI + '/needAppointment',
+          type: 'post',
+          dataType: 'json',
+          async: false,
+          contentType: 'application/json',
+          data: JSON.stringify(sendAppointmentObj),
+          success: function (res) {
+            $('#appointmentsModal').modal('hide');
+            _self.successMessage = res.message;
+            createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+            $('#deletedSuccess').modal('show');
+          },
+          error: function (error) {
+            $('#loader').hide();
+            if (error) {
+              showError(error.responseJSON.message, error.status);
             }
-          });
+          }
+        });
       },
 
       selectcheck: function (checked, id) {
@@ -802,7 +806,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment booked";
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
-  //  sendAppointmentObj.date = $('#yPasDateField').val();
+    //  sendAppointmentObj.date = $('#yPasDateField').val();
     sendAppointmentObj.time = $('#yPasTimeField').val();
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
