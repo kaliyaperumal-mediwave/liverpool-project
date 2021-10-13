@@ -618,14 +618,15 @@
                                     Please provide a date. </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && yPasDate && checkYPasDateField),'invalid-fields':(isYPasFormSubmitted && checkYPasDateField)  }">
-                                    Please make sure the DOB is entered in the correct format DD/MM/YYYY. </div>
+                                    Please make sure the date is entered in the correct format DD/MM/YYYY. </div>
                             </div>
 
                             <div class="py-2" id="showCAMHSAndEDYS">
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
                                 <div class="input-group">
-                                    <vue-timepicker id="yPasTimeField" close-on-complete @close="changeTime1()" format="hh:mm A" v-model="yPasTime">
+                                    <vue-timepicker id="yPasTimeField" close-on-complete @close="changeTime1()"
+                                        format="hh:mm A" v-model="yPasTime">
                                     </vue-timepicker>
                                 </div>
                                 <div class="invalid-feedback d-none mt-2"
