@@ -1176,11 +1176,11 @@ $(document).ready(function () {
 
 
             updateSelected: function (value, id) {
-                debugger
-                console.log(id);
-                console.log(value);
                 if (id == "isTrue") {
-                    this.youngPersonAddress = value;
+                    const addressArray = value.split(",");
+                    if(addressArray.length>0)
+                    var getPostCodeIndex = addressArray.length - 1
+                    this.youngPersonAddress = addressArray[getPostCodeIndex];
                     this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                 }
                 if (value & value.length) {
@@ -1232,7 +1232,7 @@ $(document).ready(function () {
 
             searchQuery: function (value, id) {
                 if (id == "isTrue") {
-                    this.youngPersonAddress = value;
+                    //this.youngPersonAddress = value;
                     this.cdnRequest(value)
                 }
                 else
@@ -1265,6 +1265,7 @@ $(document).ready(function () {
                 }
 
                 if (youngAddress || youngAddress != "") {
+                    youngAddress = youngAddress.trim();
                     if (gpCodes[0].code.indexOf(youngAddress.substring(0, 3)) >= 0) {
                         addressCityName = gpCodes[0].type;
                     } else if (gpCodes[1].code.indexOf(youngAddress.substring(0, 3)) >= 0) {
