@@ -133,7 +133,7 @@ $(document).ready(function () {
             hasValidDate: false,
             gpPostCode: "",
             youngPersonAddress: "",
-            sameGpYoungAddress:true
+            sameGpYoungAddress: true
         },
         beforeMount: function () {
             $('#loader').show();
@@ -295,7 +295,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "youngEmail", data[0].family[0].child_email);
                         Vue.set(this.aboutObj, "youngContactNumber", data[0].family[0].child_contact_number);
                         //Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
-                        if (data[0].family[0].young_address_postcode) { // bind postcode column for new referrals
+                        if (data[0].family[0].child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
                         }
                         else {// leave postcode column for old referrals
@@ -438,7 +438,7 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-               
+
                 //this.sameGpYoungAddress;
 
                 if (this.gpPostCode || this.youngManualAddress.length) {
@@ -446,8 +446,7 @@ $(document).ready(function () {
                     if (this.gpPostCode) {
                         this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                     }
-                    if(this.youngManualAddress.length)
-                    {
+                    if (this.youngManualAddress.length) {
                         this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                     }
 
@@ -469,7 +468,7 @@ $(document).ready(function () {
                     this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if ( this.sameGpYoungAddress && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
+                if (this.sameGpYoungAddress && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
                     formData.youngIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
@@ -564,11 +563,10 @@ $(document).ready(function () {
                 console.log(this.addressData.postCode)
                 if (this.addressData.postCode) {
 
-                     this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.addressData.postCode)
+                    this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.addressData.postCode)
                 }
                 console.log(this.sameGpYoungAddress)
-                if(this.sameGpYoungAddress)
-                {
+                if (this.sameGpYoungAddress) {
                     if (role == 'young') {
                         manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
                         this.aboutObj.youngAddress = "";
@@ -1174,11 +1172,14 @@ $(document).ready(function () {
 
 
 
-            updateSelected: function (value) {
-                this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+            updateSelected: function (value, id) {
+                debugger
+                console.log(id);
+                if (id == "isTrue") {
+                    this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+                }
                 if (value & value.length) {
                     this.selectedResources.push(resource);
-                    //this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                 }
                 this.optionsProxy = []
             },
@@ -1233,7 +1234,7 @@ $(document).ready(function () {
                 this.selectedResources.splice(index, 1)
             },
             liverpoolGPAddress: function (gp, youngAddress) {
-                var gpCityName, addressCityName,returnflag
+                var gpCityName, addressCityName, returnflag
                 var gpCodes = [
                     {
                         type: 'Liverpool',
@@ -1261,18 +1262,16 @@ $(document).ready(function () {
 
                 console.log(gpCityName)
                 console.log(addressCityName)
-                if(gpCityName=="Liverpool" || addressCityName=="Liverpool")
-                {
+                if (gpCityName == "Liverpool" || addressCityName == "Liverpool") {
                     returnflag = true;
                 }
-                else
-                {
-                    returnflag=false;
+                else {
+                    returnflag = false;
                 }
 
                 return returnflag;
 
-               
+
             },
         }
     })
