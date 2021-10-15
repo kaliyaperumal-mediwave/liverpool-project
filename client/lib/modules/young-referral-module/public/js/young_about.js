@@ -1246,6 +1246,8 @@ $(document).ready(function () {
                 this.selectedResources.splice(index, 1)
             },
             liverpoolGPAddress: function (gp, youngAddress) {
+                gp = gp.toUpperCase()
+                youngAddress = youngAddress.toUpperCase()
                 var gpCityName, addressCityName, returnflag
                 var gpCodes = [
                     {
