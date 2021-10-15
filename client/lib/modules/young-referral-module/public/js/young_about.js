@@ -233,6 +233,7 @@ $(document).ready(function () {
                         //Vue.set(this.aboutObj, "youngAddress", data.young_address);
                         if (data.child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data.child_address + ' ,' + data.child_address_postcode);
+                            this.youngPersonAddress = data.child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data.child_address);
@@ -297,6 +298,7 @@ $(document).ready(function () {
                         //Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
                         if (data[0].family[0].child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
+                            this.youngPersonAddress = data[0].family[0].child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
@@ -373,6 +375,7 @@ $(document).ready(function () {
                         // Vue.set(this.aboutObj, "youngAddress", data[0].family[0].young_address);
                         if (data[0].family[0].child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
+                            this.youngPersonAddress = data[0].family[0].child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
@@ -1175,7 +1178,9 @@ $(document).ready(function () {
             updateSelected: function (value, id) {
                 debugger
                 console.log(id);
+                console.log(value);
                 if (id == "isTrue") {
+                    this.youngPersonAddress = value;
                     this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                 }
                 if (value & value.length) {
@@ -1190,7 +1195,6 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    _self.youngPersonAddress = value;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
@@ -1226,8 +1230,16 @@ $(document).ready(function () {
 
             },
 
-            searchQuery: function (value) {
-                this.cdnRequest(value)
+            searchQuery: function (value, id) {
+                if (id == "isTrue") {
+                    this.youngPersonAddress = value;
+                    this.cdnRequest(value)
+                }
+                else
+                {
+                    this.cdnRequest(value)
+                }
+                
             },
 
             removeDependency: function (index) {
