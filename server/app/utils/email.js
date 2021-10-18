@@ -286,7 +286,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                 },
                 {
                     filename: ctx.request.body.refCode + ".csv",
-                    content: csv
+                    content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                 },
                 ],
                 html: htmlTemplate,
@@ -309,7 +309,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                     },
                     {
                         filename: ctx.request.body.refCode + ".csv",
-                        content: csv
+                        content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                     },
                     ],
                     html: htmlTemplate,
