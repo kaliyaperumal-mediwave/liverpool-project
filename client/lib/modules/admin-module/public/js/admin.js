@@ -480,10 +480,14 @@ $(document).ready(function () {
 
       callAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
+        var buttonElem = document.getElementById('btnSubmitAppointments');
+        buttonElem.style.opacity = 0.5;
+        buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
+            $('#loader').show();
             $.ajax({
               url: API_URI + '/bookAppointment',
               type: 'post',
@@ -497,12 +501,17 @@ $(document).ready(function () {
                 _self.successMessage = res.message;
                 createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
                 _self.resetAppointmentsForm(_self);
+                buttonElem.style.opacity = 1.0;
+                buttonElem.removeAttribute('disabled');
                 $('#appointmentsModal').hide();
+                $('#loader').hide();
                 $('#deletedSuccess').modal('show');
               },
               error: function (error) {
                 $('#loader').hide();
                 _self.resetAppointmentsForm();
+                buttonElem.style.opacity = 1.0;
+                buttonElem.removeAttribute('disabled');
                 $('#appointmentsModal').hide();
                 if (error) {
                   showError(error.responseJSON.message, error.status);
@@ -511,10 +520,14 @@ $(document).ready(function () {
             });
 
           } else {
+            buttonElem.style.opacity = 1.0;
+            buttonElem.removeAttribute('disabled');
             $('#appointmentsModal').show();
             return;
           }
         } else {
+          buttonElem.removeAttribute('disabled');
+          buttonElem.style.opacity = 1.0;
           $('#appointmentsModal').show();
           return;
         }
