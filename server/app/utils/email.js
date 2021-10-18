@@ -222,7 +222,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,true);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,ctx.request.body.bookAppointment ? true : false);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
