@@ -222,7 +222,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,true);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,ctx.request.body.bookAppointment ? true : false);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -286,7 +286,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                 },
                 {
                     filename: ctx.request.body.refCode + ".csv",
-                    content: csv
+                    content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                 },
                 ],
                 html: htmlTemplate,
@@ -309,7 +309,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                     },
                     {
                         filename: ctx.request.body.refCode + ".csv",
-                        content: csv
+                        content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                     },
                     ],
                     html: htmlTemplate,
