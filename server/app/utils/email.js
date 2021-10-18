@@ -214,7 +214,9 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = ctx.request.body.emailToProvider;
             sendProf = true;
         }
-        ctx.request.body.refCode = ctx.request.body.referralCode
+        if (ctx.request.body.referralCode) {
+            ctx.request.body.refCode = ctx.request.body.referralCode
+        }
         console.log('toAddress----------', toAddress,ctx.request.body.refCode);
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
