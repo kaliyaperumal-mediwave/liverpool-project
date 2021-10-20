@@ -172,7 +172,7 @@ $(document).ready(function () {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
             zeroRecords: 'No matching referrals found',
-            processing:'    <div class="overlay" id="loader">'+
+            processing:'<div class="overlay" id="loader">'+
             '<div class="overlay__inner">'+
                 '<div class="overlay__content">'+
                     '<div class="lds-spinner">'+
