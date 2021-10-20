@@ -577,7 +577,7 @@ $(document).ready(function () {
         debugger
         console.log(sendAppointmentObj);
         var _self = this;
-        $('#loader').removeClass('d-none').addClass('d-block');;
+        // $('#loader').removeClass('d-none').addClass('d-block');;
         $.ajax({
           url: API_URI + '/needAppointment',
           type: 'post',
@@ -590,6 +590,10 @@ $(document).ready(function () {
             $('#loader').removeClass('d-block').addClass('d-none');
             _self.successMessage = res.message;
             createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+            _self.SelectedProviderType = 'Liverpool';
+            $("#yPasArea").show();
+            $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+            $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
             $('#deletedSuccess').modal('show');
           },
           error: function (error) {
