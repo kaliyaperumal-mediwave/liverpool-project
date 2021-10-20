@@ -137,7 +137,7 @@ $(document).ready(function () {
                                 {
                                     if(_self.displayReferrals[i].appointment.status=='Appointment booked')
                                     {
-                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) +" at "+  _self.displayReferrals[i].appointment.time
+                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) +" at "+ _self.convertTime24to12(_self.displayReferrals[i].appointment.time)
                                     }
 
                                     if(_self.displayReferrals[i].appointment.status=='Appointment needed')
@@ -337,7 +337,7 @@ $(document).ready(function () {
                             {
                                 if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                                 {
-                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
                                 }
                             }
 
@@ -436,7 +436,7 @@ $(document).ready(function () {
                         {
                             if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                             {
-                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
+                                _self.searchReferrals[0].appointment_status = "Your appointment booked on " + _self.convertDate(_self.searchReferrals[0].appointment.date) + " at " + _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
                             }
                         }
                         if(_self.searchReferrals[0].user_role)
@@ -463,6 +463,23 @@ $(document).ready(function () {
             changeDateFormat: function (date) {
                 return moment(date).format('DD/MM/YYYY');
             },
+            convertTime24to12: function (time24h) {
+                var splits = time24h.split(':');
+                var hours = splits[0];
+                var minutes = splits[1];
+                var seconds = splits[2];
+                var modifier = 'AM';
+            
+                if(hours >= 12){
+                  hours = hours > 12? hours - 12 : hours;
+                  modifier = "PM";
+                }
+                hours = hours == 0 ? 12 : hours ;
+            
+                minutes = minutes.toString().length == 1 ? '0'+minutes : minutes;
+                hours = hours.toString().length == 1 ? '0'+hours : hours;
+                return hours + ':' + minutes + ':' + seconds + " " + modifier;
+              }
         }
     })
 });
