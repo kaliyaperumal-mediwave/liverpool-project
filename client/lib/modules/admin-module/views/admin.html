@@ -613,6 +613,11 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
                                         id="yPasDateField" placeholder="Enter Date">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3 font-23"
+                                            style="font-size: 18px;"><i aria-hidden="true" class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasDate),'invalid-fields':(isYPasFormSubmitted && !yPasDate)  }">
@@ -626,10 +631,15 @@
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
                                 <div class="input-group">
-                                    <vue-timepicker input-width="200px" drop-direction="up" fixed-dropdown-button
-                                        id="yPasTimeField" close-on-complete @close="changeTime1()" format="hh:mm a"
-                                        v-model="yPasTime">
+                                    <vue-timepicker input-width="200px" drop-direction="up" id="yPasTimeField"
+                                        close-on-complete @close="changeTime1()" format="hh:mm a" v-model="yPasTime">
                                     </vue-timepicker>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3"
+                                            style="font-size: 22px !important;">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && checkValidYPasTime)  }">

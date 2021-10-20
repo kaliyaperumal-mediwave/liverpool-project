@@ -76,7 +76,7 @@ $(document).ready(function () {
     },
 
     beforeMount: function () {
-      $('#loader').show();
+      $('#loader').removeClass('d-none').addClass('d-block');
     },
 
     mounted: function () {
@@ -487,11 +487,11 @@ $(document).ready(function () {
           _self.yPasDateField = "";
           _self.yPasTimeField = "";
           _self.yPasAlderHey = "";
-          $('#yPasTimeField').attr('placeholder', 'Enter Time');
+          $('#yPasTimeField').attr('placeholder', 'Choose Time');
         });
 
         this.referral_ids = [];
-        $('#loader').hide();
+        $('#loader').removeClass('d-block').addClass('d-none');
       },
 
       capitalizeFirstLetter: function (string) {
@@ -507,12 +507,12 @@ $(document).ready(function () {
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
-            $('#loader').show();
+            $('#loader').removeClass('d-none').addClass('d-block');
             $.ajax({
               url: API_URI + '/bookAppointment',
               type: 'post',
               dataType: 'json',
-              async: false,
+              //async: false,
               contentType: 'application/json',
               data: JSON.stringify(sendAppointmentObj),
               success: function (res) {
@@ -524,11 +524,11 @@ $(document).ready(function () {
                 buttonElem.style.opacity = 1.0;
                 buttonElem.removeAttribute('disabled');
                 $('#appointmentsModal').hide();
-                $('#loader').hide();
+                $('#loader').removeClass('d-block').addClass('d-none');
                 $('#deletedSuccess').modal('show');
               },
               error: function (error) {
-                $('#loader').hide();
+                $('#loader').removeClass('d-block').addClass('d-none');
                 _self.resetAppointmentsForm();
                 buttonElem.style.opacity = 1.0;
                 buttonElem.removeAttribute('disabled');
@@ -573,23 +573,26 @@ $(document).ready(function () {
       },
 
       callNeedAppointmentApi: function (sendAppointmentObj) {
+        debugger
         console.log(sendAppointmentObj);
         var _self = this;
+        $('#loader').removeClass('d-none').addClass('d-block');;
         $.ajax({
           url: API_URI + '/needAppointment',
           type: 'post',
           dataType: 'json',
-          async: false,
+          //async: false,
           contentType: 'application/json',
           data: JSON.stringify(sendAppointmentObj),
           success: function (res) {
             $('#appointmentsModal').modal('hide');
+            $('#loader').removeClass('d-block').addClass('d-none');
             _self.successMessage = res.message;
             createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
             $('#deletedSuccess').modal('show');
           },
           error: function (error) {
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
               showError(error.responseJSON.message, error.status);
             }
@@ -618,12 +621,12 @@ $(document).ready(function () {
           var payload = { referral_id: _self.referral_ids, status: 'deleted' }
         }
         var trimmedPayload = trimObj(payload);
-        $('#loader').show();
+        $('#loader').removeClass('d-none').addClass('d-block');
         $.ajax({
           url: API_URI + '/referral',
           type: 'put',
           dataType: 'json',
-          async: false,
+          // async: false,
           contentType: 'application/json',
           data: JSON.stringify(trimmedPayload),
           success: function (res) {
@@ -631,10 +634,10 @@ $(document).ready(function () {
             _self.successMessage = 'Referrals deleted successfully';
             $('#deletedSuccess').modal('show');
             _self.fetchReferral();
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
           },
           error: function (error) {
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
               showError(error.responseJSON.message, error.status);
             }
@@ -674,22 +677,22 @@ $(document).ready(function () {
           var _self = this;
           var payload = { referral_id: _self.referral_ids, status: 'completed' }
           var trimmedPayload = trimObj(payload);
-          $('#loader').show();
+          $('#loader').removeClass('d-none').addClass('d-block');
           $.ajax({
             url: API_URI + '/referral',
             type: 'put',
             dataType: 'json',
-            async: false,
+            // async: false,
             contentType: 'application/json',
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Unarchive successful';
               $('#deletedSuccess').modal('show');
               _self.fetchReferral();
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
             },
             error: function (error) {
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
               if (error) {
                 showError(error.responseJSON.message, error.status);
               }
@@ -703,22 +706,22 @@ $(document).ready(function () {
         if (_self.referral_ids.length) {
           var payload = { referral_id: _self.referral_ids, status: 'archived' }
           var trimmedPayload = trimObj(payload);
-          $('#loader').show();
+          $('#loader').removeClass('d-none').addClass('d-block');
           $.ajax({
             url: API_URI + '/referral',
             type: 'put',
             dataType: 'json',
-            async: false,
+            // async: false,
             contentType: 'application/json',
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Referrals archived successfully';
               $('#deletedSuccess').modal('show');
               _self.fetchReferral();
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
             },
             error: function (error) {
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
               if (error) {
                 showError(error.responseJSON.message, error.status);
               }
@@ -900,7 +903,7 @@ $(document).ready(function () {
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
-        $('#loader').hide();
+        $('#loader').removeClass('d-block').addClass('d-none');
         //////console.log()(successData)
       },
       getActivity: function (uuid, value) {
@@ -978,7 +981,7 @@ function viewPdf(uuid, role, other, formType) {
   ////console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role + "/" + formType, API_URI);
     if (successData && Object.keys(successData)) {
@@ -994,13 +997,13 @@ function viewPdf(uuid, role, other, formType) {
         link.target = '_blank'
         link.click();
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
       else {
         download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
     }
@@ -1044,7 +1047,7 @@ function downloadCSV(uuid, value, other_value) {
 
 
 function updateStatus(uuid) {
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   var status = $('#SelectedProviderStatus').val();
   ////console.log(status)
   if (status) {
@@ -1062,12 +1065,12 @@ function updateStatus(uuid) {
         $('#changeStatusModal').modal('hide');
         $('#statusUpdatedSuccess').modal('show');
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
       else {
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
         $('#changeStatusModal').modal('hide');
       }
@@ -1075,7 +1078,7 @@ function updateStatus(uuid) {
   }
   else {
     setTimeout(function () {
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
     }, 500);
     return false;
   }
@@ -1098,7 +1101,7 @@ function sendPdf(uuid, role, refCode, formType) {
   if (document.querySelector('.messageCheckbox:checked') != null) {
     useAPI = document.querySelector('.messageCheckbox:checked').value;
   }
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode + "/" + formType
@@ -1118,17 +1121,17 @@ function sendPdf(uuid, role, refCode, formType) {
     url: API_URI + apiToSend,
     type: 'get',
     dataType: 'json',
-    async: false,
+    // async: false,
     contentType: 'application/json',
     success: function (res) {
       createActivity("Referral sent - " + selectedProvider, uuid);
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
       $('#mailSentSuccess').modal('show');
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
     },
     error: function (error) {
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
       buttonElem.disabled = false;
       $('#sendProviderModal').modal('hide');
       if (error) {
