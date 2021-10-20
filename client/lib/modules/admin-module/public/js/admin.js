@@ -143,7 +143,7 @@ $(document).ready(function () {
           dom: 'lBfrtip',
           select: true,
           destroy: true,
-          processing: false,
+          processing: true,
           serverSide: true,
           select: {
             style: 'multi',
@@ -171,7 +171,27 @@ $(document).ready(function () {
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
-            zeroRecords: 'No matching referrals found'
+            zeroRecords: 'No matching referrals found',
+            processing:'    <div class="overlay" id="loader">'+
+            '<div class="overlay__inner">'+
+                '<div class="overlay__content">'+
+                    '<div class="lds-spinner">'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                        '<div></div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
           },
           buttons: [
             {
@@ -183,7 +203,6 @@ $(document).ready(function () {
               }
             }
           ],
-
           ajax: {
             url: _self.urlToLoadData,
             // url: '/modules/admin-module/getAllreferral',
