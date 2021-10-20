@@ -429,8 +429,8 @@ $(document).ready(function () {
                     utc._d.setHours(hours, mins);
                   }
                   if (utc.isBefore()) {
-                    _self.checkValidYPasTime = true;
-                    _self.checkYPasDateField = false;
+                    _self.checkValidYPasTime = false;
+                    _self.checkYPasDateField = true;
 
                   } else {
                     _self.checkValidYPasTime = false;
@@ -738,7 +738,7 @@ $(document).ready(function () {
           var setYearValue = dateValue.split('/');
           var getYearValue = setYearValue[2];
           if (currentYear <= Number(getYearValue)) {
-            if (utc.isBefore() || isUtc) {
+            if (utc.isBefore() ||isUtc) {
               if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
                 var hours = Number(_self.yPasTime.hh);
                 var mins = Number(_self.yPasTime.mm);
@@ -749,8 +749,8 @@ $(document).ready(function () {
                   utc._d.setHours(hours, mins);
                 }
                 if (utc.isBefore()) {
-                  _self.checkValidYPasTime = true;
-                  _self.checkYPasDateField = false;
+                  _self.checkValidYPasTime = false;
+                  _self.checkYPasDateField = true;
 
                 } else {
                   _self.checkValidYPasTime = false;
