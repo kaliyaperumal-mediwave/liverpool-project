@@ -133,7 +133,8 @@ $(document).ready(function () {
             hasValidDate: false,
             gpPostCode: "",
             youngPersonAddress: "",
-            sameGpYoungAddress: true
+            sameGpYoungAddress: true,
+            sameGpYoungManualAddress: true
         },
         beforeMount: function () {
             $('#loader').show();
@@ -443,14 +444,18 @@ $(document).ready(function () {
             saveAndContinue: function () {
 
                 //this.sameGpYoungAddress;
+                console.log(this.youngPersonAddress)
 
                 if (this.gpPostCode || this.youngManualAddress.length) {
 
-                    if (this.gpPostCode) {
+                    if (this.gpPostCode && this.youngPersonAddress) {
                         this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+                        this.sameGpYoungManualAddress = false;
                     }
+                    console.log(this.youngManualAddress)
                     if (this.youngManualAddress.length) {
-                        this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+                        this.sameGpYoungManualAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngManualAddress[0].postCode)
+                        this.sameGpYoungAddress = false;
                     }
 
                 }
@@ -471,7 +476,7 @@ $(document).ready(function () {
                     this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if (this.sameGpYoungAddress && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
+                if ((this.sameGpYoungAddress || this.sameGpYoungManualAddress) && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
                     formData.youngIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
@@ -566,10 +571,12 @@ $(document).ready(function () {
                 console.log(this.addressData.postCode)
                 if (this.addressData.postCode) {
 
-                    this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.addressData.postCode)
+                    this.sameGpYoungManualAddress = this.liverpoolGPAddress(this.gpPostCode, this.addressData.postCode);
+                    this.sameGpYoungAddress = false;
                 }
-                console.log(this.sameGpYoungAddress)
-                if (this.sameGpYoungAddress) {
+                console.log(this.sameGpYoungManualAddress)
+
+               // if (this.sameGpYoungAddress) {
                     if (role == 'young') {
                         manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
                         this.aboutObj.youngAddress = "";
@@ -585,7 +592,7 @@ $(document).ready(function () {
                         document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
                         document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
                     }
-                }
+                //}
 
             },
 

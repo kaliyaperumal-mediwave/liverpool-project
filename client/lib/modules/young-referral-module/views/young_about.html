@@ -249,7 +249,7 @@
                             </multiselect>
 
                             <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && (!sameGpYoungAddress)),'invalid-fields':(!sameGpYoungAddress) }">
+                                v-bind:class="{ 'd-block':(isFormSubmitted && ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length)),'invalid-fields':(!sameGpYoungAddress) }">
                                 You must be either Liverpool in address or GP.
                             </div>
 
@@ -289,6 +289,10 @@
                                 <h3 class="link-text">{{item.postCode}}</h3>
                             </div>
                         </div>
+                        <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && (!sameGpYoungManualAddress)),'invalid-fields':(!sameGpYoungManualAddress) }">
+                                You must be either Liverpool in address or GP.
+                            </div>
                     </div>
 
                 </div>
@@ -1069,7 +1073,7 @@
                     && aboutObj.youngLastName
                     && (!aboutObj.youngEmail || (aboutObj.youngEmail && emailRegex.test(aboutObj.youngEmail)))
                     && (aboutObj.youngContactNumber && dynamicRegexyoung.test(aboutObj.youngContactNumber))
-                    && (sameGpYoungAddress && (aboutObj.youngAddress || (!aboutObj.youngAddress && youngManualAddress.length)))
+                    && ((sameGpYoungAddress || sameGpYoungManualAddress) && (aboutObj.youngAddress || (!aboutObj.youngAddress && youngManualAddress.length)))
                     && aboutObj.sendPost
                     && aboutObj.youngGender
                     && aboutObj.youngIdentity
