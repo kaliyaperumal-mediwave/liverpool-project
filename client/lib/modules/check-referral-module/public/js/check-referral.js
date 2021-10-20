@@ -439,6 +439,10 @@ $(document).ready(function () {
                                 _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.searchReferrals[0].appointment.time
                             }
                         }
+                        if(_self.searchReferrals[0].user_role)
+                            {
+                            _self.viewReferralObj.userRole = _self.searchReferrals[0].user_role;
+                            }
 
                         _self.viewReferralObj.searchTxt = searchCode;
                         //   //console.log(data)
