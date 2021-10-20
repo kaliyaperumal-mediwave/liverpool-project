@@ -66,7 +66,7 @@ $(document).ready(function () {
       yPasTime: {
         HH: "",
         mm: "",
-        A: ""
+        a: ""
       },
       checkYPasDateField: false,
       checkValidYPasTime: false,
@@ -172,26 +172,26 @@ $(document).ready(function () {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
             zeroRecords: 'No matching referrals found',
-            processing:'<div class="overlay" id="loader">'+
-            '<div class="overlay__inner">'+
-                '<div class="overlay__content">'+
-                    '<div class="lds-spinner">'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                        '<div></div>'+
-                    '</div>'+
-                '</div>'+
-            '</div>'+
-        '</div>'
+            processing: '    <div class="overlay" id="loader">' +
+              '<div class="overlay__inner">' +
+              '<div class="overlay__content">' +
+              '<div class="lds-spinner">' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>'
           },
           buttons: [
             {
@@ -404,7 +404,7 @@ $(document).ready(function () {
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
-          _self.yPasTime.A = "";
+          _self.yPasTime.a = "";
           _self.yPasAlderHey = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
@@ -420,10 +420,10 @@ $(document).ready(function () {
             var getYearValue = setYearValue[2];
             if (currentYear <= Number(getYearValue)) {
               if (utc.isBefore() || isUtc) {
-                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
                   var hours = Number(_self.yPasTime.hh);
                   var mins = Number(_self.yPasTime.mm);
-                  var tmZone = _self.yPasTime.A;
+                  var tmZone = _self.yPasTime.a;
                   if (tmZone == 'PM') {
                     utc._d.setHours(hours + 12, mins);
                   } else {
@@ -463,7 +463,7 @@ $(document).ready(function () {
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
-          _self.yPasTime.A = "";
+          _self.yPasTime.a = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -488,7 +488,7 @@ $(document).ready(function () {
           _self.yPasDateField = "";
           _self.yPasTimeField = "";
           _self.yPasAlderHey = "";
-
+          $('#yPasTimeField').attr('placeholder', 'Enter Time');
         });
 
         this.referral_ids = [];
@@ -506,7 +506,7 @@ $(document).ready(function () {
         buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
-        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').show();
             $.ajax({
@@ -563,7 +563,7 @@ $(document).ready(function () {
         _self.yPasDate = "";
         _self.yPasTime.hh = "";
         _self.yPasTime.mm = "";
-        _self.yPasTime.A = "";
+        _self.yPasTime.a = "";
         $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
         $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -739,11 +739,11 @@ $(document).ready(function () {
           var setYearValue = dateValue.split('/');
           var getYearValue = setYearValue[2];
           if (currentYear <= Number(getYearValue)) {
-            if (utc.isBefore() ||isUtc) {
-              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+            if (utc.isBefore() || isUtc) {
+              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
                 var hours = Number(_self.yPasTime.hh);
                 var mins = Number(_self.yPasTime.mm);
-                var tmZone = _self.yPasTime.A;
+                var tmZone = _self.yPasTime.a;
                 if (tmZone == 'PM') {
                   utc._d.setHours(hours + 12, mins);
                 } else {
@@ -779,10 +779,10 @@ $(document).ready(function () {
         var dateValue = _self.yPasDate;
         var dateFormat = "DD/MM/YYYY"
         var utc = moment(dateValue, dateFormat, true)
-        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
           var hours = Number(_self.yPasTime.hh);
           var mins = Number(_self.yPasTime.mm);
-          var tmZone = _self.yPasTime.A;
+          var tmZone = _self.yPasTime.a;
           if (tmZone == 'PM') {
             utc._d.setHours(hours + 12, mins);
           } else {

@@ -1200,6 +1200,8 @@ body {
     border-color: white !important;
     border: none !important;
     height: 50px !important; }
+  body .vue__time-picker .controls > * {
+    color: #797979 !important; }
   body .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -5651,3 +5653,9 @@ img.info-icon {
   padding-right: 1rem !important;
   margin: auto 0px;
   cursor: pointer; }
+
+@media (max-width: 568px) {
+  #feedBackStars.rating {
+    margin-left: -35px;
+    width: calc(100% + 50px);
+    float: left; } }
