@@ -2342,6 +2342,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 })
                 console.log(data.data.response[0].code)
                 console.log(data.response, "datadata");
+                console.log('=====obj======',obj)
                 // success
                 if (data.data.response[0].code == 1002) {
                     let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
