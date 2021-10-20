@@ -418,7 +418,8 @@ $(document).ready(function () {
                     _self.checkYPasDateField = false;
                   }
                 } else {
-                  _self.checkYPasDateField = true;
+                  _self.checkValidYPasTime = true;
+                  _self.checkYPasDateField = false;
                 }
 
               } else {
@@ -737,7 +738,8 @@ $(document).ready(function () {
                   _self.checkYPasDateField = false;
                 }
               } else {
-                _self.checkYPasDateField = true;
+                _self.checkValidYPasTime = true;
+                _self.checkYPasDateField = false;
               }
 
             } else {
