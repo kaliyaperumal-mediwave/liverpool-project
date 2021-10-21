@@ -330,8 +330,8 @@
                                         </option>
                                         <option class='option-text' value="YPAS">YPAS
                                         </option>
-                                        <option class='option-text' value="Venus">VENUS
-                                        </option>
+                                        <!-- <option class='option-text' value="Venus">VENUS
+                                   </option> -->
                                     </select>
                                 </span>
                             </div>
@@ -389,7 +389,7 @@
                                                 <option class='option-text' value="Alder Hey - Sefton EDYS">Alder
                                                     Hey/Sefton EDYS
                                                 </option>
-                                                <option class='option-text' value="Venus">Venus</option>
+                                                <!-- <option class='option-text' value="Venus">Venus</option> -->
                                                 <option class='option-text' value="Parenting 2000">Parenting 2000
                                                 </option>
                                                 <option class='option-text' value="MHST Sefton">Mental Health Support
@@ -424,27 +424,39 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
                                         id="yPasDateField" placeholder="Enter Date">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3 font-23"
+                                            style="font-size: 18px;"><i aria-hidden="true" class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasDate),'invalid-fields':(isYPasFormSubmitted && !yPasDate)  }">
                                     Please provide a date. </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && yPasDate && checkYPasDateField),'invalid-fields':(isYPasFormSubmitted && checkYPasDateField)  }">
-                                    Please make sure the DOB is entered in the correct format DD/MM/YYYY. </div>
+                                    Please provide a valid date. </div>
                             </div>
 
                             <div class="py-2" id="showCAMHSAndEDYS">
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
                                 <div class="input-group">
-                                    <vue-timepicker id="yPasTimeField" format="hh:mm A" v-model="yPasTime">
+                                    <vue-timepicker input-width="200px" drop-direction="up" id="yPasTimeField"
+                                        close-on-complete @close="changeTime1()" format="hh:mm A" v-model="yPasTime">
                                     </vue-timepicker>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3"
+                                            style="font-size: 22px !important;">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="invalid-feedback d-none mt-2"
-                                  v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A ))  }">
-                                  Please provide a time. </div> -->
                                 <div class="invalid-feedback d-none mt-2"
-                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || !yPasTime.A ))  }">
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && checkValidYPasTime)  }">
+                                    Please provide a valid time. </div>
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime)  }">
                                     Please provide a time. </div>
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
@@ -457,7 +469,6 @@
         </div>
     </div>
     <!-- Appointments Modal End -->
-
 
     <!-- Actionlog Start -->
     <div class="modal fade" id="actionlogModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
