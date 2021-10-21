@@ -574,10 +574,9 @@ $(document).ready(function () {
       },
 
       callNeedAppointmentApi: function (sendAppointmentObj) {
-        debugger
         console.log(sendAppointmentObj);
         var _self = this;
-        // $('#loader').removeClass('d-none').addClass('d-block');;
+        $('#loader').removeClass('d-none').addClass('d-block');;
         $.ajax({
           url: API_URI + '/needAppointment',
           type: 'post',
@@ -592,6 +591,8 @@ $(document).ready(function () {
             createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
             _self.SelectedProviderType = 'Liverpool';
             $("#yPasArea").show();
+            $("#manualYPasBook").prop("checked", false);
+            $("#appointNeeded").prop("checked", false);
             $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
             $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
             $('#deletedSuccess').modal('show');
@@ -909,23 +910,41 @@ $(document).ready(function () {
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').removeClass('d-block').addClass('d-none');
-        //////console.log()(successData)
-      },
-      getActivity: function (uuid, value) {
-        let result = apiCallGet('get', '/getActivity', API_URI);
-        let specificReferral = _.filter(result.data.activity_referrals, function (o) {
-          o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
-          o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
 
-          // o['time'] = moment(o.createdAt).format('h:mm:ss')
-          //////console.log(moment(o.createdAt).format('h:mm:ss'))
-          return o.ReferralId == uuid;
-        })
-        specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-        //  ////console.log(specificReferral, "specificReferral");
-        this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-        // ////console.log(this.groupByActivityDate);
       },
+
+      getActivity: function (uuid, value) {
+        var _self = this;
+        $('#loader').removeClass('d-none').addClass('d-block');
+        $.ajax({
+          url: API_URI + '/getActivity',
+          type: 'get',
+          dataType: 'json',
+          // async: false,
+          contentType: 'application/json',
+          success: function (result) {
+            let specificReferral = _.filter(result.data.activity_referrals, function (o) {
+              o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
+              o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
+
+              return o.ReferralId == uuid;
+            })
+            specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
+            _self.groupByActivityDate = _.groupBy(specificReferral, 'date');
+            $('#loader').removeClass('d-block').addClass('d-none');
+            $('#actionlogModal').modal('show');
+          },
+          error: function (error) {
+            $('#loader').removeClass('d-block').addClass('d-none');
+            if (error) {
+              showError(error.responseJSON.message, error.status);
+            }
+          }
+        });
+        //let result = apiCallGet('get', '/getActivity', API_URI);
+
+      },
+
       setIntegration: function (e) {
         if (e.target.checked) {
           localStorage.setItem('integration', 'true');
@@ -951,7 +970,6 @@ $(document).ready(function () {
   actionlog = function (uuid, value, other_value) {
     document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
     vueApp.getActivity(uuid, value);
-    $('#actionlogModal').modal('show');
   }
 
   bookAppointment = function (uuid, role, referranceCode, formType) {
