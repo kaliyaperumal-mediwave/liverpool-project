@@ -142,7 +142,7 @@ $(document).ready(function () {
 
                                     if(_self.displayReferrals[i].appointment.status=='Appointment needed')
                                     {
-                                        _self.displayReferrals[i].appointment_status = "Appointment needed"
+                                        _self.displayReferrals[i].appointment_status = "Appointment requested to " + _self.displayReferrals[0].appointment.service;
                                     }
                                 }
                             }
@@ -339,6 +339,10 @@ $(document).ready(function () {
                                 {
                                     _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
                                 }
+                                if(_self.searchReferrals[0].appointment.status=='Appointment needed')
+                            {
+                                _self.searchReferrals[0].appointment_status = "Appointment requested to " + _self.searchReferrals[0].appointment.service;
+                            }
                             }
 
 
@@ -437,6 +441,10 @@ $(document).ready(function () {
                             if(_self.searchReferrals[0].appointment.status=='Appointment booked')
                             {
                                 _self.searchReferrals[0].appointment_status = "Your appointment booked on " + _self.convertDate(_self.searchReferrals[0].appointment.date) + " at " + _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
+                            }
+                            if(_self.searchReferrals[0].appointment.status=='Appointment needed')
+                            {
+                                _self.searchReferrals[0].appointment_status = "Appointment requested to " + _self.searchReferrals[0].appointment.service;
                             }
                         }
                         if(_self.searchReferrals[0].user_role)
