@@ -176,7 +176,8 @@
 
 div.checkbox.switcher label,
 div.radio.switcher label {
-  padding: 0; }
+  padding: 0;
+  margin: auto; }
   div.checkbox.switcher label *,
   div.radio.switcher label * {
     vertical-align: middle; }
@@ -214,7 +215,8 @@ div.radio.switcher label {
 
 div.checkbox-other.switcher label,
 div.radio.switcher label {
-  padding: 0; }
+  padding: 0;
+  margin: auto; }
   div.checkbox-other.switcher label *,
   div.radio.switcher label * {
     vertical-align: middle; }
