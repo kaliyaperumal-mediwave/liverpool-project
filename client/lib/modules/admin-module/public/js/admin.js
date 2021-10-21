@@ -31,6 +31,8 @@ $(document).ready(function () {
       draw: 1,
       searchRefObj: {},
       SelectedProviderType: 'Liverpool',
+      SelectedProviderOrg1: 'Alder Hey - Liverpool CAMHS',
+      SelectedProviderOrg2: 'Alder Hey - Sefton CAMHS',
       loading: false,
       SelectedProviderStatus: '',
       statusOther: '',
@@ -400,12 +402,16 @@ $(document).ready(function () {
               $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
             }
           }
+          _self.SelectedProviderType = 'Liverpool';
+          _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+          _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
           _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
+          _self.isYPasFormSubmitted = false;
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
 
@@ -464,6 +470,9 @@ $(document).ready(function () {
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
           _self.yPasTime.A = "";
+          _self.SelectedProviderType = 'Liverpool';
+          _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+          _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -485,9 +494,9 @@ $(document).ready(function () {
 
         $("#SelectYPasOrgTypes").on("change", function (e) {
           $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
-          _self.yPasDateField = "";
-          _self.yPasTimeField = "";
-          _self.yPasAlderHey = "";
+          // _self.yPasDateField = "";
+          // _self.yPasTimeField = "";
+          // _self.yPasAlderHey = "";
           $('#yPasTimeField').attr('placeholder', 'Choose Time');
         });
 
@@ -585,11 +594,13 @@ $(document).ready(function () {
           contentType: 'application/json',
           data: JSON.stringify(sendAppointmentObj),
           success: function (res) {
+            _self.SelectedProviderType = 'Liverpool';
+            _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+            _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
             $('#appointmentsModal').modal('hide');
             $('#loader').removeClass('d-block').addClass('d-none');
             _self.successMessage = res.message;
             createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
-            _self.SelectedProviderType = 'Liverpool';
             $("#yPasArea").show();
             $("#manualYPasBook").prop("checked", false);
             $("#appointNeeded").prop("checked", false);
