@@ -121,7 +121,7 @@ $(document).ready(function () {
                                     refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_provider_other
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
-                                else if ((_self.displayReferrals[i].referral_status).substring(0, 8) === 'Accepted' ) // 8
+                                else if ((_self.displayReferrals[i].referral_status).substring(0, 8) === 'Accepted') // 8
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
                                     refStatus = _self.displayReferrals[i].referral_provider_other + " have accepted your referral and will be in contact.";
@@ -133,15 +133,12 @@ $(document).ready(function () {
                                     refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
-                                if(_self.displayReferrals[i].appointment)
-                                {
-                                    if(_self.displayReferrals[i].appointment.status=='Appointment booked')
-                                    {
-                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.displayReferrals[i].appointment.date) +" at "+ _self.convertTime24to12(_self.displayReferrals[i].appointment.time)
+                                if (_self.displayReferrals[i].appointment) {
+                                    if (_self.displayReferrals[i].appointment.status == 'Appointment booked') {
+                                        _self.displayReferrals[i].appointment_status = "Your appointment booked on " + _self.convertDate(_self.displayReferrals[i].appointment.date) + " at " + _self.convertTime24to12(_self.displayReferrals[i].appointment.time)
                                     }
 
-                                    if(_self.displayReferrals[i].appointment.status=='Appointment needed')
-                                    {
+                                    if (_self.displayReferrals[i].appointment.status == 'Appointment needed') {
                                         _self.displayReferrals[i].appointment_status = "Appointment requested to " + _self.displayReferrals[0].appointment.service;
                                     }
                                 }
@@ -207,8 +204,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
 
-                        if(refObj.referral_type=="young")
-                        {
+                        if (refObj.referral_type == "young") {
                             if (refObj.referral_progress == "20") {
                                 location.href = "/young-referral/youngAbout";
                             }
@@ -217,15 +213,14 @@ $(document).ready(function () {
                             }
                             else if (refObj.referral_progress == "60") {
                                 location.href = "/young-referral/referral";
-    
+
                             }
                             else if (refObj.referral_progress == "80") {
                                 location.href = "/young-referral/review";
-    
+
                             }
                         }
-                        else
-                        {
+                        else {
                             if (refObj.referral_progress == "20") {
                                 location.href = "/about";
                             }
@@ -234,11 +229,11 @@ $(document).ready(function () {
                             }
                             else if (refObj.referral_progress == "60") {
                                 location.href = "/referral";
-    
+
                             }
                             else if (refObj.referral_progress == "80") {
                                 location.href = "/review";
-    
+
                             }
                         }
 
@@ -320,7 +315,7 @@ $(document).ready(function () {
                                 refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
-                            else if ((_self.searchReferrals[0].referral_status).substring(0, 8) === 'Accepted' ) // 8
+                            else if ((_self.searchReferrals[0].referral_status).substring(0, 8) === 'Accepted') // 8
                             {
                                 var refStatus = _self.searchReferrals[0].referral_status
                                 refStatus = _self.searchReferrals[0].referral_provider_other + " have accepted your referral and will be in contact.";
@@ -333,16 +328,13 @@ $(document).ready(function () {
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
 
-                            if(_self.searchReferrals[0].appointment!=null)
-                            {
-                                if(_self.searchReferrals[0].appointment.status=='Appointment booked')
-                                {
-                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " +  _self.convertDate(_self.searchReferrals[0].appointment.date) +" at "+ _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
+                            if (_self.searchReferrals[0].appointment != null) {
+                                if (_self.searchReferrals[0].appointment.status == 'Appointment booked') {
+                                    _self.searchReferrals[0].appointment_status = "Your appointment booked on " + _self.convertDate(_self.searchReferrals[0].appointment.date) + " at " + _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
                                 }
-                                if(_self.searchReferrals[0].appointment.status=='Appointment needed')
-                            {
-                                _self.searchReferrals[0].appointment_status = "Appointment requested to " + _self.searchReferrals[0].appointment.service;
-                            }
+                                if (_self.searchReferrals[0].appointment.status == 'Appointment needed') {
+                                    _self.searchReferrals[0].appointment_status = "Appointment requested to " + _self.searchReferrals[0].appointment.service;
+                                }
                             }
 
 
@@ -424,7 +416,7 @@ $(document).ready(function () {
                             refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                             _self.searchReferrals[0].referral_status = refStatus
                         }
-                        else if ((_self.searchReferrals[0].referral_status).substring(0, 8) === 'Accepted' ) // 8
+                        else if ((_self.searchReferrals[0].referral_status).substring(0, 8) === 'Accepted') // 8
                         {
                             var refStatus = _self.searchReferrals[0].referral_status
                             refStatus = _self.searchReferrals[0].referral_provider_other + " have accepted your referral and will be in contact.";
@@ -436,21 +428,17 @@ $(document).ready(function () {
                             refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
                             _self.searchReferrals[0].referral_status = refStatus
                         }
-                        if(_self.searchReferrals[0].appointment!=null)
-                        {
-                            if(_self.searchReferrals[0].appointment.status=='Appointment booked')
-                            {
+                        if (_self.searchReferrals[0].appointment != null) {
+                            if (_self.searchReferrals[0].appointment.status == 'Appointment booked') {
                                 _self.searchReferrals[0].appointment_status = "Your appointment booked on " + _self.convertDate(_self.searchReferrals[0].appointment.date) + " at " + _self.convertTime24to12(_self.searchReferrals[0].appointment.time)
                             }
-                            if(_self.searchReferrals[0].appointment.status=='Appointment needed')
-                            {
+                            if (_self.searchReferrals[0].appointment.status == 'Appointment needed') {
                                 _self.searchReferrals[0].appointment_status = "Appointment requested to " + _self.searchReferrals[0].appointment.service;
                             }
                         }
-                        if(_self.searchReferrals[0].user_role)
-                            {
+                        if (_self.searchReferrals[0].user_role) {
                             _self.viewReferralObj.userRole = _self.searchReferrals[0].user_role;
-                            }
+                        }
 
                         _self.viewReferralObj.searchTxt = searchCode;
                         //   //console.log(data)
@@ -477,17 +465,17 @@ $(document).ready(function () {
                 var minutes = splits[1];
                 var seconds = splits[2];
                 var modifier = 'AM';
-            
-                if(hours >= 12){
-                  hours = hours > 12? hours - 12 : hours;
-                  modifier = "PM";
+
+                if (hours >= 12) {
+                    hours = hours > 12 ? hours - 12 : hours;
+                    modifier = "PM";
                 }
-                hours = hours == 0 ? 12 : hours ;
-            
-                minutes = minutes.toString().length == 1 ? '0'+minutes : minutes;
-                hours = hours.toString().length == 1 ? '0'+hours : hours;
-                return hours + ':' + minutes + ':' + seconds + " " + modifier;
-              }
+                hours = hours == 0 ? 12 : hours;
+
+                minutes = minutes.toString().length == 1 ? '0' + minutes : minutes;
+                hours = hours.toString().length == 1 ? '0' + hours : hours;
+                return hours + ':' + minutes + ' ' + modifier;
+            }
         }
     })
 });
