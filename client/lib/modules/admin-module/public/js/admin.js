@@ -404,7 +404,7 @@ $(document).ready(function () {
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
-          _self.yPasTime.a = "";
+          _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
@@ -420,10 +420,10 @@ $(document).ready(function () {
             var getYearValue = setYearValue[2];
             if (currentYear <= Number(getYearValue)) {
               if (utc.isBefore() || isUtc) {
-                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
+                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
                   var hours = Number(_self.yPasTime.hh);
                   var mins = Number(_self.yPasTime.mm);
-                  var tmZone = _self.yPasTime.a;
+                  var tmZone = _self.yPasTime.A;
                   if (tmZone == 'PM') {
                     utc._d.setHours(hours + 12, mins);
                   } else {
@@ -463,7 +463,7 @@ $(document).ready(function () {
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
-          _self.yPasTime.a = "";
+          _self.yPasTime.A = "";
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -506,7 +506,7 @@ $(document).ready(function () {
         buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
-        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
+        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');
             $.ajax({
@@ -563,7 +563,7 @@ $(document).ready(function () {
         _self.yPasDate = "";
         _self.yPasTime.hh = "";
         _self.yPasTime.mm = "";
-        _self.yPasTime.a = "";
+        _self.yPasTime.A = "";
         $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
         $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -747,10 +747,10 @@ $(document).ready(function () {
           var getYearValue = setYearValue[2];
           if (currentYear <= Number(getYearValue)) {
             if (utc.isBefore() || isUtc) {
-              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
+              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
                 var hours = Number(_self.yPasTime.hh);
                 var mins = Number(_self.yPasTime.mm);
-                var tmZone = _self.yPasTime.a;
+                var tmZone = _self.yPasTime.A;
                 if (tmZone == 'PM') {
                   utc._d.setHours(hours + 12, mins);
                 } else {
@@ -786,10 +786,10 @@ $(document).ready(function () {
         var dateValue = _self.yPasDate;
         var dateFormat = "DD/MM/YYYY"
         var utc = moment(dateValue, dateFormat, true)
-        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.a) {
+        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
           var hours = Number(_self.yPasTime.hh);
           var mins = Number(_self.yPasTime.mm);
-          var tmZone = _self.yPasTime.a;
+          var tmZone = _self.yPasTime.A;
           if (tmZone == 'PM') {
             utc._d.setHours(hours + 12, mins);
           } else {

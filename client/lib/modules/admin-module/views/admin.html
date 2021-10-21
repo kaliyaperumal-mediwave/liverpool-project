@@ -632,7 +632,7 @@
                                     class="question-font">Time</label>
                                 <div class="input-group">
                                     <vue-timepicker input-width="200px" drop-direction="up" id="yPasTimeField"
-                                        close-on-complete @close="changeTime1()" format="hh:mm a" v-model="yPasTime">
+                                        close-on-complete @close="changeTime1()" format="hh:mm A" v-model="yPasTime">
                                     </vue-timepicker>
                                     <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3"
@@ -645,7 +645,7 @@
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && checkValidYPasTime)  }">
                                     Please provide a valid time. </div>
                                 <div class="invalid-feedback d-none mt-2"
-                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.a ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.a ) && !checkValidYPasTime)  }">
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime)  }">
                                     Please provide a time. </div>
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
