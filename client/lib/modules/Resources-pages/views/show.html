@@ -2,7 +2,7 @@
 <script>
   $(document).on("click", "a.previous-link", function () {
     var iFrameDetection = (window === window.parent) ? false : true;
-    if(iFrameDetection){
+    if (iFrameDetection) {
       history.go(-1);
     } else {
       parent.history.back();
@@ -12,6 +12,7 @@
 </script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 <script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+<script src="/modules/Resources-pages/js/resources.js"></script>
 {% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
 data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
 {% block main %} {% include "../../shared-referal-module/views/header.html" %}
@@ -123,31 +124,31 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       </div>
       <div class="text_inside_return card-set-container-bg home-primary-content-bg">
         <div class="d-flex w-100 align-items-center pb-2">
-            <p id="dynamicVoiceOverContent" class="d-none">aboutContent</p>
-            <div class="read-cont-h1 col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle"></div>
-            <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
-                id="c730ed34-ce14-4df1-8718-6346cd050c2b">
-                <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
-                    role="button">Play</button>
-                <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
-                    role="button">Pause</button>
-                <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
-                    role="button">Resume</button>
+          <p id="dynamicVoiceOverContent" class="d-none">aboutContent</p>
+          <div class="read-cont-h1 col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle"></div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+            id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+              role="button">Play</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
+              role="button">Pause</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
+              role="button">Resume</button>
 
-                <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
-                    disabled id="stopButton" role="button">Stop</button>
-            </div>
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopButton" role="button">Stop</button>
+          </div>
 
-            <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
-                <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
-                    role="button">Play</button>
-                <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
-                    disabled id="stopAndroidButton" role="button">Stop</button>
-            </div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+              role="button">Play</button>
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopAndroidButton" role="button">Stop</button>
+          </div>
         </div>
         <div id="aboutContent">
-        {{apos.area(piece,'text')}}
-      </div>
+          {{apos.area(piece,'text')}}
+        </div>
       </div>
 
       <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
@@ -165,7 +166,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           <a href="{{piecewatch._parentUrl}}?piece_id={{piecewatch._id}}"
             class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
             data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px">
-            <div class="w-100">
+            <div class="w-100 res-watch">
               <div class="bg-white card-container-small">
                 <div class="container-top-set">
                   <div class="inside-cover-set">

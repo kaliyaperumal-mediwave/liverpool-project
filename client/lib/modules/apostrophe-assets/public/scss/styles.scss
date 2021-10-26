@@ -4341,3 +4341,10 @@ img.info-icon {
     float: left;
   }
 }
+.swiper-slide.swiper-slide-active .res-watch iframe,.swiper-slide.swiper-slide-next .res-watch iframe,.swiper-slide.slide-show-frame .res-watch iframe{
+display: block !important;
+}
+
+.swiper-slide .res-watch .inside-cover-set iframe{
+display:none;
+}
