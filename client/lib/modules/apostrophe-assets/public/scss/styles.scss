@@ -43,6 +43,10 @@ body {
     color: #797979 !important;
   }
 
+  .search-btn-set span {
+    color: #023047 !important;
+  }
+
   .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -3886,6 +3890,7 @@ div.collapse-container.collapsing {
 }
 .custom-dropbox-hover .multiselect__option--highlight {
   background: #2b9ebc !important;
+  color: #023047 !important;
 }
 .custom-dropbox-hover .multiselect__option--highlight:after {
   display: none;
@@ -4341,10 +4346,12 @@ img.info-icon {
     float: left;
   }
 }
-.swiper-slide.swiper-slide-active .res-watch iframe,.swiper-slide.swiper-slide-next .res-watch iframe,.swiper-slide.slide-show-frame .res-watch iframe{
-display: block !important;
+.swiper-slide.swiper-slide-active .res-watch iframe,
+.swiper-slide.swiper-slide-next .res-watch iframe,
+.swiper-slide.slide-show-frame .res-watch iframe {
+  display: block !important;
 }
 
-.swiper-slide .res-watch .inside-cover-set iframe{
-display:none;
+.swiper-slide .res-watch .inside-cover-set iframe {
+  display: none;
 }
