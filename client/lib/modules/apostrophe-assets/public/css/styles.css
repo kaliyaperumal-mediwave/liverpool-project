@@ -1204,6 +1204,8 @@ body {
     height: 50px !important; }
   body .vue__time-picker .controls > * {
     color: #797979 !important; }
+  body .search-btn-set span {
+    color: #023047 !important; }
   body .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -5243,7 +5245,8 @@ div.collapse-container.collapsing {
       width: 75px; } }
 
 .custom-dropbox-hover .multiselect__option--highlight {
-  background: #2b9ebc !important; }
+  background: #2b9ebc !important;
+  color: #023047 !important; }
 
 .custom-dropbox-hover .multiselect__option--highlight:after {
   display: none; }
@@ -5667,3 +5670,11 @@ img.info-icon {
     margin-left: -35px;
     width: calc(100% + 50px);
     float: left; } }
+
+.swiper-slide.swiper-slide-active .res-watch iframe,
+.swiper-slide.swiper-slide-next .res-watch iframe,
+.swiper-slide.slide-show-frame .res-watch iframe {
+  display: block !important; }
+
+.swiper-slide .res-watch .inside-cover-set iframe {
+  display: none; }
