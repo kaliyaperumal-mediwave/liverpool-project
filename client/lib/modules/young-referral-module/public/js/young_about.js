@@ -130,7 +130,11 @@ $(document).ready(function () {
             dynamicRegexyoung: /^\+{0,1}[0-9 ]{10,16}$/,
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
             formatter: '',
-            hasValidDate: false
+            hasValidDate: false,
+            gpPostCode: "",
+            youngPersonAddress: "",
+            sameGpYoungAddress: true,
+            sameGpYoungManualAddress: true
         },
         beforeMount: function () {
             $('#loader').show();
@@ -211,6 +215,7 @@ $(document).ready(function () {
                 console.log(data)
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "young") {
+                    this.gpPostCode = data.registered_gp_postcode
                     if (data.family[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
@@ -229,6 +234,7 @@ $(document).ready(function () {
                         //Vue.set(this.aboutObj, "youngAddress", data.young_address);
                         if (data.child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data.child_address + ' ,' + data.child_address_postcode);
+                            this.youngPersonAddress = data.child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data.child_address);
@@ -278,6 +284,8 @@ $(document).ready(function () {
                     }
                 }
                 else if (this.userRole == "family") {
+                    console.log(data[0].family[0].registered_gp_postcode)
+                    this.gpPostCode = data[0].family[0].registered_gp_postcode
                     if (data[0].family[0].child_firstname != null) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
@@ -289,8 +297,9 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "youngEmail", data[0].family[0].child_email);
                         Vue.set(this.aboutObj, "youngContactNumber", data[0].family[0].child_contact_number);
                         //Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
-                        if (data[0].family[0].young_address_postcode) { // bind postcode column for new referrals
+                        if (data[0].family[0].child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
+                            this.youngPersonAddress = data[0].family[0].child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
@@ -347,6 +356,9 @@ $(document).ready(function () {
                     }
                 }
                 else if (this.userRole == "professional") {
+                    console.log(data[0].family[0].registered_gp_postcode)
+                    this.gpPostCode = data[0].family[0].registered_gp_postcode
+
                     if (data[0] != undefined && data[0].family[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].family[0].child_NHS);
@@ -364,6 +376,7 @@ $(document).ready(function () {
                         // Vue.set(this.aboutObj, "youngAddress", data[0].family[0].young_address);
                         if (data[0].family[0].child_address_postcode) { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address + ' ,' + data[0].family[0].child_address_postcode);
+                            this.youngPersonAddress = data[0].family[0].child_address_postcode;
                         }
                         else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "youngAddress", data[0].family[0].child_address);
@@ -429,6 +442,26 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
+
+                //this.sameGpYoungAddress;
+                console.log(this.youngPersonAddress)
+
+                if (this.gpPostCode || this.youngManualAddress.length) {
+
+                    if (this.gpPostCode && this.youngPersonAddress) {
+                        this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+                        this.sameGpYoungManualAddress = false;
+                    }
+                    console.log(this.youngManualAddress)
+                    if (this.youngManualAddress.length) {
+                        this.sameGpYoungManualAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngManualAddress[0].postCode)
+                        this.sameGpYoungAddress = false;
+                    }
+
+                }
+
+                console.log(this.sameGpYoungAddress)
+
                 this.isFormSubmitted = true;
                 // var dynamicRegexyoung;
                 // var dynamicRegexParent;
@@ -443,7 +476,7 @@ $(document).ready(function () {
                     this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if (formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
+                if ((this.sameGpYoungAddress || this.sameGpYoungManualAddress) && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
                     formData.youngIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
@@ -535,21 +568,31 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function (role) {
-                if (role == 'young') {
-                    manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
-                    this.aboutObj.youngAddress = "";
-                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
-                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
-                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
-                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
-                } else if (role == 'family') {
-                    manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
-                    this.aboutFormData.parentOrCarrerAddress = "";
-                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
-                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
-                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
-                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
+                console.log(this.addressData.postCode)
+                if (this.addressData.postCode) {
+
+                    this.sameGpYoungManualAddress = this.liverpoolGPAddress(this.gpPostCode, this.addressData.postCode);
+                    this.sameGpYoungAddress = false;
                 }
+                console.log(this.sameGpYoungManualAddress)
+
+               // if (this.sameGpYoungAddress) {
+                    if (role == 'young') {
+                        manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
+                        this.aboutObj.youngAddress = "";
+                        document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
+                        document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
+                        document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
+                        document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
+                    } else if (role == 'family') {
+                        manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
+                        this.aboutFormData.parentOrCarrerAddress = "";
+                        document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
+                        document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
+                        document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
+                        document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
+                    }
+                //}
 
             },
 
@@ -1139,7 +1182,14 @@ $(document).ready(function () {
 
 
 
-            updateSelected: function (value) {
+            updateSelected: function (value, id) {
+                if (id == "isTrue") {
+                    const addressArray = value.split(",");
+                    if(addressArray.length>0)
+                    var getPostCodeIndex = addressArray.length - 1
+                    this.youngPersonAddress = addressArray[getPostCodeIndex];
+                    this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
+                }
                 if (value & value.length) {
                     this.selectedResources.push(resource);
                 }
@@ -1187,13 +1237,64 @@ $(document).ready(function () {
 
             },
 
-            searchQuery: function (value) {
-                this.cdnRequest(value)
+            searchQuery: function (value, id) {
+                if (id == "isTrue") {
+                    //this.youngPersonAddress = value;
+                    this.cdnRequest(value)
+                }
+                else
+                {
+                    this.cdnRequest(value)
+                }
+                
             },
 
             removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
-            }
+            },
+            liverpoolGPAddress: function (gp, youngAddress) {
+                gp = gp.toUpperCase()
+                youngAddress = youngAddress.toUpperCase()
+                var gpCityName, addressCityName, returnflag
+                var gpCodes = [
+                    {
+                        type: 'Liverpool',
+                        code: [
+                            'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
+                            'L16', 'L17', 'L18', 'L19', 'L24', 'L25', 'L27']
+                    },
+                    { type: 'Sefton', code: ['L20', 'L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38', 'PR8', 'PR9'] },
+                ]
+                if ((gp || gp != '')) {
+                    if (gpCodes[0].code.indexOf(gp.substring(0, 3)) >= 0) {
+                        gpCityName = gpCodes[0].type;
+                    } else if (gpCodes[1].code.indexOf(gp.substring(0, 3)) >= 0) {
+                        gpCityName = gpCodes[1].type;
+                    }
+                }
+
+                if (youngAddress || youngAddress != "") {
+                    youngAddress = youngAddress.trim();
+                    if (gpCodes[0].code.indexOf(youngAddress.substring(0, 3)) >= 0) {
+                        addressCityName = gpCodes[0].type;
+                    } else if (gpCodes[1].code.indexOf(youngAddress.substring(0, 3)) >= 0) {
+                        addressCityName = gpCodes[1].type;
+                    }
+                }
+
+                console.log(gpCityName)
+                console.log(addressCityName)
+                if (gpCityName == "Liverpool" || addressCityName == "Liverpool") {
+                    returnflag = true;
+                }
+                else {
+                    returnflag = false;
+                }
+
+                return returnflag;
+
+
+            },
         }
     })
 });

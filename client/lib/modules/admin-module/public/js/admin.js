@@ -3,11 +3,15 @@ var API_URI = "/modules/admin-module";
 $(document).ready(function () {
   $('#uniqueLogo').hide();
   $('#footer-placement').hide();
+  var roleOfAdmin = document.getElementById('loginAsAdmin');
   Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
   Vue.component('todate-picker', VueBootstrapDatetimePicker);
-  Vue.component('vue-timepicker', window.VueTimepicker.default);
+  //Vue.component('vue-timepicker', window.VueTimepicker.default);
   if (window.VueMultiselect) {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
+  }
+  if (roleOfAdmin.innerHTML == "Alder Hey - Liverpool CAMHS" || roleOfAdmin.innerHTML == "Alder Hey - Sefton CAMHS" || roleOfAdmin.innerHTML == "admin") {
+    Vue.component('vue-timepicker', window.VueTimepicker.default);
   }
   var vueApp = new Vue({
     el: '#admin',
@@ -27,6 +31,8 @@ $(document).ready(function () {
       draw: 1,
       searchRefObj: {},
       SelectedProviderType: 'Liverpool',
+      SelectedProviderOrg1: 'Alder Hey - Liverpool CAMHS',
+      SelectedProviderOrg2: 'Alder Hey - Sefton CAMHS',
       loading: false,
       SelectedProviderStatus: '',
       statusOther: '',
@@ -62,16 +68,17 @@ $(document).ready(function () {
       yPasTime: {
         HH: "",
         mm: "",
-        A: ""
+        a: ""
       },
       checkYPasDateField: false,
+      checkValidYPasTime: false,
       isYPasFormSubmitted: false,
-      emailServiceProvider:''
+      emailServiceProvider: ''
 
     },
 
     beforeMount: function () {
-      $('#loader').show();
+      $('#loader').removeClass('d-none').addClass('d-block');
     },
 
     mounted: function () {
@@ -138,7 +145,7 @@ $(document).ready(function () {
           dom: 'lBfrtip',
           select: true,
           destroy: true,
-          processing: false,
+          processing: true,
           serverSide: true,
           select: {
             style: 'multi',
@@ -166,7 +173,27 @@ $(document).ready(function () {
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
-            zeroRecords: 'No matching referrals found'
+            zeroRecords: 'No matching referrals found',
+            processing: '    <div class="overlay" id="loader">' +
+              '<div class="overlay__inner">' +
+              '<div class="overlay__content">' +
+              '<div class="lds-spinner">' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '<div></div>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>'
           },
           buttons: [
             {
@@ -178,7 +205,6 @@ $(document).ready(function () {
               }
             }
           ],
-
           ajax: {
             url: _self.urlToLoadData,
             // url: '/modules/admin-module/getAllreferral',
@@ -205,7 +231,7 @@ $(document).ready(function () {
                 else {
                   referralRole = referralRes.data.data[i].referrer_type;
                 }
-                ////console.log(referralRes.data.data[i])
+                console.log(referralRes.data.data[i])
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -220,7 +246,8 @@ $(document).ready(function () {
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
 
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i] + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  // "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button><button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>View</button>" + (document.getElementById('loginAsAdmin').innerHTML == 'Alder Hey - Liverpool CAMHS' || document.getElementById('loginAsAdmin').innerHTML == 'Alder Hey - Sefton CAMHS' || document.getElementById('loginAsAdmin').innerHTML == 'admin' ? "<button onclick='openAppointmentsPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_formType + "\")'  class='btn-pdf'>Book</button>" : "") + "<button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\",\"" + referralRes.data.data[i].referral_formType + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
 
                   referralRes.data.data[i].date,
                 ]);
@@ -375,12 +402,16 @@ $(document).ready(function () {
               $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
             }
           }
+          _self.SelectedProviderType = 'Liverpool';
+          _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+          _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
           _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
+          _self.isYPasFormSubmitted = false;
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         });
 
@@ -393,9 +424,30 @@ $(document).ready(function () {
             var currentYear = new Date().getFullYear();
             var setYearValue = dateValue.split('/');
             var getYearValue = setYearValue[2];
-            if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-              if (_self.isFutureDate(e.target.value) || !isUtc) {
-                _self.checkYPasDateField = true;
+            if (currentYear <= Number(getYearValue)) {
+              if (utc.isBefore() || isUtc) {
+                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+                  var hours = Number(_self.yPasTime.hh);
+                  var mins = Number(_self.yPasTime.mm);
+                  var tmZone = _self.yPasTime.A;
+                  if (tmZone == 'PM') {
+                    utc._d.setHours(hours + 12, mins);
+                  } else {
+                    utc._d.setHours(hours, mins);
+                  }
+                  if (utc.isBefore()) {
+                    _self.checkValidYPasTime = false;
+                    _self.checkYPasDateField = true;
+
+                  } else {
+                    _self.checkValidYPasTime = false;
+                    _self.checkYPasDateField = false;
+                  }
+                } else {
+                  _self.checkValidYPasTime = true;
+                  _self.checkYPasDateField = false;
+                }
+
               } else {
                 _self.checkYPasDateField = false;
               }
@@ -418,6 +470,9 @@ $(document).ready(function () {
           _self.yPasTime.hh = "";
           _self.yPasTime.mm = "";
           _self.yPasTime.A = "";
+          _self.SelectedProviderType = 'Liverpool';
+          _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+          _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
           $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
           $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -439,14 +494,14 @@ $(document).ready(function () {
 
         $("#SelectYPasOrgTypes").on("change", function (e) {
           $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
-          _self.yPasDateField = "";
-          _self.yPasTimeField = "";
-          _self.yPasAlderHey = "";
-
+          // _self.yPasDateField = "";
+          // _self.yPasTimeField = "";
+          // _self.yPasAlderHey = "";
+          $('#yPasTimeField').attr('placeholder', 'Choose Time');
         });
 
         this.referral_ids = [];
-        $('#loader').hide();
+        $('#loader').removeClass('d-block').addClass('d-none');
       },
 
       capitalizeFirstLetter: function (string) {
@@ -455,68 +510,111 @@ $(document).ready(function () {
 
       callAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
+        var buttonElem = document.getElementById('btnSubmitAppointments');
+        buttonElem.style.opacity = 0.5;
+        buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-          // if (_self.checkYPasDateField) {
-          // if target service provider is alder hey. we save the info to just db
-
-          $.ajax({
-            url: API_URI + '/bookAppointment',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(sendAppointmentObj),
-            success: function (res) {
-              $('#appointmentsModal').modal('hide');
-              _self.successMessage = res.message;
-              
-              $('#deletedSuccess').modal('show');
-            },
-            error: function (error) {
-              $('#loader').hide();
-              if (error) {
-                showError(error.responseJSON.message, error.status);
+          if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
+            $('#loader').removeClass('d-none').addClass('d-block');
+            $.ajax({
+              url: API_URI + '/bookAppointment',
+              type: 'post',
+              dataType: 'json',
+              //async: false,
+              contentType: 'application/json',
+              data: JSON.stringify(sendAppointmentObj),
+              success: function (res) {
+                console.log('send respective payload')
+                $('#appointmentsModal').modal('hide');
+                _self.successMessage = res.message;
+                createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+                _self.resetAppointmentsForm(_self);
+                buttonElem.style.opacity = 1.0;
+                buttonElem.removeAttribute('disabled');
+                $('#appointmentsModal').hide();
+                $('#loader').removeClass('d-block').addClass('d-none');
+                $('#deletedSuccess').modal('show');
+              },
+              error: function (error) {
+                $('#loader').removeClass('d-block').addClass('d-none');
+                _self.resetAppointmentsForm();
+                buttonElem.style.opacity = 1.0;
+                buttonElem.removeAttribute('disabled');
+                $('#appointmentsModal').hide();
+                if (error) {
+                  showError(error.responseJSON.message, error.status);
+                }
               }
-            }
-          });
+            });
 
-          console.log('send respective payload')
-          // } else {
-          //   $('#appointmentsModal').show();
-          //   return;
-          // }
-
+          } else {
+            buttonElem.style.opacity = 1.0;
+            buttonElem.removeAttribute('disabled');
+            $('#appointmentsModal').show();
+            return;
+          }
         } else {
+          buttonElem.removeAttribute('disabled');
+          buttonElem.style.opacity = 1.0;
           $('#appointmentsModal').show();
           return;
         }
       },
 
+      resetAppointmentsForm: function (_self) {
+        $("#yPasArea").show();
+        $("#appointNeededArea").show();
+        _self.isYPasFormSubmitted = false;
+        _self.yPasOrgTypes = "";
+        _self.yPasAlderHey = "";
+        _self.yPasDate = "";
+        _self.yPasTime.hh = "";
+        _self.yPasTime.mm = "";
+        _self.yPasTime.A = "";
+        $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
+        $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+        $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+        $("#manualYPasBook").prop("checked", false);
+        $("#appointNeeded").prop("checked", false);
+        $('#appointmentsModal').modal('hide');
+
+      },
+
       callNeedAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
         var _self = this;
-          $.ajax({
-            url: API_URI + '/needAppointment',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(sendAppointmentObj),
-            success: function (res) {
-              $('#appointmentsModal').modal('hide');
-              _self.successMessage = res.message;
-              
-              $('#deletedSuccess').modal('show');
-            },
-            error: function (error) {
-              $('#loader').hide();
-              if (error) {
-                showError(error.responseJSON.message, error.status);
-              }
+        $('#loader').removeClass('d-none').addClass('d-block');;
+        $.ajax({
+          url: API_URI + '/needAppointment',
+          type: 'post',
+          dataType: 'json',
+          //async: false,
+          contentType: 'application/json',
+          data: JSON.stringify(sendAppointmentObj),
+          success: function (res) {
+            _self.SelectedProviderType = 'Liverpool';
+            _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
+            _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
+            $('#appointmentsModal').modal('hide');
+            $('#loader').removeClass('d-block').addClass('d-none');
+            _self.successMessage = res.message;
+            createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
+            $("#yPasArea").show();
+            $("#manualYPasBook").prop("checked", false);
+            $("#appointNeeded").prop("checked", false);
+            $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
+            $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+            $('#deletedSuccess').modal('show');
+          },
+          error: function (error) {
+            $('#loader').removeClass('d-block').addClass('d-none');
+            if (error) {
+              showError(error.responseJSON.message, error.status);
             }
-          });
+          }
+        });
       },
 
       selectcheck: function (checked, id) {
@@ -540,12 +638,12 @@ $(document).ready(function () {
           var payload = { referral_id: _self.referral_ids, status: 'deleted' }
         }
         var trimmedPayload = trimObj(payload);
-        $('#loader').show();
+        $('#loader').removeClass('d-none').addClass('d-block');
         $.ajax({
           url: API_URI + '/referral',
           type: 'put',
           dataType: 'json',
-          async: false,
+          // async: false,
           contentType: 'application/json',
           data: JSON.stringify(trimmedPayload),
           success: function (res) {
@@ -553,10 +651,10 @@ $(document).ready(function () {
             _self.successMessage = 'Referrals deleted successfully';
             $('#deletedSuccess').modal('show');
             _self.fetchReferral();
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
           },
           error: function (error) {
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
               showError(error.responseJSON.message, error.status);
             }
@@ -596,22 +694,22 @@ $(document).ready(function () {
           var _self = this;
           var payload = { referral_id: _self.referral_ids, status: 'completed' }
           var trimmedPayload = trimObj(payload);
-          $('#loader').show();
+          $('#loader').removeClass('d-none').addClass('d-block');
           $.ajax({
             url: API_URI + '/referral',
             type: 'put',
             dataType: 'json',
-            async: false,
+            // async: false,
             contentType: 'application/json',
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Unarchive successful';
               $('#deletedSuccess').modal('show');
               _self.fetchReferral();
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
             },
             error: function (error) {
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
               if (error) {
                 showError(error.responseJSON.message, error.status);
               }
@@ -625,27 +723,100 @@ $(document).ready(function () {
         if (_self.referral_ids.length) {
           var payload = { referral_id: _self.referral_ids, status: 'archived' }
           var trimmedPayload = trimObj(payload);
-          $('#loader').show();
+          $('#loader').removeClass('d-none').addClass('d-block');
           $.ajax({
             url: API_URI + '/referral',
             type: 'put',
             dataType: 'json',
-            async: false,
+            // async: false,
             contentType: 'application/json',
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Referrals archived successfully';
               $('#deletedSuccess').modal('show');
               _self.fetchReferral();
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
             },
             error: function (error) {
-              $('#loader').hide();
+              $('#loader').removeClass('d-block').addClass('d-none');
               if (error) {
                 showError(error.responseJSON.message, error.status);
               }
             }
           });
+        }
+      },
+
+      changeTime1: function () {
+        var _self = this;
+        var dateValue = _self.yPasDate;
+        if (dateValue && _self.isValidDate(dateValue)) {
+          var dateFormat = "DD/MM/YYYY"
+          var utc = moment(dateValue, dateFormat, true)
+          var isUtc = utc.isValid();
+          var currentYear = new Date().getFullYear();
+          var setYearValue = dateValue.split('/');
+          var getYearValue = setYearValue[2];
+          if (currentYear <= Number(getYearValue)) {
+            if (utc.isBefore() || isUtc) {
+              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+                var hours = Number(_self.yPasTime.hh);
+                var mins = Number(_self.yPasTime.mm);
+                var tmZone = _self.yPasTime.A;
+                if (tmZone == 'PM') {
+                  utc._d.setHours(hours + 12, mins);
+                } else {
+                  utc._d.setHours(hours, mins);
+                }
+                if (utc.isBefore()) {
+                  _self.checkValidYPasTime = false;
+                  _self.checkYPasDateField = true;
+
+                } else {
+                  _self.checkValidYPasTime = false;
+                  _self.checkYPasDateField = false;
+                }
+              } else {
+                _self.checkValidYPasTime = true;
+                _self.checkYPasDateField = false;
+              }
+
+            } else {
+              _self.checkYPasDateField = false;
+            }
+          } else {
+            _self.checkYPasDateField = true;
+          }
+        } else {
+          _self.checkYPasDateField = true;
+        }
+      },
+
+
+      changeTime: function (e) {
+        var _self = this;
+        var dateValue = _self.yPasDate;
+        var dateFormat = "DD/MM/YYYY"
+        var utc = moment(dateValue, dateFormat, true)
+        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+          var hours = Number(_self.yPasTime.hh);
+          var mins = Number(_self.yPasTime.mm);
+          var tmZone = _self.yPasTime.A;
+          if (tmZone == 'PM') {
+            utc._d.setHours(hours + 12, mins);
+          } else {
+            utc._d.setHours(hours, mins);
+          }
+          if (utc.isBefore()) {
+            _self.checkValidYPasTime = true;
+            _self.checkYPasDateField = false;
+
+          } else {
+            _self.checkValidYPasTime = false;
+            _self.checkYPasDateField = false;
+          }
+        } else {
+          _self.checkYPasDateField = true;
         }
       },
 
@@ -749,24 +920,42 @@ $(document).ready(function () {
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
-        $('#loader').hide();
-        //////console.log()(successData)
-      },
-      getActivity: function (uuid, value) {
-        let result = apiCallGet('get', '/getActivity', API_URI);
-        let specificReferral = _.filter(result.data.activity_referrals, function (o) {
-          o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
-          o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
+        $('#loader').removeClass('d-block').addClass('d-none');
 
-          // o['time'] = moment(o.createdAt).format('h:mm:ss')
-          //////console.log(moment(o.createdAt).format('h:mm:ss'))
-          return o.ReferralId == uuid;
-        })
-        specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-        //  ////console.log(specificReferral, "specificReferral");
-        this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-        // ////console.log(this.groupByActivityDate);
       },
+
+      getActivity: function (uuid, value) {
+        var _self = this;
+        $('#loader').removeClass('d-none').addClass('d-block');
+        $.ajax({
+          url: API_URI + '/getActivity',
+          type: 'get',
+          dataType: 'json',
+          // async: false,
+          contentType: 'application/json',
+          success: function (result) {
+            let specificReferral = _.filter(result.data.activity_referrals, function (o) {
+              o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
+              o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
+
+              return o.ReferralId == uuid;
+            })
+            specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
+            _self.groupByActivityDate = _.groupBy(specificReferral, 'date');
+            $('#loader').removeClass('d-block').addClass('d-none');
+            $('#actionlogModal').modal('show');
+          },
+          error: function (error) {
+            $('#loader').removeClass('d-block').addClass('d-none');
+            if (error) {
+              showError(error.responseJSON.message, error.status);
+            }
+          }
+        });
+        //let result = apiCallGet('get', '/getActivity', API_URI);
+
+      },
+
       setIntegration: function (e) {
         if (e.target.checked) {
           localStorage.setItem('integration', 'true');
@@ -792,7 +981,6 @@ $(document).ready(function () {
   actionlog = function (uuid, value, other_value) {
     document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
     vueApp.getActivity(uuid, value);
-    $('#actionlogModal').modal('show');
   }
 
   bookAppointment = function (uuid, role, referranceCode, formType) {
@@ -802,7 +990,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment booked";
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
-  //  sendAppointmentObj.date = $('#yPasDateField').val();
+    //  sendAppointmentObj.date = $('#yPasDateField').val();
     sendAppointmentObj.time = $('#yPasTimeField').val();
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
@@ -818,6 +1006,7 @@ $(document).ready(function () {
     sendAppointmentObj.status = "Appointment needed";
     sendAppointmentObj.role = role;
     sendAppointmentObj.referranceCode = referranceCode;
+    sendAppointmentObj.formType = formType
     vueApp.callNeedAppointmentApi(sendAppointmentObj);
   }
 });
@@ -826,7 +1015,7 @@ function viewPdf(uuid, role, other, formType) {
   ////console.log(formType)
   createActivity("Referral viewed", uuid);
   var _self = this;
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role + "/" + formType, API_URI);
     if (successData && Object.keys(successData)) {
@@ -842,13 +1031,13 @@ function viewPdf(uuid, role, other, formType) {
         link.target = '_blank'
         link.click();
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
       else {
         download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
     }
@@ -892,7 +1081,7 @@ function downloadCSV(uuid, value, other_value) {
 
 
 function updateStatus(uuid) {
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   var status = $('#SelectedProviderStatus').val();
   ////console.log(status)
   if (status) {
@@ -910,12 +1099,12 @@ function updateStatus(uuid) {
         $('#changeStatusModal').modal('hide');
         $('#statusUpdatedSuccess').modal('show');
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
       }
       else {
         setTimeout(function () {
-          $('#loader').hide();
+          $('#loader').removeClass('d-block').addClass('d-none');
         }, 500);
         $('#changeStatusModal').modal('hide');
       }
@@ -923,7 +1112,7 @@ function updateStatus(uuid) {
   }
   else {
     setTimeout(function () {
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
     }, 500);
     return false;
   }
@@ -946,7 +1135,7 @@ function sendPdf(uuid, role, refCode, formType) {
   if (document.querySelector('.messageCheckbox:checked') != null) {
     useAPI = document.querySelector('.messageCheckbox:checked').value;
   }
-  $('#loader').show();
+  $('#loader').removeClass('d-none').addClass('d-block');
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode + "/" + formType
@@ -966,17 +1155,17 @@ function sendPdf(uuid, role, refCode, formType) {
     url: API_URI + apiToSend,
     type: 'get',
     dataType: 'json',
-    async: false,
+    // async: false,
     contentType: 'application/json',
     success: function (res) {
       createActivity("Referral sent - " + selectedProvider, uuid);
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
       $('#mailSentSuccess').modal('show');
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
     },
     error: function (error) {
-      $('#loader').hide();
+      $('#loader').removeClass('d-block').addClass('d-none');
       buttonElem.disabled = false;
       $('#sendProviderModal').modal('hide');
       if (error) {

@@ -215,7 +215,7 @@
 
                 <!-- Early Help Assessment Tool Start-->
                 <form id="EHAT-form" data-options="haveEhat">
-                    <div v-show="educAndEmpData.careLeaver =='No' || educAndEmpData.careLeaver =='Yes'"
+                    <div v-show=false
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="d-flex align-items-start">
                             <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
@@ -252,7 +252,7 @@
 
                 <!-- Have a Social Worker Start-->
                 <form id="isSocialWorker-form" data-options="haveSocialWorker">
-                    <div v-show="educAndEmpData.haveEhat =='No' || educAndEmpData.haveEhat =='Yes'"
+                    <div v-show="educAndEmpData.careLeaver =='No' || educAndEmpData.careLeaver =='Yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.isSocialWorkerLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
