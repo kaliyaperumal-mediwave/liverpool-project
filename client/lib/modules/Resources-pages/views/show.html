@@ -11,6 +11,8 @@
   });
 </script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+<script src="/modules/Resources-pages/js/resources.js"></script>
 {% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
 data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
 {% block main %} {% include "../../shared-referal-module/views/header.html" %}
@@ -139,7 +141,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           <a href="{{piecewatch._parentUrl}}?piece_id={{piecewatch._id}}"
             class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
             data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px">
-            <div class="w-100">
+            <div class="w-100 res-watch">
               <div class="bg-white card-container-small">
                 <div class="container-top-set">
                   <div class="inside-cover-set">
