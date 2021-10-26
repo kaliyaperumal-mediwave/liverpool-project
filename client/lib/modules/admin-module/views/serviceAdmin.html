@@ -13,8 +13,12 @@
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.umd.min.js"></script>
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -326,8 +330,8 @@
                                         </option>
                                         <option class='option-text' value="YPAS">YPAS
                                         </option>
-                                        <option class='option-text' value="Venus">VENUS
-                                        </option>
+                                        <!-- <option class='option-text' value="Venus">VENUS
+                                   </option> -->
                                     </select>
                                 </span>
                             </div>
@@ -352,7 +356,7 @@
                                 <div class="px-sm-5 px-4 py-2">
                                     <div class="input-group w-100">
                                         <span class="plain-select">
-                                            <select style="background: #fff !important;" id="SelectedProvider"
+                                            <select style="background: #fff !important;" v-model="SelectedProviderOrg1"
                                                 class="custom-select form-control input-bg-form-control height-44">
                                                 <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder
                                                     Hey/Liverpool
@@ -377,7 +381,7 @@
                                 <div class="px-sm-5 px-4 py-2">
                                     <div class="input-group w-100">
                                         <span class="plain-select">
-                                            <select style="background: #fff !important;" id="SelectedProvider"
+                                            <select style="background: #fff !important;" v-model="SelectedProviderOrg2"
                                                 class="custom-select form-control input-bg-form-control height-44">
                                                 <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder
                                                     Hey/Sefton CAMHS
@@ -385,7 +389,7 @@
                                                 <option class='option-text' value="Alder Hey - Sefton EDYS">Alder
                                                     Hey/Sefton EDYS
                                                 </option>
-                                                <option class='option-text' value="Venus">Venus</option>
+                                                <!-- <option class='option-text' value="Venus">Venus</option> -->
                                                 <option class='option-text' value="Parenting 2000">Parenting 2000
                                                 </option>
                                                 <option class='option-text' value="MHST Sefton">Mental Health Support
@@ -420,27 +424,39 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" v-model="yPasDate"
                                         id="yPasDateField" placeholder="Enter Date">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3 font-23"
+                                            style="font-size: 18px;"><i aria-hidden="true" class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasDate),'invalid-fields':(isYPasFormSubmitted && !yPasDate)  }">
                                     Please provide a date. </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && yPasDate && checkYPasDateField),'invalid-fields':(isYPasFormSubmitted && checkYPasDateField)  }">
-                                    Please make sure the DOB is entered in the correct format DD/MM/YYYY. </div>
+                                    Please provide a valid date. </div>
                             </div>
 
                             <div class="py-2" id="showCAMHSAndEDYS">
                                 <label for="yPasTimeField" style="font-weight: bold !important;"
                                     class="question-font">Time</label>
                                 <div class="input-group">
-                                    <vue-timepicker id="yPasTimeField" format="hh:mm A" v-model="yPasTime">
+                                    <vue-timepicker input-width="200px" drop-direction="up" id="yPasTimeField"
+                                        close-on-complete @close="changeTime1()" format="hh:mm A" v-model="yPasTime">
                                     </vue-timepicker>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text input-group-secondary-text px-3"
+                                            style="font-size: 22px !important;">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="invalid-feedback d-none mt-2"
-                                  v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted && (!yPasTime.hh && !yPasTime.mm && !yPasTime.A ))  }">
-                                  Please provide a time. </div> -->
                                 <div class="invalid-feedback d-none mt-2"
-                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || !yPasTime.A )),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || !yPasTime.A ))  }">
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && checkValidYPasTime)  }">
+                                    Please provide a valid time. </div>
+                                <div class="invalid-feedback d-none mt-2"
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime)  }">
                                     Please provide a time. </div>
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
@@ -453,7 +469,6 @@
         </div>
     </div>
     <!-- Appointments Modal End -->
-
 
     <!-- Actionlog Start -->
     <div class="modal fade" id="actionlogModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"

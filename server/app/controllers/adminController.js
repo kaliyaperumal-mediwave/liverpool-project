@@ -983,13 +983,7 @@ function getRefData(refID, refRole, ctx) {
                     eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
 
                     var parentAddress;
-                    if (ctx.query.formType == 'child') {
-                        parentAddres = aboutObj.parent[0].parent_address_postcode ? aboutObj.parent[0].parent_address + ', ' + aboutObj.parent[0].parent_address_postcode : aboutObj.parent[0].parent_address
-
-                    }
-                    else {
-                        parentAddres = aboutObj.family[0].parent_address_postcode ? aboutObj.family[0].parent_address + ', ' + aboutObj.family[0].parent_address_postcode : aboutObj.family[0].parent_address
-                    }
+                    parentAddres = aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_address_postcode ? aboutObj[includeModalName][0].parent_address + ', ' + aboutObj[includeModalName][0].parent_address_postcode : aboutObj[includeModalName][0].parent_address : '';
 
                     const section2Obj = {
                         child_id: aboutObj.id,
@@ -1010,20 +1004,20 @@ function getRefData(refID, refRole, ctx) {
                         household_member: aboutObj.household_member,
                         child_contact_type: aboutObj.child_contact_type,
                         sex_at_birth: aboutObj.sex_at_birth,
-                        parent_id: aboutObj.parent ? aboutObj.parent[0].id : aboutObj.family[0].id,
-                        parent_name: aboutObj.parent ? aboutObj.parent[0].parent_firstname : aboutObj.family[0].parent_firstname,
-                        parent_lastname: aboutObj.parent ? aboutObj.parent[0].parent_lastname : aboutObj.family[0].parent_lastname,
-                        parental_responsibility: aboutObj.parent ? aboutObj.parent[0].parental_responsibility : aboutObj.family[0].parental_responsibility,
-                        responsibility_parent_firstname: aboutObj.parent ? aboutObj.parent[0].responsibility_parent_firstname : aboutObj.family[0].responsibility_parent_firstname,
-                        responsibility_parent_lastname: aboutObj.parent ? aboutObj.parent[0].responsibility_parent_lastname : aboutObj.family[0].responsibility_parent_lastname,
-                        child_parent_relationship: aboutObj.parent ? aboutObj.parent[0].child_parent_relationship : aboutObj.family[0].child_parent_relationship,
-                        parent_contact_number: aboutObj.parent ? aboutObj.parent[0].parent_contact_number : aboutObj.family[0].parent_contact_number,
-                        parent_email: aboutObj.parent ? aboutObj.parent[0].parent_email : aboutObj.family[0].parent_email,
-                        parent_same_house: aboutObj.parent ? aboutObj.parent[0].parent_same_house : aboutObj.family[0].parent_same_house,
+                        parent_id: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].id : '',
+                        parent_name: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_firstname : '',
+                        parent_lastname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_lastname :'',
+                        parental_responsibility: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parental_responsibility : '',
+                        responsibility_parent_firstname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].responsibility_parent_firstname : '',
+                        responsibility_parent_lastname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].responsibility_parent_lastname : '',
+                        child_parent_relationship: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].child_parent_relationship : '',
+                        parent_contact_number: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_contact_number : '',
+                        parent_email: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_email : '',
+                        parent_same_house: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_same_house : '',
                         parent_address: parentAddres,
-                        parent_manual_address: aboutObj.parent ? aboutObj.parent[0].parent_manual_address : aboutObj.family[0].parent_manual_address,
-                        parent_contact_type: aboutObj.parent ? aboutObj.parent[0].parent_contact_type : aboutObj.family[0].parent_contact_type,
-                        legal_care_status: aboutObj.parent ? aboutObj.parent[0].legal_care_status : aboutObj.family[0].legal_care_status,
+                        parent_manual_address: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_manual_address : '',
+                        parent_contact_type: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_contact_type : '',
+                        legal_care_status: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].legal_care_status : '',
                     }
                     var services;
                     var displayServicesPdf;
@@ -2348,6 +2342,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 })
                 console.log(data.data.response[0].code)
                 console.log(data.response, "datadata");
+                console.log('=====obj======',obj)
                 // success
                 if (data.data.response[0].code == 1002) {
                     let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
@@ -2409,6 +2404,7 @@ exports.appointmentNeeded = async (ctx) => {
     ctx.request.body.emailToProvider = ctx.request.body.service;
     ctx.request.body.referralCode = ctx.request.body.referranceCode;
     ctx.request.body.sendProf = true;
+    ctx.request.body.bookAppointment = true;
     try {
         return email.sendReferralWithData(ctx).then(async (sendReferralStatus) => {
             console.log(sendReferralStatus);

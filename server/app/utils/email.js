@@ -214,13 +214,15 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = ctx.request.body.emailToProvider;
             sendProf = true;
         }
-        ctx.request.body.refCode = ctx.request.body.referralCode
+        if (ctx.request.body.referralCode) {
+            ctx.request.body.refCode = ctx.request.body.referralCode
+        }
         console.log('toAddress----------', toAddress,ctx.request.body.refCode);
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,true);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,ctx.request.body.bookAppointment ? true : false);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -284,7 +286,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                 },
                 {
                     filename: ctx.request.body.refCode + ".csv",
-                    content: Buffer.from(csv).toString('base64'),
+                    content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                 },
                 ],
                 html: htmlTemplate,
@@ -307,7 +309,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                     },
                     {
                         filename: ctx.request.body.refCode + ".csv",
-                        content: Buffer.from(csv).toString('base64'),
+                        content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
                     },
                     ],
                     html: htmlTemplate,
