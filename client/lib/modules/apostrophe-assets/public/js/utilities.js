@@ -724,6 +724,20 @@ function openApps() {
     location.href = window.location.origin + '/apps';
 }
 
+// Where el is the DOM element you'd like to test for visibility
+function isHidden(el) {
+    var style = window.getComputedStyle(el);
+    return (style.display === 'none')
+}
+
+window.onbeforeunload = function (event) {
+    var resumeBtn = document.getElementById('resumeButton');
+    var isResumeHidden = isHidden(resumeBtn);
+    if (!isResumeHidden) {
+        resumeBtn.style.display = "none";
+    }
+};
+
 // function downloadJson() {
 //     var API_URI = "/modules/admin-module";
 //     console.log("4343");
