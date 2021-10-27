@@ -1,6 +1,5 @@
 
 $(document).ready(function () {
-    debugger
     var userPlatform = getMobileOperatingSystem();
     var dynamicVoiceOverContent = $('#dynamicVoiceOverContent').text();
     if (userPlatform == 'Android') {
