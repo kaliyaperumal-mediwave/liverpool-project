@@ -12,6 +12,8 @@
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <!-- CDN for Pagination Start -->
 
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+
 
 <!-- CDN for Pagination Start-->
 <!-- <script src="https://unpkg.com/vuejs-paginate@0.9.0"></script> -->
@@ -81,7 +83,32 @@
         <div class="d-flex text-center py-md-3 py-2">
             <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
                 <div class="home-primary-content m-0 py-2 px-2 text-left">
-                    <h4 class="p-0 text-left font-weight-bold home-primary-content">
+                    <div class="d-flex w-100 align-items-center ">
+                        <p id="dynamicVoiceOverContent" class="d-none">orchaVoiceOverContent</p>
+                        <div class="replaceClass col-6 col-lg-9 p-0"></div>
+                        <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+                            id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+                            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+                                role="button">Play</button>
+                            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0"
+                                id="pauseButton" role="button">Pause</button>
+                            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0"
+                                id="resumeButton" role="button">Resume</button>
+
+                            <button style="opacity: 0.4 !important;"
+                                class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled id="stopButton"
+                                role="button">Stop</button>
+                        </div>
+
+                        <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+                            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+                                role="button">Play</button>
+                            <button style="opacity: 0.4 !important;"
+                                class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+                                id="stopAndroidButton" role="button">Stop</button>
+                        </div>
+                    </div>
+                    <h4 class="p-0 text-left font-weight-bold home-primary-content" id="orchaVoiceOverContent">
                         Here are apps for you based on your health and wellbeing information
                     </h4>
                 </div>

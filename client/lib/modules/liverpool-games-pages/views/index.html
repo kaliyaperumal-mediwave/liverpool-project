@@ -1,8 +1,12 @@
 {% extends 'apostrophe-templates:layout.html' %} {% block extraBody %}
 <script>
   $(document).on("click", "a.previous-link", function () {
+    var resumeBtn = document.getElementById('resumeButton');
+    if (resumeBtn) {
+      resumeBtn.style.display = "none";
+    }
     var iFrameDetection = (window === window.parent) ? false : true;
-    if(iFrameDetection){
+    if (iFrameDetection) {
       history.go(-1);
     } else {
       parent.history.back();
@@ -11,6 +15,8 @@
   });
 </script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+
 {% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
 data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
 "../../shared-referal-module/views/header.html" %}
@@ -100,7 +106,30 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         </div>
       </div>
       <div class="text_inside_cont card-set-container-bg">
-        <h5 class="logout-font font-weight-bold">
+        <div class="d-flex w-100 align-items-center ">
+          <p id="dynamicVoiceOverContent" class="d-none">thingsDoRead2</p>
+          <div class="replaceClass col-6 col-lg-9 p-0"></div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+            id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+              role="button">Play</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
+              role="button">Pause</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
+              role="button">Resume</button>
+
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopButton" role="button">Stop</button>
+          </div>
+
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+              role="button">Play</button>
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
+              id="stopAndroidButton" role="button">Stop</button>
+          </div>
+        </div>
+        <h5 class="logout-font font-weight-bold pt-2" id="thingsDoRead2">
           Here are different real life experiences of users currently using the
           platform
         </h5>

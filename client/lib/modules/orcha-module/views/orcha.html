@@ -2,6 +2,8 @@
 {% block extraBody %}
 <script src="/modules/orcha-module/js/orcha.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/liverpool-mental-health-pages/js/voiceover.js"></script>
+
 {% endblock %}
 {% block main%}
 
@@ -94,7 +96,30 @@
         </div>
 
         <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
-            <h5 class="logout-font font-weight-bold m-0">
+            <div class="d-flex w-100 align-items-center ">
+                <p id="dynamicVoiceOverContent" class="d-none">AppsVoiceOverContent1</p>
+                <div class="replaceClass col-6 col-lg-9 p-0"></div>
+                <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+                    id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+                    <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton"
+                        role="button">Play</button>
+                    <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
+                        role="button">Pause</button>
+                    <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
+                        role="button">Resume</button>
+
+                    <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
+                        disabled id="stopButton" role="button">Stop</button>
+                </div>
+
+                <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
+                    <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
+                        role="button">Play</button>
+                    <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0"
+                        disabled id="stopAndroidButton" role="button">Stop</button>
+                </div>
+            </div>
+            <h5 class="logout-font font-weight-bold m-0 pt-2" id="AppsVoiceOverContent1">
                 On this page, you can access a range of useful websites and apps
             </h5>
         </div>
