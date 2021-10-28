@@ -132,7 +132,7 @@ $(document).ready(function () {
                 $("#playButton").hide();
 
                 window.speechSynthesis.pause();
-                //clearTimeout(myTimeout);
+                clearTimeout(myTimeout);
             });
             $('#resumeButton').on('click', function (e) {
                 document.getElementById('resumeButton').classList.add('d-none');
