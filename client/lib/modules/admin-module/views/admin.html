@@ -636,8 +636,9 @@
                                 <div>
                                     <label for="yPasTimeField" style="font-weight: bold !important;"
                                         class="question-font">Time</label>
-                                    <b-form-timepicker id="timepicker-placeholder" placeholder="Choose a time"
-                                        locale="en"></b-form-timepicker>
+                                    <b-form-timepicker id="timepicker-placeholder" v-model="yPasTime"
+                                        no-close-button="false" placeholder="Choose a time" locale="en">
+                                    </b-form-timepicker>
                                 </div>
 
                                 <!-- <div class="input-group">
