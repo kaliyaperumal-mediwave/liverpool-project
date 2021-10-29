@@ -66,6 +66,7 @@ $(document).ready(function () {
       yPasDate: "",
       yPasTime: "",
       isCloseButton: true,
+      hideHeader: true,
       // yPasTime: {
       //   HH: "",
       //   mm: "",
