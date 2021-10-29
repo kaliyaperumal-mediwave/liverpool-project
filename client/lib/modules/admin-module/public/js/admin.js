@@ -64,12 +64,13 @@ $(document).ready(function () {
       yPasOrgTypes: "",
       yPasAlderHey: "",
       yPasDate: "",
-      //yPasTime: "",
-      yPasTime: {
-        HH: "",
-        mm: "",
-        a: ""
-      },
+      yPasTime: "",
+      isCloseButton: true,
+      // yPasTime: {
+      //   HH: "",
+      //   mm: "",
+      //   a: ""
+      // },
       checkYPasDateField: false,
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,
@@ -407,9 +408,10 @@ $(document).ready(function () {
           _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
-          _self.yPasTime.hh = "";
-          _self.yPasTime.mm = "";
-          _self.yPasTime.A = "";
+          _self.yPasTime = "";
+          // _self.yPasTime.hh = "";
+          // _self.yPasTime.mm = "";
+          // _self.yPasTime.A = "";
           _self.yPasAlderHey = "";
           _self.isYPasFormSubmitted = false;
           $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
@@ -426,15 +428,17 @@ $(document).ready(function () {
             var getYearValue = setYearValue[2];
             if (currentYear <= Number(getYearValue)) {
               if (utc.isBefore() || isUtc) {
-                if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-                  var hours = Number(_self.yPasTime.hh);
-                  var mins = Number(_self.yPasTime.mm);
-                  var tmZone = _self.yPasTime.A;
-                  if (tmZone == 'PM') {
-                    utc._d.setHours(hours + 12, mins);
-                  } else {
-                    utc._d.setHours(hours, mins);
-                  }
+                if (_self.yPasTime) {
+                  var fullTimeSting = _self.yPasTime.split(':');
+                  var hours = Number(fullTimeSting[0]);
+                  var mins = Number(fullTimeSting[1]);
+                  utc._d.setHours(hours, mins);
+                  // var tmZone = _self.yPasTime.A;
+                  // if (tmZone == 'PM') {
+                  //   utc._d.setHours(hours + 12, mins);
+                  // } else {
+                  //   utc._d.setHours(hours, mins);
+                  // }
                   if (utc.isBefore()) {
                     _self.checkValidYPasTime = false;
                     _self.checkYPasDateField = true;
@@ -467,9 +471,10 @@ $(document).ready(function () {
           _self.yPasOrgTypes = "";
           _self.yPasAlderHey = "";
           _self.yPasDate = "";
-          _self.yPasTime.hh = "";
-          _self.yPasTime.mm = "";
-          _self.yPasTime.A = "";
+          _self.yPasTime = "";
+          // _self.yPasTime.hh = "";
+          // _self.yPasTime.mm = "";
+          // _self.yPasTime.A = "";
           _self.SelectedProviderType = 'Liverpool';
           _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
           _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
@@ -494,9 +499,6 @@ $(document).ready(function () {
 
         $("#SelectYPasOrgTypes").on("change", function (e) {
           $("#showCAMHSAndEDYS").removeClass('d-none').addClass('d-block');
-          // _self.yPasDateField = "";
-          // _self.yPasTimeField = "";
-          // _self.yPasAlderHey = "";
           $('#yPasTimeField').attr('placeholder', 'Choose Time');
         });
 
@@ -515,7 +517,7 @@ $(document).ready(function () {
         buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
-        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
+        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');
             $.ajax({
@@ -539,7 +541,7 @@ $(document).ready(function () {
               },
               error: function (error) {
                 $('#loader').removeClass('d-block').addClass('d-none');
-                _self.resetAppointmentsForm();
+                _self.resetAppointmentsForm(_self);
                 buttonElem.style.opacity = 1.0;
                 buttonElem.removeAttribute('disabled');
                 $('#appointmentsModal').hide();
@@ -570,9 +572,10 @@ $(document).ready(function () {
         _self.yPasOrgTypes = "";
         _self.yPasAlderHey = "";
         _self.yPasDate = "";
-        _self.yPasTime.hh = "";
-        _self.yPasTime.mm = "";
-        _self.yPasTime.A = "";
+        _self.yPasTime = "";
+        // _self.yPasTime.hh = "";
+        // _self.yPasTime.mm = "";
+        // _self.yPasTime.A = "";
         $("#showCAMHSAndEDYS").removeClass('d-block').addClass('d-none');
         $("#showYPasOrgs").removeClass('d-block').addClass('d-none');
         $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
@@ -747,9 +750,12 @@ $(document).ready(function () {
         }
       },
 
-      changeTime1: function () {
+      changeTime1: function (time) {
         var _self = this;
         var dateValue = _self.yPasDate;
+        var now = new Date();
+        var todayDateString = moment(now).format('DD/MM/YYYY');
+        console.log(todayDateString);
         if (dateValue && _self.isValidDate(dateValue)) {
           var dateFormat = "DD/MM/YYYY"
           var utc = moment(dateValue, dateFormat, true)
@@ -759,15 +765,11 @@ $(document).ready(function () {
           var getYearValue = setYearValue[2];
           if (currentYear <= Number(getYearValue)) {
             if (utc.isBefore() || isUtc) {
-              if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-                var hours = Number(_self.yPasTime.hh);
-                var mins = Number(_self.yPasTime.mm);
-                var tmZone = _self.yPasTime.A;
-                if (tmZone == 'PM') {
-                  utc._d.setHours(hours + 12, mins);
-                } else {
-                  utc._d.setHours(hours, mins);
-                }
+              if (_self.yPasTime) {
+                var fullTimeSting = _self.yPasTime.split(':');
+                var hours = Number(fullTimeSting[0]);
+                var mins = Number(fullTimeSting[1]);
+                utc._d.setHours(hours, mins);
                 if (utc.isBefore()) {
                   _self.checkValidYPasTime = false;
                   _self.checkYPasDateField = true;
@@ -792,32 +794,10 @@ $(document).ready(function () {
         }
       },
 
-
-      changeTime: function (e) {
-        var _self = this;
-        var dateValue = _self.yPasDate;
-        var dateFormat = "DD/MM/YYYY"
-        var utc = moment(dateValue, dateFormat, true)
-        if (_self.yPasTime.hh && _self.yPasTime.mm && _self.yPasTime.A) {
-          var hours = Number(_self.yPasTime.hh);
-          var mins = Number(_self.yPasTime.mm);
-          var tmZone = _self.yPasTime.A;
-          if (tmZone == 'PM') {
-            utc._d.setHours(hours + 12, mins);
-          } else {
-            utc._d.setHours(hours, mins);
-          }
-          if (utc.isBefore()) {
-            _self.checkValidYPasTime = true;
-            _self.checkYPasDateField = false;
-
-          } else {
-            _self.checkValidYPasTime = false;
-            _self.checkYPasDateField = false;
-          }
-        } else {
-          _self.checkYPasDateField = true;
-        }
+      compareTwoDates: function (date) {
+        var parts = date.split("/");
+        var date = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+        return date.getTime();
       },
 
       checkValue: function (str, max) {
@@ -984,6 +964,8 @@ $(document).ready(function () {
   }
 
   bookAppointment = function (uuid, role, referranceCode, formType) {
+    var timeElem = document.getElementById('timepicker-placeholder__value_');
+    console.log(timeElem.innerText)
     var sendAppointmentObj = {};
     sendAppointmentObj.ReferralId = uuid;
     sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
@@ -991,7 +973,7 @@ $(document).ready(function () {
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
     //  sendAppointmentObj.date = $('#yPasDateField').val();
-    sendAppointmentObj.time = $('#yPasTimeField').val();
+    sendAppointmentObj.time = timeElem.innerText;
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
     sendAppointmentObjotherInfo = {};

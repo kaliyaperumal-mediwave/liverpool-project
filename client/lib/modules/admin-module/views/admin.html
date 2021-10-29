@@ -637,7 +637,8 @@
                                     <label for="yPasTimeField" style="font-weight: bold !important;"
                                         class="question-font">Time</label>
                                     <b-form-timepicker id="timepicker-placeholder" v-model="yPasTime"
-                                        no-close-button="false" placeholder="Choose a time" locale="en">
+                                        @input="changeTime1($event)" :no-close-button="isCloseButton"
+                                        placeholder="Choose a time" locale="en">
                                     </b-form-timepicker>
                                 </div>
 
@@ -651,13 +652,13 @@
                                             <i class="fa fa-clock-o" aria-hidden="true"></i>
                                         </span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && checkValidYPasTime)  }">
                                     Please provide a valid time. </div>
                                 <div class="invalid-feedback d-none mt-2"
-                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime)  }">
-                                    Please provide a time. </div> -->
+                                    v-bind:class="{ 'd-block':(isYPasFormSubmitted && !yPasTime && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted && !yPasTime && !checkValidYPasTime)  }">
+                                    Please provide a time. </div>
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
                                     class="download-csv-btn">SUBMIT</button></div>
