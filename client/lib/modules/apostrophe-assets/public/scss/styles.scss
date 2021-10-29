@@ -30,6 +30,10 @@ body {
   //   display: none;
   // }
 
+  .b-form-btn-label-control.form-control {
+    height: auto !important;
+  }
+
   .vue__time-picker input.display-time {
     width: 100%;
     background: #e8edee 0% 0% no-repeat padding-box !important;

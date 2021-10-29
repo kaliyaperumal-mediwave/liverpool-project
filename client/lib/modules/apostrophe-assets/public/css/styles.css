@@ -1195,6 +1195,8 @@ table.dataTable tbody th.select-checkbox:before {
 
 body {
   font-family: "century-gothic" !important; }
+  body .b-form-btn-label-control.form-control {
+    height: auto !important; }
   body .vue__time-picker input.display-time {
     width: 100%;
     background: #e8edee 0% 0% no-repeat padding-box !important;

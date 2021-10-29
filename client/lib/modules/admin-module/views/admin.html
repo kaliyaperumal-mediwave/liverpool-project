@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.css">
 <script src="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.umd.min.js"></script>
 
+<!-- CDN for Pagination Start-->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<!-- CDN for Pagination Start -->
+
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -628,9 +633,14 @@
                             </div>
 
                             <div class="py-2" id="showCAMHSAndEDYS">
-                                <label for="yPasTimeField" style="font-weight: bold !important;"
-                                    class="question-font">Time</label>
-                                <div class="input-group">
+                                <div>
+                                    <label for="yPasTimeField" style="font-weight: bold !important;"
+                                        class="question-font">Time</label>
+                                    <b-form-timepicker id="timepicker-placeholder" placeholder="Choose a time"
+                                        locale="en"></b-form-timepicker>
+                                </div>
+
+                                <!-- <div class="input-group">
                                     <vue-timepicker input-width="200px" drop-direction="up" id="yPasTimeField"
                                         close-on-complete @close="changeTime1()" format="hh:mm A" v-model="yPasTime">
                                     </vue-timepicker>
@@ -646,7 +656,7 @@
                                     Please provide a valid time. </div>
                                 <div class="invalid-feedback d-none mt-2"
                                     v-bind:class="{ 'd-block':(isYPasFormSubmitted && (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime),'invalid-fields':(isYPasFormSubmitted &&  (!yPasTime.hh || !yPasTime.mm || ! yPasTime.A ) && !checkValidYPasTime)  }">
-                                    Please provide a time. </div>
+                                    Please provide a time. </div> -->
                             </div>
                             <div class="d-flex"><button id="btnSubmitAppointments" type="button" id="submitYpas"
                                     class="download-csv-btn">SUBMIT</button></div>
