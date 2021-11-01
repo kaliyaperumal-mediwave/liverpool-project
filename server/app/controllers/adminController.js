@@ -1006,7 +1006,7 @@ function getRefData(refID, refRole, ctx) {
                         sex_at_birth: aboutObj.sex_at_birth,
                         parent_id: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].id : '',
                         parent_name: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_firstname : '',
-                        parent_lastname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_lastname :'',
+                        parent_lastname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_lastname : '',
                         parental_responsibility: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parental_responsibility : '',
                         responsibility_parent_firstname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].responsibility_parent_firstname : '',
                         responsibility_parent_lastname: aboutObj[includeModalName] && aboutObj[includeModalName].length ? aboutObj[includeModalName][0].responsibility_parent_lastname : '',
@@ -1713,7 +1713,7 @@ function getRefData(refID, refRole, ctx) {
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
                                 section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
                             }
-        
+
                             if (section3Obj.child_education_manual_address != null && section3Obj.child_education_manual_address[0] != null) {
                                 section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school + ',' + section3Obj.child_education_manual_address[0].addressLine1 + ',' + (section3Obj.child_education_manual_address[0].addressLine2 != '' ? section3Obj.child_education_manual_address[0].addressLine2 + ',' : '') + section3Obj.child_education_manual_address[0].city + ',' + (section3Obj.child_education_manual_address[0].country != '' ? section3Obj.child_education_manual_address[0].country + ',' : '') + section3Obj.child_education_manual_address[0].postCode
                             }
@@ -2294,32 +2294,53 @@ exports.createAppointmentDetails = async (ctx) => {
                         {
                             model: referralModel,
                             as: 'parent',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'family',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional2',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title'
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
                             ]
                         },
                     ],
                 })
-                console.log(referral);
+
+                if (referral.user_role == 'professional') {
+                    if (referral.referral_type == "young") {
+                        referral.dataValues.child_name_title = referral.professional2[0].child_name_title;
+                        referral.dataValues.name = referral.professional2[0].child_firstname;
+                        referral.dataValues.lastname = referral.professional2[0].child_lastname;
+                        referral.dataValues.child_NHS = referral.professional2[0].child_NHS;
+                        referral.dataValues.child_contact_number = referral.professional2[0].child_contact_number;
+                        referral.dataValues.child_email = eferral.professional2[0].child_email;
+                        referral.dataValues.dob = referral.professional2[0].child_dob;
+                    }
+                }
+                else if (referral.user_role == 'parent') {
+                    referral.dataValues.child_name_title = referral.parent[0].child_name_title;
+                    referral.dataValues.name = referral.parent[0].child_firstname;
+                    referral.dataValues.lastname = referral.parent[0].child_lastname;
+                    referral.dataValues.child_NHS = referral.parent[0].child_NHS;
+                    referral.dataValues.child_contact_number = referral.parent[0].child_contact_number;
+                    referral.dataValues.child_email = referral.parent[0].child_email;
+                    referral.dataValues.dob = referral.parent[0].child_dob;
+                }
+               // console.log(referral.toJSON());
                 let obj = {
                     "title": referral.dataValues.child_name_title,
                     "first_name": referral.dataValues.name,
@@ -2334,6 +2355,11 @@ exports.createAppointmentDetails = async (ctx) => {
                     "appointment_detail": dateTime,
                     "DOB": referral.dataValues.dob
                 }
+                console.log("-------------------------------")
+                console.log(obj)
+                return ctx.res.ok({
+                    message: reponseMessages[1024],
+                });
                 let data = await axios({
                     method: 'post',
                     url: config.hccommsurl,
@@ -2342,7 +2368,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 })
                 console.log(data.data.response[0].code)
                 console.log(data.response, "datadata");
-                console.log('=====obj======',obj)
+                console.log('=====obj======', obj)
                 // success
                 if (data.data.response[0].code == 1002) {
                     let insertBookingdetails = await saveAppointments(ctx, ctx.request.body)
