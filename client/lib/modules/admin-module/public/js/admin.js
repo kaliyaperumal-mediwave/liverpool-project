@@ -514,8 +514,8 @@ $(document).ready(function () {
       callAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
         var buttonElem = document.getElementById('btnSubmitAppointments');
-        // buttonElem.style.opacity = 0.5;
-        // buttonElem.setAttribute('disabled', true);
+         buttonElem.style.opacity = 0.5;
+         buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime) {
@@ -530,7 +530,8 @@ $(document).ready(function () {
               data: JSON.stringify(sendAppointmentObj),
               success: function (res) {
                 console.log('send respective payload')
-              //  $('#appointmentsModal').modal('hide');
+                _self.fetchReferral();
+                $('#appointmentsModal').modal('hide');
                 _self.successMessage = res.message;
                 createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
                 _self.resetAppointmentsForm(_self);
@@ -602,6 +603,7 @@ $(document).ready(function () {
             _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
             _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
             $('#appointmentsModal').modal('hide');
+            _self.fetchReferral();
             $('#loader').removeClass('d-block').addClass('d-none');
             _self.successMessage = res.message;
             createActivity(sendAppointmentObj.status, sendAppointmentObj.ReferralId);
