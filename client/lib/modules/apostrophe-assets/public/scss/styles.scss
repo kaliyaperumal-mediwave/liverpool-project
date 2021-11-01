@@ -30,6 +30,18 @@ body {
   //   display: none;
   // }
 
+  .b-form-btn-label-control.form-control {
+    .form-control,
+    .input-group-text {
+      border-radius: 2px !important;
+      opacity: 1 !important;
+      border-color: white !important;
+      border: none !important;
+      height: auto !important;
+      padding: 13px 13px !important;
+    }
+  }
+
   .vue__time-picker input.display-time {
     width: 100%;
     background: #e8edee 0% 0% no-repeat padding-box !important;
@@ -2341,6 +2353,9 @@ body .ui-widget .ui-menu-item {
   padding-bottom: 4px;
   text-align: left;
   line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .answerText {
   font-size: 14px;
@@ -3574,7 +3589,7 @@ $color-scheme: (
   text-align: left;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  height: 71px;
+  // height: 71px;
   color: #11214b;
   opacity: 1;
   margin-bottom: 0px;
