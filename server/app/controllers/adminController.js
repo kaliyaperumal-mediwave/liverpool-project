@@ -2357,9 +2357,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 }
                 console.log("-------------------------------")
                 console.log(obj)
-                return ctx.res.ok({
-                    message: reponseMessages[1024],
-                });
+               
                 let data = await axios({
                     method: 'post',
                     url: config.hccommsurl,
@@ -2459,6 +2457,7 @@ async function saveAppointments(ctx, appointmentData) {
     console.log("getting in appointmentData")
     console.log(appointmentData)
     const appointmentModel = ctx.orm().appointments;
+    const referralModel = ctx.orm().Referral;
     console.log("appointmentModel :" + appointmentModel)
     try {
         const updateOrCreate = await appointmentModel.findOne(
@@ -2466,6 +2465,10 @@ async function saveAppointments(ctx, appointmentData) {
         )
         if (!updateOrCreate) {
             const bookAppointment = await appointmentModel.create(appointmentData);
+            if(bookAppointment)
+            {
+                const updateAppointmentTime =  await referralModel.update({ appointment_detail:appointmentData.status}, { where: { uuid: appointmentData.ReferralId } });
+            }
             console.log("Book Appointment: " + bookAppointment)
             return bookAppointment
         }
@@ -2476,7 +2479,10 @@ async function saveAppointments(ctx, appointmentData) {
                 },
                 returning: true,
             });
-            console.log("update Appointment: " + updateAppointment)
+            if(updateAppointment)
+            {
+                const updateAppointmentTime =  await referralModel.update({ appointment_detail:appointmentData.status}, { where: { uuid: appointmentData.ReferralId } });
+            }
             return updateAppointment
         }
 

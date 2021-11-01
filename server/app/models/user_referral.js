@@ -275,6 +275,13 @@ module.exports = function modelUser(sequelize, types) {
     },
     referral_type: {
       type: types.TEXT,
+    },
+    updatedAt: {
+      type: types.DATE,
+      defaultValue: types.NOW
+    },
+    appointment_detail: {
+      type: types.TEXT
     }
   }, {
     tableName: 'referrals',
@@ -344,10 +351,11 @@ module.exports = function modelUser(sequelize, types) {
   });
 
   Referral.associate = models => {
-    Referral.hasOne(models.appointments, { 
-      sourceKey:"uuid",
-      foreignKey: "ReferralId" }) // If only one portfolio per user
-}
+    Referral.hasOne(models.appointments, {
+      sourceKey: "uuid",
+      foreignKey: "ReferralId"
+    }) // If only one portfolio per user
+  }
 
   return Referral;
 };
