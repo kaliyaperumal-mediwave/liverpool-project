@@ -2327,7 +2327,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         referral.dataValues.lastname = referral.professional2[0].child_lastname;
                         referral.dataValues.child_NHS = referral.professional2[0].child_NHS;
                         referral.dataValues.child_contact_number = referral.professional2[0].child_contact_number;
-                        referral.dataValues.child_email = eferral.professional2[0].child_email;
+                        referral.dataValues.child_email = referral.professional2[0].child_email;
                         referral.dataValues.dob = referral.professional2[0].child_dob;
                     }
                     else{
@@ -2336,7 +2336,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         referral.dataValues.lastname = referral.professional[0].child_lastname;
                         referral.dataValues.child_NHS = referral.professional[0].child_NHS;
                         referral.dataValues.child_contact_number = referral.professional[0].child_contact_number;
-                        referral.dataValues.child_email = eferral.professional[0].child_email;
+                        referral.dataValues.child_email = referral.professional[0].child_email;
                         referral.dataValues.dob = referral.professional[0].child_dob;
                     }
                 }
