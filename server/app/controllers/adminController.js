@@ -2270,7 +2270,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 //ctx.request.body.ReferralId =  "8f73581c-4e0c-4c85-bb68-4c0c1e0e67ba"
                 var referral = await referralModel.findOne({
                     attributes: [
-                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS',
+                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS','referral_type',
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_name_title'), sequelize.col('professional.child_name_title'), sequelize.col('Referral.child_name_title')), 'child_name_title'],
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
@@ -2286,6 +2286,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         [sequelize.fn('CONCAT', sequelize.col('family.child_contact_number'), sequelize.col('professional2.child_contact_number'), sequelize.col('Referral.child_contact_number')), 'child_contact_number'],
                         [sequelize.fn('CONCAT', sequelize.col('family.child_email'), sequelize.col('professional2.child_email'), sequelize.col('Referral.child_email')), 'child_email'],
                         [sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional2.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_NHS'), sequelize.col('professional2.child_NHS'), sequelize.col('Referral.child_dob')), 'child_NHS'],
                     ],
                     where: {
                         uuid: ctx.request.body.ReferralId
@@ -2294,32 +2295,32 @@ exports.createAppointmentDetails = async (ctx) => {
                         {
                             model: referralModel,
                             as: 'parent',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'family',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional2',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS'
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
                             ]
                         },
                     ],
                 })
-
+                console.log(referral)
                 if (referral.user_role == 'professional') {
                     if (referral.referral_type == "young") {
                         referral.dataValues.child_name_title = referral.professional2[0].child_name_title;
@@ -2366,7 +2367,6 @@ exports.createAppointmentDetails = async (ctx) => {
                 }
                 console.log("-------------------------------")
                 console.log(obj)
-               
                 let data = await axios({
                     method: 'post',
                     url: config.hccommsurl,
