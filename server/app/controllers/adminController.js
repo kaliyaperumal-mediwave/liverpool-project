@@ -2263,8 +2263,10 @@ exports.createAppointmentDetails = async (ctx) => {
         // return
     } else {
         console.log("========================================================")
-        //  console.log(ctx.request.body.time)
-        var dateTime = convertTo24Hour(ctx.request.body.date, ctx.request.body.time);
+        console.log(ctx.request.body.time)
+        var time = ctx.request.body.time;
+        var dateTime = ctx.request.body.time;
+        //var dateTime = convertTo24Hour(ctx.request.body.date,ctx.request.body.selectedTime,ctx.request.body.seletedDay,ctx.request.body.hrs,ctx.request.body.min);
         if (ctx.request.body.callHCC) {
             try {
                 //ctx.request.body.ReferralId =  "8f73581c-4e0c-4c85-bb68-4c0c1e0e67ba"
@@ -2501,21 +2503,31 @@ async function saveAppointments(ctx, appointmentData) {
     }
 }
 
-function convertTo24Hour(date, timeStr) {
-    const [time, modifier] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':');
+function convertTo24Hour(date,selectedTime,modifier,hours,minutes) {
+    console.log(selectedTime)
+    console.log(modifier)
+    console.log(hours)
+    console.log(minutes)
+    //const [time, modifier] = timeStr.split(' ');
+   //var timeSplitArray = time.split(':');
+    //let [hours, minutes] = selectedTime.split(':');
+   // let hours =  timeSplitArray[0]
+    //let minutes =  timeSplitArray[1]
+    // console.log("0---0-0-0-0-")
+    // console.log(hours.charAt(1))
+    // console.log(minutes.charAt(1)
     if (hours === '12') {
         hours = '00';
     }
-    if (modifier === 'PM') {
-        hours = parseInt(hours, 10) + 12;
+    if (modifier == 'PM') {  
+        hours = parseInt(hours,10) + 12;
     }
     var modifiedDate = new Date(date)
     modifiedDate.setHours(hours);
     modifiedDate.setMinutes(minutes);
     console.log(modifiedDate)
-    console.log(modifiedDate.getHours())
-    console.log(modifiedDate.getMinutes())
+ console.log(modifiedDate.getHours())
+  console.log(modifiedDate.getMinutes())
     return modifiedDate;
     //return `${hours}:${minutes}`;
 

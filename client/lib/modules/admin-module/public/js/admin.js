@@ -976,7 +976,8 @@ $(document).ready(function () {
     sendAppointmentObj.automatic_booking = {}
     sendAppointmentObj.callHCC = sendAppointmentObj.service == 'YPAS' ? true : sendAppointmentObj.service == 'Venus' ? true : false;
     //  sendAppointmentObj.date = $('#yPasDateField').val();
-    sendAppointmentObj.time = timeElem.innerText;
+    //sendAppointmentObj.time = timeElem.innerText;
+    sendAppointmentObj.time = vueApp.yPasTime;
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
     sendAppointmentObjotherInfo = {};
