@@ -233,7 +233,6 @@ $(document).ready(function () {
                 else {
                   referralRole = referralRes.data.data[i].referrer_type;
                 }
-                console.log(referralRes.data.data[i])
                 json.data.push([
                   "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
@@ -971,6 +970,7 @@ $(document).ready(function () {
     console.log(timeElem.innerText)
     var sendAppointmentObj = {};
     sendAppointmentObj.ReferralId = uuid;
+    sendAppointmentObj.alderheyNumber = $('#yPasAlderHeyNoField').val();
     sendAppointmentObj.service = $('#SelectYPasOrgTypes').val();
     sendAppointmentObj.status = "Appointment booked";
     sendAppointmentObj.automatic_booking = {}
@@ -980,7 +980,6 @@ $(document).ready(function () {
     sendAppointmentObj.date = vueApp.setDate($('#yPasDateField').val())
     sendAppointmentObj.role = role;
     sendAppointmentObjotherInfo = {};
-
     vueApp.callAppointmentApi(sendAppointmentObj);
   }
 

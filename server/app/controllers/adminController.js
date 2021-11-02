@@ -2349,9 +2349,9 @@ exports.createAppointmentDetails = async (ctx) => {
                     "phone_number": referral.dataValues.child_contact_number,
                     "email": referral.dataValues.child_email ? referral.dataValues.child_email : null,
                     //"notifications_consent": referral.dataValues.contact_preferences ? referral.dataValues.contact_preferences : null,
-                    "alderHey_number": "",
+                    "alderHey_number": ctx.request.body.alderheyNumber,
                     "clinic_code": "CC1",
-                    "selected_provider": referral.dataValues.referral_provider,
+                    "selected_provider": ctx.request.body.service,
                     "appointment_detail": dateTime,
                     "DOB": referral.dataValues.dob
                 }
