@@ -2330,6 +2330,15 @@ exports.createAppointmentDetails = async (ctx) => {
                         referral.dataValues.child_email = eferral.professional2[0].child_email;
                         referral.dataValues.dob = referral.professional2[0].child_dob;
                     }
+                    else{
+                        referral.dataValues.child_name_title = referral.professional[0].child_name_title;
+                        referral.dataValues.name = referral.professional[0].child_firstname;
+                        referral.dataValues.lastname = referral.professional[0].child_lastname;
+                        referral.dataValues.child_NHS = referral.professional[0].child_NHS;
+                        referral.dataValues.child_contact_number = referral.professional[0].child_contact_number;
+                        referral.dataValues.child_email = eferral.professional[0].child_email;
+                        referral.dataValues.dob = referral.professional[0].child_dob;
+                    }
                 }
                 else if (referral.user_role == 'parent') {
                     referral.dataValues.child_name_title = referral.parent[0].child_name_title;
