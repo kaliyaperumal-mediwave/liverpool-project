@@ -2292,7 +2292,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         [sequelize.fn('CONCAT', sequelize.col('family.child_contact_number'), sequelize.col('professional2.child_contact_number'), sequelize.col('Referral.child_contact_number')), 'child_contact_number'],
                         [sequelize.fn('CONCAT', sequelize.col('family.child_email'), sequelize.col('professional2.child_email'), sequelize.col('Referral.child_email')), 'child_email'],
                         [sequelize.fn('CONCAT', sequelize.col('family.child_dob'), sequelize.col('professional2.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
-                        [sequelize.fn('CONCAT', sequelize.col('family.child_NHS'), sequelize.col('professional2.child_NHS'), sequelize.col('Referral.child_dob')), 'child_NHS'],
+                        [sequelize.fn('CONCAT', sequelize.col('family.child_NHS'), sequelize.col('professional2.child_NHS'), sequelize.col('Referral.child_NHS')), 'child_NHS'],
                     ],
                     where: {
                         uuid: ctx.request.body.ReferralId
