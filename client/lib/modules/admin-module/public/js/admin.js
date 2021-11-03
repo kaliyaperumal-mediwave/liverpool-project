@@ -136,7 +136,9 @@ $(document).ready(function () {
     methods: {
       setNow: function() {
         this.yPasTime = moment().format("HH:mm:ss")
-      },
+        this.yPasAlderHey = "";
+        this.yPasDate = '';
+       },
       openToggle: function (toggle) {
         if (toggle) {
           this.toggle = false;
@@ -536,6 +538,7 @@ $(document).ready(function () {
          buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
+        _self.yPasAlderHey = (_self.yPasAlderHey).trim(); 
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');

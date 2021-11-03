@@ -2264,7 +2264,11 @@ exports.createAppointmentDetails = async (ctx) => {
     } else {
         console.log("========================================================")
         console.log(ctx.request.body.time)
-        var time = ctx.request.body.time;
+        var timeStr = ctx.request.body.time;
+        var dateStr = ctx.request.body.date;
+        var dateTime = dateStr+''+ dateTime;
+        var timeAndDate = moment(dateStr + ' ' + timeStr);
+        timeAndDate =  timeAndDate.format("YYYY-MM-DD HH:mm:ss")
         var dateTime = ctx.request.body.time;
         //var dateTime = convertTo24Hour(ctx.request.body.date,ctx.request.body.selectedTime,ctx.request.body.seletedDay,ctx.request.body.hrs,ctx.request.body.min);
         if (ctx.request.body.callHCC) {
@@ -2364,11 +2368,9 @@ exports.createAppointmentDetails = async (ctx) => {
                     "alderHey_number": ctx.request.body.alderheyNumber,
                     "clinic_code": "CC1",
                     "selected_provider": ctx.request.body.service,
-                    "appointment_detail": dateTime,
+                    "appointment_detail": timeAndDate,
                     "DOB": referral.dataValues.dob
                 }
-                console.log("-------------------------------")
-                console.log(obj)
                 let data = await axios({
                     method: 'post',
                     url: config.hccommsurl,
