@@ -507,14 +507,13 @@
                                 <span class="question-font px-2">Appointments needed but currently not available</span>
                             </label>
                         </div>
-
                         <div class="py-2 d-none" id="showYPasOrgs">
                             <div class="input-group w-100">
                                 <label style="font-weight: bold !important;" class="question-font">Book Now:</label>
                                 <span class="plain-select">
                                     <select style="background: #fff !important;" v-model="yPasOrgTypes"
                                         id="SelectYPasOrgTypes"
-                                        class="custom-select form-control input-bg-form-control height-44">
+                                        class="custom-select form-control input-bg-form-control height-44" @change="setNow()">
                                         <option class='option-text' value="" disabled selected>
                                             Select an organization
                                         </option>

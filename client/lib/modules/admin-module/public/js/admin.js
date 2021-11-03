@@ -64,7 +64,8 @@ $(document).ready(function () {
       yPasOrgTypes: "",
       yPasAlderHey: "",
       yPasDate: "",
-      yPasTime: "",
+      yPasTime:'',
+
       isCloseButton: true,
       hideHeader: true,
       // yPasTime: {
@@ -75,12 +76,25 @@ $(document).ready(function () {
       checkYPasDateField: false,
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,
-      emailServiceProvider: ''
+      emailServiceProvider: '',
+      
 
     },
+    
 
     beforeMount: function () {
       $('#loader').removeClass('d-none').addClass('d-block');
+    },
+
+    watch: {
+      // yPasTime() {
+      //   var time=  moment().format("HH:mm:ss")
+      //   let splitted_time = time.split(":")
+      //   let hour = splitted_time[0]
+      //   let minute = splitted_time[1]
+      //   let second = splitted_time[2]  
+      //   this.yPasTime = `${hour}:${minute}:${second}`
+      // }
     },
 
     mounted: function () {
@@ -116,10 +130,13 @@ $(document).ready(function () {
         this.role = localStorage.role;
         //////console.log(this.role);
       }
+      this.yPasTime = moment().format("HH:mm:ss")
       this.fetchReferral();
-
     },
     methods: {
+      setNow: function() {
+        this.yPasTime = moment().format("HH:mm:ss")
+      },
       openToggle: function (toggle) {
         if (toggle) {
           this.toggle = false;
@@ -387,6 +404,7 @@ $(document).ready(function () {
               $("#appointNeededArea").hide();
               $("#showYPasOrgs").removeClass('d-none').addClass('d-block');
               $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
+
             } else if (e.target.id == 'appointNeeded') {
               $("#yPasArea").hide();
               $("#showAppointsNeedEmail").removeClass('d-none').addClass('d-block');
@@ -403,12 +421,13 @@ $(document).ready(function () {
               $("#showAppointsNeedEmail").removeClass('d-block').addClass('d-none');
             }
           }
+          _self.setNow();
           _self.SelectedProviderType = 'Liverpool';
           _self.SelectedProviderOrg1 = 'Alder Hey - Liverpool CAMHS';
           _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+         //_self.yPasTime = "";
           // _self.yPasTime.hh = "";
           // _self.yPasTime.mm = "";
           // _self.yPasTime.A = "";
@@ -471,7 +490,7 @@ $(document).ready(function () {
           _self.yPasOrgTypes = "";
           _self.yPasAlderHey = "";
           _self.yPasDate = "";
-          _self.yPasTime = "";
+          //_self.yPasTime = "";
           // _self.yPasTime.hh = "";
           // _self.yPasTime.mm = "";
           // _self.yPasTime.A = "";
@@ -573,7 +592,7 @@ $(document).ready(function () {
         _self.yPasOrgTypes = "";
         _self.yPasAlderHey = "";
         _self.yPasDate = "";
-        _self.yPasTime = "";
+        //_self.yPasTime = "";
         // _self.yPasTime.hh = "";
         // _self.yPasTime.mm = "";
         // _self.yPasTime.A = "";
