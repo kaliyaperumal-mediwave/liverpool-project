@@ -68,6 +68,7 @@ $(document).ready(function () {
 
       isCloseButton: true,
       hideHeader: true,
+      hour12:false,
       // yPasTime: {
       //   HH: "",
       //   mm: "",
@@ -78,7 +79,6 @@ $(document).ready(function () {
       isYPasFormSubmitted: false,
       emailServiceProvider: '',
       
-
     },
     
 

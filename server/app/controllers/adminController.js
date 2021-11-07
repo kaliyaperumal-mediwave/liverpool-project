@@ -2263,12 +2263,12 @@ exports.createAppointmentDetails = async (ctx) => {
         // return
     } else {
         console.log("========================================================")
-        console.log(ctx.request.body.time)
+        //console.log(ctx.request.body.time)
         var timeStr = ctx.request.body.time;
         var dateStr = ctx.request.body.date;
         var dateTime = dateStr+''+ dateTime;
         var timeAndDate = moment(dateStr + ' ' + timeStr);
-        timeAndDate =  timeAndDate.format("YYYY-MM-DD HH:mm:ss")
+        timeAndDate =  timeAndDate.format("DD/MM/YYYY HH:mm");
         var dateTime = ctx.request.body.time;
         //var dateTime = convertTo24Hour(ctx.request.body.date,ctx.request.body.selectedTime,ctx.request.body.seletedDay,ctx.request.body.hrs,ctx.request.body.min);
         if (ctx.request.body.callHCC) {
@@ -2326,7 +2326,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         },
                     ],
                 })
-                console.log(referral)
+                //console.log(referral)
                 if (referral.user_role == 'professional') {
                     if (referral.referral_type == "young") {
                         referral.dataValues.child_name_title = referral.professional2[0].child_name_title;
@@ -2356,11 +2356,12 @@ exports.createAppointmentDetails = async (ctx) => {
                     referral.dataValues.child_email = referral.parent[0].child_email;
                     referral.dataValues.dob = referral.parent[0].child_dob;
                 }
-               // console.log(referral.toJSON());
+                //console.log(referral.toJSON());
+                var dob=moment(referral.dataValues.dob)
+                var sendDobFmt = dob.format('DD/MM/YYYY')
+                var fullNameWithTitle= referral.dataValues.child_name_title+'. '+referral.dataValues.name+' '+referral.dataValues.lastname
                 let obj = {
-                    "title": referral.dataValues.child_name_title,
-                    "first_name": referral.dataValues.name,
-                    "last_name": referral.dataValues.lastname,
+                    "full_name" : fullNameWithTitle,
                     "nhs_number": referral.dataValues.child_NHS,
                     "phone_number": referral.dataValues.child_contact_number,
                     "email": referral.dataValues.child_email ? referral.dataValues.child_email : null,
@@ -2369,7 +2370,7 @@ exports.createAppointmentDetails = async (ctx) => {
                     "clinic_code": "CC1",
                     "selected_provider": ctx.request.body.service,
                     "appointment_detail": timeAndDate,
-                    "DOB": referral.dataValues.dob
+                    "DOB": sendDobFmt
                 }
                 let data = await axios({
                     method: 'post',
@@ -2377,8 +2378,6 @@ exports.createAppointmentDetails = async (ctx) => {
                     headers: { 'key': config.hccommskey, 'Content-Type': 'application/json' },
                     data: JSON.stringify(obj)
                 })
-                console.log(data.data.response[0].code)
-                console.log(data.response, "datadata");
                 console.log('=====obj======', obj)
                 // success
                 if (data.data.response[0].code == 1002) {
