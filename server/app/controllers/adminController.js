@@ -1483,7 +1483,7 @@ function getRefData(refID, refRole, ctx) {
                             var getChildDob;
                             var getChildAge;
 
-                          //  console.log('----------elgibilityObj--------------', elgibilityObj);
+                            //  console.log('----------elgibilityObj--------------', elgibilityObj);
 
                             if (ctx.query.formType == 'child') {
                                 section1Obj = {
@@ -1498,7 +1498,7 @@ function getRefData(refID, refRole, ctx) {
                                     referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
                                     //this to print in csv file which is sent to alderhey only in mail
                                     referral_priority: elgibilityObj.referral_mode,
-                
+
                                     professional_name: elgibilityObj.professional_firstname,
                                     professional_lastname: elgibilityObj.professional_lastname,
                                     professional_email: elgibilityObj.professional_email,
@@ -1581,7 +1581,10 @@ function getRefData(refID, refRole, ctx) {
                                     professional_id: elgibilityObj.id,
                                     consent_child: elgibilityObj.consent_child,
                                     consent_parent: elgibilityObj.consent_parent,
+                                    //this to send iaptus api by routine or urgent
                                     referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
+                                    //this to print in csv file which is sent to alderhey only in mail
+                                    referral_priority: elgibilityObj.referral_mode,
                                     professional_name: elgibilityObj.professional_firstname,
                                     professional_lastname: elgibilityObj.professional_lastname,
                                     professional_email: elgibilityObj.professional_email,
@@ -2270,9 +2273,9 @@ exports.createAppointmentDetails = async (ctx) => {
         //console.log(ctx.request.body.time)
         var timeStr = ctx.request.body.time;
         var dateStr = ctx.request.body.date;
-        var dateTime = dateStr+''+ dateTime;
+        var dateTime = dateStr + '' + dateTime;
         var timeAndDate = moment(dateStr + ' ' + timeStr);
-        timeAndDate =  timeAndDate.format("DD/MM/YYYY HH:mm");
+        timeAndDate = timeAndDate.format("DD/MM/YYYY HH:mm");
         var dateTime = ctx.request.body.time;
         //var dateTime = convertTo24Hour(ctx.request.body.date,ctx.request.body.selectedTime,ctx.request.body.seletedDay,ctx.request.body.hrs,ctx.request.body.min);
         if (ctx.request.body.callHCC) {
@@ -2280,7 +2283,7 @@ exports.createAppointmentDetails = async (ctx) => {
                 //ctx.request.body.ReferralId =  "8f73581c-4e0c-4c85-bb68-4c0c1e0e67ba"
                 var referral = await referralModel.findOne({
                     attributes: [
-                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS','referral_type',
+                        'id', 'uuid', 'reference_code', 'child_dob', 'contact_preferences', 'user_role', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'child_NHS', 'referral_type',
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_name_title'), sequelize.col('professional.child_name_title'), sequelize.col('Referral.child_name_title')), 'child_name_title'],
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                         [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
@@ -2305,27 +2308,27 @@ exports.createAppointmentDetails = async (ctx) => {
                         {
                             model: referralModel,
                             as: 'parent',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email', 'child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email', 'child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'family',
-                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
+                            attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email', 'child_NHS', 'referral_type',
                             ]
                         },
                         {
                             model: referralModel,
                             as: 'professional2',
                             attributes: [
-                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email','child_NHS', 'referral_type',
+                                'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'child_name_title', 'child_contact_number', 'child_email', 'child_NHS', 'referral_type',
                             ]
                         },
                     ],
@@ -2341,7 +2344,7 @@ exports.createAppointmentDetails = async (ctx) => {
                         referral.dataValues.child_email = referral.professional2[0].child_email;
                         referral.dataValues.dob = referral.professional2[0].child_dob;
                     }
-                    else{
+                    else {
                         referral.dataValues.child_name_title = referral.professional[0].child_name_title;
                         referral.dataValues.name = referral.professional[0].child_firstname;
                         referral.dataValues.lastname = referral.professional[0].child_lastname;
@@ -2361,11 +2364,11 @@ exports.createAppointmentDetails = async (ctx) => {
                     referral.dataValues.dob = referral.parent[0].child_dob;
                 }
                 //console.log(referral.toJSON());
-                var dob=moment(referral.dataValues.dob)
+                var dob = moment(referral.dataValues.dob)
                 var sendDobFmt = dob.format('DD/MM/YYYY')
-                var fullNameWithTitle= referral.dataValues.child_name_title+'. '+referral.dataValues.name+' '+referral.dataValues.lastname
+                var fullNameWithTitle = referral.dataValues.child_name_title + '. ' + referral.dataValues.name + ' ' + referral.dataValues.lastname
                 let obj = {
-                    "full_name" : fullNameWithTitle,
+                    "full_name": fullNameWithTitle,
                     "nhs_number": referral.dataValues.child_NHS,
                     "phone_number": referral.dataValues.child_contact_number,
                     "email": referral.dataValues.child_email ? referral.dataValues.child_email : null,
@@ -2481,9 +2484,8 @@ async function saveAppointments(ctx, appointmentData) {
         )
         if (!updateOrCreate) {
             const bookAppointment = await appointmentModel.create(appointmentData);
-            if(bookAppointment)
-            {
-                const updateAppointmentTime =  await referralModel.update({ appointment_detail:appointmentData.status}, { where: { uuid: appointmentData.ReferralId } });
+            if (bookAppointment) {
+                const updateAppointmentTime = await referralModel.update({ appointment_detail: appointmentData.status }, { where: { uuid: appointmentData.ReferralId } });
             }
             console.log("Book Appointment: " + bookAppointment)
             return bookAppointment
@@ -2495,9 +2497,8 @@ async function saveAppointments(ctx, appointmentData) {
                 },
                 returning: true,
             });
-            if(updateAppointment)
-            {
-                const updateAppointmentTime =  await referralModel.update({ appointment_detail:appointmentData.status}, { where: { uuid: appointmentData.ReferralId } });
+            if (updateAppointment) {
+                const updateAppointmentTime = await referralModel.update({ appointment_detail: appointmentData.status }, { where: { uuid: appointmentData.ReferralId } });
             }
             return updateAppointment
         }
@@ -2508,15 +2509,15 @@ async function saveAppointments(ctx, appointmentData) {
     }
 }
 
-function convertTo24Hour(date,selectedTime,modifier,hours,minutes) {
+function convertTo24Hour(date, selectedTime, modifier, hours, minutes) {
     console.log(selectedTime)
     console.log(modifier)
     console.log(hours)
     console.log(minutes)
     //const [time, modifier] = timeStr.split(' ');
-   //var timeSplitArray = time.split(':');
+    //var timeSplitArray = time.split(':');
     //let [hours, minutes] = selectedTime.split(':');
-   // let hours =  timeSplitArray[0]
+    // let hours =  timeSplitArray[0]
     //let minutes =  timeSplitArray[1]
     // console.log("0---0-0-0-0-")
     // console.log(hours.charAt(1))
@@ -2524,15 +2525,15 @@ function convertTo24Hour(date,selectedTime,modifier,hours,minutes) {
     if (hours === '12') {
         hours = '00';
     }
-    if (modifier == 'PM') {  
-        hours = parseInt(hours,10) + 12;
+    if (modifier == 'PM') {
+        hours = parseInt(hours, 10) + 12;
     }
     var modifiedDate = new Date(date)
     modifiedDate.setHours(hours);
     modifiedDate.setMinutes(minutes);
     console.log(modifiedDate)
- console.log(modifiedDate.getHours())
-  console.log(modifiedDate.getMinutes())
+    console.log(modifiedDate.getHours())
+    console.log(modifiedDate.getMinutes())
     return modifiedDate;
     //return `${hours}:${minutes}`;
 

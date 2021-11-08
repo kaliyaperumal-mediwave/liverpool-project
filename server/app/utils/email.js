@@ -503,7 +503,7 @@ function getCSVData(ctx) {
                 "I am a": ctx.request.body.referralData.role,
                 "Service location": ctx.request.body.referralData.section1.service_location,
                 "Selected service": ctx.request.body.referralData.section1.selected_service,
-                "Referral type": ctx.request.body.referralData.section1.referral_priority ? ctx.request.body.referralData.section1.referral_priority : "-",
+                "Referral priority": ctx.request.body.referralData.section1.referral_priority ? ctx.request.body.referralData.section1.referral_priority : "-",
                 "Professional First name": ctx.request.body.referralData.section1.professional_name,
                 "Professional Last name": ctx.request.body.referralData.section1.professional_lastname,
                 "Professional E-mail": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : "-",
