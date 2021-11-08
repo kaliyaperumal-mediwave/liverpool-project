@@ -69,13 +69,12 @@ $(document).ready(function () {
       isCloseButton: true,
       hideHeader: true,
       hour12: false,
-      hourCycle:'',
       // yPasTime: {
       //   HH: "",
       //   mm: "",
       //   a: ""
       // },
-      locale: 'en-US',
+      locale: 'en-GB',
       checkYPasDateField: false,
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,

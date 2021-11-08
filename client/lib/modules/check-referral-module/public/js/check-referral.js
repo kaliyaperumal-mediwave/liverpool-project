@@ -460,10 +460,8 @@ $(document).ready(function () {
                 return moment(date).format('DD/MM/YYYY');
             },
             convertTime24to12: function (time24h) {
-
-
-                var formatted = moment(time, "HH:mm:ss").format("hh:mm A");
-                console.log(time24h)
+                var formatted24hrs = moment(time24h, "HH:mm").format("HH:mm");
+                return formatted24hrs;
                 var splits = time24h.split(':');
                 var hours = splits[0];
                 var minutes = splits[1];

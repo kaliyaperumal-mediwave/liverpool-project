@@ -636,8 +636,8 @@
                                     <label for="yPasTimeField" style="font-weight: bold !important;"
                                         class="question-font">Time</label>
                                     <b-form-timepicker id="timepicker-placeholder" v-model="yPasTime"
-                                        @input="changeTime1($event)" :hide-header="hideHeader" :hour12="hour12" :hourCycle='hourCycle'
-                                        :no-close-button="isCloseButton" placeholder="Choose a time" locale="en" @context="onContext">
+                                        @input="changeTime1($event)" :hide-header="hideHeader" :hour12="hour12"
+                                        :no-close-button="isCloseButton" placeholder="Choose a time" :locale="locale">
                                     </b-form-timepicker>
                                 </div>
 
