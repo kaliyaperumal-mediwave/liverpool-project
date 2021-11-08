@@ -64,23 +64,26 @@ $(document).ready(function () {
       yPasOrgTypes: "",
       yPasAlderHey: "",
       yPasDate: "",
-      yPasTime:'',
+      yPasTime: '',
 
       isCloseButton: true,
       hideHeader: true,
-      hour12:false,
+      hour12: false,
+      hourCycle:'',
       // yPasTime: {
       //   HH: "",
       //   mm: "",
       //   a: ""
       // },
+      locale: 'en-US',
       checkYPasDateField: false,
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,
       emailServiceProvider: '',
-      
+     
+
     },
-    
+
 
     beforeMount: function () {
       $('#loader').removeClass('d-none').addClass('d-block');
@@ -131,14 +134,19 @@ $(document).ready(function () {
         //////console.log(this.role);
       }
       this.yPasTime = moment().format("HH:mm:ss")
+      this.hourCycle = 'h23'
       this.fetchReferral();
     },
     methods: {
-      setNow: function() {
+      onContext(ctx) {
+        console.log(ctx)
+        this.context = ctx
+      },
+      setNow: function () {
         this.yPasTime = moment().format("HH:mm:ss")
         this.yPasAlderHey = "";
         this.yPasDate = '';
-       },
+      },
       openToggle: function (toggle) {
         if (toggle) {
           this.toggle = false;
@@ -429,7 +437,7 @@ $(document).ready(function () {
           _self.SelectedProviderOrg2 = 'Alder Hey - Sefton CAMHS';
           _self.yPasOrgTypes = "";
           _self.yPasDate = "";
-         //_self.yPasTime = "";
+          //_self.yPasTime = "";
           // _self.yPasTime.hh = "";
           // _self.yPasTime.mm = "";
           // _self.yPasTime.A = "";
@@ -534,11 +542,11 @@ $(document).ready(function () {
       callAppointmentApi: function (sendAppointmentObj) {
         console.log(sendAppointmentObj);
         var buttonElem = document.getElementById('btnSubmitAppointments');
-         buttonElem.style.opacity = 0.5;
-         buttonElem.setAttribute('disabled', true);
+        buttonElem.style.opacity = 0.5;
+        buttonElem.setAttribute('disabled', true);
         var _self = this;
         _self.isYPasFormSubmitted = true;
-        _self.yPasAlderHey = (_self.yPasAlderHey).trim(); 
+        _self.yPasAlderHey = (_self.yPasAlderHey).trim();
         if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');
