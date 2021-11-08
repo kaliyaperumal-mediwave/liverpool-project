@@ -2368,12 +2368,15 @@ exports.createAppointmentDetails = async (ctx) => {
                 var sendDobFmt = dob.format('DD/MM/YYYY')
                 var fullNameWithTitle = referral.dataValues.child_name_title + '. ' + referral.dataValues.name + ' ' + referral.dataValues.lastname
                 let obj = {
-                    "full_name": fullNameWithTitle,
+                    //"full_name": fullNameWithTitle,
+                    "title": referral.dataValues.child_name_title,
+                    "first_name": referral.dataValues.name,
+                    "last_name": referral.dataValues.lastname,
                     "nhs_number": referral.dataValues.child_NHS,
                     "phone_number": referral.dataValues.child_contact_number,
                     "email": referral.dataValues.child_email ? referral.dataValues.child_email : null,
                     //"notifications_consent": referral.dataValues.contact_preferences ? referral.dataValues.contact_preferences : null,
-                    "alderHey_number": ctx.request.body.alderheyNumber,
+                    "alderHey_number": ctx.request.body.alderheyNumber ? ctx.request.body.alderheyNumber : '',
                     "clinic_code": "CC1",
                     "selected_provider": ctx.request.body.service,
                     "appointment_detail": timeAndDate,

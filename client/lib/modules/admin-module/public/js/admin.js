@@ -542,7 +542,7 @@ $(document).ready(function () {
         var _self = this;
         _self.isYPasFormSubmitted = true;
         _self.yPasAlderHey = (_self.yPasAlderHey).trim();
-        if (_self.yPasAlderHey && _self.yPasDate && _self.yPasTime) {
+        if (((!_self.yPasAlderHey && _self.yPasOrgTypes=='YPAS') || (_self.yPasAlderHey && _self.yPasOrgTypes!='YPAS') ) && _self.yPasDate && _self.yPasTime) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');
             $.ajax({
