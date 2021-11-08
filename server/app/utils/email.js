@@ -497,11 +497,13 @@ function getCSVData(ctx) {
             householdMembers.push(fullName);
 
         }
+        //console.log(ctx.request.body.referralData)
         csvData = [
             { //Section 1
                 "I am a": ctx.request.body.referralData.role,
                 "Service location": ctx.request.body.referralData.section1.service_location,
                 "Selected service": ctx.request.body.referralData.section1.selected_service,
+                "Referral type": ctx.request.body.referralData.section1.referral_priority ? ctx.request.body.referralData.section1.referral_priority : "-",
                 "Professional First name": ctx.request.body.referralData.section1.professional_name,
                 "Professional Last name": ctx.request.body.referralData.section1.professional_lastname,
                 "Professional E-mail": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : "-",
@@ -515,7 +517,6 @@ function getCSVData(ctx) {
                 "GP": ctx.request.body.referralData.section1.registered_gp,
                 "Child school": ctx.request.body.referralData.section1.gp_school ? ctx.request.body.referralData.section1.gp_school : "-",
                 //Section 2
-                "Referral type": ctx.request.body.referralData.section2.referral_mode ? ctx.request.body.referralData.section2.referral_mode : "-",
                 "NHS number": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "-",
                 "Title": ctx.request.body.referralData.section2.child_name_title,
                 "First name": ctx.request.body.referralData.section2.child_name,

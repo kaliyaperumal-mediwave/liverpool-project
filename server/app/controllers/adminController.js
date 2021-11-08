@@ -1483,7 +1483,7 @@ function getRefData(refID, refRole, ctx) {
                             var getChildDob;
                             var getChildAge;
 
-                            console.log('----------elgibilityObj--------------', elgibilityObj);
+                          //  console.log('----------elgibilityObj--------------', elgibilityObj);
 
                             if (ctx.query.formType == 'child') {
                                 section1Obj = {
@@ -1494,7 +1494,11 @@ function getRefData(refID, refRole, ctx) {
                                     professional_id: elgibilityObj.id,
                                     consent_child: elgibilityObj.consent_child,
                                     consent_parent: elgibilityObj.consent_parent,
+                                    //this to send iaptus api by routine or urgent
                                     referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
+                                    //this to print in csv file which is sent to alderhey only in mail
+                                    referral_priority: elgibilityObj.referral_mode,
+                
                                     professional_name: elgibilityObj.professional_firstname,
                                     professional_lastname: elgibilityObj.professional_lastname,
                                     professional_email: elgibilityObj.professional_email,
