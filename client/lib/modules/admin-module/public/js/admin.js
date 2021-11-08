@@ -137,10 +137,6 @@ $(document).ready(function () {
       this.fetchReferral();
     },
     methods: {
-      onContext(ctx) {
-        console.log(ctx)
-        this.context = ctx
-      },
       setNow: function () {
         this.yPasTime = moment().format("HH:mm:ss")
         this.yPasAlderHey = "";
