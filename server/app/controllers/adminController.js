@@ -2478,6 +2478,8 @@ exports.appointmentNeeded = async (ctx) => {
 async function saveAppointments(ctx, appointmentData) {
     console.log("getting in appointmentData")
     console.log(appointmentData)
+    appointmentData.alderhey_number = appointmentData.alderheyNumber
+    console.log(appointmentData)
     const appointmentModel = ctx.orm().appointments;
     const referralModel = ctx.orm().Referral;
     console.log("appointmentModel :" + appointmentModel)

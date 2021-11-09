@@ -25,6 +25,9 @@ module.exports = function modelType(sequelize, types) {
     automatic_booking: {
       type: types.JSONB
     },
+    alderhey_number: {
+      type: types.TEXT
+    },
   }, {
     tableName: 'appointments',
   });
