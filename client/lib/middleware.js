@@ -46,6 +46,11 @@ module.exports = function (self, options) {
 
     checkCommonPageAuth: function (req, res, next) {
       req.res.header('Cache-Control', 'no-cache, no-store');
+      if (req.session.user_role === 'service_admin') {
+        return req.res.redirect("/admin/serviceAdmin")
+      } else if (req.session.user_role === 'admin') {
+        return req.res.redirect("/admin")
+      }
       //console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
@@ -100,7 +105,13 @@ module.exports = function (self, options) {
     //to clear uuid and userrole in referrance home page.
 
     clearSessionReferral: function (req, res, next) {
+      if (req.session.user_role === 'service_admin') {
+        return req.res.redirect("/admin/serviceAdmin")
+      } else if (req.session.user_role === 'admin') {
+        return req.res.redirect("/admin")
+      }
       console.log("clearSessionHt")
+      console.log("req.session.user_role: " + req.session.user_role)
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
@@ -340,6 +351,11 @@ module.exports = function (self, options) {
   };
 
   self.checkCommonPageAuth = function (req) {
+    if (req.session.user_role === 'service_admin') {
+      return req.res.redirect("/admin/serviceAdmin")
+    } else if (req.session.user_role === 'admin') {
+      return req.res.redirect("/admin")
+    }
     // //console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
     // return new Promise((resolve, reject) => {
     //   if (req.session.aposBlessings || !req.session.auth_token) {
