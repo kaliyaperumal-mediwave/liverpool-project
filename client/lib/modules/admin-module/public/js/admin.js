@@ -1012,7 +1012,7 @@ $(document).ready(function () {
   needAppointment = function (uuid, role, referranceCode, formType) {
     var sendAppointmentObj = {};
     sendAppointmentObj.ReferralId = uuid;
-    sendAppointmentObj.service = $('#SelectedProvider').val();
+    sendAppointmentObj.service = $('#needProvider').val();
     sendAppointmentObj.status = "Appointment needed";
     sendAppointmentObj.role = role;
     sendAppointmentObj.referranceCode = referranceCode;

@@ -2449,7 +2449,7 @@ exports.appointmentNeeded = async (ctx) => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.request.body.service;
     ctx.request.body.referralCode = ctx.request.body.referranceCode;
-    ctx.request.body.sendProf = true;
+    //ctx.request.body.sendProf = true;
     ctx.request.body.bookAppointment = true;
     try {
         return email.sendReferralWithData(ctx).then(async (sendReferralStatus) => {

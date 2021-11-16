@@ -351,10 +351,10 @@ module.exports = function (self, options) {
   };
 
   self.checkCommonPageAuth = function (req) {
-    if (req.session.user_role === 'service_admin') {
-      return req.res.redirect("/admin/serviceAdmin")
-    } else if (req.session.user_role === 'admin') {
-      return req.res.redirect("/admin")
+    if (req.session.user_role == 'service_admin') {
+       req.res.redirect("/admin/serviceAdmin")
+    } else if (req.session.user_role == 'admin') {
+       req.res.redirect("/admin")
     }
     // //console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
     // return new Promise((resolve, reject) => {
