@@ -106,11 +106,14 @@ endblock %} {% block extraHead %}
 </script>
 
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','{{data.ga_code}}');</script>
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', '{{data.ga_code}}');</script>
 <!-- End Google Tag Manager -->
 
 
@@ -123,8 +126,8 @@ endblock %} {% block extraHead %}
 {% block bodyClass %}bodyclass{% endblock %}
 {% block beforeMain %}
 
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{data.ga_code}}"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{data.ga_code}}" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
@@ -215,6 +218,9 @@ endblock %} {% block extraHead %}
           </div>
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
+          </div>
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="{{ data.wellBeingPage }}" class="text-decoration-none">Wellbeing</a>
           </div>
           <div class="inside-cont-slider cursor-pointer" onclick="openApps()">
             <a class="text-decoration-none">Apps</a>
@@ -446,13 +452,13 @@ endblock %} {% block extraHead %}
     </div>
   </div>
   <p id="logId" class="d-none">{{data.loginId}}</p>
-  <p id="uRole"  class="d-none">{{data.userRole}}</p>
+  <p id="uRole" class="d-none">{{data.userRole}}</p>
   <p id="uUid" class="d-none">{{data.uuid}}</p>
   <p id="prof_data" class="d-none">{{data.prof_data}}</p>
   <!-- Dont remove this line. it is used in check a referral page -->
   <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
   <p id="loginLoginType" class="d-none">{{data.loginAdminType}}</p>
-  <p id="sessionExp"  class="d-none">{{data.sessionExp}}</p>
+  <p id="sessionExp" class="d-none">{{data.sessionExp}}</p>
   <p id="loginAsAdmin" class="d-none">{{data.loginAsAdmin}}</p>
   <p id="fromForm2"></p>
 
