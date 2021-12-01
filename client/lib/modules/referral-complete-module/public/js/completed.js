@@ -124,6 +124,24 @@ $(document).ready(function () {
             toggleVisibility: function (elem, visibility) {
                 commonToggleVisibility(this, elem, visibility);
             },
+            getRecRes:function(){
+                var _self = this;
+                $.ajax({
+                    url: API_URI + "/getSavedRes/" + document.getElementById('uUid').innerHTML,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                          console.log(data)
+                        
+                        $('#loader').hide();
+                    },
+                    error: function (error) {
+                        $('#loader').hide();
+                        showError(error.responseJSON.message, error.status);
+                    }
+                });
+            },
 
             getRefNo: function () {
                 var _self = this;

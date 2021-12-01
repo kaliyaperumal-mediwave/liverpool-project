@@ -176,9 +176,9 @@ module.exports = {
     self.beforeIndex = function (req, callback) {
       require("../../middleware")(self, options);
       console.log("index==========tst");
-      
+
       self.checkCommonPageAuth(req).then(async (req, res) => {
-console.log(req.session.auth_token)
+        // console.log(req.session.auth_token)
         var Resources = await self.apos.modules["Resources-pages"].pieces.find(req, {}).toArray();
         //console.log('--------------resource data ---------',Resources);
         var ThingsToWatchArray = await self.apos.modules[
@@ -227,16 +227,10 @@ console.log(req.session.auth_token)
           item.custom_url = "/partner?piece_id=" + item._id;
           return item;
         });
-        console.log(" login:"+req.session.auth_token);
-        var personalArray=[];
-        var recommended = _.map(Resources, (item) => {
-          _.map(item.tags, (tagObj) => {
-            if (tagObj == "bullying") {
-              personalArray.push(item)
-            }
-          });
-          return personalArray
-        });
+        if (req.session.auth_token){
+          var dt = await getUserRec(req, req.data.pieces);
+        }
+        
         piecesArray = Resources.concat(
           ThingsToWatch,
           ThingsToRead,
@@ -246,13 +240,40 @@ console.log(req.session.auth_token)
         );
 
         req.data.piecesArray = piecesArray;
-        req.data.recommended =personalArray
         return beforeIndex(req, callback);
       })
         .catch((error) => {
           console.log('error---------------------', error);
         });
     };
+
+    const getUserRec = async (req, cmsResources) => {
+      var dbUserReason;
+      try {
+        const url = self.apos.LIVERPOOLMODULE.getOption(req, "phr-module") + "/resources/getReferralReason";
+        dbUserReason = await self.middleware.get(req, url);
+        var personalArray = [];
+        var recommended = _.map(cmsResources, (item) => {
+          _.map(item.tags, (tagObj) => {
+            _.map(dbUserReason.data.reasonArray, (dbAr) => {
+              console.log(tagObj)
+              console.log(dbAr)
+              if (tagObj.toLowerCase() == dbAr.toLowerCase()) {
+                personalArray.push(item)
+              }
+            })
+          });
+        });
+        personalArray = personalArray.filter(function (item, index, inputArray) {
+          return inputArray.indexOf(item) == index;
+        });
+        req.data.recommended = personalArray
+      } catch (error) {
+        console.log('\n popularity error...', error);
+      }
+      return dbUserReason;
+    };
+
 
     self.orcha = function (req, callback) {
       // console.log("orcha load");

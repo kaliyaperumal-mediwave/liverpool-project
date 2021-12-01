@@ -45,6 +45,26 @@ module.exports = {
       });
     });
 
+    self.route('get', 'getSavedRes/:userid', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/getSavedRes?user_id=' + req.params.userid;
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
+
+      self.middleware.get(req, url).then((data) => {
+        console.log(data)
+        console.log(data.reference_code)
+        if (data) {
+          req.session.referralCode = data.reference_code;
+        }
+        return res.send(data);
+
+      }).catch((error) => {
+        //  //console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
     self.route('post', 'sendConfirmationMail', function (req, res) {
       //req.body.email = req.session.email
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail'

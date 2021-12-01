@@ -49,7 +49,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
-          referral_type:"child",
+          referral_type: "child",
           login_id: ctx.request.decryptedUser.id,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
@@ -79,7 +79,7 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registered_gp: ctx.request.body.registered_gp,
           user_role: ctx.request.body.role,
-          referral_type:"child",
+          referral_type: "child",
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           gp_school: ctx.request.body.gpSchool,
@@ -166,7 +166,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
-            referral_type:"child",
+            referral_type: "child",
             referral_complete_status: 'incomplete',
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20
@@ -198,7 +198,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
-            referral_type:"child",
+            referral_type: "child",
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -314,7 +314,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
             user_role: ctx.request.body.role,
-            referral_type:"child",
+            referral_type: "child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -366,7 +366,7 @@ exports.eligibility = ctx => {
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
-            referral_type:"child",
+            referral_type: "child",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -2449,25 +2449,25 @@ exports.saveReview = ctx => {
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
           ctx.query.formType = 'child'
-         // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
-            return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
-              return user.update({
-                referral_provider: ctx.query.selectedProvider
-              },
-                {
-                  where:
-                    { uuid: ctx.request.body.userid }
-                }
-              ).then((result) => {
-                return ctx.body = responseData;
-              }).catch(error => {
-                //////console.log()(error);
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-              });
-            }).catch((error) => {
+          // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
+          return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+            return user.update({
+              referral_provider: ctx.query.selectedProvider
+            },
+              {
+                where:
+                  { uuid: ctx.request.body.userid }
+              }
+            ).then((result) => {
+              return ctx.body = responseData;
+            }).catch(error => {
+              //////console.log()(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
-         // }
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+          // }
           // else {
           //   return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
           //     return user.update({
@@ -2686,7 +2686,7 @@ exports.updateSec3Info = ctx => {
         where: {
           id: ctx.request.body.section3Data.child_id,
         },
-        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
       }).then((eduResult) => {
         return ctx.res.ok({
           data: eduResult,
@@ -2710,7 +2710,7 @@ exports.updateSec4Info = ctx => {
     food_fluid_intake: ctx.request.body.section4Data.food_fluid_intake,
     height: ctx.request.body.section4Data.height,
     weight: ctx.request.body.section4Data.weight,
-    about_our_service:ctx.request.body.section4Data.about_our_service,
+    about_our_service: ctx.request.body.section4Data.about_our_service,
   },
     {
       where: {
@@ -2762,7 +2762,7 @@ exports.updateEligibilityInfo = ctx => {
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service', 'professional_address_postcode','referral_mode']
+          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service', 'professional_address_postcode', 'referral_mode']
         }).then((professionalObj) => {
           // if (professionalObj.selected_service == 'MHST Liverpool') {
           //   professionalObj.selected_service = 'Liverpool - Mental Health Support Team'
@@ -2788,7 +2788,7 @@ exports.updateEligibilityInfo = ctx => {
             professional_profession: professionalObj.professional_profession,
             service_location: professionalObj.service_location,
             selected_service: professionalObj.selected_service,
-            referral_mode:professionalObj.referral_mode
+            referral_mode: professionalObj.referral_mode
           }
           return ctx.res.ok({
             data: section1Obj,
@@ -2964,7 +2964,7 @@ exports.getUserReferral = ctx => {
         model: ctx.orm().appointments,
       },
     ],
-    
+
     where: query,
     order: [
       ['updatedAt', 'DESC'],
@@ -3153,6 +3153,65 @@ exports.sendReferralToMe = ctx => {
   }).catch((error) => {
     console.log("hit here")
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
-  });;
+  });
+}
 
+exports.getReferralReason = ctx => {
+
+  console.log("===>", ctx.request.decryptedUser)
+  const userReferral = ctx.orm().Referral;
+  return userReferral.findAll({
+    include: [
+      {
+        model: ctx.orm().Reason,
+        nested: true,
+        as: 'referral_reason',
+      },
+    ],
+    where: {
+      login_id: ctx.request.decryptedUser.id,
+      user_role: ctx.request.decryptedUser.role,
+    },
+    attributes: ['id', 'user_role']
+  }).then((userData) => {
+    var reasonArray = [];
+    userData.map((reObj) => {
+      reObj.referral_reason.map((resonObj) => {
+        reasonArray = reasonArray.concat(resonObj.reason_for_referral)
+      });
+    });
+    reasonArray = reasonArray.filter(function (item, index, inputArray) {
+      return inputArray.indexOf(item) == index;
+    });
+    console.log(reasonArray)
+    ctx.res.ok({
+      data: {
+        reasonArray
+      }
+    });
+    return
+
+  }).catch((error) => {
+    console.log("hit here")
+    console.log(error)
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
+
+}
+function removeDuplicates(text) {
+  var seen = {};
+  var result = '';
+
+  for (var i = 0; i < text.length; i++) {
+    var char = text.charAt(i);
+
+    if (char in seen) {
+      continue;
+    } else {
+      seen[char] = true;
+      result += char;
+    }
+  }
+
+  return result;
 }

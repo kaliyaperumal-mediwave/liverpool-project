@@ -18,7 +18,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            console.log(document.getElementById('logId').innerHTML)
+            console.log(document.getElementById('resources').innerHTML)
             var _self = this;
             setTimeout(function () {
                 $('#loader').hide();
@@ -39,7 +39,6 @@ $(document).ready(function () {
                     success: function (response) {
                         $('#piecesLoader').hide();
                         _self.resources = response.data.searchData;
-                        console.log(_self.resources)
                         // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
                     },
                     error: function (err) {
