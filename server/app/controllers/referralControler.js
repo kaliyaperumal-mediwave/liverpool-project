@@ -3156,9 +3156,7 @@ exports.sendReferralToMe = ctx => {
   });
 }
 
-exports.getReferralReason = ctx => {
-
-  console.log("===>", ctx.request.decryptedUser)
+exports.getReferralReasonUser = ctx => {
   const userReferral = ctx.orm().Referral;
   return userReferral.findAll({
     include: [
@@ -3198,20 +3196,45 @@ exports.getReferralReason = ctx => {
   });
 
 }
-function removeDuplicates(text) {
-  var seen = {};
-  var result = '';
 
-  for (var i = 0; i < text.length; i++) {
-    var char = text.charAt(i);
+exports.getSavedRes = ctx => {
+  const userReferral = ctx.orm().Referral;
+  return userReferral.findOne({
+    include: [
+      {
+        model: ctx.orm().Reason,
+        nested: true,
+        as: 'referral_reason',
+      },
+    ],
+    where: {
+      uuid: ctx.query.user_id,
+    },
+    attributes: ['id', 'user_role']
+  }).then((userData) => {
+    //console.log(userData.referral_reason)
+    var reasonArray = [];
+    
+    userData.referral_reason.map((resonObj) => {
+        reasonArray = reasonArray.concat(resonObj.reason_for_referral)
+      });
+    
+    reasonArray = reasonArray.filter(function (item, index, inputArray) {
+      return inputArray.indexOf(item) == index;
+    });
+  
+    ctx.res.ok({
+      data: {
+        reasonArray
+      }
+    });
+    return
 
-    if (char in seen) {
-      continue;
-    } else {
-      seen[char] = true;
-      result += char;
-    }
-  }
+  }).catch((error) => {
+    console.log("hit here")
+    console.log(error)
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 
-  return result;
 }
+

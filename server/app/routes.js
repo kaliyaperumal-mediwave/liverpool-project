@@ -50,7 +50,8 @@ router.get('/referral/getReferalByCode/', validateToken, referralControler.getRe
 router.get('/referral/searchReferalByCode/', validateToken, referralControler.searchReferalByCode);
 router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
 router.post('/referral/sendReferralToMe/', validateToken, referralControler.sendReferralToMe);
-router.get('/resources/getReferralReason/', validateToken, referralControler.getReferralReason);
+router.get('/resources/getReferralReason/', validateToken, referralControler.getReferralReasonUser);
+router.get('/resources/getSavedRes/', validateToken, referralControler.getSavedRes);
 
 
 router.post('/user/changePassword', validateToken, authController.changePassword);

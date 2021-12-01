@@ -31,6 +31,7 @@ $(document).ready(function () {
             showSignUpForm: true,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
+            recResList:[]
         },
         beforeMount: function () {
             $('#loader').show();
@@ -132,7 +133,9 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                          console.log(data)
+                         
+                          _self.recResList = data
+                          console.log(_self.recResList)
                         
                         $('#loader').hide();
                     },
@@ -159,6 +162,7 @@ $(document).ready(function () {
                         _self.ackObj.refPdfCode = data.uuid;
                         _self.ackObj.referralCode = data.reference_code;
                         //console.log("logi flag ", _self.loginFlag)
+                        _self.getRecRes();
                         _self.getSignUpData();
                         $('#loader').hide();
                     },

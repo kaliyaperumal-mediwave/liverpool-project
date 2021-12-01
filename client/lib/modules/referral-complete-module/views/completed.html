@@ -262,6 +262,30 @@
                             CAMHS</b></u> </a></p>
         </div>
 
+        <div>
+            
+            <div class="home-referral-primary my-2 my-md-3">Recommended resources</div>
+            <div class="bottom-arrow-container row" id="selva">       
+             
+              <div v-for="(piece, index1) in recResList">
+                <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
+                    <div class="insidePieceCont card-container">
+                      <div class="midTextRange">{{ piece.title }}</div>
+                      <!-- {% if apos.images.first(piece.thumbnail) %} {% set img =
+                      apos.images.first(piece.thumbnail) %} {% endif %} {% if img %} -->
+                      <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+                      <!-- {% endif %} -->
+                    </div>
+                  </a>
+              </div>
+             
+              
+            </div>
+            
+          </div>
+
+
+
         <!-- SignUp Success Modal Start -->
         <div class="modal fade" id="signInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
             role="dialog" aria-labelledby="signInSuccessLabel" aria-hidden="true">
