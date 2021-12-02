@@ -4,9 +4,10 @@
 {% endblock %}
 {% block main
 %}
-
+<input id="resources" value="{{data.piecesArray|dump}}" />
 <div id="completed-form" class="py-4 main-min-height">
-    {% raw %}
+   
+   
     <!-- Loader start -->
     <div class="overlay" id="loader">
         <div class="overlay__inner">
@@ -98,7 +99,7 @@
         </div>
 
     </div> -->
-
+    {% raw %}
     <div class="secondary-content-area col-md-9 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
         <div class="px-4 py-3 py-md-4">
             <!-- <i class="fa fa-commenting-o px-1" aria-hidden="true"></i> -->
@@ -273,7 +274,7 @@
                       <div class="midTextRange">{{ piece.title }}</div>
                       <!-- {% if apos.images.first(piece.thumbnail) %} {% set img =
                       apos.images.first(piece.thumbnail) %} {% endif %} {% if img %} -->
-                      <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+                      <img class="border-radius-10" />
                       <!-- {% endif %} -->
                     </div>
                   </a>
@@ -444,6 +445,22 @@
 
     </div>
     {% endraw %}
+    <input   value="{{data.recommended|dump}}" />
+    <div class="home-referral-primary my-2 my-md-3">Recommended resources</div>
+    <div class="bottom-arrow-container row" id="selva">       
+      {% for piece in data.recommended |sort(false, true, 'title') %}
+      <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
+        <div class="insidePieceCont card-container">
+          <div class="midTextRange">{{ piece.title }}</div>
+          {% if apos.images.first(piece.thumbnail) %} {% set img =
+          apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
+          <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+       
 </div>
 
 {% endblock %}
