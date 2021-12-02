@@ -3197,7 +3197,7 @@ select.selectIcon {
   .top-arrow-container.pd-container {
     padding: 16px 0px 24px 0px; }
   .bottom-arrow-container {
-    padding: 104px 0px;
+    padding: 60px 0px;
     max-width: 800px; } }
 
 @media (min-width: 1400px) {
@@ -3241,7 +3241,7 @@ select.selectIcon {
   .top-arrow-container.pd-container {
     padding: 48px 0px 24px 0px; }
   .bottom-arrow-container {
-    padding: 108px 0px;
+    padding: 60px 0px;
     max-width: 943px; } }
 
 body .ui-widget {

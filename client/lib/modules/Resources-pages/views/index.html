@@ -41,7 +41,7 @@
       <!-- <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
           <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar"> -->
 
-      <input  id="resources" value="{{data.testDB|dump}}" />
+      <input id="resources" value="{{data.testDB|dump}}" />
       <!-- <p hidden>{{data.piecesArray|dump}}</p> -->
       <div>
         <div class="input-group home-primary-content-bg">
@@ -137,8 +137,8 @@
 
       <div>
         {% if data.showLogout %}
-        <div class="home-referral-primary my-2 my-md-3">Recommended resources</div>
-        <div class="bottom-arrow-container row" id="selva">       
+        <div class="bottom-arrow-container row" id="selva">
+          <div class="home-referral-primary my-2 my-md-3 col-md-12">Recommended resources</div>
           {% for piece in data.recommended |sort(false, true, 'title') %}
           <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
             <div class="insidePieceCont card-container">
@@ -154,9 +154,9 @@
         {% endif %}
       </div>
       {% if data.showLogout %}
-      <div class="home-referral-primary my-2 my-md-3">Other resources</div>
       {% endif %}
-      <div class="bottom-arrow-container row" id="selva">
+      <div style="padding-top: 0px !important;" class="bottom-arrow-container row" id="selva">
+        <div class="home-referral-primary my-2 my-md-3 col-md-12">Other resources</div>
         {% for piece in data.pieces |sort(false, true, 'title') %}
         <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
           <div class="insidePieceCont card-container">
