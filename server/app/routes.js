@@ -48,10 +48,11 @@ router.get('/referral/getIncompleteReferral', validateToken, referralControler.g
 router.get('/referral/getUserReferral/', validateToken, referralControler.getUserReferral);
 router.get('/referral/getReferalByCode/', validateToken, referralControler.getReferalByCode);
 router.get('/referral/searchReferalByCode/', validateToken, referralControler.searchReferalByCode);
-
 router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
-
 router.post('/referral/sendReferralToMe/', validateToken, referralControler.sendReferralToMe);
+router.get('/resources/getReferralReason/', validateToken, referralControler.getReferralReasonUser);
+router.get('/resources/getSavedRes/', validateToken, referralControler.getSavedRes);
+
 
 router.post('/user/changePassword', validateToken, authController.changePassword);
 router.post('/user/changeEmail', validateToken, authController.changeEmail);
@@ -79,6 +80,7 @@ router.post('/orcha/getAllApps', auth.checkOrchaToken, orchaController.getAllApp
 router.get('/orcha/getApp/', auth.checkOrchaToken, orchaController.getApp);
 router.get('/orcha/getFilterData/', auth.checkOrchaToken, orchaController.getFilterDropDwnData);
 router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSearchData);
+
 
 //Utils
 router.get('/admin/downloadJson', validateToken, adminController.toJson);
