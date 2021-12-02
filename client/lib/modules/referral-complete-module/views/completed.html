@@ -6,8 +6,8 @@
 %}
 <input id="resources" value="{{data.piecesArray|dump}}" />
 <div id="completed-form" class="py-4 main-min-height">
-   
-   
+
+
     <!-- Loader start -->
     <div class="overlay" id="loader">
         <div class="overlay__inner">
@@ -421,21 +421,24 @@
 
     </div>
     {% endraw %}
-    <div class="home-referral-primary my-2 my-md-3">Recommended resources</div>
-    <div class="bottom-arrow-container row" id="selva">       
-      {% for piece in data.recommended |sort(false, true, 'title') %}
-      <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
-        <div class="insidePieceCont card-container">
-          <div class="midTextRange">{{ piece.title }}</div>
-          {% if apos.images.first(piece.thumbnail) %} {% set img =
-          apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
-          <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
-          {% endif %}
+    <div class="col-md-9 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div class="home-referral-primary my-2 my-md-3 px-1 px-sm-2 py-2 py-md-4 col-md-10 col-sm-12 col-12 mx-auto">Recommended resources</div>
+        <div class="bottom-arrow-container row" id="selva">
+            {% for piece in data.recommended |sort(false, true, 'title') %}
+            <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
+                <div class="insidePieceCont card-container">
+                    <div class="midTextRange">{{ piece.title }}</div>
+                    {% if apos.images.first(piece.thumbnail) %} {% set img =
+                    apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
+                    <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
         </div>
-      </a>
-      {% endfor %}
     </div>
-       
+
+
 </div>
 
 {% endblock %}
