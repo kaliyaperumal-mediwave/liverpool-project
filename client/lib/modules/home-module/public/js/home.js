@@ -18,6 +18,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            console.log(document.getElementById('resources').innerHTML)
             var _self = this;
             setTimeout(function () {
                 $('#loader').hide();

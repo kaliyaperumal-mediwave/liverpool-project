@@ -173,5 +173,9 @@
 	"Copy (Overrides the existing permissions)": "Copy (Overrides the existing permissions)",
 	"Append (Adds to the existing permissions)": "Append (Adds to the existing permissions)",
 	"An error has occurred": "An error has occurred",
-	"An error has occurred. We're working on it. We apologize for the inconvenience.": "An error has occurred. We're working on it. We apologize for the inconvenience."
+	"An error has occurred. We're working on it. We apologize for the inconvenience.": "An error has occurred. We're working on it. We apologize for the inconvenience.",
+	"Edit %s": "Edit %s",
+	"test read 3": "test read 3",
+	"test 2": "test 2",
+	"test read1": "test read1"
 }
