@@ -17,6 +17,7 @@ module.exports = function (self, options) {
             req.data.contactPage = "/pages/contact";
             req.data.navigateViewRfrl = "/viewreferrals";
             req.data.urgentHelpPage = "/pages/urgent-help";
+            req.data.wellBeingPage = "/pages/wellbeing";
             req.data.mentalHeathPage = "/mental-health";
             req.data.resourcesPage = "/resources";
             req.data.orchaPage = "/apps";
@@ -24,7 +25,7 @@ module.exports = function (self, options) {
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
-            req.data.ga_code= process.env.GA_CODE;
+            req.data.ga_code = process.env.GA_CODE;
 
             if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
@@ -39,7 +40,7 @@ module.exports = function (self, options) {
       }
       else {
         req.data.userRole = req.session.user_role;
-        req.data.ga_code= process.env.GA_CODE;
+        req.data.ga_code = process.env.GA_CODE;
         return req.res.redirect("/")
       }
     },
@@ -59,6 +60,7 @@ module.exports = function (self, options) {
       req.data.contactPage = "/pages/contact";
       req.data.navigateViewRfrl = "/viewreferrals";
       req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.wellBeingPage = "/pages/wellbeing";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.orchaPage = "/apps";
@@ -67,7 +69,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       req.data.showHome = true;
-      req.data.ga_code= process.env.GA_CODE;
+      req.data.ga_code = process.env.GA_CODE;
 
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -119,6 +121,7 @@ module.exports = function (self, options) {
       req.data.contactPage = "/pages/contact";
       req.data.navigateViewRfrl = "/viewreferrals";
       req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.wellBeingPage = "/pages/wellbeing";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.orchaPage = "/apps";
@@ -193,11 +196,11 @@ module.exports = function (self, options) {
             req.data.loginAsAdmin = req.session.loginAsAdmin
             if (req.session.user_role === 'service_admin') {
               req.data.logoPath = "/admin/serviceAdmin";
-              req.data.referral ="/admin/serviceAdmin";
+              req.data.referral = "/admin/serviceAdmin";
               return next();
             } else if (req.session.user_role === 'admin') {
               req.data.logoPath = "/admin";
-              req.data.referral ="/admin";
+              req.data.referral = "/admin";
               return next();
             } else {
               return req.res.redirect("/dashboard")
@@ -352,9 +355,9 @@ module.exports = function (self, options) {
 
   self.checkCommonPageAuth = function (req) {
     if (req.session.user_role == 'service_admin') {
-       req.res.redirect("/admin/serviceAdmin")
+      req.res.redirect("/admin/serviceAdmin")
     } else if (req.session.user_role == 'admin') {
-       req.res.redirect("/admin")
+      req.res.redirect("/admin")
     }
     // //console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
     // return new Promise((resolve, reject) => {
@@ -395,6 +398,7 @@ module.exports = function (self, options) {
       req.data.contactPage = "/pages/contact";
       req.data.navigateViewRfrl = "/viewreferrals";
       req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.wellBeingPage = "/pages/wellbeing";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.orchaPage = "/apps";

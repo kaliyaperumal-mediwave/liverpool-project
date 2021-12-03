@@ -13,6 +13,7 @@ module.exports = {
       self.dispatch('/terms', self.middleware.checkCommonPageAuth, self.termsCondition);
       self.dispatch('/privacy', self.middleware.checkCommonPageAuth, self.privacyPolicy);
       self.dispatch('/urgent-help', self.middleware.checkCommonPageAuth, self.urgentHelp);
+      self.dispatch('/wellbeing', self.middleware.checkCommonPageAuth, self.wellBeing);
       self.dispatch('/contact', self.middleware.checkCommonPageAuth, self.contact);
 
     };
@@ -40,6 +41,13 @@ module.exports = {
 
     self.urgentHelp = function (req, callback) {
       return self.sendPage(req, self.renderer('urgent', {
+        showHeader: true,
+        hideRefButton: true,
+      }));
+    };
+
+    self.wellBeing = function (req, callback) {
+      return self.sendPage(req, self.renderer('wellbeing', {
         showHeader: true,
         hideRefButton: true,
       }));

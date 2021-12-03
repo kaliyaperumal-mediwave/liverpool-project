@@ -174,7 +174,7 @@ function createPayload(ctx) {
         var fullName = name + " " + lastName;
         householdMembers.push(fullName);
     }
-    if (ctx.request.body.referralData.role == "Professional") {
+    if (ctx.request.body.referralData.role == "Professional" || ctx.request.body.referralData.role == "professional") {
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,

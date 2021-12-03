@@ -9,14 +9,22 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       require('../../middleware')(self, options);
-      self.dispatch('/', self.middleware.checkCommonPageAuth, self.completed);
+      self.dispatch('/', self.middleware.checkCommonPageAuth,self.completed);
     };
-    self.completed =  async function (req, callback) {
+
+    var beforeIndex = self.beforeIndex;
+    // self.loadRes = async function (req, callback, next) {
+    //   var recommendedList = await getUserRec(req, req.session.uuid)
+    //   return next();
+    // };
+
+    self.completed = async function (req, callback) {
       console.log("section 5: " + req.session.uuid)
       if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       var recommendedList = await getUserRec(req,req.session.uuid)
+      req.data.recommended = recommendedList
       return self.sendPage(req, self.renderer('completed', {
         showHeader: true,
         headerContent: "The referral has been made to Sefton & Liverpool Children’s and Young Person’s Mental Health Services",
@@ -47,7 +55,7 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
-  
+
     self.route('get', 'getSavedRes/:userid', async function (req, res) {
       var cmsResources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/resources/getSavedRes?user_id=' + req.params.userid;
@@ -70,7 +78,7 @@ module.exports = {
         return res.send(personalArray);
 
       }).catch((error) => {
-       console.log("---- error -------", error)
+        console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
@@ -148,36 +156,36 @@ module.exports = {
       });
     });
 
-    const getUserRec = async (req,refId) => {
-     console.log("working")
-     console.log(refId)
+    const getUserRec = async (req, refId) => {
+      console.log("working")
+      console.log(refId)
       var cmsResources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/resources/getSavedRes?user_id=' + refId;
-      self.middleware.get(req, url).then((data) => {
-        var dbUserReason = data.data.reasonArray
-        var personalArray = [];
-        var recommended = _.map(cmsResources, (item) => {
-          _.map(item.tags, (tagObj) => {
-            _.map(dbUserReason, (dbAr) => {
-              if (tagObj.toLowerCase() == dbAr.toLowerCase()) {
-                personalArray.push(item)
-              }
-            })
-          });
-        });
-        personalArray = personalArray.filter(function (item, index, inputArray) {
-          return inputArray.indexOf(item) == index;
-        });
-        console.log("return")
-        req.data.recommended = personalArray
-        return personalArray
-       // return res.send(personalArray);
 
-      }).catch((error) => {
-       console.log("---- error -------", error)
-        return res.status(error.statusCode).send(error.error);
+      const data = await self.middleware.get(req, url);
+
+     // console.log(favouritesResp)
+
+
+      var dbUserReason = data.data.reasonArray
+      var personalArray = [];
+      var recommended = _.map(cmsResources, (item) => {
+        _.map(item.tags, (tagObj) => {
+          _.map(dbUserReason, (dbAr) => {
+            if (tagObj.toLowerCase() == dbAr.toLowerCase()) {
+              personalArray.push(item)
+            }
+          })
+        });
       });
-  
+      personalArray = personalArray.filter(function (item, index, inputArray) {
+        return inputArray.indexOf(item) == index;
+      });
+      console.log("return")
+     // req.data.recommended = personalArray
+      return personalArray
+      // return res.send(personalArray);
+
       //return dbUserReason;
     };
 
