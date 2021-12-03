@@ -3,6 +3,9 @@ module.exports = {
   name: "Resources",
   label: "Resources",
   pluralLabel: "Resources",
+  piecesFilters: [
+  { name: 'tags' }
+],
   addFields: [
     {
       name: "Topic",
@@ -28,6 +31,12 @@ module.exports = {
           },
         },
       },
+    },
+    {
+      name: "tags",
+      label: "Tags",
+      type: "tags",
+      required: true,
     },
     {
       name: "thumbnail",

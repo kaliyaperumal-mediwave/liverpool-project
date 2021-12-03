@@ -11,7 +11,7 @@ module.exports = {
     },
     {
       label: 'Meta',
-      items: ['apostrophe-global', 'apostrophe-users']
+      items: ['apostrophe-global', 'apostrophe-users','apostrophe-tags']
     }
   ]
 };

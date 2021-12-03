@@ -2201,7 +2201,7 @@ body .ui-widget {
   overflow: auto;
   max-width: 330px;
   padding: 6px;
-  z-index: 440 !important;
+  z-index: 1000 !important;
   @include xxs-screen-between {
     max-width: 230px;
     max-height: 180px !important;
@@ -4369,4 +4369,8 @@ img.info-icon {
 
 .swiper-slide .res-watch .inside-cover-set iframe {
   display: none;
+}
+.c-article-featured-widget__tags,
+.c-article-featured-widget__published {
+  margin-bottom: 2rem;
 }
