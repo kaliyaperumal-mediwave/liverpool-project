@@ -1,7 +1,7 @@
 .slider-stats {
     background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px
       center/68% 4px;
-  
+
     @include xxs-screen-between {
       background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 42px
         center/68% 4px;
@@ -32,7 +32,7 @@
     }
     @media (min-width: 1901px) and (max-width: 2250.98px) {
       background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 163px
-        center/67% 4px;
+        center/66% 4px;
     }
     @media (min-width: 2251px) and (max-width: 2450.98px) {
       background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 182px
