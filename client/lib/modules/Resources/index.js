@@ -33,12 +33,6 @@ module.exports = {
       },
     },
     {
-      name: "tags",
-      label: "Tags",
-      type: "tags",
-      required: true,
-    },
-    {
       name: "thumbnail",
       label: "Thumbnail",
       type: "singleton",
