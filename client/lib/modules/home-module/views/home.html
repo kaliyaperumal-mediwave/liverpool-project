@@ -174,7 +174,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex py-2">
+  <!-- <div class="d-flex py-2">
     <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 pb-2 mx-auto">
       <div class="d-flex justify-content-center">
         <div class="col-md-6 col-lg-6 p-0 cursor-pointer pr-2" @click="navigatePage('/resources')">
@@ -199,8 +199,24 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="d-flex py-2">
+    <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
+      <div class="d-flex justify-content-center">
+        <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/resources')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">Resources</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- <div class="d-flex py-2">
+
+  <div class="d-flex py-2">
     <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
       <div class="d-flex justify-content-center">
         <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
@@ -213,7 +229,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
   {% include "../../shared-referal-module/views/searchReferral.html" %}
 </div>
 {% endblock %}
