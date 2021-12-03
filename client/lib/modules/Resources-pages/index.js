@@ -227,10 +227,14 @@ module.exports = {
           item.custom_url = "/partner?piece_id=" + item._id;
           return item;
         });
-        if (req.session.auth_token){
+        if (req.session.auth_token) {
           var dt = await getUserRec(req, req.data.pieces);
+          var aposAry = req.data.pieces
+          var recomArray = req.data.recommended
+          aposAry = aposAry.filter(val => !recomArray.includes(val));
+          req.data.pieces=aposAry
         }
-        
+
         piecesArray = Resources.concat(
           ThingsToWatch,
           ThingsToRead,
@@ -238,7 +242,6 @@ module.exports = {
           Events,
           PartnerAgencies,
         );
-
         req.data.piecesArray = piecesArray;
         return beforeIndex(req, callback);
       })
@@ -256,8 +259,6 @@ module.exports = {
         var recommended = _.map(cmsResources, (item) => {
           _.map(item.tags, (tagObj) => {
             _.map(dbUserReason.data.reasonArray, (dbAr) => {
-              console.log(tagObj)
-              console.log(dbAr)
               if (tagObj.toLowerCase() == dbAr.toLowerCase()) {
                 personalArray.push(item)
               }
@@ -268,10 +269,10 @@ module.exports = {
           return inputArray.indexOf(item) == index;
         });
         req.data.recommended = personalArray
+        return personalArray
       } catch (error) {
         console.log('\n popularity error...', error);
       }
-      return dbUserReason;
     };
 
 

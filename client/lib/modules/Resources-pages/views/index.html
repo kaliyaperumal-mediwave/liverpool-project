@@ -154,7 +154,7 @@
       </div>
 
       <div style="padding-top: 40px !important;" class="bottom-arrow-container row" id="selva">
-        {% if data.showLogout and data.recommended.length > 0 %}
+        {% if data.showLogout and data.recommended.length and data.pieces.length > 0 %}
         <div class="home-referral-primary my-2 my-md-3 col-md-12">Other resources</div>
         {% endif %}
         {% for piece in data.pieces |sort(false, true, 'title') %}
