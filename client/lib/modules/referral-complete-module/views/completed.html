@@ -251,9 +251,9 @@
 
     </div>
     {% endraw %}
-    <div v-if="recResList.length>0">
+    <div v-if="recResList.length>0" class="resource-cont">
         <div class="col-md-9 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-            <div class="home-referral-primary mt-2 mt-md-5 mb-0">Recommended resources</div>
+            <div class="home-referral-primary mt-2 mt-md-5 mb-0 pt-4">Recommended resources</div>
             <div style="margin-right: 0px !important; margin-left: 0px !important;" class="bottom-arrow-container row"
                 id="selva">
                 {% for piece in data.recommended |sort(false, true, 'title') %}
