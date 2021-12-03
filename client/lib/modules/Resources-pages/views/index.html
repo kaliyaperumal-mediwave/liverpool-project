@@ -135,7 +135,7 @@
     <div class="resource-cont">
 
       <div>
-        {% if data.showLogout %}
+        {% if data.showLogout and data.recommended.length > 0 %}
         <div class="bottom-arrow-container row" id="selva">
           <div class="home-referral-primary my-2 my-md-3 col-md-12">Recommended resources</div>
           {% for piece in data.recommended |sort(false, true, 'title') %}
@@ -152,10 +152,9 @@
         </div>
         {% endif %}
       </div>
-      {% if data.showLogout %}
-      {% endif %}
-      <div style="padding-top: 0px !important;" class="bottom-arrow-container row" id="selva">
-        {% if data.showLogout %}
+
+      <div style="padding-top: 40px !important;" class="bottom-arrow-container row" id="selva">
+        {% if data.showLogout and data.recommended.length > 0 %}
         <div class="home-referral-primary my-2 my-md-3 col-md-12">Other resources</div>
         {% endif %}
         {% for piece in data.pieces |sort(false, true, 'title') %}
