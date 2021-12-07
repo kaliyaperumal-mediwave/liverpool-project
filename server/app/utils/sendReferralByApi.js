@@ -11,16 +11,16 @@ exports.sendReferralData = async ctx =>{
         if (ctx.request.body.partnerService == "Venus") {
             apiToCall = config.mayden_api_venus;
             //Mapping name title to match venus doc
-            if (ctx.request.body.referralData.section2.child_name_title = "Mr") {
+            if (ctx.request.body.referralData.section2.child_name_title == "Mr") {
                 ctx.request.body.referralData.section2.child_name_title = "1122655"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Miss") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Miss") {
                 ctx.request.body.referralData.section2.child_name_title = "1122657"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Ms") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Ms") {
                 ctx.request.body.referralData.section2.child_name_title = "1122658"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Mrs") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Mrs") {
                 ctx.request.body.referralData.section2.child_name_title = "1122656"
             }
             else {
@@ -28,10 +28,10 @@ exports.sendReferralData = async ctx =>{
             }
 
             //Mapping gender to match venus doc
-            if (ctx.request.body.referralData.section2.sex_at_birth = "Male") {
+            if (ctx.request.body.referralData.section2.sex_at_birth == "Male") {
                 ctx.request.body.referralData.section2.sex_at_birth = "1122901"
             }
-            else if (ctx.request.body.referralData.section2.sex_at_birth = "Female") {
+            else if (ctx.request.body.referralData.section2.sex_at_birth == "Female") {
                 ctx.request.body.referralData.section2.sex_at_birth = "1122902"
             }
             else {
@@ -41,16 +41,16 @@ exports.sendReferralData = async ctx =>{
         else {
             apiToCall = config.mayden_api_ypas;
             //Mapping name title to match ypas doc
-            if (ctx.request.body.referralData.section2.child_name_title = "Mr") {
+            if (ctx.request.body.referralData.section2.child_name_title == "Mr") {
                 ctx.request.body.referralData.section2.child_name_title = "1072718"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Miss") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Miss") {
                 ctx.request.body.referralData.section2.child_name_title = "1072720"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Ms") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Ms") {
                 ctx.request.body.referralData.section2.child_name_title = "1072721"
             }
-            else if (ctx.request.body.referralData.section2.child_name_title = "Mrs") {
+            else if (ctx.request.body.referralData.section2.child_name_title == "Mrs") {
                 ctx.request.body.referralData.section2.child_name_title = "1072719"
             }
             else {
@@ -58,10 +58,10 @@ exports.sendReferralData = async ctx =>{
             }
 
             //Mapping gender to match ypas doc
-            if (ctx.request.body.referralData.section2.sex_at_birth = "Male") {
+            if (ctx.request.body.referralData.section2.sex_at_birth == "Male") {
                 ctx.request.body.referralData.section2.sex_at_birth = "1072964"
             }
-            else if (ctx.request.body.referralData.section2.sex_at_birth = "Female") {
+            else if (ctx.request.body.referralData.section2.sex_at_birth == "Female") {
                 ctx.request.body.referralData.section2.sex_at_birth = "1072965"
             }
             else {
@@ -74,7 +74,7 @@ exports.sendReferralData = async ctx =>{
             ctx.request.body.referralData.section2.child_land_number = "No";
         }
         else {
-            ctx.request.body.referralData.section2.child_land_number = ctx.request.body.referralData.section2.child_contact_number;
+            ctx.request.body.referralData.section2.child_land_number == ctx.request.body.referralData.section2.child_contact_number;
             ctx.request.body.referralData.section2.child_contact_number = "No";
         }
        var resultObj = createPayload(ctx)
