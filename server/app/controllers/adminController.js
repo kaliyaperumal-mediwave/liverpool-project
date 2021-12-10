@@ -788,6 +788,67 @@ exports.sendReferral = async ctx => {
                 return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
                     console.log(" admin controller apiResponse")
                     console.log(ctx.res.successCodeApi)
+                    if (ctx.request.body.partnerService == "Venus") {
+                        apiToCall = config.mayden_api_venus;
+                        //Mapping name title to match venus doc
+                        if (ctx.request.body.referralData.section2.child_name_title == "1122655") {
+                            ctx.request.body.referralData.section2.child_name_title = "Mr"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "Miss") {
+                            ctx.request.body.referralData.section2.child_name_title = "Miss"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1122658") {
+                            ctx.request.body.referralData.section2.child_name_title = "Ms"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1122656") {
+                            ctx.request.body.referralData.section2.child_name_title = "Mrs"
+                        }
+                        else {
+                            ctx.request.body.referralData.section2.child_name_title = "Mx"
+                        }
+            
+                        //Mapping gender to match venus doc
+                        if (ctx.request.body.referralData.section2.sex_at_birth == "Male") {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Male"
+                        }
+                        else if (ctx.request.body.referralData.section2.sex_at_birth == "1122902") {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Female"
+                        }
+                        else {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Prefer not to say"
+                        }
+                    }
+                    else {
+                        apiToCall = config.mayden_api_ypas;
+                        //Mapping name title to match ypas doc
+                        if (ctx.request.body.referralData.section2.child_name_title == "1072718") {
+                            ctx.request.body.referralData.section2.child_name_title = "Mr"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1072720") {
+                            ctx.request.body.referralData.section2.child_name_title = "Miss"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1072721") {
+                            ctx.request.body.referralData.section2.child_name_title = "Ms"
+                        }
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1072719") {
+                            ctx.request.body.referralData.section2.child_name_title = "Mrs"
+                        }
+                        else {
+                            ctx.request.body.referralData.section2.child_name_title = "Mx"
+                        }
+            
+                        //Mapping gender to match ypas doc
+                        if (ctx.request.body.referralData.section2.sex_at_birth == "1072964") {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Male"
+                        }
+                        else if (ctx.request.body.referralData.section2.sex_at_birth == "1072965") {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Female"
+                        }
+                        else {
+                            ctx.request.body.referralData.section2.sex_at_birth = "Prefer not to say"
+                        }
+            
+                    }
                     if (ctx.res.successCodeApi == 200) {
 
                         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
