@@ -808,7 +808,7 @@ exports.sendReferral = async ctx => {
                         }
             
                         //Mapping gender to match venus doc
-                        if (ctx.request.body.referralData.section2.sex_at_birth == "Male") {
+                        if (ctx.request.body.referralData.section2.sex_at_birth == "1122901") {
                             ctx.request.body.referralData.section2.sex_at_birth = "Male"
                         }
                         else if (ctx.request.body.referralData.section2.sex_at_birth == "1122902") {
