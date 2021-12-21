@@ -79,7 +79,6 @@ exports.sendReferralData = async ctx =>{
         }
        var resultObj = createPayload(ctx)
         console.log(resultObj);
-        console.log(JSON.stringify(resultObj))
            //console.log(ctx.request.body.referralData.section2)
             const config_api = {
                 method: 'post',
@@ -394,9 +393,9 @@ function createPayload(ctx) {
 
 
 function formatingInput(input) {
-
     if (input) {
         var inputValue=input[0].toUpperCase() + input.slice(1);
+        inputValue = inputValue.replace(/(\r\n|\n|\r)/gm, "");
         return inputValue.trim();
     }
     else {
