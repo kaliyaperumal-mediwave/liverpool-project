@@ -1168,6 +1168,7 @@ function sendPdf(uuid, role, refCode, formType) {
     // async: false,
     contentType: 'application/json',
     success: function (res) {
+      console.log(res)
       createActivity("Referral sent - " + selectedProvider, uuid);
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
@@ -1175,6 +1176,7 @@ function sendPdf(uuid, role, refCode, formType) {
       $('#loader').removeClass('d-block').addClass('d-none');
     },
     error: function (error) {
+      console.log(error)
       $('#loader').removeClass('d-block').addClass('d-none');
       buttonElem.disabled = false;
       $('#sendProviderModal').modal('hide');

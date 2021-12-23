@@ -863,6 +863,7 @@ exports.sendReferral = async ctx => {
                                 }
                             ).then((result) => {
                                 return ctx.res.ok({
+                                    data: ctx.res.iaptusApiDetail,
                                     message: reponseMessages[1017],
                                 });
                             }).catch(error => {
@@ -887,7 +888,9 @@ exports.sendReferral = async ctx => {
                                         { uuid: ctx.query.refID }
                                 }
                             ).then((result) => {
+                                console.log("iaptusApiDetail" , ctx.res.iaptusApiDetail)
                                 return ctx.res.ok({
+                                    data: ctx.res.iaptusApiDetail,
                                     message: reponseMessages[1017],
                                 });
                             }).catch(error => {
