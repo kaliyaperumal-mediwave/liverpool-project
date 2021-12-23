@@ -403,7 +403,7 @@ function createPayload(ctx) {
 function formatingInput(input) {
     if (input) {
         var inputValue = input[0].toUpperCase() + input.slice(1);
-       // inputValue = inputValue.replace(/(\r\n|\n|\r)/gm, "");
+        inputValue = inputValue.replace(/(\r\n|\n|\r)/gm, "");
         return inputValue.trim();
     }
     else {
