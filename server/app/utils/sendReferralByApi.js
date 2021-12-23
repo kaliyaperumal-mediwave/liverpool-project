@@ -242,7 +242,7 @@ function createPayload(ctx) {
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
-            "27_problem_eating_disorder_difficulties": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
+            "27_problem_eating_disorder_difficulties": formatingInput(checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties)),
             "28_problem_food_and_fluid_intake": formatingInput(ctx.request.body.referralData.section4.food_fluid_intake),
             "29a_problem_height": formatingInput(ctx.request.body.referralData.section4.height),
             "29b_problem_weight": formatingInput(ctx.request.body.referralData.section4.weight),
@@ -311,7 +311,7 @@ function createPayload(ctx) {
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
-            "27_problem_eating_disorder_difficulties": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
+            "27_problem_eating_disorder_difficulties": formatingInput(checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties)),
             "28_problem_food_and_fluid_intake": formatingInput(ctx.request.body.referralData.section4.food_fluid_intake),
             "29a_problem_height": formatingInput(ctx.request.body.referralData.section4.height),
             "29b_problem_weight": formatingInput(ctx.request.body.referralData.section4.weight),
@@ -335,7 +335,10 @@ function createPayload(ctx) {
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_child),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
-            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1reason_contact_parent_camhs) : alternativeBlankSpace,
+            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs=='no' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs): alternativeBlankSpace,
+
+            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs=='yes' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1reason_contact_parent_camhs) : alternativeBlankSpace,
+
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
             //Section 2
@@ -380,7 +383,7 @@ function createPayload(ctx) {
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
-            "27_problem_eating_disorder_difficulties": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
+            "27_problem_eating_disorder_difficulties": formatingInput(checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties)),
             "28_problem_food_and_fluid_intake": formatingInput(ctx.request.body.referralData.section4.food_fluid_intake),
             "29a_problem_height": formatingInput(ctx.request.body.referralData.section4.height),
             "29b_problem_weight": formatingInput(ctx.request.body.referralData.section4.weight),
@@ -418,7 +421,7 @@ function formatingInputsocialWorker(fname, lname, contactType, contactNum) {
         socialworkerInfo += "," + fname
     }
     if (lname) {
-        socialworkerInfo += "," + fname
+        socialworkerInfo += "," + lname
     }
     if (contactNum) {
         socialworkerInfo += "," + contactType + "," + contactNum
