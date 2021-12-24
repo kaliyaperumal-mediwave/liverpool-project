@@ -227,7 +227,7 @@ function createPayload(ctx) {
 
             "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
 
-            "14a_emergency_contact_details": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString + ctx.request.body.referralData.section2.parent_email != undefined ? ctx.request.body.referralData.section2.parent_email : "" : alternativeBlankSpace,
+            "14a_emergency_contact_details": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString + (ctx.request.body.referralData.section2.parent_email != undefined ? ctx.request.body.referralData.section2.parent_email : "" ): alternativeBlankSpace,
 
 
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
