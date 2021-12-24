@@ -346,7 +346,7 @@ function createPayload(ctx) {
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
             "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs=='no' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs): alternativeBlankSpace,
 
-            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs=='yes' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1reason_contact_parent_camhs) : alternativeBlankSpace,
+            "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs=='yes' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1.reason_contact_parent_camhs) : alternativeBlankSpace,
 
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
