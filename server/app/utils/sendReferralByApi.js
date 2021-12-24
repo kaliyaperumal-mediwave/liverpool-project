@@ -365,6 +365,7 @@ function createPayload(ctx) {
             "pat_postcode": ctx.request.body.referralData.section2.pat_postcode,
             "10_consent_to_contact_via_post": formatingInput(ctx.request.body.referralData.section2.can_send_post),
             "08a_gender_child_identifies_as":  ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.child_gender):alternativeBlankSpace,
+            "08a_gender_individual_indentifies_as":  ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.child_gender):alternativeBlankSpace,
             "08b_does_child_identify_with_birth_gender":ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.child_gender_birth):alternativeBlankSpace,
             "08b_does_individual_identify_with_birth_gender": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.child_gender_birth):alternativeBlankSpace,
             "pat_gender": formatingInput(ctx.request.body.referralData.section2.sex_at_birth),
