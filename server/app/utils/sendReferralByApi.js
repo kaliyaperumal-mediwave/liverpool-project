@@ -229,6 +229,7 @@ function createPayload(ctx) {
             "14c_parent_or_carer_email": ctx.query.formType == "child" && ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
 
             "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
 
             "14a_emergency_contact_details": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_name) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_lastname) + concatString + formatingInput(ctx.request.body.referralData.section2.child_parent_relationship) + concatString + formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number + concatString + (ctx.request.body.referralData.section2.parent_email != undefined ? ctx.request.body.referralData.section2.parent_email : "" ): alternativeBlankSpace,
 
@@ -242,6 +243,7 @@ function createPayload(ctx) {
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
@@ -306,6 +308,10 @@ function createPayload(ctx) {
             "14b_parent_or_carer_contact_number": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number : alternativeBlankSpace,
             "14c_parent_or_carer_email": ctx.query.formType == "child" ? ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace : alternativeBlankSpace,
             "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
+
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
+
+
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
             "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility == "no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname) + concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
@@ -315,6 +321,7 @@ function createPayload(ctx) {
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
@@ -382,6 +389,7 @@ function createPayload(ctx) {
             "14b_parent_or_carer_contact_number": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_contact_type) + concatString + ctx.request.body.referralData.section2.parent_contact_number : alternativeBlankSpace,
             "14c_parent_or_carer_email": ctx.query.formType == "child" && ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
             "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
+            "14d_parent_or_carer_lives_at_childs_address": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section2.parent_same_house) : alternativeBlankSpace,
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
             "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility == "no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname) + concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
@@ -391,6 +399,7 @@ function createPayload(ctx) {
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
             "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
