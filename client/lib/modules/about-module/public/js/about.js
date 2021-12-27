@@ -366,6 +366,7 @@ $(document).ready(function () {
                     }
                 }
                 else if (this.userRole == "professional") {
+                    debugger
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);

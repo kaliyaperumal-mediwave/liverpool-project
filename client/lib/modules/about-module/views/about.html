@@ -175,67 +175,71 @@
                     <!-- child email end-->
 
                     <!-- child contact Start-->
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend cursor-pointer">
-                                <span class="plain-select custom-mobile-place">
-                                    <select class="custom-select form-control input-bg-form-control"
-                                        @change="selectContactTypeChild(aboutObj.contactMode)"
-                                        v-model="aboutObj.contactMode">
-                                        <option selected="selected" value="mobile">Mobile</option>
-                                        <option value="landline">Landline</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
-                                @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
-                                v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
-                                v-model="aboutObj.childContactNumber">
-                            <div class="input-group-append">
-                                <span class="input-group-text px-3 font-25">
-                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childContactNumber),'invalid-fields':!aboutObj.childContactNumber }">
-                                You must provide a number.
-                            </div>
-                            <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)),
+                    <form id="ptrweForm">
+                        <div class="form-group py-2 my-2">
+                            <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend cursor-pointer">
+                                    <span class="plain-select custom-mobile-place">
+                                        <select class="custom-select form-control input-bg-form-control"
+                                            @change="selectContactTypeChild(aboutObj.contactMode)"
+                                            v-model="aboutObj.contactMode">
+                                            <option selected="selected" value="mobile">Mobile</option>
+                                            <option value="landline">Landline</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control input-bg-form-control" id="contact"
+                                    inputmode="tel" @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
+                                    v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
+                                    v-model="aboutObj.childContactNumber">
+                                <div class="input-group-append">
+                                    <span class="input-group-text px-3 font-25">
+                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childContactNumber),'invalid-fields':!aboutObj.childContactNumber }">
+                                    You must provide a number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)),
                                 'invalid-fields':(aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)) }">
-                                You must provide a valid mobile number.
-                            </div>
-                            <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)),
+                                    You must provide a valid mobile number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)),
                             'invalid-fields':(aboutObj.childContactNumber &&  aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)) }">
-                                You must provide a valid landline number.
+                                    You must provide a valid landline number.
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- child contact end-->
 
                     <!-- child address Start-->
-                    <div class="form-group py-2 my-2">
-                        <label for="txtChildAddress" class="question-font">
-                            {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
-                        <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
-                            <multiselect :options="addressOptions" v-model="aboutObj.childAddress"
-                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
-                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
-                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
-                            </multiselect>
+                    <form id="ptrForm">
+                        <div class="form-group py-2 my-2">
+                            <label for="txtChildAddress" class="question-font">
+                                {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
+                            <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
+                                <multiselect :options="addressOptions" v-model="aboutObj.childAddress"
+                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                                </multiselect>
 
-                            <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
-                                You must provide a address.
+                                <div class="text-validation invalid-feedback  d-none"
+                                    v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
+                                    You must provide a address.
+                                </div>
+                                <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                    id="bdeb1825-c05e-4949-974e-93514d3a85b4"
+                                    @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
+                                        manually</u></p>
                             </div>
-                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
-                                id="bdeb1825-c05e-4949-974e-93514d3a85b4"
-                                @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
-                                    manually</u></p>
                         </div>
-                    </div>
+                    </form>
 
                     <div v-if="checkArrayLength(childManualAddress)">
                         <label class="question-font">
@@ -311,8 +315,8 @@
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
                         </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" alt=""
-                            data-toggle="modal" data-target="#genderIdentity">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" alt="" data-toggle="modal"
+                            data-target="#genderIdentity">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" value="No" id="genderNo" name="childGenderBirth"
@@ -622,8 +626,8 @@
                         <label class="form-check-label option-font d-flex align-items-center" for="careYes">
                             Yes
                         </label>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon"
-                            data-toggle="modal" data-target="#careForAdultModal" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" data-toggle="modal"
+                            data-target="#careForAdultModal" alt="">
                     </div>
 
                     <div class="form-check py-2 pl-0">
