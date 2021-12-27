@@ -175,6 +175,7 @@ function createPayload(ctx) {
     var householdMembers = [];
     console.log("------------------------", ctx.query.formType)
     console.log("===============" + ctx.request.body.referralData.role)
+    console.log("===============" + ctx.request.body.referralData)
     for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
         var name = ctx.request.body.referralData.section2.household_member[index].name;
         var lastName = ctx.request.body.referralData.section2.household_member[index].lastName;
@@ -242,8 +243,8 @@ function createPayload(ctx) {
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : 'No',
+            //"20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
@@ -266,8 +267,7 @@ function createPayload(ctx) {
     }
 
     else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "Family") {
-        console.log(ctx.request.body.referralData)
-
+        //console.log(ctx.request.body.referralData)
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role != "Family" ? ctx.request.body.referralData.role : "Family / friends",
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
@@ -320,8 +320,8 @@ function createPayload(ctx) {
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : 'No',
+            //"20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
@@ -398,8 +398,8 @@ function createPayload(ctx) {
             "19a_education_and_health_care_plan_EHCP": formatingInput(ctx.request.body.referralData.section3.child_EHCP),
             "19b_early_help_assessment_tool_EHAT": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section3.child_EHAT) : alternativeBlankSpace,
             "16a_care_leaver": formatingInput(ctx.request.body.referralData.section3.careLeaver),
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : alternativeBlankSpace,
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
+            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "yes" ? formatingInputsocialWorker(ctx.request.body.referralData.section3.child_socialworker_firstname, ctx.request.body.referralData.section3.child_socialworker_lastname, ctx.request.body.referralData.section3.child_socialworker_contact_type, ctx.request.body.referralData.section3.child_socialworker_contact) : 'No',
+         //   "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker == "no" ? 'No':alternativeBlankSpace,
             // //section4
             //"Support needs": ctx.request.body.referralData.section4.referral_type,
             "21_referral_related_to_covid": formatingInput(ctx.request.body.referralData.section4.is_covid),
@@ -447,6 +447,8 @@ function formatingInputsocialWorker(fname, lname, contactType, contactNum) {
     if (contactNum) {
         socialworkerInfo += "," + contactType + "," + contactNum
     }
+
+   // console.log(socialworkerInfo)
 
     return socialworkerInfo;
 
