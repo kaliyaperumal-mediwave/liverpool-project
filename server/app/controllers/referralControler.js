@@ -116,7 +116,7 @@ exports.eligibility = ctx => {
             {
               model: ctx.orm().Referral,
               nested: true,
-              as: 'family',
+              as: 'parent',
             },
           ],
           where: {
@@ -124,7 +124,7 @@ exports.eligibility = ctx => {
           },
         }).then((userResult) => {
 
-          var childId = userResult[0].family[0].ChildParents.parentId;
+          var childId = userResult[0].parent[0].ChildParents.parentId;
           return user.update({
             child_dob: ctx.request.body.child_Dob,
             registered_gp: ctx.request.body.registered_gp,
