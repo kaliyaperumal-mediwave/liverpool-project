@@ -788,7 +788,7 @@ exports.sendReferral = async ctx => {
                 return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
                     console.log(" admin controller apiResponse")
                     console.log(ctx.res.successCodeApi)
-                    if (ctx.request.body.partnerService == "Venus") {
+                    if (ctx.request.body.emailToProvider == "Venus") {
                         apiToCall = config.mayden_api_venus;
                         //Mapping name title to match venus doc
                         if (ctx.request.body.referralData.section2.child_name_title == "1122655") {
@@ -955,7 +955,7 @@ exports.sendReferralByApi = async ctx => {
     console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole);
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
-    ctx.request.body.partnerService = ctx.query.selectedProvider;
+    ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
     try {
         return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {

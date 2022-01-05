@@ -8,7 +8,9 @@ const errorHandler = require('../middlewares/errorHandler');
 exports.sendReferralData = async ctx => {
     var apiToCall;
     try {
-        if (ctx.request.body.partnerService == "Venus") {
+       
+        if (ctx.request.body.emailToProvider == "Venus") {
+            console.log("--------------------------------------------------------------------------------------------Iaptus api hit to : VENUS")
             apiToCall = config.mayden_api_venus;
             //Mapping name title to match venus doc
             if (ctx.request.body.referralData.section2.child_name_title == "Mr") {
@@ -39,6 +41,7 @@ exports.sendReferralData = async ctx => {
             }
         }
         else {
+            console.log("-------------------------------------------------------------------------------------Iaptus api hit to : YPAS")
             apiToCall = config.mayden_api_ypas;
             //Mapping name title to match ypas doc
             if (ctx.request.body.referralData.section2.child_name_title == "Mr") {
