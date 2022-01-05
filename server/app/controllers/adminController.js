@@ -794,7 +794,7 @@ exports.sendReferral = async ctx => {
                         if (ctx.request.body.referralData.section2.child_name_title == "1122655") {
                             ctx.request.body.referralData.section2.child_name_title = "Mr"
                         }
-                        else if (ctx.request.body.referralData.section2.child_name_title == "Miss") {
+                        else if (ctx.request.body.referralData.section2.child_name_title == "1122657") {
                             ctx.request.body.referralData.section2.child_name_title = "Miss"
                         }
                         else if (ctx.request.body.referralData.section2.child_name_title == "1122658") {
