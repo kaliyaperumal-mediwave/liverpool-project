@@ -11,6 +11,7 @@ $(document).ready(function () {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
   }
   if (roleOfAdmin.innerHTML == "Alder Hey - Liverpool CAMHS" || roleOfAdmin.innerHTML == "Alder Hey - Sefton CAMHS" || roleOfAdmin.innerHTML == "admin") {
+   
     Vue.component('vue-timepicker', window.VueTimepicker.default);
   }
   var vueApp = new Vue({
@@ -79,8 +80,7 @@ $(document).ready(function () {
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,
       emailServiceProvider: '',
-     
-
+      archiveCsvToShow:  document.getElementById('loginAsAdmin').innerHTML
     },
 
 
@@ -290,6 +290,7 @@ $(document).ready(function () {
           toDateCsv.move(0, 1);
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
+          let getReferralType = _self.archivePage == 'true'? 'archived' : 'completed';
           // ////console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
@@ -305,7 +306,7 @@ $(document).ready(function () {
                 ////console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
-                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
+                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] +'&referralType=' + getReferralType, API_URI);
                 ////console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])

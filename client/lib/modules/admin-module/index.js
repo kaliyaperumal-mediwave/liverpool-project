@@ -110,7 +110,7 @@ module.exports = {
 
 
     self.route('get', 'getActivity', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/getActivity' + ((req.query.fromDate) ? ('?fromDate=' + req.query.fromDate + '&endDate=' + req.query.endDate) : '');
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/getActivity' + ((req.query.fromDate) ? ('?fromDate=' + req.query.fromDate + '&endDate=' + req.query.endDate +'&referralType='+ req.query.referralType) : '');
       console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);

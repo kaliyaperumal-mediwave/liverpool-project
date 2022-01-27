@@ -1960,6 +1960,8 @@ exports.getActivity = async (ctx) => {
     const referralModel = ctx.orm().Referral;
 
     var query = {}
+    console.log(ctx.query.referralType)
+    console.log("🚀 ~ file: adminController.js ~ line 1964 ~ exports.getActivity= ~ ctx.query.referralType", ctx.query.referralType)
     if (ctx.query.fromDate && ctx.query.endDate) {
         query = {
             createdAt: {
@@ -2022,7 +2024,7 @@ exports.getActivity = async (ctx) => {
             reference_code: {
                 [sequelize.Op.ne]: null
             },
-            referral_complete_status: 'completed',
+            referral_complete_status: ctx.query.referralType ? ctx.query.referralType : 'completed',
             createdAt: {
                 [sequelize.Op.gte]: moment(ctx.query.fromDate).startOf('day').toDate(),
                 [sequelize.Op.lte]: moment(ctx.query.endDate).endOf('day').toDate(),
