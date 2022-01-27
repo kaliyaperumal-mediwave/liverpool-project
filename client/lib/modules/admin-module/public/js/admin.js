@@ -331,25 +331,54 @@ $(document).ready(function () {
                   }
                   const current_status = result.data.filter_referrals[i].referral_current_status
                   const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
-                  rows.push([
-                    result.data.filter_referrals[i].name,
-                    result.data.filter_referrals[i].dob,
-                    result.data.filter_referrals[i].reference_code,
-                    result.data.filter_referrals[i].referrer,
-                    result.data.filter_referrals[i].gp_location,
-                    referralRole,
-                    result.data.filter_referrals[i].refDate,
-                    result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
-                      result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
-                    result.data.filter_referrals[i].date,
-                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
-                    result.data.filter_referrals[i].activity_date,
-                    result.data.filter_referrals[i].activity_time,
-                    result.data.filter_referrals[i].activity_user,
-                    result.data.filter_referrals[i].activity_action,
-                  ]);
+                  if(getReferralType=='archived')
+                  {
+                    if(result.data.filter_referrals[i].referral_current_status=='archived')
+                    {
+                      rows.push([
+                        result.data.filter_referrals[i].name,
+                        result.data.filter_referrals[i].dob,
+                        result.data.filter_referrals[i].reference_code,
+                        result.data.filter_referrals[i].referrer,
+                        result.data.filter_referrals[i].gp_location,
+                        referralRole,
+                        result.data.filter_referrals[i].refDate,
+                        result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                          result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                            result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
+                              result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
+                        result.data.filter_referrals[i].date,
+                        _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
+                        result.data.filter_referrals[i].activity_date,
+                        result.data.filter_referrals[i].activity_time,
+                        result.data.filter_referrals[i].activity_user,
+                        result.data.filter_referrals[i].activity_action,
+                      ]);
+                    }
+                  }
+                  else
+                  {
+                    rows.push([
+                      result.data.filter_referrals[i].name,
+                      result.data.filter_referrals[i].dob,
+                      result.data.filter_referrals[i].reference_code,
+                      result.data.filter_referrals[i].referrer,
+                      result.data.filter_referrals[i].gp_location,
+                      referralRole,
+                      result.data.filter_referrals[i].refDate,
+                      result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                        result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                          result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
+                            result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
+                      result.data.filter_referrals[i].date,
+                      _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
+                      result.data.filter_referrals[i].activity_date,
+                      result.data.filter_referrals[i].activity_time,
+                      result.data.filter_referrals[i].activity_user,
+                      result.data.filter_referrals[i].activity_action,
+                    ]);
+                  }
+                  
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
