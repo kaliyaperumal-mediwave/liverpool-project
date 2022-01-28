@@ -11,7 +11,7 @@ $(document).ready(function () {
     Vue.component('vue-multiselect', window.VueMultiselect.default)
   }
   if (roleOfAdmin.innerHTML == "Alder Hey - Liverpool CAMHS" || roleOfAdmin.innerHTML == "Alder Hey - Sefton CAMHS" || roleOfAdmin.innerHTML == "admin") {
-   
+
     Vue.component('vue-timepicker', window.VueTimepicker.default);
   }
   var vueApp = new Vue({
@@ -80,7 +80,7 @@ $(document).ready(function () {
       checkValidYPasTime: false,
       isYPasFormSubmitted: false,
       emailServiceProvider: '',
-      archiveCsvToShow:  document.getElementById('loginAsAdmin').innerHTML
+      archiveCsvToShow: document.getElementById('loginAsAdmin').innerHTML
     },
 
 
@@ -290,7 +290,7 @@ $(document).ready(function () {
           toDateCsv.move(0, 1);
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
-          let getReferralType = _self.archivePage == 'true'? 'archived' : 'completed';
+          let getReferralType = _self.archivePage == 'true' ? 'archived' : 'completed';
           // ////console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
@@ -306,7 +306,7 @@ $(document).ready(function () {
                 ////console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
-                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] +'&referralType=' + getReferralType, API_URI);
+                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] + '&referralType=' + getReferralType, API_URI);
                 ////console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
@@ -331,54 +331,30 @@ $(document).ready(function () {
                   }
                   const current_status = result.data.filter_referrals[i].referral_current_status
                   const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
-                  if(getReferralType=='archived')
-                  {
-                    if(result.data.filter_referrals[i].referral_current_status=='archived')
-                    {
-                      rows.push([
-                        result.data.filter_referrals[i].name,
-                        result.data.filter_referrals[i].dob,
-                        result.data.filter_referrals[i].reference_code,
-                        result.data.filter_referrals[i].referrer,
-                        result.data.filter_referrals[i].gp_location,
-                        referralRole,
-                        result.data.filter_referrals[i].refDate,
-                        result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
-                          result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                            result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                              result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
-                        result.data.filter_referrals[i].date,
-                        _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
-                        result.data.filter_referrals[i].activity_date,
-                        result.data.filter_referrals[i].activity_time,
-                        result.data.filter_referrals[i].activity_user,
-                        result.data.filter_referrals[i].activity_action,
-                      ]);
-                    }
-                  }
-                  else
-                  {
-                    rows.push([
-                      result.data.filter_referrals[i].name,
-                      result.data.filter_referrals[i].dob,
-                      result.data.filter_referrals[i].reference_code,
-                      result.data.filter_referrals[i].referrer,
-                      result.data.filter_referrals[i].gp_location,
-                      referralRole,
-                      result.data.filter_referrals[i].refDate,
-                      result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
-                        result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                          result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                            result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
-                      result.data.filter_referrals[i].date,
-                      _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
-                      result.data.filter_referrals[i].activity_date,
-                      result.data.filter_referrals[i].activity_time,
-                      result.data.filter_referrals[i].activity_user,
-                      result.data.filter_referrals[i].activity_action,
-                    ]);
-                  }
-                  
+
+
+                  rows.push([
+                    result.data.filter_referrals[i].name,
+                    result.data.filter_referrals[i].dob,
+                    result.data.filter_referrals[i].reference_code,
+                    result.data.filter_referrals[i].referrer,
+                    result.data.filter_referrals[i].gp_location,
+                    referralRole,
+                    result.data.filter_referrals[i].refDate,
+                    result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                      result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
+                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
+                    result.data.filter_referrals[i].date,
+                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
+                    result.data.filter_referrals[i].activity_date,
+                    result.data.filter_referrals[i].activity_time,
+                    result.data.filter_referrals[i].activity_user,
+                    result.data.filter_referrals[i].activity_action,
+                  ]);
+
+
+
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
@@ -572,7 +548,7 @@ $(document).ready(function () {
         var _self = this;
         _self.isYPasFormSubmitted = true;
         _self.yPasAlderHey = (_self.yPasAlderHey).trim();
-        if (((!_self.yPasAlderHey && _self.yPasOrgTypes=='YPAS') || (_self.yPasAlderHey && _self.yPasOrgTypes!='YPAS') ) && _self.yPasDate && _self.yPasTime) {
+        if (((!_self.yPasAlderHey && _self.yPasOrgTypes == 'YPAS') || (_self.yPasAlderHey && _self.yPasOrgTypes != 'YPAS')) && _self.yPasDate && _self.yPasTime) {
           if (!_self.checkYPasDateField && !_self.checkValidYPasTime) {
             $('#loader').removeClass('d-none').addClass('d-block');
             $.ajax({
