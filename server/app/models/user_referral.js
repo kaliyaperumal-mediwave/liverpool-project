@@ -282,7 +282,10 @@ module.exports = function modelUser(sequelize, types) {
     },
     appointment_detail: {
       type: types.TEXT
-    }
+    },
+    child_ethnicity_other: {
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });

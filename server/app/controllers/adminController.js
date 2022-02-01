@@ -1028,7 +1028,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: eligibilityObj.id,
                 },
-                attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+                attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             }).then((aboutObj) => {
                 return user.findOne({
                     include: [
@@ -1049,6 +1049,8 @@ function getRefData(refID, refRole, ctx) {
                     var parentAddress;
                     parentAddres = aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_address_postcode ? aboutObj[includeModalName][0].parent_address + ', ' + aboutObj[includeModalName][0].parent_address_postcode : aboutObj[includeModalName][0].parent_address : '';
 
+                    
+
                     const section2Obj = {
                         child_id: aboutObj.id,
                         child_NHS: aboutObj.child_NHS,
@@ -1063,7 +1065,7 @@ function getRefData(refID, refRole, ctx) {
                         child_gender: aboutObj.child_gender,
                         child_gender_birth: aboutObj.child_gender_birth,
                         child_sexual_orientation: aboutObj.child_sexual_orientation,
-                        child_ethnicity: aboutObj.child_ethnicity,
+                        child_ethnicity = aboutObj.child_ethnicity=='other' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
                         child_care_adult: aboutObj.child_care_adult,
                         household_member: aboutObj.household_member,
                         child_contact_type: aboutObj.child_contact_type,
@@ -1221,7 +1223,7 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: includeModalName,
-                            aattributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+                            aattributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
                         },
                     ],
                     where: {
@@ -1300,7 +1302,8 @@ function getRefData(refID, refRole, ctx) {
                                 child_gender: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender : aboutObj[0].family[0].child_gender,
                                 child_gender_birth: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender_birth : aboutObj[0].family[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent ? aboutObj[0].parent[0].child_sexual_orientation : aboutObj[0].family[0].child_sexual_orientation,
-                                child_ethnicity: aboutObj[0].parent ? aboutObj[0].parent[0].child_ethnicity : aboutObj[0].family[0].child_ethnicity,
+                               // child_ethnicity: aboutObj[0].parent ? aboutObj[0].parent[0].child_ethnicity : aboutObj[0].family[0].child_ethnicity,
+                                child_ethnicity = aboutObj[0].parent[0].child_ethnicity=='other' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                                 child_care_adult: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
                                 household_member: aboutObj[0].parent ? aboutObj[0].parent[0].household_member : aboutObj[0].family[0].household_member,
                                 contact_type: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
@@ -1501,7 +1504,7 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: getChildYoungModal,
-                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
                         },
                     ],
                     where: {
@@ -1594,7 +1597,8 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender: aboutObj[0].parent[0].child_gender,
                                     child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
-                                    child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                   // child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                    child_ethnicity = aboutObj[0].parent[0].child_ethnicity=='other' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].parent[0].child_care_adult,
                                     household_member: aboutObj[0].parent[0].household_member,
                                     child_contact_type: aboutObj[0].parent[0].child_contact_type,
@@ -1679,7 +1683,8 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender: aboutObj[0].family[0].child_gender,
                                     child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
-                                    child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                                   // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                                   child_ethnicity = aboutObj[0].family[0].child_ethnicity=='other' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].family[0].child_care_adult,
                                     household_member: aboutObj[0].family[0].household_member,
                                     child_contact_type: aboutObj[0].family[0].child_contact_type,

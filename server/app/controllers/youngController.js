@@ -561,6 +561,7 @@ exports.about = ctx => {
                 child_gender_birth: ctx.request.body.aboutData.childIdentity,
                 child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+                child_ethnicity_other: ctx.request.body.aboutData.child_ethnicity_other,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -663,6 +664,7 @@ exports.about = ctx => {
               child_gender_birth: ctx.request.body.aboutData.youngIdentity,
               child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+              child_ethnicity_other: ctx.request.body.aboutData.child_ethnicity_other,
               parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
@@ -773,6 +775,7 @@ exports.about = ctx => {
             child_gender_birth: ctx.request.body.aboutData.youngIdentity,
             child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
             child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+            child_ethnicity_other: ctx.request.body.aboutData.child_ethnicity_other,
             parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
             household_member: ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
@@ -884,6 +887,7 @@ exports.about = ctx => {
                 child_gender_birth: ctx.request.body.aboutData.youngIdentity,
                 child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+                child_ethnicity_other: ctx.request.body.aboutData.child_ethnicity_other,
                 parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
@@ -1014,6 +1018,7 @@ exports.about = ctx => {
                 child_gender_birth: ctx.request.body.aboutData.youngIdentity,
                 child_sexual_orientation: ctx.request.body.aboutData.youngSexualOrientation,
                 child_ethnicity: ctx.request.body.aboutData.youngEthnicity,
+                child_ethnicity_other: ctx.request.body.aboutData.child_ethnicity_other,
                 parental_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
@@ -2005,7 +2010,7 @@ console.log(ctx.query)
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -2038,6 +2043,7 @@ console.log(ctx.query)
             child_gender_birth: aboutObj.child_gender_birth,
             child_sexual_orientation: aboutObj.child_sexual_orientation,
             child_ethnicity: aboutObj.child_ethnicity,
+            child_ethnicity: aboutObj.child_ethnicity_other,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
             child_contact_type: aboutObj.child_contact_type,
@@ -2112,7 +2118,7 @@ console.log(ctx.query)
               model: ctx.orm().Referral,
               nested: true,
               as: 'family',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             },
           ],
           where: {
@@ -2179,6 +2185,7 @@ console.log(ctx.query)
                 child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                child_ethnicity: aboutObj[0].family[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].family[0].child_care_adult,
                 household_member: aboutObj[0].family[0].household_member,
                 contact_type: aboutObj[0].family[0].child_care_adult,
@@ -2284,7 +2291,7 @@ console.log(ctx.query)
               model: ctx.orm().Referral,
               nested: true,
               as: 'family',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
             },
           ],
           where: {
@@ -2368,6 +2375,7 @@ console.log(ctx.query)
                 child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                child_ethnicity: aboutObj[0].family[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].family[0].child_care_adult,
                 household_member: aboutObj[0].family[0].household_member,
                 child_contact_type: aboutObj[0].family[0].child_contact_type,
