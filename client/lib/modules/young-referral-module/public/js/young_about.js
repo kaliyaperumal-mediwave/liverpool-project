@@ -28,6 +28,7 @@ $(document).ready(function () {
                 sexAssignedAtBirth: "",
                 youngSexualOrientation: "",
                 youngEthnicity: "",
+                child_ethnicity_other: "",
                 youngCareAdult: "",
                 parentFirstName: "",
                 parentLastName: "",
@@ -134,7 +135,8 @@ $(document).ready(function () {
             gpPostCode: "",
             youngPersonAddress: "",
             sameGpYoungAddress: true,
-            sameGpYoungManualAddress: true
+            sameGpYoungManualAddress: true,
+            showEthiniciyOther: false
         },
         beforeMount: function () {
             $('#loader').show();
@@ -251,6 +253,10 @@ $(document).ready(function () {
                         if (data.sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         }
+                        if (data.child_ethnicity_other) {
+                            this.showEthiniciyOther = true;
+                            Vue.set(this.aboutObj, "child_ethnicity_other", data.child_ethnicity_other);
+                        }
                         this.allHouseHoldMembers = data.household_member;
                         this.prevHouseHoldData = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.family[0].parent_firstname);
@@ -320,6 +326,10 @@ $(document).ready(function () {
                         }
                         if (data[0].family[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].family[0].sex_at_birth);
+                        }
+                        if (data[0].family[0].child_ethnicity_other) {
+                            this.showEthiniciyOther = true;
+                            Vue.set(this.aboutObj, "child_ethnicity_other", data[0].family[0].child_ethnicity_other);
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
@@ -393,6 +403,10 @@ $(document).ready(function () {
 
                         if (!data[0].family[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].family[0].sex_at_birth);
+                        }
+                        if (data[0].family[0].child_ethnicity_other) {
+                            this.showEthiniciyOther = true;
+                            Vue.set(this.aboutObj, "child_ethnicity_other", data[0].family[0].child_ethnicity_other);
                         }
                         if (data[0].family[0].referral_mode) {
                             Vue.set(this.aboutObj, "referral_mode", data[0].family[0].referral_mode);
@@ -478,7 +492,7 @@ $(document).ready(function () {
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if ((this.sameGpYoungAddress || this.sameGpYoungManualAddress) && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
-                    formData.youngIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
+                    formData.youngIdentity && formData.sexAssignedAtBirth && ((formData.youngEthnicity && formData.youngEthnicity != 'Other ethnic group' && !formData.child_ethnicity_other) || (this.showEthiniciyOther && formData.youngEthnicity == 'Other ethnic group' && formData.child_ethnicity_other)) && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
                 ) {
                     if (formData.youngAddress || this.youngManualAddress.length) {
@@ -529,6 +543,13 @@ $(document).ready(function () {
                 }
             },
 
+            chooseEthinicity: function (e) {
+                var curVal = e.target.value;
+                this.showEthiniciyOther = (curVal == 'Other ethnic group') ? true : false;
+                this.aboutObj.child_ethnicity_other = this.showEthiniciyOther ? this.aboutObj.child_ethnicity_other : '';
+                console.log(this.showEthiniciyOther);
+            },
+
             selectContactTypeyoung: function (type) {
                 if (type == "mobile") {
                     this.dynamicRegexyoung = this.phoneRegex
@@ -576,22 +597,22 @@ $(document).ready(function () {
                 }
                 console.log(this.sameGpYoungManualAddress)
 
-               // if (this.sameGpYoungAddress) {
-                    if (role == 'young') {
-                        manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
-                        this.aboutObj.youngAddress = "";
-                        document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
-                        document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
-                        document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
-                        document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
-                    } else if (role == 'family') {
-                        manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
-                        this.aboutFormData.parentOrCarrerAddress = "";
-                        document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
-                        document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
-                        document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
-                        document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
-                    }
+                // if (this.sameGpYoungAddress) {
+                if (role == 'young') {
+                    manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
+                    this.aboutObj.youngAddress = "";
+                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
+                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
+                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
+                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
+                } else if (role == 'family') {
+                    manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
+                    this.aboutFormData.parentOrCarrerAddress = "";
+                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
+                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
+                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
+                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
+                }
                 //}
 
             },
@@ -1185,8 +1206,8 @@ $(document).ready(function () {
             updateSelected: function (value, id) {
                 if (id == "isTrue") {
                     const addressArray = value.split(",");
-                    if(addressArray.length>0)
-                    var getPostCodeIndex = addressArray.length - 1
+                    if (addressArray.length > 0)
+                        var getPostCodeIndex = addressArray.length - 1
                     this.youngPersonAddress = addressArray[getPostCodeIndex];
                     this.sameGpYoungAddress = this.liverpoolGPAddress(this.gpPostCode, this.youngPersonAddress)
                 }
@@ -1242,11 +1263,10 @@ $(document).ready(function () {
                     //this.youngPersonAddress = value;
                     this.cdnRequest(value)
                 }
-                else
-                {
+                else {
                     this.cdnRequest(value)
                 }
-                
+
             },
 
             removeDependency: function (index) {

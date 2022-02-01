@@ -249,7 +249,7 @@
                             </multiselect>
 
                             <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length)),'invalid-fields':(!sameGpYoungAddress) }">
+                                v-bind:class="{ 'd-block':(isFormSubmitted && ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length)),'invalid-fields': ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length) }">
                                 You must be either Liverpool in address or GP.
                             </div>
 
@@ -290,9 +290,9 @@
                             </div>
                         </div>
                         <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && (!sameGpYoungManualAddress)),'invalid-fields':(!sameGpYoungManualAddress) }">
-                                You must be either Liverpool in address or GP.
-                            </div>
+                            v-bind:class="{ 'd-block':(isFormSubmitted && (!sameGpYoungManualAddress)),'invalid-fields':(!sameGpYoungManualAddress) }">
+                            You must be either Liverpool in address or GP.
+                        </div>
                     </div>
 
                 </div>
@@ -462,11 +462,49 @@
                 <!-- young ethnicity - optional Start -->
                 <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group m-0">
-                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} -
-                            <b>optional</label>
-                        <input type="text" class="form-control input-bg-form-control" id="ethnicity"
+                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}}</label>
+                        <div class="input-group">
+                            <span class="plain-select">
+                                <select @change="chooseEthinicity($event)"
+                                    class="custom-select form-control input-bg-form-control"
+                                    v-model="aboutObj.youngEthnicity" name="ethnicityQuest">
+                                    <option class='option-text' value="" disabled selected>
+                                        {{sec2dynamicLabel.ethincityPlaceLabel}}
+                                    </option>
+                                    <option class='option-text' value="Asian or Asian British">Asian or Asian British
+                                    </option>
+                                    <option class='option-text' value="Black, African, Caribbean or Black British">
+                                        Black, African, Caribbean or Black British
+                                    </option>
+                                    <option class='option-text' value="Mixed or multiple ethnic groups">Mixed or
+                                        multiple ethnic groups
+                                    </option>
+                                    <option class='option-text' value="White">White </option>
+                                    <option class='option-text' value="I don't want to disclose">I don't want to
+                                        disclose
+                                    </option>
+                                    <option class='option-text' value="Other ethnic group">Other ethnic group
+                                    </option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.youngEthnicity),
+                        'invalid-fields':!aboutObj.youngEthnicity }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                        <div v-if="showEthiniciyOther" class="form-group py-2 m-0">
+                            <label for="ethincityOther" class="question-font">Other</label>
+                            <textarea class="h-112 form-control input-bg-form-control" placeholder="Enter here"
+                                @input="trimWhiteSpace($event,'aboutObj','youngEthnicity')" name="ethincityOther"
+                                id="ethincityOther" v-model="aboutObj.child_ethnicity_other" rows="4"></textarea>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && showEthiniciyOther && !aboutObj.child_ethnicity_other),
+                                'invalid-fields': showEthiniciyOther && !aboutObj.child_ethnicity_other }">
+                                You must provide an answer to this question to continue.
+                            </div>
+                        </div>
+                        <!-- <input type="text" class="form-control input-bg-form-control" id="ethnicity"
                             @input="trimWhiteSpace($event,'aboutObj','youngEthnicity')"
-                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.youngEthnicity">
+                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.youngEthnicity"> -->
                     </div>
                 </div>
                 <!-- young ethnicity - optional End -->
@@ -1088,6 +1126,7 @@
                         )
                     && aboutFormData.sameHouse
                     && aboutObj.sexAssignedAtBirth
+                    && ((aboutObj.youngEthnicity && aboutObj.youngEthnicity !='Other ethnic group' && !aboutObj.child_ethnicity_other) || (showEthiniciyOther && aboutObj.youngEthnicity =='Other ethnic group' && aboutObj.child_ethnicity_other))
                     && aboutObj.youngNameTitle
                 ">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
