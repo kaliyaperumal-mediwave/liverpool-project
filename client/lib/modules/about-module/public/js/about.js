@@ -28,6 +28,7 @@ $(document).ready(function () {
                 sexAssignedAtBirth: "",
                 childSexualOrientation: "",
                 childEthnicity: "",
+                child_ethnicity_other: "",
                 childCareAdult: "",
                 parentFirstName: "",
                 parentLastName: "",
@@ -131,6 +132,7 @@ $(document).ready(function () {
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
             formatter: '',
             hasValidDate: false,
+            showEthiniciyOther: false
         },
         beforeMount: function () {
             $('#loader').show();
@@ -522,6 +524,13 @@ $(document).ready(function () {
                     scrollToInvalidInput();
                     return false;
                 }
+            },
+
+            chooseEthinicity: function (e) {
+                var curVal = e.target.value;
+                this.showEthiniciyOther = (curVal == 'Other ethnic group') ? true : false;
+                this.aboutObj.child_ethnicity_other = this.showEthiniciyOther ? this.aboutObj.child_ethnicity_other : '';
+                console.log(this.showEthiniciyOther);
             },
 
             selectContactTypeChild: function (type) {

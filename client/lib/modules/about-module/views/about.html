@@ -459,9 +459,48 @@
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} -
                             <b>optional</label>
-                        <input type="text" class="form-control input-bg-form-control" id="ethnicity"
+                        <div class="input-group">
+                            <span class="plain-select">
+                                <select @change="chooseEthinicity($event)"
+                                    class="custom-select form-control input-bg-form-control"
+                                    v-model="aboutObj.childEthnicity" name="ethnicityQuest">
+                                    <option class='option-text' value="" disabled selected>
+                                        {{sec2dynamicLabel.ethincityPlaceLabel}}
+                                    </option>
+                                    <option class='option-text' value="Asian or Asian British">Asian or Asian British
+                                    </option>
+                                    <option class='option-text' value="Black, African, Caribbean or Black British">
+                                        Black, African, Caribbean or Black British
+                                    </option>
+                                    <option class='option-text' value="Mixed or multiple ethnic groups">Mixed or
+                                        multiple ethnic groups
+                                    </option>
+                                    <option class='option-text' value="White">White </option>
+                                    <option class='option-text' value="I don't want to disclose">I don't want to
+                                        disclose
+                                    </option>
+                                    <option class='option-text' value="Other ethnic group">Other ethnic group
+                                    </option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childEthnicity),
+                        'invalid-fields':!aboutObj.childEthnicity }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                        <div v-if="showEthiniciyOther" class="form-group py-2 m-0">
+                            <label for="ethincityOther" class="question-font">Other</label>
+                            <textarea class="h-112 form-control input-bg-form-control" placeholder="Enter here"
+                                name="ethincityOther" id="ethincityOther" v-model="aboutObj.child_ethnicity_other"
+                                rows="4"></textarea>
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childEthnicity),
+                        'invalid-fields':!aboutObj.childEthnicity }">
+                            You must provide an answer to this question to continue.
+                        </div> -->
+                        <!-- <input type="text" class="form-control input-bg-form-control" id="ethnicity"
                             @input="trimWhiteSpace($event,'aboutObj','childEthnicity')"
-                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.childEthnicity">
+                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.childEthnicity"> -->
                     </div>
                 </div>
                 <!-- child ethnicity - optional End -->
