@@ -2003,7 +2003,7 @@ exports.fetchReview = ctx => {
             child_gender: aboutObj.child_gender,
             child_gender_birth: aboutObj.child_gender_birth,
             child_sexual_orientation: aboutObj.child_sexual_orientation,
-            child_ethnicity: aboutObj.child_ethnicity,
+            child_ethnicity: aboutObj.child_ethnicity == 'Other ethnic group' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
             child_ethnicity_other: aboutObj.child_ethnicity_other,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
@@ -2145,7 +2145,7 @@ exports.fetchReview = ctx => {
                 child_gender: aboutObj[0].parent[0].child_gender,
                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
-                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                 child_ethnicity_other: aboutObj[0].parent[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
@@ -2299,6 +2299,8 @@ exports.fetchReview = ctx => {
               // if (elgibilityObj.selected_service == 'MHST Sefton') {
               //   elgibilityObj.selected_service = 'Sefton - Mental Health Support Team'
               // }
+
+              console.log(aboutObj[0].parent[0])
               const section1Obj = {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
@@ -2334,7 +2336,7 @@ exports.fetchReview = ctx => {
                 child_gender: aboutObj[0].parent[0].child_gender,
                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
-                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                 child_ethnicity_other:  aboutObj[0].parent[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
