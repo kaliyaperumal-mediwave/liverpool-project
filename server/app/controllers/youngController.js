@@ -2044,7 +2044,6 @@ console.log(ctx.query)
             child_sexual_orientation: aboutObj.child_sexual_orientation,
            // child_ethnicity: aboutObj.child_ethnicity,
             child_ethnicity: aboutObj.child_ethnicity == 'Other ethnic group' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
-            child_ethnicity: aboutObj.child_ethnicity_other,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
             child_contact_type: aboutObj.child_contact_type,
