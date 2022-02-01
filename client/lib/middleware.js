@@ -98,6 +98,7 @@ module.exports = function (self, options) {
         req.data.showLogout = false;
         req.data.loginId = "";
         req.data.prof_data = "";
+        req.data.ga_code = process.env.GA_CODE;
         req.data.uuid = req.session.uuid;
         req.data.userRole = req.session.user_role;
         return next();
@@ -130,6 +131,8 @@ module.exports = function (self, options) {
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       req.data.showHome = true;
+      req.data.ga_code = process.env.GA_CODE;
+
       //console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -152,6 +155,7 @@ module.exports = function (self, options) {
         req.data.logoPath = "/";
         req.data.showLogout = false;
         req.data.loginId = "";
+        req.data.ga_code = process.env.GA_CODE;
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.prof_data;
@@ -163,6 +167,7 @@ module.exports = function (self, options) {
     },
 
     checkAdminAuth: function (req, res, next) {
+      req.data.ga_code = process.env.GA_CODE;
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
@@ -188,6 +193,7 @@ module.exports = function (self, options) {
     },
 
     checkServiceAdminAuth: function (req, res, next) {
+      req.data.ga_code = process.env.GA_CODE;
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
@@ -405,6 +411,7 @@ module.exports = function (self, options) {
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
+      req.data.ga_code = process.env.GA_CODE;
       req.data.path = "/role";
       req.data.showHome = true;
       if (req.session.auth_token) {

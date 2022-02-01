@@ -31,6 +31,20 @@
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
 <div id="admin">
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{data.ga_code}}');
+    </script>
+    <!-- End Google Tag Manager -->
+
     {% raw %}
     <!-- navbar start -->
     <!-- <nav class="header-bg header-set-height">
@@ -513,7 +527,8 @@
                                 <span class="plain-select">
                                     <select style="background: #fff !important;" v-model="yPasOrgTypes"
                                         id="SelectYPasOrgTypes"
-                                        class="custom-select form-control input-bg-form-control height-44" @change="setNow()">
+                                        class="custom-select form-control input-bg-form-control height-44"
+                                        @change="setNow()">
                                         <option class='option-text' value="" disabled selected>
                                             Select an organisation
                                         </option>
@@ -550,7 +565,8 @@
                                     <div class="input-group w-100">
                                         <span class="plain-select">
                                             <select style="background: #fff !important;" v-model="SelectedProviderOrg1"
-                                                class="custom-select form-control input-bg-form-control height-44" id="needProvider">
+                                                class="custom-select form-control input-bg-form-control height-44"
+                                                id="needProvider">
                                                 <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder
                                                     Hey/Liverpool
                                                     CAMHS</option>
@@ -575,7 +591,8 @@
                                     <div class="input-group w-100">
                                         <span class="plain-select">
                                             <select style="background: #fff !important;" v-model="SelectedProviderOrg2"
-                                                class="custom-select form-control input-bg-form-control height-44" id="needProvider">
+                                                class="custom-select form-control input-bg-form-control height-44"
+                                                id="needProvider">
                                                 <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder
                                                     Hey/Sefton CAMHS
                                                 </option>
@@ -593,7 +610,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p style="font-weight: bold !important;" class="question-font py-3">Send email to team identified above to notify.</p>
+                            <p style="font-weight: bold !important;" class="question-font py-3">Send email to team
+                                identified above to notify.</p>
                             <div class="d-flex"><button type="button" id="appointsNeedEmail"
                                     class="download-csv-btn">SUBMIT</button></div>
                         </div>
