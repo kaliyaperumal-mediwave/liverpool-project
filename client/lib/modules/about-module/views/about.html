@@ -490,7 +490,7 @@
                         <div v-if="showEthiniciyOther" class="form-group py-2 m-0">
                             <label for="ethincityOther" class="question-font">Other</label>
                             <textarea class="h-112 form-control input-bg-form-control" placeholder="Enter here"
-                                @input="trimWhiteSpace($event,'aboutObj','childEthnicity')" name="ethincityOther"
+                                @input="trimWhiteSpace($event,'aboutObj','child_ethnicity_other')" name="ethincityOther"
                                 id="ethincityOther" v-model="aboutObj.child_ethnicity_other" rows="4"></textarea>
                             <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && showEthiniciyOther && !aboutObj.child_ethnicity_other),
                                 'invalid-fields': showEthiniciyOther && !aboutObj.child_ethnicity_other }">
