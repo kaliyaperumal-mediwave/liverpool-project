@@ -151,7 +151,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.genderLabel = "Your child's gender";
     section2Labels.genderPlacLabel = "Enter your child's gender";
     section2Labels.identityLabel =
-      "Does your child identify with the gender you were assigned at birth?";
+      "Does your child identify with the gender they were assigned at birth?";
     section2Labels.sexAssignedLabel = "What sex was your child/young person assigned at birth?";
     section2Labels.sexOrientLabel = "Your child's sexual orientation";
     section2Labels.sexOrientPlacLabel =
