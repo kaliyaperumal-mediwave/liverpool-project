@@ -141,7 +141,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.postLabel = "Are you and your young person happy for the post to be sent to this address?";
     section2Labels.genderLabel = "Your young person's gender";
     section2Labels.genderPlacLabel = "Enter your young person's gender";
-    section2Labels.identityLabel = "Does your young person's identity with the gender you were assigned at birth?";
+    section2Labels.identityLabel = "Does your young person's identity with the gender they were assigned at birth?";
     section2Labels.sexAssignedLabel = "What sex was your young person assigned at birth?";
     section2Labels.sexOrientLabel = "Your young person's sexual orientation";
     section2Labels.sexOrientPlacLabel = "Enter your young person's sexual orientation (e.g. straight, pan, bi etc.)";
