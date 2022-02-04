@@ -1276,6 +1276,21 @@ function getRefData(refID, refRole, ctx) {
                                 getChildAddress = aboutObj[0].family[0].child_address_postcode ? aboutObj[0].family[0].child_address + ", " + aboutObj[0].family[0].child_address_postcode : aboutObj[0].family[0].child_address
                                 getChildDob = convertDate(elgibilityObj[0].family[0].child_dob)
                             }
+                            let childEthnicity
+                            if(refRole == "Parent" || refRole == "parent" )
+                            {
+                                if(aboutObj[0].parent)
+                                {
+                                    childEthnicity = (aboutObj[0].parent[0].child_ethnicity=='Other ethnic group'? aboutObj[0].parent[0].child_ethnicity_other: aboutObj[0].parent[0].child_ethnicity)
+                                }
+                            }
+                            else if(refRole == "Family" || refRole == "family")
+                            {
+                                if(aboutObj[0].family)
+                                {
+                                    childEthnicity = (aboutObj[0].family[0].child_ethnicity=='Other ethnic group'? aboutObj[0].family[0].child_ethnicity_other: aboutObj[0].family[0].child_ethnicity)
+                                }
+                            }
 
                             const section1Obj = {
                                 child_id: elgibilityObj[0].parent ? elgibilityObj[0].parent[0].id : elgibilityObj[0].family[0].id,
@@ -1302,7 +1317,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_gender: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender : aboutObj[0].family[0].child_gender,
                                 child_gender_birth: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender_birth : aboutObj[0].family[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent ? aboutObj[0].parent[0].child_sexual_orientation : aboutObj[0].family[0].child_sexual_orientation,
-                                child_ethnicity: aboutObj[0].parent ? (aboutObj[0].parent[0].child_ethnicity=='Other ethnic group'? aboutObj[0].parent.child_ethnicity_other: aboutObj[0].parent[0].child_ethnicity): aboutObj[0].family[0].child_ethnicity=='Other ethnic group'? aboutObj[0].family[0].child_ethnicity_other:aboutObj[0].family[0].child_ethnicity,
+                                child_ethnicity: childEthnicity,
                                 // child_ethnicity : aboutObj[0].parent.child_ethnicity=='Other ethnic group' ? aboutObj[0].parent.child_ethnicity_other : aboutObj[0].parent.child_ethnicity,
                                 child_care_adult: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
                                 household_member: aboutObj[0].parent ? aboutObj[0].parent[0].household_member : aboutObj[0].family[0].household_member,
