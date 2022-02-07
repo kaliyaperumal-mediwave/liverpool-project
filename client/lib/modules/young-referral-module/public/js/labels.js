@@ -87,7 +87,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.sexOrientPlacLabel =
       "Enter your sexual orientation (e.g. straight, pan, bi etc.)";
     section2Labels.ethincityLabel = "Your ethnicity";
-    section2Labels.ethincityPlaceLabel = "Enter your ethnicity";
+    section2Labels.ethincityPlaceLabel = "Select your ethnicity";
     section2Labels.careAdultLabel = "Do you care for an adult?";
     section2Labels.yourNameLabel = "What is your parent / carer’s name?";
     section2Labels.yourNamePlacLabel =
@@ -146,7 +146,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
     section2Labels.sexOrientLabel = "Your young person's sexual orientation";
     section2Labels.sexOrientPlacLabel = "Enter your young person's sexual orientation (e.g. straight, pan, bi etc.)";
     section2Labels.ethincityLabel = "Your young person's ethnicity";
-    section2Labels.ethincityPlaceLabel = "Enter your young person's ethnicity";
+    section2Labels.ethincityPlaceLabel = "Select your young person's ethnicity";
     section2Labels.careAdultLabel = "Does your young person care for an adult?";
     section2Labels.yourNameLabel = "What is your name?";
     section2Labels.yourNamePlacLabel = "Enter your first and last name";
@@ -212,7 +212,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow, section_no) {
       "Enter the young person's sexual orientation (e.g. straight, pan, bi etc.)";
     section2Labels.ethincityLabel = "The young person's  ethnicity";
     section2Labels.ethincityPlaceLabel =
-      "Enter the young person's ethnicity";
+      "Select the young person's ethnicity";
     section2Labels.careAdultLabel =
       "Does the young person care for an adult?";
     section2Labels.yourNameLabel =
