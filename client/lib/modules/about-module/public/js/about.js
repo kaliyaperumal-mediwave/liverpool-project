@@ -403,6 +403,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
                         Vue.set(this.aboutObj, "childIdentity", data[0].parent[0].child_gender_birth);
                         Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
+                        if(data[0].parent[0].child_ethnicity)
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         if (data[0].parent[0].child_contact_type != null) {

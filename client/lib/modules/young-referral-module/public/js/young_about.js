@@ -395,6 +395,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "youngGender", data[0].family[0].child_gender);
                         Vue.set(this.aboutObj, "youngIdentity", data[0].family[0].child_gender_birth);
                         Vue.set(this.aboutObj, "youngSexualOrientation", data[0].family[0].child_sexual_orientation);
+                        if(data[0].family[0].child_ethnicity)
                         Vue.set(this.aboutObj, "youngEthnicity", data[0].family[0].child_ethnicity);
                         Vue.set(this.aboutObj, "youngCareAdult", data[0].family[0].child_care_adult);
                         if (data[0].family[0].young_contact_type != null) {
