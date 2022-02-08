@@ -85,6 +85,10 @@ endblock %} {% block extraHead %}
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
 
 <script src="https://cdn.getaddress.io/scripts/getaddress-autocomplete-1.0.22.min.js"></script>
+{% if data.ga_code_client %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8BEC8HTNPT"></script>
+{% endif %}
 
 <script>
   $(document).ready(function () {
@@ -116,6 +120,16 @@ endblock %} {% block extraHead %}
       j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
         'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
   })(window, document, 'script', 'dataLayer', '{{data.ga_code}}');</script>
+
+{% if data.ga_code_client %}
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', '{{data.ga_code_client}}');
+</script>
+{% endif %}
+
 <!-- End Google Tag Manager -->
 
 

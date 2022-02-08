@@ -31,7 +31,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.sexOrientLabel = "Your sexual orientation";
         section2Labels.sexOrientPlacLabel = "Enter your sexual orientation (e.g. straight, pan, bi etc.)";
         section2Labels.ethincityLabel = "Your ethnicity";
-        section2Labels.ethincityPlaceLabel = "Enter your ethnicity";
+        section2Labels.ethincityPlaceLabel = "Select your ethnicity";
         section2Labels.careAdultLabel = "Do you care for an adult?";
         section2Labels.yourNameLabel = "What is your parent / carer’s name?";
         section2Labels.yourNamePlacLabel = "Enter this person’s first and last name";
@@ -74,7 +74,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.sexOrientLabel = "Your child's sexual orientation";
         section2Labels.sexOrientPlacLabel = "Enter your child's sexual orientation (e.g. straight, pan, bi etc.)";
         section2Labels.ethincityLabel = "Your child's ethnicity";
-        section2Labels.ethincityPlaceLabel = "Enter your child's ethnicity";
+        section2Labels.ethincityPlaceLabel = "Select your child's ethnicity";
         section2Labels.careAdultLabel = "Does your child care for an adult?";
         section2Labels.yourNameLabel = "What is your name?";
         section2Labels.yourNamePlacLabel = "Enter your first and last name";
@@ -131,7 +131,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.sexOrientLabel = "The child /young person's sexual orientation";
         section2Labels.sexOrientPlacLabel = "Enter the child /young person's sexual orientation (e.g. straight, pan, bi etc.)";
         section2Labels.ethincityLabel = "The child /young person's  ethnicity";
-        section2Labels.ethincityPlaceLabel = "Enter the child /young person's ethnicity";
+        section2Labels.ethincityPlaceLabel = "Select the child /young person's ethnicity";
         section2Labels.careAdultLabel = "Does the child /young person care for an adult?";
         section2Labels.yourNameLabel = "What is the name of the young person's parent / carer?";
         section2Labels.yourNamePlacLabel = "Enter the person’s first and last name";
