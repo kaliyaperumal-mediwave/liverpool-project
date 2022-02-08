@@ -1155,9 +1155,10 @@ $(document).ready(function () {
 
                                     if (this.elgibilityObj.profAddress) {
                                         var profAddresArray = (this.elgibilityObj.profAddress).split(",");
-                                        this.elgibilityObj.profAddress_postcode = profAddresArray[2];
-                                        this.elgibilityObj.profAddress = profAddresArray[0] + "," + profAddresArray[1];
-
+                                        this.elgibilityObj.profAddress_postcode = profAddresArray[profAddresArray.length-1];
+                                        var addToSave= this.elgibilityObj.profAddress
+                                        var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                                        this.elgibilityObj.profAddress = result;
                                     }
 
                                     if (this.elgibilityObj.childDob) {
@@ -1771,40 +1772,36 @@ $(document).ready(function () {
             getAddressPostcode: function (e) {
                 var searchPostCode = e.target.value;
                 // console.log(this.getStringLength(searchPostCode))
-                if (searchPostCode.length > 6);
+                if (searchPostCode.length > 0);
                 {
                     var _self = this;
-                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    var addressApi = "https://api.getAddress.io/autocomplete/"+searchPostCode+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
-                        "headers": {
-                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
-                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
-                        },
                         success: function (data) {
-                            console.log(data.Summaries)
-                            _self.addressList = [];
-                            for (i = 0; i < data.Summaries.length; i++) {
-                                console.log(data.Summaries[i].StreetAddress + ',' + searchPostCode)
-                                _self.addressList.push(data.Summaries[i].StreetAddress + ',' + searchPostCode);
-                            }
-                            // var addList=[];
-                            addList = _self.addressList;
-                            console.log(addList)
-                            if (addList > 0) {
-                                $("#postCodeAddress").autocomplete({
-                                    source: addList,
-                                    select: function (event, ui) {
-                                        console.log(event)
-                                    },
-                                    close: function () {
+                            console.log(data)
+                            // _self.addressList = [];
+                            // for (i = 0; i < data.Summaries.length; i++) {
+                            //     console.log(data.Summaries[i].StreetAddress + ',' + searchPostCode)
+                            //     _self.addressList.push(data.Summaries[i].StreetAddress + ',' + searchPostCode);
+                            // }
+                            // // var addList=[];
+                            // addList = _self.addressList;
+                            // console.log(addList)
+                            // if (addList > 0) {
+                            //     $("#postCodeAddress").autocomplete({
+                            //         source: addList,
+                            //         select: function (event, ui) {
+                            //             console.log(event)
+                            //         },
+                            //         close: function () {
 
-                                    }
-                                });
-                            }
+                            //         }
+                            //     });
+                            // }
                         },
                         error: function (error) {
                         }
@@ -1829,24 +1826,21 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    var addressApi = "https://api.getAddress.io/autocomplete/"+value+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
-                        "headers": {
-                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
-                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
-                        },
                         success: function (data) {
+                        console.log("🚀 ~ file: role.js ~ line 1835 ~ data", data)
                             if (data.Error && Object.keys(data.Error).length) {
                                 _self.showLoadingSpinner = false;
                                 return false;
                             }
-                            if (data.Summaries && data.Summaries.length) {
-                                for (i = 0; i < data.Summaries.length; i++) {
-                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                            if (data.suggestions && data.suggestions.length) {
+                                for (i = 0; i < data.suggestions.length; i++) {
+                                    _self.addressList.push(data.suggestions[i].address+ ',' + value);
                                 }
                                 _self.addressOptions = _self.addressList;
                                 _self.showLoadingSpinner = false;

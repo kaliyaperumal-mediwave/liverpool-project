@@ -1143,7 +1143,7 @@ function getRefData(refID, refRole, ctx) {
                         section2Obj.pat_address2 = "";
                         section2Obj.pat_town_city = childAdrArray[0];
                         section2Obj.pat_county = "";
-                        section2Obj.pat_postcode = childAdrArray[2];
+                        section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
                     }
 
 
@@ -1411,7 +1411,7 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_address2 = "";
                                 section2Obj.pat_town_city = childAdrArray[0];
                                 section2Obj.pat_county = "";
-                                section2Obj.pat_postcode = childAdrArray[2];
+                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
                             }
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
                                 section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
@@ -1797,7 +1797,7 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_address2 = "";
                                 section2Obj.pat_town_city = childAdrArray[0];
                                 section2Obj.pat_county = "";
-                                section2Obj.pat_postcode = childAdrArray[2];
+                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
                             }
 
 

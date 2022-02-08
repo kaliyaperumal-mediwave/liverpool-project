@@ -511,20 +511,37 @@ $(document).ready(function () {
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
-                        console.log(this.payloadData.aboutData)
+
                         if (this.payloadData.aboutData.childAddress) {
-                            var childAddresArray = (this.payloadData.aboutData.childAddress).split(",");
-                            console.log(childAddresArray)
-                            this.payloadData.aboutData.childAddressPostcode = childAddresArray[2];
-                            this.payloadData.aboutData.childAddress = childAddresArray[0] + "," + childAddresArray[1];
+                            var profAddresArray = (this.payloadData.aboutData.childAddress).split(",");
+                            this.payloadData.aboutData.childAddressPostcode = profAddresArray[profAddresArray.length-1];
+                            var addToSave= this.payloadData.aboutData.childAddress
+                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.childAddress = result;
 
                         }
+                        // if (this.payloadData.aboutData.childAddress) {
+                        //     var childAddresArray = (this.payloadData.aboutData.childAddress).split(",");
+                        //     console.log(childAddresArray)
+                        //     this.payloadData.aboutData.childAddressPostcode = childAddresArray[2];
+                        //     this.payloadData.aboutData.childAddress = childAddresArray[0] + "," + childAddresArray[1];
+
+                        // }
+
                         if (this.payloadData.aboutData.parentOrCarrerAddress) {
-                            var parentAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
-                            console.log(parentAddresArray)
-                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = parentAddresArray[2];
-                            this.payloadData.aboutData.parentOrCarrerAddress = parentAddresArray[0] + "," + parentAddresArray[1];
+                            var profAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
+                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = profAddresArray[profAddresArray.length-1];
+                            var addToSave= this.payloadData.aboutData.parentOrCarrerAddress
+                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.parentOrCarrerAddress = result;
+
                         }
+                        // if (this.payloadData.aboutData.parentOrCarrerAddress) {
+                        //     var parentAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
+                        //     console.log(parentAddresArray)
+                        //     this.payloadData.aboutData.parentOrCarrerAddressPostcode = parentAddresArray[2];
+                        //     this.payloadData.aboutData.parentOrCarrerAddress = parentAddresArray[0] + "," + parentAddresArray[1];
+                        // }
                         else {
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
                         }
@@ -1210,24 +1227,20 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    var addressApi = "https://api.getAddress.io/autocomplete/"+value+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
-                        "headers": {
-                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
-                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
-                        },
                         success: function (data) {
                             if (data.Error && Object.keys(data.Error).length) {
                                 _self.showLoadingSpinner = false;
                                 return false;
                             }
-                            if (data.Summaries && data.Summaries.length) {
-                                for (i = 0; i < data.Summaries.length; i++) {
-                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                            if (data.suggestions && data.suggestions.length) {
+                                for (i = 0; i < data.suggestions.length; i++) {
+                                    _self.addressList.push(data.suggestions[i].address+ ',' + value);
                                 }
                                 _self.addressOptions = _self.addressList;
                                 _self.showLoadingSpinner = false;
@@ -1239,8 +1252,6 @@ $(document).ready(function () {
                             _self.showLoadingSpinner = false;
                         }
                     });
-                } else {
-                    this.showLoadingSpinner = false;
                 }
 
             },
