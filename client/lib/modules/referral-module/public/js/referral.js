@@ -175,6 +175,15 @@ $(document).ready(function () {
             updateFlag: false,
             landlineRegex: /^0[0-9]{10}$/,
             dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
+
+            //character limit helper text
+            showlimitTxt1: false,
+            showlimitTxt2: false,
+            showlimitTxt3: false,
+            showlimitTxt4: false,
+            showlimitTxt5: false,
+            showlimitTxt6: false,
+            showlimitTxt7: false,
         },
         methods: {
 
@@ -322,6 +331,19 @@ $(document).ready(function () {
                     return false;
                 }
 
+            },
+
+            checkCharacterLength: function (ev, helperFlag) {
+                var curElem = ev.currentTarget;
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                console.log(maxlength);
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    this[helperFlag] = true;
+                } else {
+                    this[helperFlag] = false;
+                }
             },
 
             //Function to trim space entered

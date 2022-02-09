@@ -71,7 +71,13 @@ $(document).ready(function () {
             showLoader: false,
             nameForOthers: "",
             addMoreOrg: false,
-            ageFlag: null
+            ageFlag: null,
+
+            //character limit helper text
+            showlimitTxt1: false,
+            showlimitTxt2: false,
+            showlimitTxt3: false,
+            showlimitTxt4: false,
         },
 
         beforeMount: function () {
@@ -666,6 +672,20 @@ $(document).ready(function () {
             preventWhiteSpaces: function (e) {
                 if (e.which === 32 && e.target.selectionStart === 0) {
                     e.preventDefault();
+                }
+            },
+
+
+            checkCharacterLength: function (ev, helperFlag) {
+                var curElem = ev.currentTarget;
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                console.log(maxlength);
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    this[helperFlag] = true;
+                } else {
+                    this[helperFlag] = false;
                 }
             },
 
