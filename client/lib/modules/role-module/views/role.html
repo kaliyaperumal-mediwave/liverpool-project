@@ -565,7 +565,7 @@
                             v-model="elgibilityObj.reason_contact_parent_camhs" rows="7"
                             @keyup="checkCharacterLength($event,'showlimitTxt1')" @input="clearGP($event)"></textarea>
                         <small v-if="showlimitTxt1" class="form-text text-muted">
-                            You have reached the maximum number of characters.
+                            You have reached the maximum character limit.
                         </small>
                         <!-- <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !elgibilityObj.hasAnythingInfo),'invalid-fields':!elgibilityObj.hasAnythingInfo }">

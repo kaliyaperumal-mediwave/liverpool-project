@@ -183,7 +183,7 @@
                                 @keyup="checkCharacterLength($event,'showlimitTxt1')"
                                 @input="onValueEnter($event,'otherEating')" rows="4"></textarea>
                             <small v-if="showlimitTxt1" id="limitTxt1" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
                             <small v-if="showlimitTxt2" id="limitTxt2" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -317,7 +317,7 @@
                                 @keyup="checkCharacterLength($event,'showlimitTxt3')"
                                 @input="onValueEnter($event,'other')" rows="4"></textarea>
                             <small v-if="showlimitTxt3" id="limitTxt3" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -343,7 +343,7 @@
                                 You must provide some information on your main referral issue.
                             </div>
                             <small v-if="showlimitTxt4" id="limitTxt4" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
                             <small v-if="showlimitTxt5" id="limitTxt5" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -384,7 +384,7 @@
                                 @keyup="checkCharacterLength($event,'showlimitTxt6')" v-model="referralData.triggerInfo"
                                 rows="7"></textarea>
                             <small v-if="showlimitTxt6" id="limitTxt6" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -408,7 +408,7 @@
                                     @keyup="checkCharacterLength($event,'showlimitTxt7')"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
                                 <small v-if="showlimitTxt7" id="limitTxt7" class="form-text text-muted">
-                                    You have reached the maximum number of characters.
+                                    You have reached the maximum character limit.
                                 </small>
                             </div>
                         </div>

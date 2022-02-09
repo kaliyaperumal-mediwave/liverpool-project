@@ -183,7 +183,7 @@
                                 @keyup="checkCharacterLength($event,'showlimitTxt1')"
                                 @input="onValueEnter($event,'otherEating')" rows="4"></textarea>
                             <small v-if="showlimitTxt1" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
                             <small v-if="showlimitTxt2" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -316,7 +316,7 @@
                                 @keyup="checkCharacterLength($event,'showlimitTxt3')"
                                 @input="onValueEnter($event,'other')" rows="4"></textarea>
                             <small v-if="showlimitTxt3" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -341,7 +341,7 @@
                                 You must provide some information on your main referral issue.
                             </div>
                             <small v-if="showlimitTxt4" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -360,7 +360,7 @@
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
                             <small v-if="showlimitTxt5" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -380,7 +380,7 @@
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
                             <small v-if="showlimitTxt6" class="form-text text-muted">
-                                You have reached the maximum number of characters.
+                                You have reached the maximum character limit.
                             </small>
                         </div>
                     </div>
@@ -404,7 +404,7 @@
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
                                 <small v-if="showlimitTxt7" class="form-text text-muted">
-                                    You have reached the maximum number of characters.
+                                    You have reached the maximum character limit.
                                 </small>
                             </div>
                         </div>
@@ -660,7 +660,7 @@
                                     @keyup="checkCharacterLength($event,'showlimitTxt8')"
                                     v-model="referralData.about_our_service" rows="7"></textarea>
                                 <small v-if="showlimitTxt8" class="form-text text-muted">
-                                    You have reached the maximum number of characters.
+                                    You have reached the maximum character limit.
                                 </small>
                             </div>
                         </div>
