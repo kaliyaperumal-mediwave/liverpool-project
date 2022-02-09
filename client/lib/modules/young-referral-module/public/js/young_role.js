@@ -122,7 +122,9 @@ $(document).ready(function () {
             dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
             duplicateYearArray: '',
             formatter: '',
-            hasValidDate: false
+            hasValidDate: false,
+            //character limit helper text
+            showlimitTxt1: false,
         },
 
         computed: {
@@ -1172,9 +1174,9 @@ $(document).ready(function () {
 
                                     if (this.elgibilityObj.profAddress) {
                                         var profAddresArray = (this.elgibilityObj.profAddress).split(",");
-                                        this.elgibilityObj.profAddress_postcode = profAddresArray[profAddresArray.length-1];
-                                        var addToSave= this.elgibilityObj.profAddress
-                                        var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                                        this.elgibilityObj.profAddress_postcode = profAddresArray[profAddresArray.length - 1];
+                                        var addToSave = this.elgibilityObj.profAddress
+                                        var result = addToSave.substring(0, (addToSave).lastIndexOf(","));
                                         this.elgibilityObj.profAddress = result;
 
                                     }
@@ -1196,7 +1198,7 @@ $(document).ready(function () {
                                     return false;
                                 }
                             } else {
-                              //  $('#loader').show();
+                                //  $('#loader').show();
                                 if (this.elgibilityObj.youngDob) {
                                     this.elgibilityObj.youngDob = this.elgibilityObj.youngDob.replace(/\s/g, "");
                                 }
@@ -1208,7 +1210,7 @@ $(document).ready(function () {
                                 if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
                                     this.elgibilityObj.referral_mode = null;
                                 }
-                                
+
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1853,21 +1855,21 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://api.getAddress.io/autocomplete/"+value+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
+                    var addressApi = "https://api.getAddress.io/autocomplete/" + value + "?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
                         success: function (data) {
-                        console.log("🚀 ~ file: role.js ~ line 1835 ~ data", data)
+                            console.log("🚀 ~ file: role.js ~ line 1835 ~ data", data)
                             if (data.Error && Object.keys(data.Error).length) {
                                 _self.showLoadingSpinner = false;
                                 return false;
                             }
                             if (data.suggestions && data.suggestions.length) {
                                 for (i = 0; i < data.suggestions.length; i++) {
-                                    _self.addressList.push(data.suggestions[i].address+ ',' + value);
+                                    _self.addressList.push(data.suggestions[i].address + ',' + value);
                                 }
                                 _self.addressOptions = _self.addressList;
                                 _self.showLoadingSpinner = false;
@@ -1889,6 +1891,19 @@ $(document).ready(function () {
 
             removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
+            },
+
+            checkCharacterLength: function (ev, helperFlag) {
+                var curElem = ev.currentTarget;
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                console.log(maxlength);
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    this[helperFlag] = true;
+                } else {
+                    this[helperFlag] = false;
+                }
             },
 
             // getJsonGP: function (refObj) {

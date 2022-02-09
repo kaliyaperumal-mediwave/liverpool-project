@@ -637,10 +637,13 @@
                     <div class="form-group py-1">
                         <label for="textInfo2" class="question-font">Please explain any reasons why we
                             should not contact your family/friend's:</label>
-                        <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
+                        <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
                             placeholder="Tell us why you do not want us to contact your familys or carer"
                             v-model="elgibilityObj.reason_contact_family_camhs" rows="7"
                             @input="clearGP($event)"></textarea>
+                            <small v-if="showlimitTxt1" class="form-text text-muted">
+                                You have reached the maximum number of characters.
+                            </small>
                         <!-- <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !elgibilityObj.hasAnythingInfo),'invalid-fields':!elgibilityObj.hasAnythingInfo }">
                             You must provide answer to this question.
