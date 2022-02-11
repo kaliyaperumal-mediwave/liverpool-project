@@ -1255,7 +1255,6 @@ $(document).ready(function () {
                 var curVal = ev.target.value;
                 var curLen = curVal.length;
                 var maxlength = curElem.getAttribute("maxlength");
-                console.log(maxlength);
                 if (maxlength && Number(curLen) >= Number(maxlength)) {
                     this[helperFlag] = true;
                 } else {

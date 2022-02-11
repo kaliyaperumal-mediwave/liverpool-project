@@ -132,7 +132,9 @@ $(document).ready(function () {
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
             formatter: '',
             hasValidDate: false,
-            showEthiniciyOther: false
+            showEthiniciyOther: false,
+            //character limit helper text
+            showlimitTxt1: false,
         },
         beforeMount: function () {
             $('#loader').show();
@@ -401,8 +403,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
                         Vue.set(this.aboutObj, "childIdentity", data[0].parent[0].child_gender_birth);
                         Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
-                        if(data[0].parent[0].child_ethnicity)
-                        Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
+                        if (data[0].parent[0].child_ethnicity)
+                            Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         if (data[0].parent[0].child_contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data[0].parent[0].child_contact_type);
@@ -512,9 +514,9 @@ $(document).ready(function () {
 
                         if (this.payloadData.aboutData.childAddress) {
                             var profAddresArray = (this.payloadData.aboutData.childAddress).split(",");
-                            this.payloadData.aboutData.childAddressPostcode = profAddresArray[profAddresArray.length-1];
-                            var addToSave= this.payloadData.aboutData.childAddress
-                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.childAddressPostcode = profAddresArray[profAddresArray.length - 1];
+                            var addToSave = this.payloadData.aboutData.childAddress
+                            var result = addToSave.substring(0, (addToSave).lastIndexOf(","));
                             this.payloadData.aboutData.childAddress = result;
 
                         }
@@ -528,9 +530,9 @@ $(document).ready(function () {
 
                         if (this.payloadData.aboutData.parentOrCarrerAddress) {
                             var profAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
-                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = profAddresArray[profAddresArray.length-1];
-                            var addToSave= this.payloadData.aboutData.parentOrCarrerAddress
-                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = profAddresArray[profAddresArray.length - 1];
+                            var addToSave = this.payloadData.aboutData.parentOrCarrerAddress
+                            var result = addToSave.substring(0, (addToSave).lastIndexOf(","));
                             this.payloadData.aboutData.parentOrCarrerAddress = result;
 
                         }
@@ -559,7 +561,7 @@ $(document).ready(function () {
                 var curVal = e.target.value;
                 this.showEthiniciyOther = (curVal == 'Other ethnic group') ? true : false;
                 this.aboutObj.child_ethnicity_other = this.showEthiniciyOther ? this.aboutObj.child_ethnicity_other : '';
-                console.log(this.showEthiniciyOther);
+                this.showlimitTxt1 = false;
             },
 
             selectContactTypeChild: function (type) {
@@ -1150,6 +1152,18 @@ $(document).ready(function () {
                 }
             },
 
+            checkCharacterLength: function (ev, helperFlag) {
+                var curElem = ev.currentTarget;
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    this[helperFlag] = true;
+                } else {
+                    this[helperFlag] = false;
+                }
+            },
+
             getDob: function () {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
                 var selectedDate = this.houseHoldData.day + '/' + this.houseHoldData.month + '/' + this.houseHoldData.year
@@ -1225,7 +1239,7 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://api.getAddress.io/autocomplete/"+value+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
+                    var addressApi = "https://api.getAddress.io/autocomplete/" + value + "?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
@@ -1238,7 +1252,7 @@ $(document).ready(function () {
                             }
                             if (data.suggestions && data.suggestions.length) {
                                 for (i = 0; i < data.suggestions.length; i++) {
-                                    _self.addressList.push(data.suggestions[i].address+ ',' + value);
+                                    _self.addressList.push(data.suggestions[i].address + ',' + value);
                                 }
                                 _self.addressOptions = _self.addressList;
                                 _self.showLoadingSpinner = false;

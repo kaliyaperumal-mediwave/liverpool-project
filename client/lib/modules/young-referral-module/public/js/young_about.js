@@ -136,7 +136,9 @@ $(document).ready(function () {
             youngPersonAddress: "",
             sameGpYoungAddress: true,
             sameGpYoungManualAddress: true,
-            showEthiniciyOther: false
+            showEthiniciyOther: false,
+            //character limit helper text
+            showlimitTxt1: false,
         },
         beforeMount: function () {
             $('#loader').show();
@@ -395,8 +397,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "youngGender", data[0].family[0].child_gender);
                         Vue.set(this.aboutObj, "youngIdentity", data[0].family[0].child_gender_birth);
                         Vue.set(this.aboutObj, "youngSexualOrientation", data[0].family[0].child_sexual_orientation);
-                        if(data[0].family[0].child_ethnicity)
-                        Vue.set(this.aboutObj, "youngEthnicity", data[0].family[0].child_ethnicity);
+                        if (data[0].family[0].child_ethnicity)
+                            Vue.set(this.aboutObj, "youngEthnicity", data[0].family[0].child_ethnicity);
                         Vue.set(this.aboutObj, "youngCareAdult", data[0].family[0].child_care_adult);
                         if (data[0].family[0].young_contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data[0].family[0].child_contact_type);
@@ -519,9 +521,9 @@ $(document).ready(function () {
                         if (this.payloadData.aboutData.youngAddress) {
                             var youngAddresArray = (this.payloadData.aboutData.youngAddress).split(",");
                             console.log(youngAddresArray)
-                            this.payloadData.aboutData.youngAddressPostcode = youngAddresArray[youngAddresArray.length-1];
-                            var addToSave= this.payloadData.aboutData.youngAddress
-                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.youngAddressPostcode = youngAddresArray[youngAddresArray.length - 1];
+                            var addToSave = this.payloadData.aboutData.youngAddress
+                            var result = addToSave.substring(0, (addToSave).lastIndexOf(","));
                             this.payloadData.aboutData.youngAddress = result;
 
                         }
@@ -544,9 +546,9 @@ $(document).ready(function () {
 
                         if (this.payloadData.aboutData.parentOrCarrerAddress) {
                             var profAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
-                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = profAddresArray[profAddresArray.length-1];
-                            var addToSave= this.payloadData.aboutData.parentOrCarrerAddress
-                            var result =  addToSave.substring(0, (addToSave).lastIndexOf(","));
+                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = profAddresArray[profAddresArray.length - 1];
+                            var addToSave = this.payloadData.aboutData.parentOrCarrerAddress
+                            var result = addToSave.substring(0, (addToSave).lastIndexOf(","));
                             this.payloadData.aboutData.parentOrCarrerAddress = result;
 
                         }
@@ -571,7 +573,7 @@ $(document).ready(function () {
                 var curVal = e.target.value;
                 this.showEthiniciyOther = (curVal == 'Other ethnic group') ? true : false;
                 this.aboutObj.child_ethnicity_other = this.showEthiniciyOther ? this.aboutObj.child_ethnicity_other : '';
-                console.log(this.showEthiniciyOther);
+                this.showlimitTxt1 = false;
             },
 
             selectContactTypeyoung: function (type) {
@@ -1192,6 +1194,19 @@ $(document).ready(function () {
 
             },
 
+
+            checkCharacterLength: function (ev, helperFlag) {
+                var curElem = ev.currentTarget;
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    this[helperFlag] = true;
+                } else {
+                    this[helperFlag] = false;
+                }
+            },
+
             getAge: function (dateString) {
                 if (dateString != "") {
                     var today = new Date();
@@ -1247,21 +1262,21 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://api.getAddress.io/autocomplete/"+value+"?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
+                    var addressApi = "https://api.getAddress.io/autocomplete/" + value + "?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
                         success: function (data) {
-                        console.log("🚀 ~ file: role.js ~ line 1835 ~ data", data)
+                            console.log("🚀 ~ file: role.js ~ line 1835 ~ data", data)
                             if (data.Error && Object.keys(data.Error).length) {
                                 _self.showLoadingSpinner = false;
                                 return false;
                             }
                             if (data.suggestions && data.suggestions.length) {
                                 for (i = 0; i < data.suggestions.length; i++) {
-                                    _self.addressList.push(data.suggestions[i].address+ ',' + value);
+                                    _self.addressList.push(data.suggestions[i].address + ',' + value);
                                 }
                                 _self.addressOptions = _self.addressList;
                                 _self.showLoadingSpinner = false;
