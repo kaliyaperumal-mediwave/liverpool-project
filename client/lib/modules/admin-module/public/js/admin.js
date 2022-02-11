@@ -1175,7 +1175,7 @@ function sendPdf(uuid, role, refCode, formType) {
     contentType: 'application/json',
     success: function (res) {
       console.log(res)
-      createActivity("Referral sent - " + selectedProvider, uuid);
+      //createActivity("Referral sent - " + selectedProvider, uuid);
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
       $('#mailSentSuccess').modal('show');
