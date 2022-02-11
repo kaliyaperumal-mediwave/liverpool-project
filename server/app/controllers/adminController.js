@@ -775,6 +775,10 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
+    console.log(" admin control------------------------------------------------------")
+    console.log(ctx.request.body.status)
+    //   console.log(ctx.request.body)
+    console.log(ctx.request.decryptedUsers)
     const flagTbl = ctx.orm().miscellaneousFlag;
     return flagTbl.findOne({
         attributes: ['flag', 'value'],
@@ -806,7 +810,7 @@ exports.sendReferral = async ctx => {
                         else {
                             ctx.request.body.referralData.section2.child_name_title = "Mx"
                         }
-            
+
                         //Mapping gender to match venus doc
                         if (ctx.request.body.referralData.section2.sex_at_birth == "1122901") {
                             ctx.request.body.referralData.section2.sex_at_birth = "Male"
@@ -836,7 +840,7 @@ exports.sendReferral = async ctx => {
                         else {
                             ctx.request.body.referralData.section2.child_name_title = "Mx"
                         }
-            
+
                         //Mapping gender to match ypas doc
                         if (ctx.request.body.referralData.section2.sex_at_birth == "1072964") {
                             ctx.request.body.referralData.section2.sex_at_birth = "Male"
@@ -847,12 +851,11 @@ exports.sendReferral = async ctx => {
                         else {
                             ctx.request.body.referralData.section2.sex_at_birth = "Prefer not to say"
                         }
-            
+
                     }
                     if (ctx.res.successCodeApi == 200) {
 
                         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-                            //////console.log()(sendReferralStatus)
                             const referralModel = ctx.orm().Referral;
                             return referralModel.update({
                                 referral_provider: ctx.query.selectedProvider
@@ -862,9 +865,21 @@ exports.sendReferral = async ctx => {
                                         { uuid: ctx.query.refID }
                                 }
                             ).then((result) => {
-                                return ctx.res.ok({
-                                    data: ctx.res.iaptusApiDetail,
-                                    message: reponseMessages[1017],
+                                console.log("iaptusApiDetail00000000000000000000000000000000000000000000000000")
+                                let updateValue = {
+                                    activity: "Referral sent - " + ctx.query.selectedProvider,
+                                    ReferralId: ctx.query.refID,
+                                    doneBy: ctx.request.decryptedUser.id
+                                }
+                                console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                                const referralActivityLog = ctx.orm().referralActivity;
+                                return referralActivityLog.create(updateValue).then(() => {
+                                    return ctx.res.ok({
+                                        data: ctx.res.iaptusApiDetail,
+                                        message: reponseMessages[1017],
+                                    });
+                                }).catch((error) => {
+                                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
                                 });
                             }).catch(error => {
                                 //////console.log()(error);
@@ -888,10 +903,21 @@ exports.sendReferral = async ctx => {
                                         { uuid: ctx.query.refID }
                                 }
                             ).then((result) => {
-                                console.log("iaptusApiDetail" , ctx.res.iaptusApiDetail)
-                                return ctx.res.ok({
-                                    data: ctx.res.iaptusApiDetail,
-                                    message: reponseMessages[1017],
+                                console.log("iaptusApiDetail111111111111111111111111111111111111111111111111111111111111111111111111111111")
+                                let updateValue = {
+                                    activity: "Referral sent - " + ctx.query.selectedProvider,
+                                    ReferralId: ctx.query.refID,
+                                    doneBy: ctx.request.decryptedUser.id
+                                }
+                                console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                                const referralActivityLog = ctx.orm().referralActivity;
+                                return referralActivityLog.create(updateValue).then(() => {
+                                    return ctx.res.ok({
+                                        data: ctx.res.iaptusApiDetail,
+                                        message: reponseMessages[1017],
+                                    });
+                                }).catch((error) => {
+                                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
                                 });
                             }).catch(error => {
                                 //////console.log()(error);
@@ -916,7 +942,6 @@ exports.sendReferral = async ctx => {
         else {
             try {
                 return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-                    //////console.log()(sendReferralStatus)
                     const referralModel = ctx.orm().Referral;
                     return referralModel.update({
                         referral_provider: ctx.query.selectedProvider
@@ -926,8 +951,21 @@ exports.sendReferral = async ctx => {
                                 { uuid: ctx.query.refID }
                         }
                     ).then((result) => {
-                        return ctx.res.ok({
-                            message: reponseMessages[1017],
+                        console.log("sendReferralStatus00000000000000000000000000000000000000000000000000")
+                        let updateValue = {
+                            activity: "Referral sent - " + ctx.query.selectedProvider,
+                            ReferralId: ctx.query.refID,
+                            doneBy: ctx.request.decryptedUser.id
+                        }
+                        console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                        const referralActivityLog = ctx.orm().referralActivity;
+                        return referralActivityLog.create(updateValue).then(() => {
+                            return ctx.res.ok({
+                                data: ctx.res.iaptusApiDetail,
+                                message: reponseMessages[1017],
+                            });
+                        }).catch((error) => {
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
                         });
                     }).catch(error => {
                         //////console.log()(error);
@@ -1028,7 +1066,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: eligibilityObj.id,
                 },
-                attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+                attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             }).then((aboutObj) => {
                 return user.findOne({
                     include: [
@@ -1049,7 +1087,7 @@ function getRefData(refID, refRole, ctx) {
                     var parentAddress;
                     parentAddres = aboutObj[includeModalName].length ? aboutObj[includeModalName][0].parent_address_postcode ? aboutObj[includeModalName][0].parent_address + ', ' + aboutObj[includeModalName][0].parent_address_postcode : aboutObj[includeModalName][0].parent_address : '';
 
-                    
+
 
                     const section2Obj = {
                         child_id: aboutObj.id,
@@ -1065,7 +1103,7 @@ function getRefData(refID, refRole, ctx) {
                         child_gender: aboutObj.child_gender,
                         child_gender_birth: aboutObj.child_gender_birth,
                         child_sexual_orientation: aboutObj.child_sexual_orientation,
-                        child_ethnicity : aboutObj.child_ethnicity=='Other ethnic group' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
+                        child_ethnicity: aboutObj.child_ethnicity == 'Other ethnic group' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
                         child_care_adult: aboutObj.child_care_adult,
                         household_member: aboutObj.household_member,
                         child_contact_type: aboutObj.child_contact_type,
@@ -1143,7 +1181,7 @@ function getRefData(refID, refRole, ctx) {
                         section2Obj.pat_address2 = "";
                         section2Obj.pat_town_city = childAdrArray[0];
                         section2Obj.pat_county = "";
-                        section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
+                        section2Obj.pat_postcode = childAdrArray[childAdrArray.length - 1];
                     }
 
 
@@ -1223,7 +1261,7 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: includeModalName,
-                            aattributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+                            aattributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
                         },
                     ],
                     where: {
@@ -1277,18 +1315,14 @@ function getRefData(refID, refRole, ctx) {
                                 getChildDob = convertDate(elgibilityObj[0].family[0].child_dob)
                             }
                             let childEthnicity
-                            if(refRole == "Parent" || refRole == "parent" )
-                            {
-                                if(aboutObj[0].parent)
-                                {
-                                    childEthnicity = (aboutObj[0].parent[0].child_ethnicity=='Other ethnic group'? aboutObj[0].parent[0].child_ethnicity_other: aboutObj[0].parent[0].child_ethnicity)
+                            if (refRole == "Parent" || refRole == "parent") {
+                                if (aboutObj[0].parent) {
+                                    childEthnicity = (aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity)
                                 }
                             }
-                            else if(refRole == "Family" || refRole == "family")
-                            {
-                                if(aboutObj[0].family)
-                                {
-                                    childEthnicity = (aboutObj[0].family[0].child_ethnicity=='Other ethnic group'? aboutObj[0].family[0].child_ethnicity_other: aboutObj[0].family[0].child_ethnicity)
+                            else if (refRole == "Family" || refRole == "family") {
+                                if (aboutObj[0].family) {
+                                    childEthnicity = (aboutObj[0].family[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity)
                                 }
                             }
 
@@ -1411,7 +1445,7 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_address2 = "";
                                 section2Obj.pat_town_city = childAdrArray[0];
                                 section2Obj.pat_county = "";
-                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
+                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length - 1];
                             }
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
                                 section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + (section2Obj.parent_manual_address[0].addressLine2 ? section2Obj.parent_manual_address[0].addressLine2 + ',' : '') + section2Obj.parent_manual_address[0].city + ',' + (section2Obj.parent_manual_address[0].country != '' ? section2Obj.parent_manual_address[0].country + ',' : '') + section2Obj.parent_manual_address[0].postCode
@@ -1519,7 +1553,7 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: getChildYoungModal,
-                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
                         },
                     ],
                     where: {
@@ -1612,8 +1646,8 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender: aboutObj[0].parent[0].child_gender,
                                     child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
-                                   // child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
-                                    child_ethnicity : aboutObj[0].parent[0].child_ethnicity=='Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
+                                    // child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                    child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].parent[0].child_care_adult,
                                     household_member: aboutObj[0].parent[0].household_member,
                                     child_contact_type: aboutObj[0].parent[0].child_contact_type,
@@ -1698,8 +1732,8 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender: aboutObj[0].family[0].child_gender,
                                     child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
-                                   // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
-                                   child_ethnicity : aboutObj[0].family[0].child_ethnicity=='Other ethnic group' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
+                                    // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                                    child_ethnicity: aboutObj[0].family[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].family[0].child_care_adult,
                                     household_member: aboutObj[0].family[0].household_member,
                                     child_contact_type: aboutObj[0].family[0].child_contact_type,
@@ -1797,7 +1831,7 @@ function getRefData(refID, refRole, ctx) {
                                 section2Obj.pat_address2 = "";
                                 section2Obj.pat_town_city = childAdrArray[0];
                                 section2Obj.pat_county = "";
-                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length-1];
+                                section2Obj.pat_postcode = childAdrArray[childAdrArray.length - 1];
                             }
 
 

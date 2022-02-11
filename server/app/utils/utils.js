@@ -4,6 +4,7 @@ dotenv.config();
 module.exports = {
   validateToken: (ctx, next) => {
     const authorizationHeaader = ctx.request.headers.authorization;
+    console.log("🚀 ~ file: utils.js ~ line 7 ~ authorizationHeaader", authorizationHeaader)
     let result;
     // testing if login users or not. if logged user decrypt and append user obj in auth token
     if (authorizationHeaader) {
