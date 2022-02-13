@@ -3,20 +3,6 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#referral-form',
 
-        beforeMount: function () {
-            $('#loader').show();
-        },
-
-        mounted: function () {
-            this.isFormSubmitted = false;
-            this.paramValues = getParameter(location.href)
-            this.userId = document.getElementById('uUid').innerHTML;
-            this.userRole = document.getElementById('uRole').innerHTML;
-            this.userMode = this.paramValues;
-            this.dynamicLabels = getDynamicLabels(this.userRole);
-            this.fetchSavedData();
-            $('#loader').hide();
-        },
         data: {
             referralData: {
                 support: '',
@@ -184,7 +170,26 @@ $(document).ready(function () {
             showlimitTxt5: false,
             showlimitTxt6: false,
             showlimitTxt7: false,
+
+            charLimitScenerio1: "",
+            charLimitScenerio2: ""
         },
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
+        mounted: function () {
+            this.isFormSubmitted = false;
+            this.paramValues = getParameter(location.href)
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userMode = this.paramValues;
+            this.dynamicLabels = getDynamicLabels(this.userRole);
+            this.fetchSavedData();
+            console.log(this.referralData.otherEatingDifficulties);
+            $('#loader').hide();
+        },
+
         methods: {
 
             //Options changing logic
@@ -306,6 +311,8 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
+                this.charLimitScenerio1 = this.referralData.otherReasonsReferral ? (this.reasonForReferral.toString() + ' ' + this.referralData.otherReasonsReferral) : "";
+                this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
                 if (formData.referralInfo) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
@@ -323,11 +330,18 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
+                    if (this.charLimitScenerio1.length > 950) {
+                        delayedScrollToInvalidInput();
+                        return false;
+                    } else if (this.charLimitScenerio2.length > 950) {
+                        delayedScrollToInvalidInput();
+                        return false;
+                    }
                     $('#loader').show();
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
-                    scrollToInvalidInput();
+                    this.scrollToInvalidInput();
                     return false;
                 }
 
@@ -343,6 +357,8 @@ $(document).ready(function () {
                 } else {
                     this[helperFlag] = false;
                 }
+                this.charLimitScenerio1 = this.referralData.otherReasonsReferral ? (this.reasonForReferral.toString() + ' ' + this.referralData.otherReasonsReferral) : "";
+                this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
             },
 
             //Function to trim space entered

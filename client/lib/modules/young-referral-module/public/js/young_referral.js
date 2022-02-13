@@ -186,6 +186,8 @@ $(document).ready(function () {
             showlimitTxt6: false,
             showlimitTxt7: false,
             showlimitTxt8: false,
+            charLimitScenerio1: "",
+            charLimitScenerio2: ""
         },
         methods: {
 
@@ -309,6 +311,8 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
+                this.charLimitScenerio1 = this.referralData.otherReasonsReferral ? (this.reasonForReferral.toString() + ' ' + this.referralData.otherReasonsReferral) : "";
+                this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
                 if (formData.referralInfo) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
@@ -325,6 +329,13 @@ $(document).ready(function () {
                         this.payloadData.userMode = 'edit';
                     } else {
                         this.payloadData.userMode = 'add';
+                    }
+                    if (this.charLimitScenerio1.length > 950) {
+                        delayedScrollToInvalidInput();
+                        return false;
+                    } else if (this.charLimitScenerio2.length > 950) {
+                        delayedScrollToInvalidInput();
+                        return false;
                     }
                     $('#loader').show();
                     this.upsertReferralForm(this.payloadData);
@@ -649,6 +660,8 @@ $(document).ready(function () {
                 } else {
                     this[helperFlag] = false;
                 }
+                this.charLimitScenerio1 = this.referralData.otherReasonsReferral ? (this.reasonForReferral.toString() + ' ' + this.referralData.otherReasonsReferral) : "";
+                this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
             },
 
         },

@@ -178,13 +178,14 @@
                         class="px-4 pb-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other - <b>optional</b></label>
-                            <textarea maxlength="280" class="h-112 form-control input-bg-form-control" name="eatingDisorder"
+                            <textarea class="h-112 form-control input-bg-form-control" name="eatingDisorder"
                                 id="proOthers" v-model="referralData.otherEatingDifficulties"
                                 @keyup="checkCharacterLength($event,'showlimitTxt1')"
                                 @input="onValueEnter($event,'otherEating')" rows="4"></textarea>
-                            <small v-if="showlimitTxt1" class="form-text text-muted">
+                            <div class="text-validation invalid-feedback d-none" id="mrk2"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && charLimitScenerio2.length >950),'invalid-fields': charLimitScenerio2.length >950}">
                                 You have reached the maximum character limit.
-                            </small>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -198,8 +199,9 @@
                         <div class="form-group py-1">
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of
                                 {{dynamicLabels.briefOutlineLabel}} daily food/fluid intake:</label>
-                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="briefOutlineInfo"
-                                id="mainEatDiff" placeholder="Tell us about diet, eating habits, quantities etc"
+                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
+                                name="briefOutlineInfo" id="mainEatDiff"
+                                placeholder="Tell us about diet, eating habits, quantities etc"
                                 @keyup="checkCharacterLength($event,'showlimitTxt2')"
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
@@ -311,13 +313,14 @@
                         class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other - <b>optional</b></label>
-                            <textarea maxlength="280" class="h-112 form-control input-bg-form-control" name="listReasonsForReferral"
+                            <textarea class="h-112 form-control input-bg-form-control" name="listReasonsForReferral"
                                 id="proOthers" v-model="referralData.otherReasonsReferral"
                                 @keyup="checkCharacterLength($event,'showlimitTxt3')"
                                 @input="onValueEnter($event,'other')" rows="4"></textarea>
-                            <small v-if="showlimitTxt3" class="form-text text-muted">
+                            <div class="text-validation invalid-feedback d-none" id="mrk1"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && charLimitScenerio1.length >950),'invalid-fields': charLimitScenerio1.length >950}">
                                 You have reached the maximum character limit.
-                            </small>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -331,8 +334,9 @@
                         <div class="form-group">
                             <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}
                                 <b>{{dynamicLabels.referralSubLabel}}</b></label>
-                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas"
-                                id="textInfo1" @input="trimWhiteSpace($event,'referralData','referralInfo',true)"
+                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
+                                name="infoTextAreas" id="textInfo1"
+                                @input="trimWhiteSpace($event,'referralData','referralInfo',true)"
                                 v-model="referralData.referralInfo"
                                 @keyup="checkCharacterLength($event,'showlimitTxt4')"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
@@ -354,8 +358,9 @@
                         class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-1">
                             <label for="textInfo2" class="question-font">Has anything helped? - <b>optional</b></label>
-                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas"
-                                id="textInfo2" @input="trimWhiteSpace($event,'referralData','hasAnythingInfo')"
+                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
+                                name="infoTextAreas" id="textInfo2"
+                                @input="trimWhiteSpace($event,'referralData','hasAnythingInfo')"
                                 @keyup="checkCharacterLength($event,'showlimitTxt5')"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
@@ -374,8 +379,9 @@
                         <div class="form-group py-1">
                             <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}} -
                                 <b>optional</b></label>
-                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas"
-                                id="textInfo3" @input="trimWhiteSpace($event,'referralData','triggerInfo')"
+                            <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
+                                name="infoTextAreas" id="textInfo3"
+                                @input="trimWhiteSpace($event,'referralData','triggerInfo')"
                                 @keyup="checkCharacterLength($event,'showlimitTxt6')"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
@@ -654,8 +660,8 @@
                             <div class="form-group m-0">
                                 <label for="disability"
                                     class="question-font">{{dynamicLabels.about_our_service}}</label>
-                                <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="about_our_service"
-                                    id="about_our_service"
+                                <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
+                                    name="about_our_service" id="about_our_service"
                                     @input="trimWhiteSpace($event,'referralData','about_our_service')"
                                     @keyup="checkCharacterLength($event,'showlimitTxt8')"
                                     v-model="referralData.about_our_service" rows="7"></textarea>
@@ -669,44 +675,9 @@
                 <!-- Your History-End-->
 
                 <!-- Dynamic Toaster start Scenario 1-->
-                <!-- <template v-if="accessList.length && !showAddOtherService">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template v-else>
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
-                                        your contact preferences and give you a chance to review your answers.</p>
 
-                                </template>
-                                <template v-else>
-                                    <p class="question-font text-center text danger m-0 py-2">You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-                                </template>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template> -->
-
-                <div v-if="referralData.about_our_service !== '' && !showAddOtherService">
+                <div
+                    v-if="referralData.about_our_service !== '' && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -721,75 +692,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <div class="text-center m-0 py-2">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div>
-                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="text-center py-4">
-                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </div>
                 </div>
 
                 <!-- Dynamic Toaster end -->
-
-
-                <!-- Dynamic Toaster start Scenario 2-->
-                <!-- <template v-if="referralData.accessService == 'no'">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template v-else>
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
-                                        your contact preferences and give you a chance to review your answers.</p>
-
-                                </template>
-                                <template v-else>
-                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-                                </template>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template> -->
-
-                <div v-if="referralData.accessService == 'no'">
+                <div
+                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
                     <div class="px-4 py-4 d-none" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -804,74 +711,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <div class="text-center m-0 py-2">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div>
-                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="text-center py-4 d-none">
-                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </div>
                 </div>
 
                 <!-- Dynamic Toaster start Scenario 2-->
 
-
-                <!-- Dynamic Toaster start Scenario 3-->
-                <!-- <template v-if="allAvailableService.length">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template v-else>
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
-                                        your contact preferences and give you a chance to review your answers.</p>
-
-                                </template>
-                                <template v-else>
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-                                </template>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template> -->
-
-                <div v-if="allAvailableService.length && referralData.about_our_service">
+                <div
+                    v-if="allAvailableService.length && referralData.about_our_service && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -886,30 +731,17 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <div class="text-center m-0 py-2">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div>
-                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a
-                                        section on this
-                                        page
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="text-center py-4">
+                    <!-- <div class="text-center py-4">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">SAVE &
                                 CONTINUE</span></button>
-                    </div>
+                    </div> -->
+                </div>
+
+                <div v-if="referralData.about_our_service" class="text-center py-4">
+                    <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE &
+                            CONTINUE</span></button>
                 </div>
                 <!-- Dynamic Toaster end Scenario 3-->
 

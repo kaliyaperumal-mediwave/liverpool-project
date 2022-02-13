@@ -271,6 +271,40 @@ function scrollToInvalidInput(type) {
 
 };
 
+//Scroll to top for an Invalid Inputs
+function delayedScrollToInvalidInput(type) {
+    setTimeout(function () {
+        var headerHeight = document.querySelector('.headerTop').clientHeight;
+        var errorElements = $('.invalid-fields');
+
+        if (Array.from(errorElements).length) {
+            if (type) {
+                if (errorElements[1].parentElement) {
+                    errorElements[1].parentElement.scrollIntoView(true, { behavior: "smooth", });
+                } else {
+                    errorElements[1].scrollIntoView(true, { behavior: "smooth", });
+                }
+                var scrolledY = window.scrollY;
+                if (scrolledY) {
+                    window.scroll(0, scrolledY - headerHeight);
+                }
+            } else {
+                if (errorElements[0].parentElement) {
+                    errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+                } else {
+                    errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+                }
+                var scrolledY = window.scrollY;
+                if (scrolledY) {
+                    window.scroll(0, scrolledY - headerHeight);
+                }
+            }
+
+        }
+
+    }, 100)
+};
+
 function getTopOffset(controlEl) {
     var labelOffset = 50;
     return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
