@@ -888,11 +888,16 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
                                         Ethnicity:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <!-- <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text" readonly
                                             @input="onDetectChange($event,'sect2','section2Data','child_ethnicity')"
                                             placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
                                             id="ethincitySect5">
+                                    </div> -->
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control h-50 input-bg-form-control" type="text"
+                                           rows="3" placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity">
+                                        </textarea>
                                     </div>
                                 </div>
 
