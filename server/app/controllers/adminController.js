@@ -865,22 +865,32 @@ exports.sendReferral = async ctx => {
                                         { uuid: ctx.query.refID }
                                 }
                             ).then((result) => {
-                                console.log("iaptusApiDetail00000000000000000000000000000000000000000000000000")
-                                let updateValue = {
-                                    activity: "Referral sent - " + ctx.query.selectedProvider,
-                                    ReferralId: ctx.query.refID,
-                                    doneBy: ctx.request.decryptedUser.id
-                                }
-                                console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
-                                const referralActivityLog = ctx.orm().referralActivity;
-                                return referralActivityLog.create(updateValue).then(() => {
+
+                                if (ctx.query.fromReferralPage) {
                                     return ctx.res.ok({
-                                        data: ctx.res.iaptusApiDetail,
+                                        data: {},
                                         message: reponseMessages[1017],
                                     });
-                                }).catch((error) => {
-                                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
-                                });
+                                }
+                                else {
+                                    console.log("iaptusApiDetail00000000000000000000000000000000000000000000000000")
+                                    let updateValue = {
+                                        activity: "Referral sent - " + ctx.query.selectedProvider,
+                                        ReferralId: ctx.query.refID,
+                                        doneBy: ctx.request.decryptedUser.id
+                                    }
+                                    console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                                    const referralActivityLog = ctx.orm().referralActivity;
+                                    return referralActivityLog.create(updateValue).then(() => {
+                                        return ctx.res.ok({
+                                            data: ctx.res.iaptusApiDetail,
+                                            message: reponseMessages[1017],
+                                        });
+                                    }).catch((error) => {
+                                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                                    });
+                                }
+
                             }).catch(error => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -903,22 +913,30 @@ exports.sendReferral = async ctx => {
                                         { uuid: ctx.query.refID }
                                 }
                             ).then((result) => {
-                                console.log("iaptusApiDetail111111111111111111111111111111111111111111111111111111111111111111111111111111")
-                                let updateValue = {
-                                    activity: "Referral sent - " + ctx.query.selectedProvider,
-                                    ReferralId: ctx.query.refID,
-                                    doneBy: ctx.request.decryptedUser.id
-                                }
-                                console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
-                                const referralActivityLog = ctx.orm().referralActivity;
-                                return referralActivityLog.create(updateValue).then(() => {
+                                if (ctx.query.fromReferralPage) {
                                     return ctx.res.ok({
-                                        data: ctx.res.iaptusApiDetail,
+                                        data: {},
                                         message: reponseMessages[1017],
                                     });
-                                }).catch((error) => {
-                                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
-                                });
+                                }
+                                else {
+                                    console.log("iaptusApiDetail00000000000000000000000000000000000000000000000000")
+                                    let updateValue = {
+                                        activity: "Referral sent - " + ctx.query.selectedProvider,
+                                        ReferralId: ctx.query.refID,
+                                        doneBy: ctx.request.decryptedUser.id
+                                    }
+                                    console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                                    const referralActivityLog = ctx.orm().referralActivity;
+                                    return referralActivityLog.create(updateValue).then(() => {
+                                        return ctx.res.ok({
+                                            data: ctx.res.iaptusApiDetail,
+                                            message: reponseMessages[1017],
+                                        });
+                                    }).catch((error) => {
+                                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                                    });
+                                }
                             }).catch(error => {
                                 //////console.log()(error);
                                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -951,22 +969,30 @@ exports.sendReferral = async ctx => {
                                 { uuid: ctx.query.refID }
                         }
                     ).then((result) => {
-                        console.log("sendReferralStatus00000000000000000000000000000000000000000000000000")
-                        let updateValue = {
-                            activity: "Referral sent - " + ctx.query.selectedProvider,
-                            ReferralId: ctx.query.refID,
-                            doneBy: ctx.request.decryptedUser.id
-                        }
-                        console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
-                        const referralActivityLog = ctx.orm().referralActivity;
-                        return referralActivityLog.create(updateValue).then(() => {
+                        if (ctx.query.fromReferralPage) {
                             return ctx.res.ok({
-                                data: ctx.res.iaptusApiDetail,
+                                data: {},
                                 message: reponseMessages[1017],
                             });
-                        }).catch((error) => {
-                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
-                        });
+                        }
+                        else {
+                            console.log("iaptusApiDetail00000000000000000000000000000000000000000000000000")
+                            let updateValue = {
+                                activity: "Referral sent - " + ctx.query.selectedProvider,
+                                ReferralId: ctx.query.refID,
+                                doneBy: ctx.request.decryptedUser.id
+                            }
+                            console.log("🚀 ~ file: adminController.js ~ line 874 ~ ).then ~ updateValue", updateValue)
+                            const referralActivityLog = ctx.orm().referralActivity;
+                            return referralActivityLog.create(updateValue).then(() => {
+                                return ctx.res.ok({
+                                    data: ctx.res.iaptusApiDetail,
+                                    message: reponseMessages[1017],
+                                });
+                            }).catch((error) => {
+                                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                            });
+                        }
                     }).catch(error => {
                         //////console.log()(error);
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
