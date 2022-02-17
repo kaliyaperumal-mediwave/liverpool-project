@@ -481,7 +481,7 @@ $(document).ready(function () {
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
-                    formData.childIdentity && formData.sexAssignedAtBirth && ((formData.childEthnicity && formData.childEthnicity != 'Other ethnic group' && !formData.child_ethnicity_other) || (this.showEthiniciyOther && formData.childEthnicity == 'Other ethnic group' && formData.child_ethnicity_other)) && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
+                    formData.childIdentity && formData.sexAssignedAtBirth && ((formData.childEthnicity && formData.childEthnicity != 'Other Ethnic Groups' && !formData.child_ethnicity_other) || (this.showEthiniciyOther && formData.childEthnicity == 'Other Ethnic Groups' && formData.child_ethnicity_other)) && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
@@ -559,7 +559,7 @@ $(document).ready(function () {
 
             chooseEthinicity: function (e) {
                 var curVal = e.target.value;
-                this.showEthiniciyOther = (curVal == 'Other ethnic group') ? true : false;
+                this.showEthiniciyOther = (curVal == 'Other Ethnic Groups') ? true : false;
                 this.aboutObj.child_ethnicity_other = this.showEthiniciyOther ? this.aboutObj.child_ethnicity_other : '';
                 this.showlimitTxt1 = false;
             },
