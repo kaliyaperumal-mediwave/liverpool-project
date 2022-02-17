@@ -1129,7 +1129,7 @@ function getRefData(refID, refRole, ctx) {
                         child_gender: aboutObj.child_gender,
                         child_gender_birth: aboutObj.child_gender_birth,
                         child_sexual_orientation: aboutObj.child_sexual_orientation,
-                        child_ethnicity: aboutObj.child_ethnicity == 'Other ethnic group' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
+                        child_ethnicity: aboutObj.child_ethnicity == 'Other Ethnic Groups' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
                         child_care_adult: aboutObj.child_care_adult,
                         household_member: aboutObj.household_member,
                         child_contact_type: aboutObj.child_contact_type,
@@ -1343,12 +1343,12 @@ function getRefData(refID, refRole, ctx) {
                             let childEthnicity
                             if (refRole == "Parent" || refRole == "parent") {
                                 if (aboutObj[0].parent) {
-                                    childEthnicity = (aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity)
+                                    childEthnicity = (aboutObj[0].parent[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity)
                                 }
                             }
                             else if (refRole == "Family" || refRole == "family") {
                                 if (aboutObj[0].family) {
-                                    childEthnicity = (aboutObj[0].family[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity)
+                                    childEthnicity = (aboutObj[0].family[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity)
                                 }
                             }
 
@@ -1378,7 +1378,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_gender_birth: aboutObj[0].parent ? aboutObj[0].parent[0].child_gender_birth : aboutObj[0].family[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent ? aboutObj[0].parent[0].child_sexual_orientation : aboutObj[0].family[0].child_sexual_orientation,
                                 child_ethnicity: childEthnicity,
-                                // child_ethnicity : aboutObj[0].parent.child_ethnicity=='Other ethnic group' ? aboutObj[0].parent.child_ethnicity_other : aboutObj[0].parent.child_ethnicity,
+                                // child_ethnicity : aboutObj[0].parent.child_ethnicity=='Other Ethnic Groups' ? aboutObj[0].parent.child_ethnicity_other : aboutObj[0].parent.child_ethnicity,
                                 child_care_adult: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
                                 household_member: aboutObj[0].parent ? aboutObj[0].parent[0].household_member : aboutObj[0].family[0].household_member,
                                 contact_type: aboutObj[0].parent ? aboutObj[0].parent[0].child_care_adult : aboutObj[0].family[0].child_care_adult,
@@ -1673,7 +1673,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
                                     // child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
-                                    child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
+                                    child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].parent[0].child_care_adult,
                                     household_member: aboutObj[0].parent[0].household_member,
                                     child_contact_type: aboutObj[0].parent[0].child_contact_type,
@@ -1759,7 +1759,7 @@ function getRefData(refID, refRole, ctx) {
                                     child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                                     child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
                                     // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
-                                    child_ethnicity: aboutObj[0].family[0].child_ethnicity == 'Other ethnic group' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
+                                    child_ethnicity: aboutObj[0].family[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
                                     child_care_adult: aboutObj[0].family[0].child_care_adult,
                                     household_member: aboutObj[0].family[0].household_member,
                                     child_contact_type: aboutObj[0].family[0].child_contact_type,
