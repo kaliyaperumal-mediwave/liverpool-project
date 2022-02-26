@@ -46,7 +46,7 @@ function handleSequalizeError(ctx, error) {
     logger.info('\n\n\n--------------SequalizeError---------------\n\n\n\n', error, '\n\n\n\n\n');
 
     return ctx.res.badRequest({
-        message: reponseMessages[1022],
+        message: reponseMessages[1024],
     });
 }
 
@@ -56,7 +56,7 @@ function iaptusUnauthorizedError(ctx, error,payload) {
 
     return ctx.res.badRequest({
         data:payload,
-        message: reponseMessages[1022],
+        message: reponseMessages[1024],
     });
 }
 
