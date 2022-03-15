@@ -1261,7 +1261,7 @@ $(document).ready(function () {
                     this[helperFlag] = false;
                 }
             },
-            
+
             preventRefresh: function (e) {
                 if (e.which == 32) {
                     e.preventDefault();
@@ -1841,7 +1841,7 @@ $(document).ready(function () {
                     var _self = this;
                     _self.addressList = [];
                     _self.showLoadingSpinner = true;
-                    var addressApi = "https://api.getAddress.io/autocomplete/" + value + "?api-key=T6dpcGc28kOgJgJxd03Qhw34224&all=true"
+                    var addressApi = "https://api.getAddress.io/autocomplete/" + value + "?api-key=uXQ8XbGYiUue1PonBQNSjg34234&all=true"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
