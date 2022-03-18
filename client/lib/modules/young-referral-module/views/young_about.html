@@ -238,31 +238,33 @@
                     <!-- young contact end-->
 
                     <!-- young address Start-->
-                    <div class="form-group py-2 my-2">
-                        <label for="txtyoungAddress" class="question-font">
-                            {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
-                        <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
-                            <multiselect :options="addressOptions" v-model="aboutObj.youngAddress" id="isTrue"
-                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
-                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
-                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
-                            </multiselect>
+                    <form id="ptrFormCheck">
+                        <div class="form-group py-2 my-2">
+                            <label for="txtyoungAddress" class="question-font">
+                                {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
+                            <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
+                                <multiselect :options="addressOptions" v-model="aboutObj.youngAddress" id="isTrue"
+                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                                </multiselect>
 
-                            <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length)),'invalid-fields': ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length) }">
-                                You must be either Liverpool in address or GP.
-                            </div>
+                                <div class="text-validation invalid-feedback  d-none"
+                                    v-bind:class="{ 'd-block':(isFormSubmitted && ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length)),'invalid-fields': ( aboutObj.youngAddress && !sameGpYoungAddress && !youngManualAddress.length) }">
+                                    You must be either Liverpool in address or GP.
+                                </div>
 
-                            <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.youngAddress && !youngManualAddress.length)),'invalid-fields':(!aboutObj.youngAddress && !youngManualAddress.length) }">
-                                You must provide a address.
+                                <div class="text-validation invalid-feedback  d-none"
+                                    v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.youngAddress && !youngManualAddress.length)),'invalid-fields':(!aboutObj.youngAddress && !youngManualAddress.length) }">
+                                    You must provide a address.
+                                </div>
+                                <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                    id="bdeb1825-c05e-4949-974e-93514d3a85b4"
+                                    @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
+                                        manually</u></p>
                             </div>
-                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
-                                id="bdeb1825-c05e-4949-974e-93514d3a85b4"
-                                @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
-                                    manually</u></p>
                         </div>
-                    </div>
+                    </form>
 
                     <div v-if="checkArrayLength(youngManualAddress)">
                         <label class="question-font">
