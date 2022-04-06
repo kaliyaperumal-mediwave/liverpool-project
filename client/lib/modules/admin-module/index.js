@@ -120,6 +120,17 @@ module.exports = {
       })
     });
 
+    self.route('get', 'getActivityCSV', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/getActivityCSV' + ((req.query.fromDate) ? ('?fromDate=' + req.query.fromDate + '&endDate=' + req.query.endDate + '&referralType=' + req.query.referralType) : '');
+      console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
+
     self.route('get', 'downloadReferral/:refID/:refRole/:formType', function (req, res) {
       // console.log("get all referal")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&formType=' + req.params.formType;

@@ -793,3 +793,15 @@ window.onbeforeunload = function (event) {
 //     a.download = name;
 //     a.click();
 // }
+
+function showLoader(flaq) {
+    $('.overlay').removeClass('d-none');
+    if (flaq) {
+        $('#common-loader').removeClass('d-none').addClass('d-block');
+        $('#res-loader').removeClass('d-none').addClass('d-block');
+    } else {
+        $('#common-loader').removeClass('d-block').addClass('d-none');
+        $('#res-loader').removeClass('d-block').addClass('d-none');
+    }
+
+}

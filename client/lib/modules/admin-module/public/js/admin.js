@@ -244,7 +244,7 @@ $(document).ready(function () {
               };
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
-                ////console.log(referralRes.data.data[i].referrer_type)
+                console.log(referralRes)
                 var referralRole;
                 if (referralRes.data.data[i].referrer_type == "Young") {
                   referralRole = "Young Person";
@@ -297,101 +297,133 @@ $(document).ready(function () {
           if (_self.hasValidDate1 || _self.hasValidDate2) {
             return false;
           }
+
           if (_self.fromDateCsv && _self.toDateCsv) {
             if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
               if (new Date(finalToRes).getTime() >= new Date(finalFromRes).getTime()) {
                 _self.showInvalidToDate = false;
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
-                ////console.log('from and to', getFromData, getToData)
+                console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
-                //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
-                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] + '&referralType=' + getReferralType, API_URI);
-                ////console.log(result)
-                var rows = []
-                result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
-                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
-                for (var i = 0; i < result.data.filter_referrals.length; i++) {
-                  if (result.data.filter_referrals[i].referral_provider_other) {
-                    alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
+                showLoader(true);
+                $.ajax({
+                  url: API_URI + '/getActivityCSV?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] + '&referralType=' + getReferralType,
+                  type: 'get',
+                  dataType: 'json',
+                  contentType: 'application/json',
+                  cache: false,
+                  success: function (result) {
+                    console.log('🚀 ~ file: admin.js ~ line 239 ~ result', result)
+                    var rows = [];
+                    let referralReceivedDate;
+                    let referralReceivedTime;
+                    var referralRole;
+                    rows.push(['Unique code', 'Name', 'DOB', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Current status', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                    for (let allRefs in result.data.activity_referrals) {
+                      if (typeof result.data.activity_referrals[allRefs][0] != "function") {
+                        if (result.data.activity_referrals[allRefs][0].referral_provider_other) {
+                          alterOtherTeam = 'Referral to ' + result.data.activity_referrals[allRefs][0].referral_provider_other
+                        }
+                        else {
+                          alterOtherTeam = result.data.activity_referrals[allRefs][0].referral_status
+                        }
+
+                        if (result.data.activity_referrals[allRefs][0].referrer_type == "Young") {
+                          referralRole = "Young Person";
+                        }
+                        else if (result.data.activity_referrals[allRefs][0].referrer_type == "Family") {
+                          referralRole = "Family / Friend";
+                        }
+                        else {
+                          referralRole = result.data.activity_referrals[allRefs][0].referrer_type;
+                        }
+
+                        referralReceivedDate = moment(moment(result.data.activity_referrals[allRefs][0].referralDate).tz("Europe/London")).format("DD/MM/YYYY")
+                        referralReceivedTime = moment(moment(result.data.activity_referrals[allRefs][0].referralDate).tz("Europe/London")).format("H:mm:ss")
+                        console.log(result.data.activity_referrals[allRefs][0])
+                        rows.push([
+                          result.data.activity_referrals[allRefs][0].reference_code,
+                          result.data.activity_referrals[allRefs][0].name,
+                          result.data.activity_referrals[allRefs][0].dob,
+                          result.data.activity_referrals[allRefs][0].referrer,
+                          result.data.activity_referrals[allRefs][0].gp_location,
+                          referralRole,
+                          result.data.activity_referrals[allRefs][0].refDate,
+                          result.data.activity_referrals[allRefs][0].date,
+                          result.data.activity_referrals[allRefs][0].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                            result.data.activity_referrals[allRefs][0].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                              result.data.activity_referrals[allRefs][0].referral_status == 'Accepted by' ? 'Accepted' :
+                                result.data.activity_referrals[allRefs][0].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.activity_referrals[allRefs][0].referral_status,
+                          capitalizeFirstLetter(result.data.activity_referrals[allRefs][0].referral_current_status),
+                          referralReceivedDate,
+                          referralReceivedTime,
+                          '',
+                          'Referral Received',
+                        ]);
+                      }
+
+                      for (let ref in result.data.activity_referrals[allRefs]) {
+                        if (typeof result.data.activity_referrals[allRefs][ref] != "function") {
+                          if (result.data.activity_referrals[allRefs][ref].referral_provider_other) {
+                            alterOtherTeam = 'Referral to ' + result.data.activity_referrals[allRefs][ref].referral_provider_other
+                          }
+                          else {
+                            alterOtherTeam = result.data.activity_referrals[allRefs][ref].referral_status
+                          }
+                          rows.push([
+                            result.data.activity_referrals[allRefs][ref].reference_code,
+                            result.data.activity_referrals[allRefs][ref].name,
+                            result.data.activity_referrals[allRefs][ref].dob,
+                            result.data.activity_referrals[allRefs][ref].referrer,
+                            result.data.activity_referrals[allRefs][ref].gp_location,
+                            referralRole,
+                            result.data.activity_referrals[allRefs][ref].refDate,
+                            result.data.activity_referrals[allRefs][ref].date,
+                            result.data.activity_referrals[allRefs][ref].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                              result.data.activity_referrals[allRefs][ref].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                                result.data.activity_referrals[allRefs][ref].referral_status == 'Accepted by' ? 'Accepted' :
+                                  result.data.activity_referrals[allRefs][ref].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.activity_referrals[allRefs][ref].referral_status,
+                            capitalizeFirstLetter(result.data.activity_referrals[allRefs][ref].referral_current_status),
+                            result.data.activity_referrals[allRefs][ref].activity_date,
+                            result.data.activity_referrals[allRefs][ref].activity_time,
+                            result.data.activity_referrals[allRefs][ref].activity_user,
+                            result.data.activity_referrals[allRefs][ref].activity_action,
+                          ]);
+                        }
+                      }
+
+                      rows.push([]);
+                    }
+                    let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
+                    var encodedUri = encodeURI(csvContent);
+                    var blob = new Blob([csvContent], { type: "text/csv" });
+                    download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
+                    table.rows().deselect();
+                    $('.idcheck').removeAttr('checked');
+                    this.referral_ids = [];
+                    _self.closeStatusPopup();
+                    _self.fromDateCsv = "";
+                    _self.toDateCsv = "";
+                    _self.isCsvDownloadSubmitted = false;
+                    _self.showInvalidToDate = false;
+                    showLoader(false);
+                  },
+                  error: function (error) {
+                  console.log("🚀 ~ file: admin.js ~ line 413 ~ error", error)
+                  _self.closeStatusPopup();
+                    showLoader(false);
+                    if (error) {
+                      showError(error.responseJSON.message, error.status);
+                    }
+                  },
+                  complete: function (data) {
+                    showLoader(false);
                   }
-                  else {
-                    alterOtherTeam = result.data.filter_referrals[i].referral_status
-                  }
+                });
 
-                  var referralRole;
-                  if (result.data.filter_referrals[i].referrer_type == "Young") {
-                    referralRole = "Young Person";
-                  }
-                  else if (result.data.filter_referrals[i].referrer_type == "Family") {
-                    referralRole = "Family / Friend";
-                  }
-                  else {
-                    referralRole = result.data.filter_referrals[i].referrer_type;
-                  }
-                  const current_status = result.data.filter_referrals[i].referral_current_status
-                  const current_statusCapitalized = current_status ? current_status.charAt(0).toUpperCase() + current_status.slice(1) : '';
-
-
-                  rows.push([
-                    result.data.filter_referrals[i].name,
-                    result.data.filter_referrals[i].dob,
-                    result.data.filter_referrals[i].reference_code,
-                    result.data.filter_referrals[i].referrer,
-                    result.data.filter_referrals[i].gp_location,
-                    referralRole,
-                    result.data.filter_referrals[i].refDate,
-                    result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
-                      result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
-                    result.data.filter_referrals[i].date,
-                    _self.capitalizeFirstLetter(result.data.filter_referrals[i].referral_current_status),
-                    result.data.filter_referrals[i].activity_date,
-                    result.data.filter_referrals[i].activity_time,
-                    result.data.filter_referrals[i].activity_user,
-                    result.data.filter_referrals[i].activity_action,
-                  ]);
-
-
-
-                }
-                //download(blob, uuid + ".pdf", "application/pdf");
-                let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-                // ////console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
-                //////console.log(rows)
-                var encodedUri = encodeURI(csvContent);
-                //////console.log(csvContent)
-                var blob = new Blob([csvContent], { type: "text/csv" });
-                //////console.log(blob)
-                download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
-                table.rows().deselect();
-                $('.idcheck').removeAttr('checked');
-                this.referral_ids = [];
-                _self.closeStatusPopup();
-                _self.fromDateCsv = "";
-                _self.toDateCsv = "";
-                _self.isCsvDownloadSubmitted = false;
-                _self.showInvalidToDate = false;
-
-                // var link = document.createElement("a");
-
-                // link.setAttribute("href", encodedUri);
-                // link.setAttribute("download", "my_data.csv");
-                // document.body.appendChild(link); // Required for FF
-
-                // link.click(); // This will download the data file named "my_data.csv".
-                // table.rows().deselect();
-                // $('.idcheck').removeAttr('checked');
-                // this.referral_ids = [];
-                // _self.closeStatusPopup();
-                // _self.fromDateCsv = "";
-                // _self.toDateCsv = "";
-                // _self.isCsvDownloadSubmitted = false;
-                // _self.showInvalidToDate = false;
-                // _self.fromcsvDate = {};
-                // _self.tocsvDate = {};
-              } else {
+              }
+              else {
                 _self.showInvalidToDate = true;
                 $('#downloadCSV').modal('show');
                 return false;
@@ -406,8 +438,8 @@ $(document).ready(function () {
             $('#downloadCSV').modal('show');
             return false;
           }
-
         });
+          
 
         $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
           if (e.target.checked) {

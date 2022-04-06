@@ -74,6 +74,7 @@ router.get('/admin/sendReferral', validateToken, adminController.sendReferral);
 router.get('/admin/sendReferralByApi', validateToken, adminController.sendReferralByApi);
 router.get('/admin/getArchived', validateToken, adminController.getArchived);
 router.get('/getActivity', validateToken, adminController.getActivity);
+router.get('/getActivityCSV', validateToken, adminController.getActivityCSV);
 
 //orcha
 router.post('/orcha/getAllApps', auth.checkOrchaToken, orchaController.getAllApps);
