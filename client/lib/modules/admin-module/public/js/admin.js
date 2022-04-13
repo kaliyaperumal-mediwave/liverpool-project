@@ -306,7 +306,7 @@ $(document).ready(function () {
                 var getToData = _self.toDateCsv.split('/');
                 console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
-                showLoader(true);
+               // showLoader(true);
                 $.ajax({
                   url: API_URI + '/getActivityCSV?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] + '&referralType=' + getReferralType,
                   type: 'get',
@@ -395,6 +395,7 @@ $(document).ready(function () {
 
                       rows.push([]);
                     }
+                   // showLoader(false);
                     let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
                     var encodedUri = encodeURI(csvContent);
                     var blob = new Blob([csvContent], { type: "text/csv" });
@@ -407,18 +408,18 @@ $(document).ready(function () {
                     _self.toDateCsv = "";
                     _self.isCsvDownloadSubmitted = false;
                     _self.showInvalidToDate = false;
-                    showLoader(false);
+                    
                   },
                   error: function (error) {
                   console.log("🚀 ~ file: admin.js ~ line 413 ~ error", error)
                   _self.closeStatusPopup();
-                    showLoader(false);
+                   // showLoader(false);
                     if (error) {
                       showError(error.responseJSON.message, error.status);
                     }
                   },
                   complete: function (data) {
-                    showLoader(false);
+                //    showLoader(false);
                   }
                 });
 
