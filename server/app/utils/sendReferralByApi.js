@@ -352,8 +352,10 @@ function createPayload(ctx) {
             "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": ctx.query.formType == "child" ? formatingInput(ctx.request.body.referralData.section1.consent_child) : alternativeBlankSpace,
             "01_consent_from_individual_to_share_with_amhs_partners": ctx.query.formType == "young" ? formatingInput(ctx.request.body.referralData.section1.consent_child) : alternativeBlankSpace,
+
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
+
             "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs == 'no' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) : alternativeBlankSpace,
 
             "03_any_reason_not_to_contact_parent_or_carer": ctx.query.formType == "child" && ctx.request.body.referralData.section1.contact_parent_camhs == 'yes' ? formatingInput(ctx.request.body.referralData.section1.contact_parent_camhs) + concatString + formatingInput(ctx.request.body.referralData.section1.reason_contact_parent_camhs) : alternativeBlankSpace,
