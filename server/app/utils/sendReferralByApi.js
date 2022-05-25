@@ -269,7 +269,7 @@ function createPayload(ctx) {
         }
     }
 
-    else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "Family") {
+    else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" || ctx.request.body.referralData.role == "Family" || ctx.request.body.referralData.role == "family") {
         //console.log(ctx.request.body.referralData)
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role != "Family" ? ctx.request.body.referralData.role : "Family / friends",
