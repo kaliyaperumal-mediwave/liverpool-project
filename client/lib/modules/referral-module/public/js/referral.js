@@ -82,66 +82,80 @@ $(document).ready(function () {
                 { id: '33cd1600-037f-45d6-a226-1d093d821cb5', value: 'Obsessive behaviour or thoughts' },
                 { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Loss of periods' },
             ],
+
+            subDataForreasonForReferralList: {
+                trouble_concentrating: "",
+                feel_nervous: "",
+                trouble_socialising: "",
+                bullying: "",
+                hard_to_control: "",
+                // sad_unhappy: {
+                //     self_harmed: "",
+                //     last_
+                // }
+
+            },
             reasonForReferralList: [
-                { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating' },
-                { id: 'ac1d34e8-5443-4286-8be2-c964430356c0', value: 'Feeling nervous or on edge', },
-                { id: 'e22e6ab1-9b56-490d-8afd-6fcce1969989', value: 'Trouble socialising' },
-                { id: '01386494-4f30-4bc5-907d-1d77b5b59540', value: 'Bullying' },
-                { id: '864dc606-6954-4855-ad30-a923c1214b01', value: 'Find it hard to control myself' },
-                { id: 'e2e9e23c-7802-4e5b-959e-438a612516ec', value: 'Feeling sad, unhappy or hopeless' },
-                { id: 'e647a2a8-3240-46cb-8c89-6376e73db296', value: 'Trouble reading and writing' },
-                { id: '22b1ac46-71c2-460f-93e3-f672ca73116c', value: 'Drinking and drugs' },
-                { id: 'ac03479d-ac0f-4977-a431-d8a350b4d254', value: 'Feeling clumsy and uncoordinated' },
-                { id: '2a51c85a-8bc6-4107-bc5a-e76d68fb6be6', value: 'Issues with food, diet or eating' },
-                { id: '64740f8f-70c1-4cc6-9222-3f56880a426b', value: 'Problems with family' },
-                { id: 'ea72e4b5-f325-41c6-9958-116aa8780a4d', value: 'Problems with self identity' },
-                { id: 'cb57d9e4-43a4-469f-9bb7-5949e7b686da', value: 'Compulsive behaviour' },
-                { id: 'bb60f501-a346-44fd-860c-3a815ce4ca73', value: 'Panic attacks' },
-                { id: '6b4eb776-4287-4296-ab2c-7599939e1c5b', value: 'Feeling scared or anxious' },
-                { id: '7a95930e-db58-4bbd-99c8-842dd965c1be', value: 'Seeing or hearing things' },
-                { id: '12837896-732c-4a98-be65-f8213728ab73', value: 'Had a traumatic experience' },
-                { id: '21eaed08-af51-4115-b6c0-e376eedd9a92', value: 'Feeling that I want to hurt myself' },
-                { id: '42496c57-6c92-45f1-97d9-ed763843b53b', value: 'Self-harming' },
-                { id: 'f3834f7c-b227-4069-af8a-ee6703bbf393', value: 'Pulling hair out' },
-                { id: 'f053d058-678f-4182-aaf7-0b95fedbf1db', value: 'Trouble sleeping' },
-                { id: '9c4fa623-f374-49d6-b774-dfda8a1a9f33', value: 'Feeling stressed' },
-                { id: '5bea946d-5632-40ef-8d15-523aeb5b747e', value: 'Feeling that I don’t want to live' },
-                { id: 'a1373df9-a335-46f5-a530-53b157b64d58', value: 'Uncontrolled movements' },
-                { id: 'ba1df932-b6af-4971-b61f-a57895506548', value: 'Wetting or soiling myself' },
-                { id: '97caac9e-057f-4df2-8a94-a972e6cae5b3', value: 'Low self esteem' },
-                { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself' },
+                { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating', modelKey: 'trouble_concentrating' },
+                { id: 'ac1d34e8-5443-4286-8be2-c964430356c0', value: 'Feeling nervous or on edge', modelKey: 'feel_nervous' },
+                { id: 'e22e6ab1-9b56-490d-8afd-6fcce1969989', value: 'Trouble socialising', modelKey: 'trouble_socialising' },
+                { id: '01386494-4f30-4bc5-907d-1d77b5b59540', value: 'Bullying', modelKey: 'bullying' },
+                { id: '864dc606-6954-4855-ad30-a923c1214b01', value: 'Find it hard to control myself', modelKey: 'hard_to_control' },
+                { id: 'e2e9e23c-7802-4e5b-959e-438a612516ec', value: 'Feeling sad, unhappy or hopeless', modelKey: 'sad_unhappy' },
+                { id: 'e647a2a8-3240-46cb-8c89-6376e73db296', value: 'Trouble reading and writing', modelKey: 'trouble_read' },
+                { id: '22b1ac46-71c2-460f-93e3-f672ca73116c', value: 'Drinking and drugs', modelKey: 'drinking_drugs' },
+                { id: 'ac03479d-ac0f-4977-a431-d8a350b4d254', value: 'Feeling clumsy and uncoordinated', modelKey: 'clumsy_uncord' },
+                { id: '2a51c85a-8bc6-4107-bc5a-e76d68fb6be6', value: 'Issues with food, diet or eating', modelKey: 'issues_food_diet' },
+                { id: '64740f8f-70c1-4cc6-9222-3f56880a426b', value: 'Problems with family', modelKey: 'prob_with_family' },
+                { id: 'ea72e4b5-f325-41c6-9958-116aa8780a4d', value: 'Problems with self identity', modelKey: 'prob_self_identity' },
+                { id: 'cb57d9e4-43a4-469f-9bb7-5949e7b686da', value: 'Compulsive behaviour', modelKey: 'compulsive_behaviour' },
+                { id: 'bb60f501-a346-44fd-860c-3a815ce4ca73', value: 'Panic attacks', modelKey: 'panic_attack' },
+                { id: '6b4eb776-4287-4296-ab2c-7599939e1c5b', value: 'Feeling scared or anxious', modelKey: 'sacred_anxious' },
+                { id: '7a95930e-db58-4bbd-99c8-842dd965c1be', value: 'Seeing or hearing things', modelKey: 'see_hear_things' },
+                { id: '12837896-732c-4a98-be65-f8213728ab73', value: 'Had a traumatic experience', modelKey: 'traumatic_experience' },
+                { id: '21eaed08-af51-4115-b6c0-e376eedd9a92', value: 'Feeling that I want to hurt myself', modelKey: 'hurt_myself' },
+                { id: '42496c57-6c92-45f1-97d9-ed763843b53b', value: 'Self-harming', modelKey: 'self_harming' },
+                { id: 'f3834f7c-b227-4069-af8a-ee6703bbf393', value: 'Pulling hair out', modelKey: 'pullying_hair' },
+                { id: 'f053d058-678f-4182-aaf7-0b95fedbf1db', value: 'Trouble sleeping', modelKey: 'trouble_sleeping' },
+                { id: '9c4fa623-f374-49d6-b774-dfda8a1a9f33', value: 'Feeling stressed', modelKey: 'feel_stressed' },
+                { id: '5bea946d-5632-40ef-8d15-523aeb5b747e', value: 'Feeling that I don’t want to live', modelKey: 'unwant_to_live' },
+                { id: 'a1373df9-a335-46f5-a530-53b157b64d58', value: 'Uncontrolled movements', modelKey: 'uncontrolled_movements' },
+                { id: 'ba1df932-b6af-4971-b61f-a57895506548', value: 'Wetting or soiling myself', modelKey: 'wet_soil_myself' },
+                { id: '97caac9e-057f-4df2-8a94-a972e6cae5b3', value: 'Low self esteem', modelKey: 'low_self' },
+                { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself', modelKey: 'lack_confidence' },
 
             ],
-            reasonForReferralCopyList: [
-                { id: 'cc33ecc3-f082-4f88-9a0f-e9128d7253cf', value: 'Trouble concentrating' },
-                { id: 'fe9ae124-521a-48a0-bd5d-135590a533ea', value: 'Feeling nervous or on edge', },
-                { id: '61cfb384-859e-4577-918b-4d4a82d17bbd', value: 'Trouble socialising' },
-                { id: 'deaa6970-5eee-49c6-9aa0-79b875b6f8cc', value: 'Bullying' },
-                { id: '8ac8f99a-c19a-45c0-af4c-e8dcd9a0c1c1', value: 'Find it hard to control myself' },
-                { id: '723986a5-72f2-4b6b-81af-a5048b670c34', value: 'Feeling sad, unhappy or hopeless' },
-                { id: '2c16a95a-22b7-48dd-b5b2-6f6ab96f6353', value: 'Trouble reading and writing' },
-                { id: '12cd71b2-416b-4712-8c9f-383b63709455', value: 'Drinking and drugs' },
-                { id: '271a505c-cf25-4d9e-b8a7-c0163fca0e77', value: 'Feeling clumsy and uncoordinated' },
-                { id: 'e3879609-e6cf-4d96-9aef-63722902e250', value: 'Issues with food, diet or eating' },
-                { id: '127c4331-ac2b-4f57-a16e-20cadd8e515a', value: 'Problems with family' },
-                { id: '89588dea-0a75-4df3-92c4-37b7a38812f2', value: 'Problems with self identity' },
-                { id: '2690556e-b164-4183-aace-39b0deb290b3', value: 'Compulsive behaviour' },
-                { id: 'df4ddfce-cbb6-4809-801a-f28ae74524bd', value: 'Panic attacks' },
-                { id: 'da157fc2-0538-4e7a-a1fb-4b7c643cfaaa', value: 'Feeling scared or anxious' },
-                { id: 'a67ed3d0-ee18-4b9f-bb2d-06d979fe22d1', value: 'Seeing or hearing things' },
-                { id: '9166f3e1-c522-4ddb-abd8-321365627b23', value: 'Had a traumatic experience' },
-                { id: '275ec9ca-8b29-404a-86d8-31faf9178516', value: 'Feeling that I want to hurt myself' },
-                { id: '3b2edbcf-3736-4db8-8585-424c38878ef5', value: 'Self-harming' },
-                { id: 'ccaa1f4e-eee1-47f2-99eb-83a163e5fb2b', value: 'Pulling hair out' },
-                { id: 'a1e9cbf0-a438-4257-abc9-03c46bcb049d', value: 'Trouble sleeping' },
-                { id: '243942fb-ad41-46d8-9271-45187e38bb7a', value: 'Feeling stressed' },
-                { id: '07a87460-f4f3-44e6-99e6-d4c2773cff11', value: 'Feeling that I don’t want to live' },
-                { id: 'a13f73d4-2033-49da-96fb-2ff6fc170f5c', value: 'Uncontrolled movements' },
-                { id: '16a98d68-8d81-4830-b2d9-656e8fe08e3f', value: 'Wetting or soiling myself' },
-                { id: '1b13cb77-7403-4b6f-bf40-4549af79deea', value: 'Low self esteem' },
-                { id: 'f8a1ca04-c60e-407e-ad6a-afbcc746e6a1', value: 'Lacking confidence in myself' },
+            subQuestionOfReason: [],
+            // reasonForReferralCopyList: [
+            //     { id: 'cc33ecc3-f082-4f88-9a0f-e9128d7253cf', value: 'Trouble concentrating' },
+            //     { id: 'fe9ae124-521a-48a0-bd5d-135590a533ea', value: 'Feeling nervous or on edge', },
+            //     { id: '61cfb384-859e-4577-918b-4d4a82d17bbd', value: 'Trouble socialising' },
+            //     { id: 'deaa6970-5eee-49c6-9aa0-79b875b6f8cc', value: 'Bullying' },
+            //     { id: '8ac8f99a-c19a-45c0-af4c-e8dcd9a0c1c1', value: 'Find it hard to control myself' },
+            //     { id: '723986a5-72f2-4b6b-81af-a5048b670c34', value: 'Feeling sad, unhappy or hopeless' },
+            //     { id: '2c16a95a-22b7-48dd-b5b2-6f6ab96f6353', value: 'Trouble reading and writing' },
+            //     { id: '12cd71b2-416b-4712-8c9f-383b63709455', value: 'Drinking and drugs' },
+            //     { id: '271a505c-cf25-4d9e-b8a7-c0163fca0e77', value: 'Feeling clumsy and uncoordinated' },
+            //     { id: 'e3879609-e6cf-4d96-9aef-63722902e250', value: 'Issues with food, diet or eating' },
+            //     { id: '127c4331-ac2b-4f57-a16e-20cadd8e515a', value: 'Problems with family' },
+            //     { id: '89588dea-0a75-4df3-92c4-37b7a38812f2', value: 'Problems with self identity' },
+            //     { id: '2690556e-b164-4183-aace-39b0deb290b3', value: 'Compulsive behaviour' },
+            //     { id: 'df4ddfce-cbb6-4809-801a-f28ae74524bd', value: 'Panic attacks' },
+            //     { id: 'da157fc2-0538-4e7a-a1fb-4b7c643cfaaa', value: 'Feeling scared or anxious' },
+            //     { id: 'a67ed3d0-ee18-4b9f-bb2d-06d979fe22d1', value: 'Seeing or hearing things' },
+            //     { id: '9166f3e1-c522-4ddb-abd8-321365627b23', value: 'Had a traumatic experience' },
+            //     { id: '275ec9ca-8b29-404a-86d8-31faf9178516', value: 'Feeling that I want to hurt myself' },
+            //     { id: '3b2edbcf-3736-4db8-8585-424c38878ef5', value: 'Self-harming' },
+            //     { id: 'ccaa1f4e-eee1-47f2-99eb-83a163e5fb2b', value: 'Pulling hair out' },
+            //     { id: 'a1e9cbf0-a438-4257-abc9-03c46bcb049d', value: 'Trouble sleeping' },
+            //     { id: '243942fb-ad41-46d8-9271-45187e38bb7a', value: 'Feeling stressed' },
+            //     { id: '07a87460-f4f3-44e6-99e6-d4c2773cff11', value: 'Feeling that I don’t want to live' },
+            //     { id: 'a13f73d4-2033-49da-96fb-2ff6fc170f5c', value: 'Uncontrolled movements' },
+            //     { id: '16a98d68-8d81-4830-b2d9-656e8fe08e3f', value: 'Wetting or soiling myself' },
+            //     { id: '1b13cb77-7403-4b6f-bf40-4549af79deea', value: 'Low self esteem' },
+            //     { id: 'f8a1ca04-c60e-407e-ad6a-afbcc746e6a1', value: 'Lacking confidence in myself' },
 
-            ],
+            // ],
             listOfAvailableService: [
                 { id: '3346efa5-661f-4112-9caf-1fa12c98504e', value: 'Advanced Solutions' },
                 { id: '45d6204e-c1e1-46c1-8168-60ea04c70390', value: 'ADHD Foundation' },
@@ -193,7 +207,17 @@ $(document).ready(function () {
         methods: {
 
             //Options changing logic
-            onOptionChange: function (event) {
+            onOptionChange: function (event, data) {
+                if (data) {
+                    if (event.target.checked) {
+                        this.subQuestionOfReason.push(data)
+                    } else {
+                        this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
+                            return i.id != data.id;
+                        });
+                        console.log(this.subQuestionOfReason);
+                    }
+                }
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
