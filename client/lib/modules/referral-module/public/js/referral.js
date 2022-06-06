@@ -83,46 +83,82 @@ $(document).ready(function () {
                 { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Loss of periods' },
             ],
 
-            subDataForreasonForReferralList: {
+            subDataForMakingReferral: {
                 trouble_concentrating: "",
                 feel_nervous: "",
                 trouble_socialising: "",
                 bullying: "",
                 hard_to_control: "",
-                // sad_unhappy: {
-                //     self_harmed: "",
-                //     last_
-                // }
+                sad_unhappy: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                trouble_read: "",
+                drinking_drugs: "",
+                clumsy_uncoordinated: "",
+                issues_food_diet: "",
+                problem_with_family: "",
+                problem_self_identity: "",
+                compulsive_behaviour: "",
+                panic_attack: "",
+                scared_anxious: "",
+                seeing_hearing_things: "",
+                traumatic_experience: "",
+                hurt_myself: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                self_harming: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
 
+                pullying_hair: "",
+                trouble_sleeping: "",
+                feel_stressed: "",
+                unwant_to_live: "",
+                uncontrolled_movements: "",
+                wetting_soiling_myself: "",
+                low_self_esteem: "",
+                lack_confidence: ""
             },
             reasonForReferralList: [
-                { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating', modelKey: 'trouble_concentrating' },
-                { id: 'ac1d34e8-5443-4286-8be2-c964430356c0', value: 'Feeling nervous or on edge', modelKey: 'feel_nervous' },
-                { id: 'e22e6ab1-9b56-490d-8afd-6fcce1969989', value: 'Trouble socialising', modelKey: 'trouble_socialising' },
-                { id: '01386494-4f30-4bc5-907d-1d77b5b59540', value: 'Bullying', modelKey: 'bullying' },
-                { id: '864dc606-6954-4855-ad30-a923c1214b01', value: 'Find it hard to control myself', modelKey: 'hard_to_control' },
-                { id: 'e2e9e23c-7802-4e5b-959e-438a612516ec', value: 'Feeling sad, unhappy or hopeless', modelKey: 'sad_unhappy' },
-                { id: 'e647a2a8-3240-46cb-8c89-6376e73db296', value: 'Trouble reading and writing', modelKey: 'trouble_read' },
-                { id: '22b1ac46-71c2-460f-93e3-f672ca73116c', value: 'Drinking and drugs', modelKey: 'drinking_drugs' },
-                { id: 'ac03479d-ac0f-4977-a431-d8a350b4d254', value: 'Feeling clumsy and uncoordinated', modelKey: 'clumsy_uncord' },
-                { id: '2a51c85a-8bc6-4107-bc5a-e76d68fb6be6', value: 'Issues with food, diet or eating', modelKey: 'issues_food_diet' },
-                { id: '64740f8f-70c1-4cc6-9222-3f56880a426b', value: 'Problems with family', modelKey: 'prob_with_family' },
-                { id: 'ea72e4b5-f325-41c6-9958-116aa8780a4d', value: 'Problems with self identity', modelKey: 'prob_self_identity' },
-                { id: 'cb57d9e4-43a4-469f-9bb7-5949e7b686da', value: 'Compulsive behaviour', modelKey: 'compulsive_behaviour' },
-                { id: 'bb60f501-a346-44fd-860c-3a815ce4ca73', value: 'Panic attacks', modelKey: 'panic_attack' },
-                { id: '6b4eb776-4287-4296-ab2c-7599939e1c5b', value: 'Feeling scared or anxious', modelKey: 'sacred_anxious' },
-                { id: '7a95930e-db58-4bbd-99c8-842dd965c1be', value: 'Seeing or hearing things', modelKey: 'see_hear_things' },
-                { id: '12837896-732c-4a98-be65-f8213728ab73', value: 'Had a traumatic experience', modelKey: 'traumatic_experience' },
-                { id: '21eaed08-af51-4115-b6c0-e376eedd9a92', value: 'Feeling that I want to hurt myself', modelKey: 'hurt_myself' },
-                { id: '42496c57-6c92-45f1-97d9-ed763843b53b', value: 'Self-harming', modelKey: 'self_harming' },
-                { id: 'f3834f7c-b227-4069-af8a-ee6703bbf393', value: 'Pulling hair out', modelKey: 'pullying_hair' },
-                { id: 'f053d058-678f-4182-aaf7-0b95fedbf1db', value: 'Trouble sleeping', modelKey: 'trouble_sleeping' },
-                { id: '9c4fa623-f374-49d6-b774-dfda8a1a9f33', value: 'Feeling stressed', modelKey: 'feel_stressed' },
-                { id: '5bea946d-5632-40ef-8d15-523aeb5b747e', value: 'Feeling that I don’t want to live', modelKey: 'unwant_to_live' },
-                { id: 'a1373df9-a335-46f5-a530-53b157b64d58', value: 'Uncontrolled movements', modelKey: 'uncontrolled_movements' },
-                { id: 'ba1df932-b6af-4971-b61f-a57895506548', value: 'Wetting or soiling myself', modelKey: 'wet_soil_myself' },
-                { id: '97caac9e-057f-4df2-8a94-a972e6cae5b3', value: 'Low self esteem', modelKey: 'low_self' },
-                { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself', modelKey: 'lack_confidence' },
+                { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating', modelKey: 'trouble_concentrating', hasMultiLevel: false },
+                { id: 'ac1d34e8-5443-4286-8be2-c964430356c0', value: 'Feeling nervous or on edge', modelKey: 'feel_nervous', hasMultiLevel: false },
+                { id: 'e22e6ab1-9b56-490d-8afd-6fcce1969989', value: 'Trouble socialising', modelKey: 'trouble_socialising', hasMultiLevel: false },
+                { id: '01386494-4f30-4bc5-907d-1d77b5b59540', value: 'Bullying', modelKey: 'bullying', hasMultiLevel: false },
+                { id: '864dc606-6954-4855-ad30-a923c1214b01', value: 'Find it hard to control myself', modelKey: 'hard_to_control', hasMultiLevel: false },
+                { id: 'e2e9e23c-7802-4e5b-959e-438a612516ec', value: 'Feeling sad, unhappy or hopeless', modelKey: 'sad_unhappy', hasMultiLevel: true, },
+                { id: 'e647a2a8-3240-46cb-8c89-6376e73db296', value: 'Trouble reading and writing', modelKey: 'trouble_read', hasMultiLevel: false },
+                { id: '22b1ac46-71c2-460f-93e3-f672ca73116c', value: 'Drinking and drugs', modelKey: 'drinking_drugs', hasMultiLevel: false },
+                { id: 'ac03479d-ac0f-4977-a431-d8a350b4d254', value: 'Feeling clumsy and uncoordinated', modelKey: 'clumsy_uncoordinated', hasMultiLevel: false },
+                { id: '2a51c85a-8bc6-4107-bc5a-e76d68fb6be6', value: 'Issues with food, diet or eating', modelKey: 'issues_food_diet', hasMultiLevel: false },
+                { id: '64740f8f-70c1-4cc6-9222-3f56880a426b', value: 'Problems with family', modelKey: 'problem_with_family', hasMultiLevel: false },
+                { id: 'ea72e4b5-f325-41c6-9958-116aa8780a4d', value: 'Problems with self identity', modelKey: 'problem_self_identity', hasMultiLevel: false },
+                { id: 'cb57d9e4-43a4-469f-9bb7-5949e7b686da', value: 'Compulsive behaviour', modelKey: 'compulsive_behaviour', hasMultiLevel: false },
+                { id: 'bb60f501-a346-44fd-860c-3a815ce4ca73', value: 'Panic attacks', modelKey: 'panic_attack', hasMultiLevel: false },
+                { id: '6b4eb776-4287-4296-ab2c-7599939e1c5b', value: 'Feeling scared or anxious', modelKey: 'scared_anxious', hasMultiLevel: false },
+                { id: '7a95930e-db58-4bbd-99c8-842dd965c1be', value: 'Seeing or hearing things', modelKey: 'seeing_hearing_things', hasMultiLevel: false },
+                { id: '12837896-732c-4a98-be65-f8213728ab73', value: 'Had a traumatic experience', modelKey: 'traumatic_experience', hasMultiLevel: false },
+                { id: '21eaed08-af51-4115-b6c0-e376eedd9a92', value: 'Feeling that I want to hurt myself', modelKey: 'hurt_myself', hasMultiLevel: true },
+                { id: '42496c57-6c92-45f1-97d9-ed763843b53b', value: 'Self-harming', modelKey: 'self_harming', hasMultiLevel: true },
+                { id: 'f3834f7c-b227-4069-af8a-ee6703bbf393', value: 'Pulling hair out', modelKey: 'pullying_hair', hasMultiLevel: false },
+                { id: 'f053d058-678f-4182-aaf7-0b95fedbf1db', value: 'Trouble sleeping', modelKey: 'trouble_sleeping', hasMultiLevel: false },
+                { id: '9c4fa623-f374-49d6-b774-dfda8a1a9f33', value: 'Feeling stressed', modelKey: 'feel_stressed', hasMultiLevel: false },
+                { id: '5bea946d-5632-40ef-8d15-523aeb5b747e', value: 'Feeling that I don’t want to live', modelKey: 'unwant_to_live', hasMultiLevel: false },
+                { id: 'a1373df9-a335-46f5-a530-53b157b64d58', value: 'Uncontrolled movements', modelKey: 'uncontrolled_movements', hasMultiLevel: false },
+                { id: 'ba1df932-b6af-4971-b61f-a57895506548', value: 'Wetting or soiling myself', modelKey: 'wetting_soiling_myself', hasMultiLevel: false },
+                { id: '97caac9e-057f-4df2-8a94-a972e6cae5b3', value: 'Low self esteem', modelKey: 'low_self_esteem', hasMultiLevel: false },
+                { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself', modelKey: 'lack_confidence', hasMultiLevel: false },
 
             ],
             subQuestionOfReason: [],
@@ -217,6 +253,19 @@ $(document).ready(function () {
                         });
                         console.log(this.subQuestionOfReason);
                     }
+
+                    if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
+                        this.subDataForMakingReferral[data.modelKey] = "";
+                    } else if ((typeof (this.subDataForMakingReferral[data.modelKey]) == "object")) {
+                        this.subDataForMakingReferral[data.modelKey]["ans"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["last_harmed"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["more_details"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["think_about_self_harming"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["more_about_self_harming"] = "";
+
+                    }
+
+
                 }
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
@@ -277,6 +326,17 @@ $(document).ready(function () {
                         resetValues(event.target.form, this, 'referralData');
                     }
                 }
+            },
+
+            //reset dependent questions
+            resetDependentQuestion: function (subData) {
+                debugger
+                console.log(subData);
+                // this.subDataForMakingReferral[subData.modelKey]["ans"] = "";
+                this.subDataForMakingReferral[subData.modelKey]["last_harmed"] = "";
+                this.subDataForMakingReferral[subData.modelKey]["more_details"] = "";
+                this.subDataForMakingReferral[subData.modelKey]["think_about_self_harming"] = "";
+                this.subDataForMakingReferral[subData.modelKey]["more_about_self_harming"] = "";
             },
 
             //Getting values from Other Input box and logic
@@ -365,7 +425,7 @@ $(document).ready(function () {
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
-                    this.scrollToInvalidInput();
+                    scrollToInvalidInput();
                     return false;
                 }
 
@@ -426,6 +486,13 @@ $(document).ready(function () {
                 //     }
 
                 // }
+            },
+
+            //Function to trim space entered
+            trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
+                debugger
+                preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
+
             },
 
             showMoreOrLessList: function (event) {

@@ -310,19 +310,103 @@
                 <div v-if="subQuestionOfReason.length"
                     class="px-4 pt-3 pb-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div v-for="(item, index) in subQuestionOfReason" :key="index">
-                        <fieldset class="scheduler-border">
+
+                        <fieldset v-if="!item.hasMultiLevel" class="scheduler-border">
                             <legend class="scheduler-border question-font px-2">{{item.value}}:</legend>
                             <div class="form-group py-2 m-0">
-                                <label :for="item.modelKey" class="question-font">Please can you give us some more detail so we can make sure we get you the right support </label>
+                                <label :for="item.modelKey" class="question-font">Please can you give us some more
+                                    detail so we can make sure we get you the right support </label>
                                 <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
-                                    v-model="item.modelKey" rows="4"></textarea>
-                                <!-- <div class="text-validation invalid-feedback d-none" id="mrk1"
-                                    v-bind:class="{ 'd-block':(isFormSubmitted && charLimitScenerio1.length >950),'invalid-fields': charLimitScenerio1.length >950}">
-                                    You have reached the maximum character limit.
-                                </div> -->
+                                    v-model="subDataForMakingReferral[item.modelKey]" rows="4"></textarea>
+                            </div>
+                        </fieldset>
+
+                        <fieldset v-if="item.hasMultiLevel" class="scheduler-border">
+                            <legend class="scheduler-border question-font px-2">{{item.value}}:</legend>
+
+                            <div>
+                                <p class="question-font m-0">Have you ever self harmed</p>
+                                <div class="form-check pt-3 pb-1 pl-0">
+                                    <input class="form-check-input" type="radio"
+                                        v-model="subDataForMakingReferral[item.modelKey]['ans']" :name="item.modelKey"
+                                        @change="resetDependentQuestion(item)" :id="item.modelKey + 'Yes'" value="yes">
+                                    <label class="form-check-label option-font d-flex align-items-center"
+                                        :for="item.modelKey + 'Yes'">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check py-2 pl-0">
+                                    <input class="form-check-input" type="radio"
+                                        v-model="subDataForMakingReferral[item.modelKey]['ans']" :name="item.modelKey"
+                                        @change="resetDependentQuestion(item)" :id="item.modelKey + 'No'" value="no">
+                                    <label class="form-check-label option-font d-flex align-items-center"
+                                        :for="item.modelKey + 'No'">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey +'lastHarm'" class="question-font">When did you last self
+                                        harm?</label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'lastHarm'"
+                                        v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')"></textarea>
+                                </div>
+
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey+'more_details'" class="question-font">Please give us more
+                                        details
+                                        <b>(optional)</b> </label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'more_details'"
+                                        v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'more_details')"></textarea>
+                                </div>
+                            </div>
+
+                            <div
+                                v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
+
+                                <div class="form-group py-2 mt-0 mb-2">
+                                    <label class="question-font">How often do you think about self harming?
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="plain-select">
+                                            <select class="custom-select form-control input-bg-form-control"
+                                                v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
+                                                name="thinkAbout">
+                                                <option class='option-text' value="" disabled selected>
+                                                    Select option
+                                                </option>
+                                                <option value="Never">Never</option>
+                                                <option value="Occasionally">Occasionally</option>
+                                                <option value="Often">Often</option>
+                                                <option value="Always">Always</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <!-- <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childNameTitle),'invalid-fields':!aboutObj.childNameTitle }">
+                                        You must provide an answer to this question to continue.
+                                    </div> -->
+                                </div>
+
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey+'ProvideBestSupport'" class="question-font">Please give a
+                                        bit more details so
+                                        we can work out what support is best for you</label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'ProvideBestSupport'" rows="4"
+                                        v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'more_about_self_harming')"></textarea>
+                                </div>
                             </div>
 
                         </fieldset>
+
                     </div>
                 </div>
 
