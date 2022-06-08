@@ -318,6 +318,11 @@
                                     detail so we can make sure we get you the right support </label>
                                 <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
                                     v-model="subDataForMakingReferral[item.modelKey]" rows="4"></textarea>
+
+                                <div class="text-validation invalid-feedback d-none" id="mrk1"
+                                    v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]),'invalid-fields': !subDataForMakingReferral[item.modelKey]}">
+                                    You have reached the maximum character limit.
+                                </div>
                             </div>
                         </fieldset>
 
