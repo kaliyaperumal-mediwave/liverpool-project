@@ -456,21 +456,22 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
+                payload.referralData.subDataForMakingReferral = [{options:"sample",description:"sample1"},{options:"sample",description:"sample1"}]
                 var responseData = apiCallPost('post', '/saveYoungReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "/young-referral/review", this.userId, this.userRole);
+                    // location.href = redirectUrl(location.href, "/young-referral/review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/young-referral/review";
+                            // location.href = "/young-referral/review";
                         }
                         else {
                             var url = location.href;
-                            location.href = "/young-referral/review?" + url.substring(url.indexOf("?") + 1);
+                            // location.href = "/young-referral/review?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        location.href = "/young-referral/review";
+                        // location.href = "/young-referral/review";
                     }
                     this.storeDeleteData = null;
                 } else {
