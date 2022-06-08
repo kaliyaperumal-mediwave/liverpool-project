@@ -561,23 +561,22 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                console.log(payload,"payload");
-                return
+                payload.referralData.subDataForMakingReferral = [{options:"sample",description:"sample1"},{options:"sample",description:"sample1"}]
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
                     location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/review";
+                            // location.href = "/review";
                         }
                         else {
                             var url = location.href;
-                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                            // location.href = "/review?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        location.href = "/review";
+                        // location.href = "/review";
                     }
                     this.storeDeleteData = null;
                 } else {
