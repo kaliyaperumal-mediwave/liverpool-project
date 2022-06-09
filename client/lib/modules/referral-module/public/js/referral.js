@@ -561,8 +561,7 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                console.log(payload,"payload");
-                return
+                payload.referralData.subDataForMakingReferral = [{options:"test family",description:"sample family"},{options:"sample",description:"sample1"}]
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
