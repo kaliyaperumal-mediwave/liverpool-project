@@ -787,7 +787,7 @@
 
                 <!-- Dynamic Toaster start Scenario 1-->
                 <div
-                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -815,7 +815,7 @@
 
                 <!-- Dynamic Toaster start Scenario 2-->
                 <div
-                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -841,7 +841,7 @@
 
                 <!-- Dynamic Toaster start Scenario 3-->
                 <div
-                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
