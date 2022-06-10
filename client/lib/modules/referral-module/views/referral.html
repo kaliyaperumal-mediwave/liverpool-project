@@ -319,9 +319,9 @@
                                 <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
                                     v-model="subDataForMakingReferral[item.modelKey]" rows="4"></textarea>
 
-                                <div class="text-validation invalid-feedback d-none" id="mrk1"
+                                <div class="text-validation invalid-feedback d-none"
                                     v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]),'invalid-fields': !subDataForMakingReferral[item.modelKey]}">
-                                    You have reached the maximum character limit.
+                                    You must provide an answer to this question to continue.
                                 </div>
                             </div>
                         </fieldset>
@@ -349,6 +349,12 @@
                                         No
                                     </label>
                                 </div>
+                                <p>{{subDataForMakingReferral[item.modelKey]['ans']}}</p>
+
+                                <div class="text-validation invalid-feedback d-none" v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['ans']),
+                                    'invalid-fields': !subDataForMakingReferral[item.modelKey]['ans']}">
+                                    You must provide an answer to this question to continue.
+                                </div>
                             </div>
 
                             <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
@@ -358,7 +364,13 @@
                                     <textarea class="h-112 form-control input-bg-form-control"
                                         :id="item.modelKey+'lastHarm'"
                                         v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"
-                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')"></textarea>
+                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')">
+                                    </textarea>
+                                    <div class="text-validation invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block':(isFormSubmitted && subDataForMakingReferral[item.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[item.modelKey]['last_harmed']),
+                                    'invalid-fields': subDataForMakingReferral[item.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[item.modelKey]['last_harmed']}">
+                                        You must provide an answer to this question to continue.
+                                    </div>
                                 </div>
 
                                 <div class="form-group py-2 m-0">
@@ -393,10 +405,11 @@
                                             </select>
                                         </span>
                                     </div>
-                                    <!-- <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childNameTitle),'invalid-fields':!aboutObj.childNameTitle }">
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isFormSubmitted && !subDataForMakingReferral[item.modelKey]['think_about_self_harming']),
+                                        'invalid-fields':!subDataForMakingReferral[item.modelKey]['think_about_self_harming'] }">
                                         You must provide an answer to this question to continue.
-                                    </div> -->
+                                    </div>
                                 </div>
 
                                 <div class="form-group py-2 m-0">
@@ -407,6 +420,12 @@
                                         :id="item.modelKey+'ProvideBestSupport'" rows="4"
                                         v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'more_about_self_harming')"></textarea>
+
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isFormSubmitted && !subDataForMakingReferral[item.modelKey]['more_about_self_harming']),
+                                        'invalid-fields':!subDataForMakingReferral[item.modelKey]['more_about_self_harming'] }">
+                                        You must provide an answer to this question to continue.
+                                    </div>
                                 </div>
                             </div>
 
@@ -768,7 +787,7 @@
 
                 <!-- Dynamic Toaster start Scenario 1-->
                 <div
-                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -796,7 +815,7 @@
 
                 <!-- Dynamic Toaster start Scenario 2-->
                 <div
-                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -822,7 +841,7 @@
 
                 <!-- Dynamic Toaster start Scenario 3-->
                 <div
-                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">

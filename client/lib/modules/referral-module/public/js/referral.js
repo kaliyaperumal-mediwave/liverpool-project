@@ -251,7 +251,6 @@ $(document).ready(function () {
                         this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
                             return i.id != data.id;
                         });
-                        console.log(this.subQuestionOfReason);
                     }
 
                     if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
@@ -265,8 +264,10 @@ $(document).ready(function () {
 
                     }
 
+                    console.log(this.subQuestionOfReason);
 
                 }
+
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
@@ -279,6 +280,8 @@ $(document).ready(function () {
                     });
                     resetValues(event.target.form, this, 'referralData');
                     this.reasonForReferral = [];
+                    this.resetDependentQuestionValues();
+
                 } else if (questionIdentifier == 'accessedService') {
                     resetValues(event.target.form, this, 'referralData');
                 }
@@ -287,6 +290,7 @@ $(document).ready(function () {
                         if (optionsName.otherEatingDifficulties === '') {
                             resetValues(event.target.form, this, 'referralData');
                             this.reasonForReferral = [];
+                            this.resetDependentQuestionValues();
                         }
                         // resetValues(event.target.form, this, 'referralData');
                         // this.reasonForReferral = [];
@@ -370,6 +374,7 @@ $(document).ready(function () {
                     if (!event.target.value) {
                         resetValues(event.target.form, this, 'referralData');
                         this.reasonForReferral = [];
+                        this.resetDependentQuestionValues();
                     }
                 }
             },
@@ -397,7 +402,7 @@ $(document).ready(function () {
                 var formData = this.referralData;
                 this.charLimitScenerio1 = this.referralData.otherReasonsReferral ? (this.reasonForReferral.toString() + ' ' + this.referralData.otherReasonsReferral) : "";
                 this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
-                if (formData.referralInfo) {
+                if (formData.referralInfo && this.checkValidation()) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -429,6 +434,58 @@ $(document).ready(function () {
                     return false;
                 }
 
+            },
+
+            resetDependentQuestionValues: function () {
+                this.subQuestionOfReason = [];
+                this.subDataForMakingReferral = {
+                    trouble_concentrating: "",
+                    feel_nervous: "",
+                    trouble_socialising: "",
+                    bullying: "",
+                    hard_to_control: "",
+                    sad_unhappy: {
+                        ans: "",
+                        last_harmed: "",
+                        more_details: "",
+                        think_about_self_harming: "",
+                        more_about_self_harming: ""
+                    },
+                    trouble_read: "",
+                    drinking_drugs: "",
+                    clumsy_uncoordinated: "",
+                    issues_food_diet: "",
+                    problem_with_family: "",
+                    problem_self_identity: "",
+                    compulsive_behaviour: "",
+                    panic_attack: "",
+                    scared_anxious: "",
+                    seeing_hearing_things: "",
+                    traumatic_experience: "",
+                    hurt_myself: {
+                        ans: "",
+                        last_harmed: "",
+                        more_details: "",
+                        think_about_self_harming: "",
+                        more_about_self_harming: ""
+                    },
+                    self_harming: {
+                        ans: "",
+                        last_harmed: "",
+                        more_details: "",
+                        think_about_self_harming: "",
+                        more_about_self_harming: ""
+                    },
+
+                    pullying_hair: "",
+                    trouble_sleeping: "",
+                    feel_stressed: "",
+                    unwant_to_live: "",
+                    uncontrolled_movements: "",
+                    wetting_soiling_myself: "",
+                    low_self_esteem: "",
+                    lack_confidence: ""
+                }
             },
 
             checkCharacterLength: function (ev, helperFlag) {
@@ -705,6 +762,35 @@ $(document).ready(function () {
                     }
 
                 });
+            },
+
+
+            checkValidation: function () {
+                console.log(this.subQuestionOfReason);
+                var _self = this;
+                var flag = [];
+                this.subQuestionOfReason.map(function (i) {
+                    if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "string" && _self.subDataForMakingReferral[i.modelKey]) {
+                        flag.push(true);
+                    } else if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "object" && _self.subDataForMakingReferral[i.modelKey]) {
+                        if (_self.subDataForMakingReferral[i.modelKey]["ans"] && (_self.subDataForMakingReferral[i.modelKey]["ans"] == "yes" && _self.subDataForMakingReferral[i.modelKey]["last_harmed"] && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"]) ||
+                            (_self.subDataForMakingReferral[i.modelKey]["ans"] == "no" && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"])) {
+                            flag.push(true);
+
+                        } else {
+                            flag.push(false);
+                        }
+
+                    }
+                    else {
+                        flag.push(false);
+                    }
+                });
+                var condition = flag.every(function (i) {
+                    return i;
+                })
+                console.log(condition);
+                return condition;
             },
 
             //Delete service logic
