@@ -618,26 +618,29 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                payload.referralData.subDataForMakingReferral = [{options:"test family",description:"sample family"},{options:"sample",description:"sample1"}]
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.subDataForMakingReferral)
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.subQuestionOfReason)
+                payload.referralData.subDataForMakingReferral = this.subDataForMakingReferral
+                payload.referralData.subQuestionOfReason = this.subQuestionOfReason
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                    // location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            location.href = "/review";
+                            // location.href = "/review";
                         }
                         else {
                             var url = location.href;
-                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                            //  location.href = "/review?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        location.href = "/review";
+                        // location.href = "/review";
                     }
                     this.storeDeleteData = null;
                 } else {
-                    $('#loader').hide();
+                    // $('#loader').hide();
                     //console.log('empty response')
                 }
             },
