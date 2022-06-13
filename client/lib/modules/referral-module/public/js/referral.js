@@ -385,6 +385,7 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
+                console.log("🚀 ~ file: referral.js ~ line 388 ~ successData", successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -622,21 +623,22 @@ $(document).ready(function () {
                 console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.subQuestionOfReason)
                 payload.referralData.subDataForMakingReferral = this.subDataForMakingReferral
                 payload.referralData.subQuestionOfReason = this.subQuestionOfReason
+                console.log("🚀 ~ file: referral.js ~ line 626 ~ payload", payload)
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    // location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
-                            // location.href = "/review";
+                            location.href = "/review";
                         }
                         else {
                             var url = location.href;
-                            //  location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
                         }
                     }
                     else {
-                        // location.href = "/review";
+                        location.href = "/review";
                     }
                     this.storeDeleteData = null;
                 } else {

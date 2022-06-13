@@ -1499,7 +1499,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-          referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+          referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+          referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
           //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1576,7 +1577,8 @@ exports.saveReferal = ctx => {
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
                 other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-                referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+                referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+                referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1641,7 +1643,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-          referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+          referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+          referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1716,7 +1719,8 @@ exports.saveReferal = ctx => {
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
                 other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-                referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+                referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+                referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1774,7 +1778,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-          referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+          referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+          referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1835,7 +1840,8 @@ exports.saveReferal = ctx => {
               height: ctx.request.body.referralData.height,
               weight: ctx.request.body.referralData.weight,
               other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-              referral_reason_details :  ctx.request.body.referralData.subDataForMakingReferral,
+              referral_reason_questions: ctx.request.body.referralData.subQuestionOfReason,
+              referral_reason_details: ctx.request.body.referralData.subDataForMakingReferral,
 
               // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
               // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
@@ -1975,7 +1981,7 @@ exports.fetchReview = ctx => {
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1993,7 +1999,7 @@ exports.fetchReview = ctx => {
 
           eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
           ////console.log(aboutObj)
-          
+
           const section2Obj = {
             child_id: aboutObj.id,
             child_NHS: aboutObj.child_NHS,
@@ -2084,7 +2090,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             },
           ],
           where: {
@@ -2256,7 +2262,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
             },
           ],
           where: {
@@ -2342,7 +2348,7 @@ exports.fetchReview = ctx => {
                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].parent[0].child_ethnicity_other : aboutObj[0].parent[0].child_ethnicity,
-                child_ethnicity_other:  aboutObj[0].parent[0].child_ethnicity_other,
+                child_ethnicity_other: aboutObj[0].parent[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
                 child_contact_type: aboutObj[0].parent[0].child_contact_type,
@@ -2464,7 +2470,7 @@ exports.saveReview = ctx => {
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
           ctx.query.formType = 'child'
-          ctx.query.fromReferralPage=true;
+          ctx.query.fromReferralPage = true;
           // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
@@ -2568,7 +2574,7 @@ exports.updateAboutInfo = ctx => {
     child_contact_number: ctx.request.body.section2Data.child_contact_number,
     child_contact_type: ctx.request.body.section2Data.child_contact_type,
     child_email: ctx.request.body.section2Data.child_email,
-   // child_ethnicity: ctx.request.body.section2Data.child_ethnicity,
+    // child_ethnicity: ctx.request.body.section2Data.child_ethnicity,
     child_gender: ctx.request.body.section2Data.child_gender,
 
     child_gender_birth: ctx.request.body.section2Data.child_gender_birth,
@@ -2612,7 +2618,7 @@ exports.updateAboutInfo = ctx => {
           where: {
             id: ctx.request.body.section2Data.child_id,
           },
-          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity','child_ethnicity_other', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode', 'referral_mode']
+          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_ethnicity_other', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode', 'referral_mode']
         }).then((childResult) => {
 
 
@@ -3231,15 +3237,15 @@ exports.getSavedRes = ctx => {
   }).then((userData) => {
     //console.log(userData.referral_reason)
     var reasonArray = [];
-    
+
     userData.referral_reason.map((resonObj) => {
-        reasonArray = reasonArray.concat(resonObj.reason_for_referral)
-      });
-    
+      reasonArray = reasonArray.concat(resonObj.reason_for_referral)
+    });
+
     reasonArray = reasonArray.filter(function (item, index, inputArray) {
       return inputArray.indexOf(item) == index;
     });
-  
+
     ctx.res.ok({
       data: {
         reasonArray
