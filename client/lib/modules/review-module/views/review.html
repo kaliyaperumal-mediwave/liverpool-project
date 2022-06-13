@@ -1480,6 +1480,28 @@
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
                                         v-model="section4Data.referral_type" id="supportNeedsSect5">
                                 </div>
+                                <!-- <div class="py-1 py-md-2">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="supportNeedsSect5">
+                                            Support needs:
+                                        </label>
+                                        <div style="display: flex; gap: 50px;">
+                                        <input class="form-control col-md-0 col-lg-0 col-xl-6 col-m-6" readonly type="text"
+                                            v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                        
+                                        <input class="form-control col-md-0 col-lg-0 col-xl-6 col-m-6" readonly type="text"
+                                            v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                            
+                                        </div> -->
+                                        <!-- <div style="gap: 50px; display: flex;">
+                                            <input class="form-control col-md-0 col-lg-0 col-xl-6 col-m-6 " readonly type="text"
+                                                v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                            
+                                            <input class="form-control col-md-0 col-lg-0 col-xl-6 col-m-6" readonly type="text"
+                                                v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                            </div>
+                                    </div> -->
+                                    
 
                                 <div class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="covid5">
@@ -1513,6 +1535,58 @@
                                     </div>
                                 </div>
 
+////////                                    
+                                <div>
+                                        <div class="pt-3 pb-1 m-0" v-for="(item, index) in dummyArray":key="index">
+                                        <div v-if = "item.isMultiLevel" class = "col-md-6 col-lg-6 col-xl-6 col-11 px-0">
+                                            <div class = "row pb-2">
+                                                <div class="col md-3">
+                                                 <label class = "question-font"><b> {{ item.qName }}</b></label>
+                                                 <textarea
+                                                 class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                                 type="text" readonly v-model="subDataForMakingReferral[item.modelName]"
+                                                 rows = "3"
+                                                 >
+                                             </textarea>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <div class = "row pb-2">
+                                                    <div class="col md-3">
+                                                     <label class = "question-font"><b> {{ item.qName }}</b></label>
+                                                     <textarea
+                                                     class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                                     type="text" readonly v-model="subDataForMakingReferral[item.modelName]"
+                                                     rows = "3"
+                                                     >
+                                                 </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </div>
+                            </div>
+////////
+<!-- <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in dummyArray":key="index">
+<div class="row m-0 align-items-center">
+    <div>
+        <input type="checkbox" v-bind:id="item.id" class="checkLogic"
+            name="listReasonsForReferral" v-bind:value="item.qName"
+            v-model="reasonForReferral" v-bind:checked="item.isActive"
+            @change="onOptionChange($event,item)">
+        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+        </label>
+    </div>
+    <div class="set-width-calc">
+        <label class="text-label-hide option-font" v-bind:for="item.id">
+            {{ item.qName }}
+        </label>
+    </div>
+</div>
+</div>
+<p class="option-font cursor-pointer my-3 d-none" id="showMoreOrLessText"
+@click="toggleList($event)">...</p>
+</div> -->
                                 <div v-if="section4Data.food_fluid_intake">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1634,7 +1708,6 @@
                                         </small>
                                     </div>
                                 </div>
-
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
                                         Disabilities / difficulties:
@@ -1731,7 +1804,6 @@
                                 </label>
                             </div>
                         </div>
-
                         <div v-if="userRole == 'parent'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" name="child_radio" id="sendToMe" value="Me"
@@ -1818,6 +1890,32 @@
                             v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
                             You must provide an answer.
                         </div>
+                    </div>
+                </div>
+
+                <div class="dropdown-divider mx-3"></div>
+                <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                    <p class="m-0"> Would you like a copy of this referral to be sent to your email and, if provided, the parents email? By doing this the parent will receive a code and they will be able to check the status of their referral.</p>
+
+                </div>
+                <div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" name="childs_radio" id="copy_referral_yes" value="Yes" v-model="payloadData.needCopy">
+                        <label class="form-check-label option-font d-flex align-items-center" for="copy_referral_yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check pt-2 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" name="childs_radio" id="copy_referral_no" value="No" v-model="payloadData.needCopy">
+                        <label class="form-check-label option-font d-flex align-items-center"
+                            for="copy_referral_no">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="invalid-feedback d-none m-0 px-3 py-2"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
+                        You must provide an answer to this question to continue.
                     </div>
                 </div>
                 <!-- Contact preferences Start -->

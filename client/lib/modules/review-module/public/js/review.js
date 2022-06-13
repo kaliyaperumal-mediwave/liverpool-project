@@ -39,6 +39,61 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
+            subDataForMakingReferral: {
+                trouble_concentrating: "text",
+                feel_nervous: "test",
+                trouble_socialising: "",
+                bullying: "",
+                hard_to_control: "",
+                sad_unhappy: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                trouble_read: "",
+                drinking_drugs: "",
+                clumsy_uncoordinated: "",
+                issues_food_diet: "",
+                problem_with_family: "",
+                problem_self_identity: "",
+                compulsive_behaviour: "",
+                panic_attack: "",
+                scared_anxious: "",
+                seeing_hearing_things: "",
+                traumatic_experience: "",
+                hurt_myself: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                self_harming: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                pullying_hair: "",
+                trouble_sleeping: "",
+                feel_stressed: "",
+                unwant_to_live: "",
+                uncontrolled_movements: "",
+                wetting_soiling_myself: "",
+                low_self_esteem: "",
+                lack_confidence: ""
+            },
+            dummyArray :[
+                { id: '1', qName: "Trouble concentrating", modelName: "trouble_concentrating", isMultiLevel: true},
+                { id: '2', qName: "Feeling nervous or on edge", modelName: "feel_nervous", isMultiLevel: true },
+                { id: '3', qName: "Trouble socialising", modelName: "trouble_socialising", isMultiLevel: true },
+                { id: '4', qName: "Feeling sad, unhappy or hopeless", modelName: "sad_unhappy", isMultiLevel: false },
+            ],
+
+
             contact_person: '',
             allSectionData: [],
             section1Data: {},
@@ -111,6 +166,95 @@ $(document).ready(function () {
 
         },
         methods: {
+///////
+
+onOptionChange: function (event, data) {
+    if (data) {
+        if (event.target.checked) {
+            this.subQuestionOfReason.push(data)
+        } else {
+            this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
+                return i.id != data.id;
+            });
+            console.log(this.subQuestionOfReason);
+        }
+
+        if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
+            this.subDataForMakingReferral[data.modelKey] = "";
+        } else if ((typeof (this.subDataForMakingReferral[data.modelKey]) == "object")) {
+            this.subDataForMakingReferral[data.modelKey]["ans"] = "";
+            this.subDataForMakingReferral[data.modelKey]["last_harmed"] = "";
+            this.subDataForMakingReferral[data.modelKey]["more_details"] = "";
+            this.subDataForMakingReferral[data.modelKey]["think_about_self_harming"] = "";
+            this.subDataForMakingReferral[data.modelKey]["more_about_self_harming"] = "";
+
+        }
+
+
+    }
+    var questionIdentifier = event.target.name;
+    var optionsName = this.referralData;
+    if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
+        var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+        allCheckbox.map(function (input) {
+            $(input).removeAttr("data-selected")
+            var mainElem = input.parentElement.parentElement.parentElement;
+            $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
+            $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+        });
+        resetValues(event.target.form, this, 'referralData');
+        this.reasonForReferral = [];
+    } else if (questionIdentifier == 'accessedService') {
+        resetValues(event.target.form, this, 'referralData');
+    }
+    else if (questionIdentifier === 'eatingDisorder') {
+        if (!this.eatingDifficulties.length) {
+            if (optionsName.otherEatingDifficulties === '') {
+                resetValues(event.target.form, this, 'referralData');
+                this.reasonForReferral = [];
+            }
+            // resetValues(event.target.form, this, 'referralData');
+            // this.reasonForReferral = [];
+        }
+    }
+    else if (questionIdentifier === 'listReasonsForReferral') {
+        if (event.target.checked) {
+            event.currentTarget.setAttribute('data-selected', 'selected')
+        } else {
+            event.currentTarget.setAttribute('data-selected', 'unselected')
+        }
+
+        if (!this.reasonForReferral.length) {
+            $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+            if (optionsName.otherReasonsReferral === '') {
+                resetValues(event.target.form, this, 'referralData');
+                this.reasonForReferral = [];
+            }
+            $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-block').addClass('d-none');
+        } else {
+            $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-none').addClass('d-block');
+            //this.setDynamicReadyOnlyState();
+        }
+    }
+    else if (questionIdentifier === 'listService') {
+        if (event.target.checked) {
+            if (event.target.value === 'Other') {
+                this.showAddOtherService = true;
+            }
+        } else {
+            if (event.target.value === 'Other') {
+                this.showAddOtherService = false;contact_person
+                this.allAvailableService = [];
+            }
+        }
+        if (!this.accessList.length) {
+            resetValues(event.target.form, this, 'referralData');
+        }
+    }
+},
+
+/////////
+
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
@@ -270,7 +414,10 @@ $(document).ready(function () {
                         else {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
-
+                        if (!this.payloadData.needCopy) {
+                            // console.log(!this.payloadData.needCopy,'huhuhuhuhuhuh');
+                            return false
+                        } else {
                         buttonElem.setAttribute('disabled', true)
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
@@ -281,7 +428,7 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
-                                location.href = "/acknowledge";
+                                // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                                 //$('#loader').hide();
                             },
@@ -293,7 +440,7 @@ $(document).ready(function () {
                                 }
                             }
                         });
-
+                    }
                     } else {
                         buttonElem.removeAttribute('disabled')
                         return false;
@@ -326,7 +473,7 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
-                                location.href = "/acknowledge";
+                                // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                                 //$('#loader').hide();
                             },
