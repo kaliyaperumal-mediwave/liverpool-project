@@ -643,9 +643,9 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
-                    
-                    Vue.set(this, "referral_reason_questions", data.referral_reason_questions);
-                    Vue.set(this, "referral_reason_details", data.referral_reason_details);
+
+                    Vue.set(this, "referral_reason_questions", data.referral_reason_questions  ? data.referral_reason_questions : this.referral_reason_questions );
+                    Vue.set(this, "referral_reason_details", data.referral_reason_details ? data.referral_reason_details : this.referral_reason_details);
                 }
                 setTimeout(function () {
                     if (_self.reasonForReferral.length)
