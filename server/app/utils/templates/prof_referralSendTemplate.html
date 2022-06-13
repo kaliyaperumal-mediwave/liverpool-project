@@ -72,6 +72,13 @@
             line-height: 16px;
         }
 
+         .comments-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            line-height: 16px;
+            font-weight: 400;
+        }
+
         .empty {
             margin: 10px;
         }
@@ -844,6 +851,60 @@
                                                                 </div>
                                                             </div>
                                                             <%}%>
+
+
+                                                            <% if(body.section4.referral_reason_details !='' &&
+                                                            body.section4.referral_reason_details !=null ) {%>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        Main reason for making referral
+                                                                    </label>
+                                                                </div>
+
+                                                                <% if(body.section4.referral_reason_details.trouble_concentrating !='' &&
+                                                                body.section4.referral_reason_details.trouble_concentrating !=null ) {%>
+                                                                <section class="duplicate_text">
+                                                                    <div class="comments-text">
+                                                                        <strong>Trouble concentrating:</strong>
+                                                                    </div>
+                                                                    <div class="labelTitle">
+                                                                        <%= body.section4.referral_reason_details.trouble_concentrating %>
+                                                                    </div>
+                                                                </section>
+                                                                <%}%>
+
+                                                                <% if(body.section4.referral_reason_details.low_self_esteem !='' &&
+                                                                body.section4.referral_reason_details.low_self_esteem !=null ) {%>
+                                                                <section class="duplicate_text">
+                                                                    <div class="comments-text">
+                                                                        <strong> Low self esteem:</strong>
+                                                                    </div>
+                                                                    <div class="labelTitle">
+                                                                        <%= body.section4.referral_reason_details.low_self_esteem %>
+                                                                    </div>
+                                                                </section>
+                                                                <%}%>
+
+
+                                                                <!-- <% if(body.section4.referral_reason_details.sad_unhappy.ans !='' &&
+                                                                body.section4.referral_reason_details.sad_unhappy.ans !=null ) {%>
+                                                                <section>
+                                                                    <div class="comments-text">
+                                                                        <strong>Feeling sad, unhappy or hopeless</strong>
+                                                                    </div>
+
+                                                                    <div class="labelTitle">
+                                                                        <%= body.section4.referral_reason_details.low_self_esteem %>
+                                                                    </div>
+
+                                                                </section>
+                                                                <%}%> -->
+
+
+                                                            </div>
+                                                            <%}%>
+
                                                                 <% if(body.section4.referral_issues !='' &&
                                                                     body.section4.referral_issues !=null ) {%>
 
