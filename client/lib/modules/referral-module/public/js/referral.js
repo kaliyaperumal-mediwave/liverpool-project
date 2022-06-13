@@ -83,7 +83,7 @@ $(document).ready(function () {
                 { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Loss of periods' },
             ],
 
-            subDataForMakingReferral: {
+            referral_reason_details: {
                 trouble_concentrating: "",
                 feel_nervous: "",
                 trouble_socialising: "",
@@ -161,37 +161,7 @@ $(document).ready(function () {
                 { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself', modelKey: 'lack_confidence', hasMultiLevel: false },
 
             ],
-            subQuestionOfReason: [],
-            // reasonForReferralCopyList: [
-            //     { id: 'cc33ecc3-f082-4f88-9a0f-e9128d7253cf', value: 'Trouble concentrating' },
-            //     { id: 'fe9ae124-521a-48a0-bd5d-135590a533ea', value: 'Feeling nervous or on edge', },
-            //     { id: '61cfb384-859e-4577-918b-4d4a82d17bbd', value: 'Trouble socialising' },
-            //     { id: 'deaa6970-5eee-49c6-9aa0-79b875b6f8cc', value: 'Bullying' },
-            //     { id: '8ac8f99a-c19a-45c0-af4c-e8dcd9a0c1c1', value: 'Find it hard to control myself' },
-            //     { id: '723986a5-72f2-4b6b-81af-a5048b670c34', value: 'Feeling sad, unhappy or hopeless' },
-            //     { id: '2c16a95a-22b7-48dd-b5b2-6f6ab96f6353', value: 'Trouble reading and writing' },
-            //     { id: '12cd71b2-416b-4712-8c9f-383b63709455', value: 'Drinking and drugs' },
-            //     { id: '271a505c-cf25-4d9e-b8a7-c0163fca0e77', value: 'Feeling clumsy and uncoordinated' },
-            //     { id: 'e3879609-e6cf-4d96-9aef-63722902e250', value: 'Issues with food, diet or eating' },
-            //     { id: '127c4331-ac2b-4f57-a16e-20cadd8e515a', value: 'Problems with family' },
-            //     { id: '89588dea-0a75-4df3-92c4-37b7a38812f2', value: 'Problems with self identity' },
-            //     { id: '2690556e-b164-4183-aace-39b0deb290b3', value: 'Compulsive behaviour' },
-            //     { id: 'df4ddfce-cbb6-4809-801a-f28ae74524bd', value: 'Panic attacks' },
-            //     { id: 'da157fc2-0538-4e7a-a1fb-4b7c643cfaaa', value: 'Feeling scared or anxious' },
-            //     { id: 'a67ed3d0-ee18-4b9f-bb2d-06d979fe22d1', value: 'Seeing or hearing things' },
-            //     { id: '9166f3e1-c522-4ddb-abd8-321365627b23', value: 'Had a traumatic experience' },
-            //     { id: '275ec9ca-8b29-404a-86d8-31faf9178516', value: 'Feeling that I want to hurt myself' },
-            //     { id: '3b2edbcf-3736-4db8-8585-424c38878ef5', value: 'Self-harming' },
-            //     { id: 'ccaa1f4e-eee1-47f2-99eb-83a163e5fb2b', value: 'Pulling hair out' },
-            //     { id: 'a1e9cbf0-a438-4257-abc9-03c46bcb049d', value: 'Trouble sleeping' },
-            //     { id: '243942fb-ad41-46d8-9271-45187e38bb7a', value: 'Feeling stressed' },
-            //     { id: '07a87460-f4f3-44e6-99e6-d4c2773cff11', value: 'Feeling that I don’t want to live' },
-            //     { id: 'a13f73d4-2033-49da-96fb-2ff6fc170f5c', value: 'Uncontrolled movements' },
-            //     { id: '16a98d68-8d81-4830-b2d9-656e8fe08e3f', value: 'Wetting or soiling myself' },
-            //     { id: '1b13cb77-7403-4b6f-bf40-4549af79deea', value: 'Low self esteem' },
-            //     { id: 'f8a1ca04-c60e-407e-ad6a-afbcc746e6a1', value: 'Lacking confidence in myself' },
-
-            // ],
+            referral_reason_questions: [],
             listOfAvailableService: [
                 { id: '3346efa5-661f-4112-9caf-1fa12c98504e', value: 'Advanced Solutions' },
                 { id: '45d6204e-c1e1-46c1-8168-60ea04c70390', value: 'ADHD Foundation' },
@@ -246,25 +216,25 @@ $(document).ready(function () {
             onOptionChange: function (event, data) {
                 if (data) {
                     if (event.target.checked) {
-                        this.subQuestionOfReason.push(data)
+                        this.referral_reason_questions.push(data)
                     } else {
-                        this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
+                        this.referral_reason_questions = this.referral_reason_questions.filter(function (i) {
                             return i.id != data.id;
                         });
                     }
 
-                    if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
-                        this.subDataForMakingReferral[data.modelKey] = "";
-                    } else if ((typeof (this.subDataForMakingReferral[data.modelKey]) == "object")) {
-                        this.subDataForMakingReferral[data.modelKey]["ans"] = "";
-                        this.subDataForMakingReferral[data.modelKey]["last_harmed"] = "";
-                        this.subDataForMakingReferral[data.modelKey]["more_details"] = "";
-                        this.subDataForMakingReferral[data.modelKey]["think_about_self_harming"] = "";
-                        this.subDataForMakingReferral[data.modelKey]["more_about_self_harming"] = "";
+                    if (typeof (this.referral_reason_details[data.modelKey]) == "string") {
+                        this.referral_reason_details[data.modelKey] = "";
+                    } else if ((typeof (this.referral_reason_details[data.modelKey]) == "object")) {
+                        this.referral_reason_details[data.modelKey]["ans"] = "";
+                        this.referral_reason_details[data.modelKey]["last_harmed"] = "";
+                        this.referral_reason_details[data.modelKey]["more_details"] = "";
+                        this.referral_reason_details[data.modelKey]["think_about_self_harming"] = "";
+                        this.referral_reason_details[data.modelKey]["more_about_self_harming"] = "";
 
                     }
 
-                    console.log(this.subQuestionOfReason);
+                    console.log(this.referral_reason_questions);
 
                 }
 
@@ -334,13 +304,10 @@ $(document).ready(function () {
 
             //reset dependent questions
             resetDependentQuestion: function (subData) {
-                debugger
-                console.log(subData);
-                // this.subDataForMakingReferral[subData.modelKey]["ans"] = "";
-                this.subDataForMakingReferral[subData.modelKey]["last_harmed"] = "";
-                this.subDataForMakingReferral[subData.modelKey]["more_details"] = "";
-                this.subDataForMakingReferral[subData.modelKey]["think_about_self_harming"] = "";
-                this.subDataForMakingReferral[subData.modelKey]["more_about_self_harming"] = "";
+                this.referral_reason_details[subData.modelKey]["last_harmed"] = "";
+                this.referral_reason_details[subData.modelKey]["more_details"] = "";
+                this.referral_reason_details[subData.modelKey]["think_about_self_harming"] = "";
+                this.referral_reason_details[subData.modelKey]["more_about_self_harming"] = "";
             },
 
             //Getting values from Other Input box and logic
@@ -438,8 +405,8 @@ $(document).ready(function () {
             },
 
             resetDependentQuestionValues: function () {
-                this.subQuestionOfReason = [];
-                this.subDataForMakingReferral = {
+                this.referral_reason_questions = [];
+                this.referral_reason_details = {
                     trouble_concentrating: "",
                     feel_nervous: "",
                     trouble_socialising: "",
@@ -619,10 +586,11 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.subDataForMakingReferral)
-                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.subQuestionOfReason)
-                payload.referralData.subDataForMakingReferral = this.subDataForMakingReferral
-                payload.referralData.subQuestionOfReason = this.subQuestionOfReason
+                debugger
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_details)
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_questions)
+                payload.referralData.referral_reason_details = this.referral_reason_details
+                payload.referralData.referral_reason_questions = this.referral_reason_questions
                 console.log("🚀 ~ file: referral.js ~ line 626 ~ payload", payload)
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
@@ -675,6 +643,9 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
+                    
+                    Vue.set(this, "referral_reason_questions", data.referral_reason_questions);
+                    Vue.set(this, "referral_reason_details", data.referral_reason_details);
                 }
                 setTimeout(function () {
                     if (_self.reasonForReferral.length)
@@ -771,15 +742,15 @@ $(document).ready(function () {
 
 
             checkValidation: function () {
-                console.log(this.subQuestionOfReason);
+                console.log(this.referral_reason_questions);
                 var _self = this;
                 var flag = [];
-                this.subQuestionOfReason.map(function (i) {
-                    if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "string" && _self.subDataForMakingReferral[i.modelKey]) {
+                this.referral_reason_questions.map(function (i) {
+                    if (typeof (_self.referral_reason_details[i.modelKey]) == "string" && _self.referral_reason_details[i.modelKey]) {
                         flag.push(true);
-                    } else if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "object" && _self.subDataForMakingReferral[i.modelKey]) {
-                        if (_self.subDataForMakingReferral[i.modelKey]["ans"] && (_self.subDataForMakingReferral[i.modelKey]["ans"] == "yes" && _self.subDataForMakingReferral[i.modelKey]["last_harmed"] && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"]) ||
-                            (_self.subDataForMakingReferral[i.modelKey]["ans"] == "no" && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"])) {
+                    } else if (typeof (_self.referral_reason_details[i.modelKey]) == "object" && _self.referral_reason_details[i.modelKey]) {
+                        if (_self.referral_reason_details[i.modelKey]["ans"] && (_self.referral_reason_details[i.modelKey]["ans"] == "yes" && _self.referral_reason_details[i.modelKey]["last_harmed"] && _self.referral_reason_details[i.modelKey]["think_about_self_harming"] && _self.referral_reason_details[i.modelKey]["more_about_self_harming"]) ||
+                            (_self.referral_reason_details[i.modelKey]["ans"] == "no" && _self.referral_reason_details[i.modelKey]["think_about_self_harming"] && _self.referral_reason_details[i.modelKey]["more_about_self_harming"])) {
                             flag.push(true);
 
                         } else {
