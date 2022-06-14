@@ -245,28 +245,30 @@ $(document).ready(function () {
                 
                 var _self = this;
                 var flag = [];
-                this.subQuestionOfReason.map(function (i) {
-                    if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "string" && _self.subDataForMakingReferral[i.modelKey]) {
-                        flag.push(true);
-                    } else if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "object" && _self.subDataForMakingReferral[i.modelKey]) {
-                        if (_self.subDataForMakingReferral[i.modelKey]["ans"] && (_self.subDataForMakingReferral[i.modelKey]["ans"] == "yes" && _self.subDataForMakingReferral[i.modelKey]["last_harmed"] && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"]) ||
-                            (_self.subDataForMakingReferral[i.modelKey]["ans"] == "no" && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"])) {
+                if(this.subQuestionOfReason) {
+                    this.subQuestionOfReason.map(function (i) {
+                        if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "string" && _self.subDataForMakingReferral[i.modelKey]) {
                             flag.push(true);
-
-                        } else {
+                        } else if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "object" && _self.subDataForMakingReferral[i.modelKey]) {
+                            if (_self.subDataForMakingReferral[i.modelKey]["ans"] && (_self.subDataForMakingReferral[i.modelKey]["ans"] == "yes" && _self.subDataForMakingReferral[i.modelKey]["last_harmed"] && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"]) ||
+                                (_self.subDataForMakingReferral[i.modelKey]["ans"] == "no" && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"])) {
+                                flag.push(true);
+    
+                            } else {
+                                flag.push(false);
+                            }
+    
+                        }
+                        else {
                             flag.push(false);
                         }
-
-                    }
-                    else {
-                        flag.push(false);
-                    }
-                });
-                var condition = flag.every(function (i) {
-                    return i;
-                })
-               
-                return condition;
+                    });
+                    var condition = flag.every(function (i) {
+                        return i;
+                    })
+                    return condition;
+                }
+                
             },
 
             //Options changing logic

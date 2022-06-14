@@ -515,7 +515,6 @@ $(document).ready(function () {
 
             //Function to trim space entered
             trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
-                debugger
                 preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
 
             },
@@ -586,7 +585,6 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                debugger
                 console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_details)
                 console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_questions)
                 payload.referralData.referral_reason_details = this.referral_reason_details
