@@ -73,6 +73,56 @@ $(document).ready(function () {
             addMoreOrg: false,
             ageFlag: null,
 
+            subQuestionOfReason : [],
+            subDataForMakingReferral: {
+                trouble_concentrating: "",
+                feel_nervous: "",
+                trouble_socialising: "",
+                bullying: "",
+                hard_to_control: "",
+                sad_unhappy: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                trouble_read: "",
+                drinking_drugs: "",
+                clumsy_uncoordinated: "",
+                issues_food_diet: "",
+                problem_with_family: "",
+                problem_self_identity: "",
+                compulsive_behaviour: "",
+                panic_attack: "",
+                scared_anxious: "",
+                seeing_hearing_things: "",
+                traumatic_experience: "",
+                hurt_myself: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                self_harming: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+
+                pullying_hair: "",
+                trouble_sleeping: "",
+                feel_stressed: "",
+                unwant_to_live: "",
+                uncontrolled_movements: "",
+                wetting_soiling_myself: "",
+                low_self_esteem: "",
+                lack_confidence: ""
+            },
+
             //character limit helper text
             showlimitTxt1: false,
             showlimitTxt2: false,
@@ -123,7 +173,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        console.log(data)
+                     
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -131,7 +181,10 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
-
+                        _self.subQuestionOfReason = _self.section4Data.referral_reason_questions ;
+                        _self.subDataForMakingReferral = _self.section4Data.referral_reason_details ;
+                        
+                        
                         if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
                             var getObjSect2child = convertArrayToObj(_self.section2Data.child_manual_address);
                             delete getObjSect2child.id;
@@ -194,7 +247,7 @@ $(document).ready(function () {
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
                         _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
-
+                        
                         if (_self.section4Data.local_services) {
                             if (_self.section4Data.local_services.indexOf('Other') == -1) {
                                 _self.section4Data.local_services = _self.section4Data.local_services;
