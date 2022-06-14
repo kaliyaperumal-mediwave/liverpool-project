@@ -1546,7 +1546,7 @@
                                             Weight
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control    input-bg-form-control" type="text"
+                                            <input class="form-control input-bg-form-control" type="text"
                                                 placeholder="Enter weight" v-model="section4Data.weight"
                                                 id="weightSect5"
                                                 @input="onDetectChange($event,'sect4','section4Data', 'weight')">
@@ -1554,145 +1554,101 @@
                                     </div>
                                 </div>
 
-                                <div class="readOnly-class py-3 w-100 mx-0 row ">
-                                    <div class="question-font pr-2 col-12 col-md-4 pl-0">
-                                        Main reason for making referral: 
-                                    </div>
-                                    <!-- <textarea
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-start">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Main reason for making referral
+                                    </label>
+
+                                    <textarea v-if='!section4Data.referral_reason_questions'
                                         class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.reason_for_referral"
-                                        readonly>{{section4Data.reason_for_referral}}</textarea> -->
-                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        readonly>{{section4Data.reason_for_referral}}</textarea>
 
-                                            <div v-for="(item, index) in subQuestionOfReason" :key="index" >
-    
-                                               
-                                                    <div v-if="!item.hasMultiLevel" class="form-group m-0">
-                                                        <label :for="item.modelKey" class="question-font"><b>{{item.value}} </b></label>
-                                                        <textarea readonly class="h-112 form-control input-bg-form-control" :id="item.modelKey"
-                                                            v-model="subDataForMakingReferral[item.modelKey]" 
-                                                            
-                                                            >{{subDataForMakingReferral[item.modelKey]}}</textarea>
-                            
-                                                    </div>
-                                                
-                            
-                                                
-                                                   
-                            
-                                                    <div v-if="item.hasMultiLevel">
-                                                        <!-- <p class="question-font m-0">Have you ever self harmed?</p>
-                                                        <div class="form-check pt-3 pb-1 pl-0">
-                                                            <input class="form-check-input" type="radio"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" :name="item.modelKey"
-                                                                 :id="item.modelKey + 'Yes'" value="yes">
-                                                            <label class="form-check-label option-font d-flex align-items-center"
-                                                                :for="item.modelKey + 'Yes'">
-                                                                Yes
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check py-2 pl-0">
-                                                            <input class="form-check-input" type="radio"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" :name="item.modelKey"
-                                                                :id="item.modelKey + 'No'" value="no">
-                                                            <label class="form-check-label option-font d-flex align-items-center"
-                                                                :for="item.modelKey + 'No'">
-                                                                No
-                                                            </label>
-                                                            <div class="text-validation invalid-feedback d-none" id="mrk1"
-                                                            v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['ans']),'invalid-fields': !subDataForMakingReferral[item.modelKey]['ans']}">
-                                                            You must provide some information.
-                                                        </div>
-                                                        </div> -->
 
-                                                        <label :for="item.modelKey" class="question-font"><b>{{item.value}} </b></label>
-                                                        <textarea readonly class="h-112 form-control input-bg-form-control" :id="item.modelKey"
-                                                            v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly
-                                                            
-                                                            >{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
-  
-                                                    </div>`
-                            
-                                                    <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
-                                                        <div class="form-group py-2 m-0">
-                                                            <label :for="item.modelKey +'lastHarm'" class="question-font"><b>When did you last self
-                                                                harm?</b></label>
-                                                            <textarea class="h-112 form-control input-bg-form-control"
-                                                                :id="item.modelKey+'lastHarm'"
-                                                                readonly
-                                                                v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"
-                                                                ></textarea>
-                                                                <div class="text-validation invalid-feedback d-none" id="mrk3"
-                                                                v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['last_harmed']),'invalid-fields': !subDataForMakingReferral[item.modelKey]['last_harmed']}">
-                                                                You must provide some information.
-                                                            </div>
-                                                            </div>
-                            
-                                                        <div class="form-group py-2 m-0">
-                                                            <label :for="item.modelKey+'more_details'" class="question-font"><b>Please give us more
-                                                                details
-                                                                (optional)</b> </label>
-                                                            <textarea class="h-112 form-control input-bg-form-control"
-                                                            readonly
-                                                                :id="item.modelKey+'more_details'"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"
-                                                                ></textarea>
+                                    <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length'
+                                        class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+
+                                        <div v-for="(item, index) in referrralQuestionArray" :key="index">
+
+                                            <fieldset
+                                                v-if="!item.hasMultiLevel && referral_reason_details_preview[item.modelKey]"
+                                                class="scheduler-border">
+                                                <legend class="scheduler-border question-font px-2">{{item.qName}}:
+                                                </legend>
+                                                <div class="form-group m-0">
+                                                    <label class="question-font">Please can you give us some more
+                                                        detail so we can make sure we get you the right support</label>
+                                                    <textarea readonly class="h-112 form-control input-bg-form-control"
+                                                        v-model="referral_reason_details_preview[item.modelKey]"></textarea>
+
+                                                </div>
+                                            </fieldset>
+
+
+                                            <fieldset v-if="item.hasMultiLevel && referral_reason_details_preview[item.modelKey]['ans'] " 
+                                            class="scheduler-border">
+                                                <legend class="scheduler-border question-font px-2">{{item.qName}}:
+                                                </legend>
+
+                                                <div v-if="referral_reason_details_preview[item.modelKey]['ans']"
+                                                    class="form-group py-2 m-0">
+                                                    <label class="question-font">Have you ever self
+                                                        harmed</label>
+                                                        <div class="capitalize-first-letter">
+                                                            <input class="form-control input-bg-form-control" type="text"
+                                                            readonly  v-model="referral_reason_details_preview[item.modelKey]['ans']">
                                                         </div>
-                                                    </div>
-                            
-                                                    <div
-                                                        v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
-                            
-                                                        <div class="form-group py-2 mt-0 mb-2">
-                                                            <label class="question-font"><b>How often do you think about self harming?</b>
-                                                            </label>
-                                                            <textarea class="h-112 form-control input-bg-form-control"
-                                                            :id="item.modelKey+'more_details'"
-                                                            readonly
-                                                            v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']" rows="4"
-                                                            ><b>{{subDataForMakingReferral[item.modelKey]['think_about_self_harming']}}</b></textarea>
-                                                            <!-- <div class="input-group">
-                                                                <span class="plain-select">
-                                                                    <select class="custom-select form-control input-bg-form-control"
-                                                                        v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
-                                                                
-                                                                        name="thinkAbout">
-                                                                        <option class='option-text' value="" disabled selected>
-                                                                            Select option
-                                                                        </option>
-                                                                        <option value="Never">Never</option>
-                                                                        <option value="Occasionally">Occasionally</option>
-                                                                        <option value="Often">Often</option>
-                                                                        <option value="Always">Always</option>
-                                                                    </select>
-                                                                </span>
-                                                                
-                                                            </div> -->
-                                                            <!-- <div class="invalid-feedback d-none"
-                                                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childNameTitle),'invalid-fields':!aboutObj.childNameTitle }">
-                                                                You must provide an answer to this question to continue.
-                                                            </div> -->
-                                                        </div>
-                            
-                                                        <div class="form-group py-2 m-0">
-                                                            <label :for="item.modelKey+'ProvideBestSupport'" class="question-font"><b>Please give a
-                                                                bit more details so
-                                                                we can work out what support is best for you</b></label>
-                                                            <textarea class="h-112 form-control input-bg-form-control"
-                                                                :id="item.modelKey+'ProvideBestSupport'" rows="4"
-                                                                readonly
-                                                                v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
-                                                                @input="checkValidation($event)">{{subDataForMakingReferral[item.modelKey]['more_about_self_harming']}}</textarea>
-                                                                
-                                                            </div>
-                                                    </div>
-                            
-                                                
-                            
-                                            </div>
-                                           
+                                                </div>
+
+                                                <div v-if="referral_reason_details_preview[item.modelKey]['last_harmed']"
+                                                    class="form-group py-2 m-0">
+                                                    <label class="question-font">When did you last self
+                                                        harm?</label>
+                                                    <textarea class="h-112 form-control input-bg-form-control" readonly
+                                                        v-model="referral_reason_details_preview[item.modelKey]['last_harmed']"
+                                                        rows="4"></textarea>
+
+                                                </div>
+
+                                                <div v-if="referral_reason_details_preview[item.modelKey]['more_details']"
+                                                    class="form-group py-2 m-0">
+                                                    <label :for="item.modelKey+'more_details'"
+                                                        class="question-font">Please give us more
+                                                        details</label>
+                                                    <textarea class="h-112 form-control input-bg-form-control" readonly
+                                                        v-model="referral_reason_details_preview[item.modelKey]['more_details']"
+                                                        rows="4"></textarea>
+                                                </div>
+
+                                                <div v-if="referral_reason_details_preview[item.modelKey]['think_about_self_harming']"
+                                                    class="form-group py-2 mt-0 mb-2">
+                                                    <label class="question-font">How often do you think about self
+                                                            harming?
+                                                    </label>
+
+                                                    <input class="form-control input-bg-form-control" type="text" readonly
+                                                        v-model="referral_reason_details_preview[item.modelKey]['think_about_self_harming']">
+                                                </div>
+
+                                                <div v-if="referral_reason_details_preview[item.modelKey]['more_about_self_harming']"
+                                                    class="form-group py-2 m-0">
+                                                    <label class="question-font">Please give a
+                                                            bit more details so
+                                                            we can work out what support is best for you</label>
+                                                    <textarea class="h-112 form-control input-bg-form-control" rows="4"
+                                                        readonly
+                                                        v-model="referral_reason_details_preview[item.modelKey]['more_about_self_harming']">
+                                                    </textarea>
+
+                                                </div>
+
+                                            </fieldset>
+
                                         </div>
+
+                                    </div>
+
                                 </div>
 
 

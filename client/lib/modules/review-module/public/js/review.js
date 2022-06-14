@@ -128,9 +128,88 @@ $(document).ready(function () {
             showlimitTxt3: false,
             showlimitTxt4: false,
 
+            referrralQuestionArray: [
+                { qName: 'Trouble concentrating', modelKey: 'trouble_concentrating', hasMultiLevel: false },
+                { qName: 'Feeling nervous or on edge', modelKey: 'feel_nervous', hasMultiLevel: false },
+                { qName: 'Trouble socialising', modelKey: 'trouble_socialising', hasMultiLevel: false },
+                { qName: 'Bullying', modelKey: 'bullying', hasMultiLevel: false },
+                { qName: 'Find it hard to control myself', modelKey: 'hard_to_control', hasMultiLevel: false },
+                { qName: 'Feeling sad, unhappy or hopeless', modelKey: 'sad_unhappy', hasMultiLevel: true, },
+                { qName: 'Trouble reading and writing', modelKey: 'trouble_read', hasMultiLevel: false },
+                { qName: 'Drinking and drugs', modelKey: 'drinking_drugs', hasMultiLevel: false },
+                { qName: 'Feeling clumsy and uncoordinated', modelKey: 'clumsy_uncoordinated', hasMultiLevel: false },
+                { qName: 'Issues with food, diet or eating', modelKey: 'issues_food_diet', hasMultiLevel: false },
+                { qName: 'Problems with family', modelKey: 'problem_with_family', hasMultiLevel: false },
+                { qName: 'Problems with self identity', modelKey: 'problem_self_identity', hasMultiLevel: false },
+                { qName: 'Compulsive behaviour', modelKey: 'compulsive_behaviour', hasMultiLevel: false },
+                { qName: 'Panic attacks', modelKey: 'panic_attack', hasMultiLevel: false },
+                { qName: 'Feeling scared or anxious', modelKey: 'scared_anxious', hasMultiLevel: false },
+                { qName: 'Seeing or hearing things', modelKey: 'seeing_hearing_things', hasMultiLevel: false },
+                { qName: 'Had a traumatic experience', modelKey: 'traumatic_experience', hasMultiLevel: false },
+                { qName: 'Feeling that I want to hurt myself', modelKey: 'hurt_myself', hasMultiLevel: true },
+                { qName: 'Self-harming', modelKey: 'self_harming', hasMultiLevel: true },
+                { qName: 'Pulling hair out', modelKey: 'pullying_hair', hasMultiLevel: false },
+                { qName: 'Trouble sleeping', modelKey: 'trouble_sleeping', hasMultiLevel: false },
+                { qName: 'Feeling stressed', modelKey: 'feel_stressed', hasMultiLevel: false },
+                { qName: 'Feeling that I don’t want to live', modelKey: 'unwant_to_live', hasMultiLevel: false },
+                { qName: 'Uncontrolled movements', modelKey: 'uncontrolled_movements', hasMultiLevel: false },
+                { qName: 'Wetting or soiling myself', modelKey: 'wetting_soiling_myself', hasMultiLevel: false },
+                { qName: 'Low self esteem', modelKey: 'low_self_esteem', hasMultiLevel: false },
+                { qName: 'Lacking confidence in myself', modelKey: 'lack_confidence', hasMultiLevel: false },
+
+            ],
 
 
+            referral_reason_details_preview: {
+                trouble_concentrating: "",
+                feel_nervous: "",
+                trouble_socialising: "",
+                bullying: "",
+                hard_to_control: "",
+                sad_unhappy: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                trouble_read: "",
+                drinking_drugs: "",
+                clumsy_uncoordinated: "",
+                issues_food_diet: "",
+                problem_with_family: "",
+                problem_self_identity: "",
+                compulsive_behaviour: "",
+                panic_attack: "",
+                scared_anxious: "",
+                seeing_hearing_things: "",
+                traumatic_experience: "",
+                hurt_myself: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
+                self_harming: {
+                    ans: "",
+                    last_harmed: "",
+                    more_details: "",
+                    think_about_self_harming: "",
+                    more_about_self_harming: ""
+                },
 
+                pullying_hair: "",
+                trouble_sleeping: "",
+                feel_stressed: "",
+                unwant_to_live: "",
+                uncontrolled_movements: "",
+                wetting_soiling_myself: "",
+                low_self_esteem: "",
+                lack_confidence: ""
+            },
+
+            referral_reason_details_template: []
         },
 
         beforeMount: function () {
@@ -183,8 +262,14 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
-                        _self.subQuestionOfReason = _self.section4Data.referral_reason_questions ;
-                        _self.subDataForMakingReferral = _self.section4Data.referral_reason_details ;
+
+                        if (_self.section4Data.referral_reason_details) {
+                            _self.referral_reason_details_preview = JSON.parse(JSON.stringify(_self.section4Data.referral_reason_details));
+                            _self.referral_reason_details_template = [JSON.parse(JSON.stringify(_self.section4Data.referral_reason_details))];
+                        } else  {
+                            _self.referral_reason_details_preview = JSON.parse(JSON.stringify(_self.section4Data.referral_reason_details));
+                            _self.referral_reason_details_template =  [_self.referral_reason_details_preview];
+                        }
                         
                         if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
                             var getObjSect2Child = convertArrayToObj(_self.section2Data.child_manual_address);
