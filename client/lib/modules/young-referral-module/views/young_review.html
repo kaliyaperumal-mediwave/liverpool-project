@@ -1575,9 +1575,9 @@
                                         Main reason for making referral:
                                     </label>
 
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
 
-                                        <textarea class="h-100 form-control input-bg-form-control" name="infoTextAreas"
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
                                             id="textInf0red" rows="3" v-model="section4Data.reason_for_referral"
                                             readonly></textarea>
 
@@ -1599,8 +1599,8 @@
                                                                 detail so we can make sure we get you the right
                                                                 support</b></label>
                                                         <textarea readonly
-                                                            class="h-112 form-control input-bg-form-control"
-                                                            :id="item.modelKey"
+                                                            class="h-50 form-control input-bg-form-control"
+                                                            :id="item.modelKey" rows="4"
                                                             v-model="subDataForMakingReferral[item.modelKey]">{{subDataForMakingReferral[item.modelKey]}}</textarea>
 
                                                     </fieldset>
@@ -1618,8 +1618,8 @@
                                                                     ever self harmed </b></label>
 
                                                             <textarea readonly
-                                                                class="h-112 form-control input-bg-form-control"
-                                                                :id="item.modelKey"
+                                                                class="h-50 form-control input-bg-form-control"
+                                                                :id="item.modelKey" rows="4"
                                                                 v-model="subDataForMakingReferral[item.modelKey]['ans']"
                                                                 readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
 
@@ -1632,7 +1632,7 @@
                                                                     class="question-font"><b>When did you last self
                                                                         harm?</b></label>
                                                                 <textarea
-                                                                    class="h-112 form-control input-bg-form-control"
+                                                                    class="h-50 form-control input-bg-form-control"
                                                                     :id="item.modelKey+'lastHarm'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['last_harmed']"
                                                                     rows="4"></textarea>
@@ -1650,7 +1650,7 @@
                                                                         details
                                                                         (optional)</b> </label>
                                                                 <textarea
-                                                                    class="h-112 form-control input-bg-form-control"
+                                                                    class="h-50 form-control input-bg-form-control"
                                                                     readonly :id="item.modelKey+'more_details'"
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_details']"
                                                                     rows="4"></textarea>
@@ -1666,7 +1666,7 @@
                                                                         self harming?</b>
                                                                 </label>
                                                                 <textarea
-                                                                    class="h-112 form-control input-bg-form-control"
+                                                                    class="h-50 form-control input-bg-form-control"
                                                                     :id="item.modelKey+'more_details'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
                                                                     rows="4"><b>{{subDataForMakingReferral[item.modelKey]['think_about_self_harming']}}</b></textarea>
@@ -1680,7 +1680,7 @@
                                                                         we can work out what support is best for
                                                                         you</b></label>
                                                                 <textarea
-                                                                    class="h-112 form-control input-bg-form-control"
+                                                                    class="h-50 form-control input-bg-form-control"
                                                                     :id="item.modelKey+'ProvideBestSupport'" rows="4"
                                                                     readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
