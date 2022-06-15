@@ -2421,8 +2421,8 @@ exports.saveReview = ctx => {
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
-      //referral_progress: 100,
-      //referral_complete_status: "completed",
+      referral_progress: 100,
+      referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
       contact_person: ctx.request.body.contact_person,

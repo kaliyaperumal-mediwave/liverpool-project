@@ -49,7 +49,9 @@ $(document).ready(function () {
             prevSection2Data: {},
             prevSection3Data: {},
             prevSection4Data: {},
-            payloadData: {},
+            payloadData: {
+                needCopy: ""
+            },
             contactPref: [],
             showManualAddress: "",
             showchildManualAddressSection2: "",
@@ -315,28 +317,36 @@ $(document).ready(function () {
                         else if (this.section1Data.selected_service == "") {
                             this.payloadData.referral_provider = "YPAS";
                         }
-                        buttonElem.setAttribute('disabled', true);
-                        var trimmedPayload = trimObj(this.payloadData);
-                        $.ajax({
-                            url: API_URI + "/saveYoungReview",
-                            type: "post",
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify(trimmedPayload),
-                            cache: false,
-                            success: function (res) {
-                                location.href = "/acknowledge";
-                                this.isFormSubmitted = false;
-                            },
-                            error: function (error) {
-                                $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.removeAttribute('disabled');
-                                if (error) {
-                                    console.log(error)
-                                    showError(error.responseJSON.message, error.status);
+
+                        if (!this.payloadData.needCopy) {
+                            return false
+                        }
+                        else {
+                            buttonElem.setAttribute('disabled', true);
+                            this.payloadData.profEmailToSend = this.allSectionData.section1.professional_email ? this.allSectionData.section1.professional_email : ''
+                            var trimmedPayload = trimObj(this.payloadData);
+                            $.ajax({
+                                url: API_URI + "/saveYoungReview",
+                                type: "post",
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(trimmedPayload),
+                                cache: false,
+                                success: function (res) {
+                                    // location.href = "/acknowledge";
+                                    this.isFormSubmitted = false;
+                                },
+                                error: function (error) {
+                                    $('#loader').removeClass('d-block').addClass('d-none');
+                                    buttonElem.removeAttribute('disabled');
+                                    if (error) {
+                                        console.log(error)
+                                        showError(error.responseJSON.message, error.status);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
                     } else {
                         buttonElem.removeAttribute('disabled');
                         return false;

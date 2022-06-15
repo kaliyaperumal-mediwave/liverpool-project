@@ -55,7 +55,7 @@ exports.eligibility = ctx => {
           referral_progress: 20,
           referral_complete_status: 'incomplete',
           registered_gp_postcode: ctx.request.body.registered_gp_postcode,
-          referral_type:"young"
+          referral_type: "young"
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
@@ -84,7 +84,7 @@ exports.eligibility = ctx => {
           referral_progress: 20,
           referral_complete_status: 'incomplete',
           registered_gp_postcode: ctx.request.body.registered_gp_postcode,
-          referral_type:"young"
+          referral_type: "young"
         }).then((childUserInfo) => {
           childUserInfo.setType("7")
           const responseData = {
@@ -175,14 +175,14 @@ exports.eligibility = ctx => {
             referral_complete_status: 'incomplete',
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20,
-            referral_type:"young"
+            referral_type: "young"
           }).then((parentUserInfo) => {
             parentUserInfo.setType("8")
             console.log(childUserInfo.id)
             parentUserInfo.setFamily(childUserInfo.id).then(sc => {
               console.log(sc);
             }).catch((error) => {
-              console.log(error )
+              console.log(error)
             });
             const responseData = {
               userid: parentUserInfo.uuid,
@@ -209,7 +209,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
-            referral_type:"young",
+            referral_type: "young",
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -335,7 +335,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.familyConcernInformation,
             login_id: ctx.request.decryptedUser.id,
             user_role: ctx.request.body.role,
-            referral_type:"young",
+            referral_type: "young",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -398,7 +398,7 @@ exports.eligibility = ctx => {
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.familyConcernInformation,
             user_role: ctx.request.body.role,
-            referral_type:"young",
+            referral_type: "young",
             referral_progress: 20,
             referral_complete_status: 'incomplete'
           }).then((professionalUserInfo) => {
@@ -473,12 +473,10 @@ exports.fetchEligibility = ctx => {
     } else if (ctx.query.role == "family" || ctx.query.role == "professional") {
 
       var includeModal;
-      if(ctx.query.role == "professional")
-      {
+      if (ctx.query.role == "professional") {
         includeModal = "professional2"
       }
-      else
-      {
+      else {
         includeModal = "family"
       }
 
@@ -1188,14 +1186,14 @@ exports.fetchAbout = ctx => {
         },
       }).then((childResult) => {
         console.log(childResult)
- 
+
         var parentIdNew = childResult[0].professional2[0].young_family[0].id;
 
         console.log(parentIdNew)
         //  var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
         ////console.log(parentId
-      //  console.log(parentId)
+        //  console.log(parentId)
         console.log(parentIdNew)
         return user.findAll({
           include: [
@@ -1478,13 +1476,11 @@ exports.fetchProfession = ctx => {
 
       var includeModal
 
-      if(ctx.request.body.role=="professional")
-      {
-        includeModal= 'professional2'
+      if (ctx.request.body.role == "professional") {
+        includeModal = 'professional2'
       }
-      else
-      {
-        includeModal= 'family'
+      else {
+        includeModal = 'family'
       }
       return user.findAll({
         include: [
@@ -1988,7 +1984,7 @@ exports.fetchReferral = ctx => {
 //Section 5
 
 exports.fetchReview = ctx => {
-console.log(ctx.query)
+  console.log(ctx.query)
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
   if (ctx.query.role == "young") {
@@ -2010,7 +2006,7 @@ console.log(ctx.query)
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -2023,7 +2019,7 @@ console.log(ctx.query)
           where: {
             id: eligibilityObj.id,
           },
-          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
         }).then((educationObj) => {
 
           eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
@@ -2042,7 +2038,7 @@ console.log(ctx.query)
             child_gender: aboutObj.child_gender,
             child_gender_birth: aboutObj.child_gender_birth,
             child_sexual_orientation: aboutObj.child_sexual_orientation,
-           // child_ethnicity: aboutObj.child_ethnicity,
+            // child_ethnicity: aboutObj.child_ethnicity,
             child_ethnicity: aboutObj.child_ethnicity == 'Other Ethnic Groups' ? aboutObj.child_ethnicity_other : aboutObj.child_ethnicity,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
@@ -2118,7 +2114,7 @@ console.log(ctx.query)
               model: ctx.orm().Referral,
               nested: true,
               as: 'family',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             },
           ],
           where: {
@@ -2133,7 +2129,7 @@ console.log(ctx.query)
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'family',
-                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
               },
             ],
             where: {
@@ -2184,7 +2180,7 @@ console.log(ctx.query)
                 child_gender: aboutObj[0].family[0].child_gender,
                 child_gender_birth: aboutObj[0].family[0].child_gender_birth,
                 child_sexual_orientation: aboutObj[0].family[0].child_sexual_orientation,
-               // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
+                // child_ethnicity: aboutObj[0].family[0].child_ethnicity,
                 child_ethnicity: aboutObj[0].family[0].child_ethnicity == 'Other Ethnic Groups' ? aboutObj[0].family[0].child_ethnicity_other : aboutObj[0].family[0].child_ethnicity,
                 //child_ethnicity: aboutObj[0].family[0].child_ethnicity_other,
                 child_care_adult: aboutObj[0].family[0].child_care_adult,
@@ -2292,7 +2288,7 @@ console.log(ctx.query)
               model: ctx.orm().Referral,
               nested: true,
               as: 'family',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_ethnicity_other', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'child_address_postcode']
             },
           ],
           where: {
@@ -2308,7 +2304,7 @@ console.log(ctx.query)
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'professional2',
-                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address','careLeaver']
+                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address', 'careLeaver']
               },
             ],
             where: {
@@ -2457,7 +2453,7 @@ exports.saveReview = ctx => {
   console.log(ctx.request.body.venusApi)
   const user = ctx.orm().Referral;
   var provider;
-  ////console.log('\nSave Review Payload == ', ctx.request.body);
+  console.log('\nSave Review Payload == ', ctx.request.body);
   //console.log("fdadfafafafafda " + ctx.request.body.referral_provider)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
@@ -2495,7 +2491,8 @@ exports.saveReview = ctx => {
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
           ctx.query.formType = "young"
-          ctx.query.fromReferralPage=true;
+          ctx.query.fromReferralPage = true;
+          ctx.request.body.sendProf = false;
           // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
@@ -2506,7 +2503,32 @@ exports.saveReview = ctx => {
                   { uuid: ctx.request.body.userid }
               }
             ).then((result) => {
-              return ctx.body = responseData;
+              if (ctx.request.body.role == 'professional' && ctx.request.body.profEmailToSend && ctx.request.body.needCopy == "yes") {
+                ctx.request.body.emailToProvider = ctx.request.body.profEmailToSend;
+                ctx.query.refCode = uniqueNo;
+                ctx.query.refID = ctx.request.body.userid;
+                ctx.query.refRole = ctx.request.body.role;
+                ctx.request.body.sendProf = true;
+                return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+                  console.log("🚀 ~ file: youngController.js ~ line 2477 ~ returnadminCtrl.sendReferralCopy ~ providermailStatus", providermailStatus)
+                  if (providermailStatus == false) {
+                    ctx.res.internalServerError({
+                      message: reponseMessages[1002],
+                    });
+                  }
+                  else {
+                    return ctx.res.ok({
+                      message: reponseMessages[1017],
+                    });
+                  }
+                }).catch((error) => {
+                  console.log("hit here")
+                  sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+              }
+              else {
+                return ctx.body = responseData;
+              }
             }).catch(error => {
               //////console.log()(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
