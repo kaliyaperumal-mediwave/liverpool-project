@@ -183,7 +183,7 @@ $(document).ready(function () {
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
                         _self.subQuestionOfReason = _self.section4Data.referral_reason_questions ;
                         _self.subDataForMakingReferral = _self.section4Data.referral_reason_details ;
-                        
+                      
                         
                         if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
                             var getObjSect2child = convertArrayToObj(_self.section2Data.child_manual_address);
@@ -227,6 +227,8 @@ $(document).ready(function () {
                                 _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
                             }
                         }
+
+                        console.log(_self.section4Data.reason_for_referral);
 
                         //Other Reasons for eating difficulties
                         if (_self.section4Data.other_eating_difficulties) {
@@ -762,6 +764,8 @@ $(document).ready(function () {
                     this.allSectionData.section3 = data;
                 }
                 else if (section == 4) {
+
+                    
                     if (data.other_reasons_referral != null) {
                         data.reason_for_referral.push(data.other_reasons_referral);
                     }

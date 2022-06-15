@@ -240,6 +240,7 @@ $(document).ready(function () {
         },
         methods: {
 
+            
             //validations check logic
             checkValidation: function () {
                 
@@ -520,6 +521,13 @@ $(document).ready(function () {
             },
 
             //Function to trim space entered
+            trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
+    
+                preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
+
+            },
+
+            //Function to trim space entered
             trimWhiteSpace: function (event, obj, key, hasShowLess) {
                 preventWhiteSpaces(event, this, obj, key);
                 // if (hasShowLess) {
@@ -661,8 +669,8 @@ $(document).ready(function () {
                     this.eatingDifficulties = data.eating_disorder_difficulties;
                     this.reasonForReferral = data.reason_for_referral;
                     this.accessList = data.local_services;
-                    this.subDataForMakingReferral= data.referral_reason_details 
-                    this.subQuestionOfReason= data.referral_reason_questions 
+                    // this.subDataForMakingReferral= data.referral_reason_details 
+                    // this.subQuestionOfReason= data.referral_reason_questions 
                     this.referralId = data.id;
                     this.updateFlag = true;
                     if (this.accessList.indexOf("Other") > -1) {
@@ -685,6 +693,9 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
                     Vue.set(this.referralData, "about_our_service", data.about_our_service);
+
+                    Vue.set(this, "subQuestionOfReason", data.referral_reason_questions  ? data.referral_reason_questions : this.subQuestionOfReason );
+                    Vue.set(this, "subDataForMakingReferral", data.referral_reason_details ? data.referral_reason_details : this.subDataForMakingReferral);
                 }
                 setTimeout(function () {
                     if (_self.reasonForReferral.length)

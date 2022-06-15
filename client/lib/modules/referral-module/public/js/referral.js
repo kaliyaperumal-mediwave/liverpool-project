@@ -234,7 +234,7 @@ $(document).ready(function () {
 
                     }
 
-                    console.log(this.referral_reason_questions);
+                    
 
                 }
 
@@ -352,7 +352,7 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
-                console.log("🚀 ~ file: referral.js ~ line 388 ~ successData", successData)
+                
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -515,7 +515,7 @@ $(document).ready(function () {
 
             //Function to trim space entered
             trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
-                debugger
+                
                 preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
 
             },
@@ -586,12 +586,11 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                debugger
-                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_details)
-                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_questions)
+                
+               
                 payload.referralData.referral_reason_details = this.referral_reason_details
                 payload.referralData.referral_reason_questions = this.referral_reason_questions
-                console.log("🚀 ~ file: referral.js ~ line 626 ~ payload", payload)
+               
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
@@ -742,7 +741,7 @@ $(document).ready(function () {
 
 
             checkValidation: function () {
-                console.log(this.referral_reason_questions);
+                
                 var _self = this;
                 var flag = [];
                 this.referral_reason_questions.map(function (i) {
@@ -765,7 +764,7 @@ $(document).ready(function () {
                 var condition = flag.every(function (i) {
                     return i;
                 })
-                console.log(condition);
+               
                 return condition;
             },
 
