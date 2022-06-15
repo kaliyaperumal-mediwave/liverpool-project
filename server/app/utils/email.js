@@ -145,11 +145,19 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
 exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject) => {
     try {
         if (ctx.request.decryptedUser != undefined) {
+
+            let template = fs.readFileSync(path.join(`${__dirname}/./templates/referrral-confirrmation.html`), 'utf8');
+            let htmlTemplate = _.template(template);
+            htmlTemplate = htmlTemplate({
+                refCode: ctx.request.body.ref_code,
+                frontEndUrl: config.frontEndUrl,
+            });
+
             const data = {
                 from: config.email_from_address,
                 to: ctx.request.decryptedUser.email,
                 subject: 'Referral Confirmation',
-                html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
+                html: htmlTemplate,
             };
             mailService.sendMail(data, (err, res) => {
                 if (!err && res) {
@@ -217,12 +225,12 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         if (ctx.request.body.referralCode) {
             ctx.request.body.refCode = ctx.request.body.referralCode
         }
-        console.log('toAddress----------', toAddress,ctx.request.body.refCode);
+        console.log('toAddress----------', toAddress, ctx.request.body.refCode);
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider,ctx.request.body.bookAppointment ? true : false);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider, ctx.request.body.bookAppointment ? true : false);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -258,36 +266,37 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 
 
 function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
+    console.log("attach--------------------------------------------------" + toAddress)
     let template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
     let subject = null;
     if (appoinment) {
         template = fs.readFileSync(path.join(`${__dirname}/./templates/appointment_needed.html`), 'utf8');
         subject = 'Appointment request';
     }
+    if (ctx.request.body.sendProf) {
+        template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplateProf.html`), 'utf8');
+    }
     let htmlTemplate = _.template(template);
     htmlTemplate = htmlTemplate({
         refCode: ctx.request.body.refCode,
+        frontEndUrl: config.frontEndUrl,
     });
     var attachmentFiles = {};
     try {
 
         if (ctx.request.body.sendProf) {
-            const csvHeader = ["Title", "Name"];
-            const dataCsv = getCSVData(ctx);
-            const csv = parse(dataCsv, csvHeader);
+            // const csvHeader = ["Title", "Name"];
+            // const dataCsv = getCSVData(ctx);
+            // const csv = parse(dataCsv, csvHeader);
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: subject ? subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: subject ? subject : '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
                     contentType: 'application/pdf'
-                },
-                {
-                    filename: ctx.request.body.refCode + ".csv",
-                    content: process.env.USE_SENDGRID == 'true' ? Buffer.from(csv).toString('base64') : csv,
-                },
+                }
                 ],
                 html: htmlTemplate,
             };
@@ -320,7 +329,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName, appoinment) {
                 attachmentFiles = {
                     from: config.email_from_address,
                     to: toAddress,
-                    subject: subject ? subject :'[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
+                    subject: subject ? subject : '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
                     attachments: [{
                         filename: ctx.request.body.refCode + ".pdf",
                         content: pdfReferral,

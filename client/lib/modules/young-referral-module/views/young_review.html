@@ -1578,7 +1578,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
 
                                         <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
-                                            id="textInf0red" rows="3" v-model="section4Data.reason_for_referral"
+                                            id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
                                             readonly></textarea>
 
                                         <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length'
@@ -1956,6 +1956,37 @@
                     </div>
                 </div>
                 <!-- Contact preferences Start -->
+
+                {% raw %}
+                <form v-if="userRole == 'professional'" name="copyReferralName">
+                    <div class="px-3 py-2">
+                        <p class="question-font m-0"> Would you like a copy of this referral to be sent to your email
+                            and, if provided, the parents email? By doing this the parent will receive a code
+                            and they will be able to check the status of their referral.</p>
+                        <div class="disable-on-back">
+                            <div class="form-check pt-3 pb-1 pl-0">
+                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio"
+                                    name="needCopyNo" id="needCopyNo" value="no">
+                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyNo">
+                                    No
+                                </label>
+                            </div>
+                            <div class="form-check py-2 pl-0">
+                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio"
+                                    name="needCopyNo" id="needCopyYes" value="yes">
+                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyYes">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <small class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && payloadData.needCopy==''),'invalid-fields':payloadData.needCopy=='' }">
+                            You must provide an answer to this question to continue.
+                        </small>
+                    </div>
+
+                </form>
+                {% endraw %}
 
                 <!--Select a provider Start -->
                 <!-- <div v-if="userRole === 'professional'" class="py-3">

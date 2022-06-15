@@ -2427,7 +2427,7 @@ exports.saveReview = ctx => {
   console.log(ctx.request.body.venusApi)
   const user = ctx.orm().Referral;
   var provider;
-  ////console.log('\nSave Review Payload == ', ctx.request.body);
+  console.log('\nSave Review Payload == ', ctx.request.body);
   //console.log("fdadfafafafafda " + ctx.request.body.referral_provider)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
@@ -2471,6 +2471,7 @@ exports.saveReview = ctx => {
           ctx.query.refRole = ctx.request.body.role;
           ctx.query.formType = 'child'
           ctx.query.fromReferralPage = true;
+          ctx.request.body.sendProf = false;
           // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
@@ -2481,7 +2482,33 @@ exports.saveReview = ctx => {
                   { uuid: ctx.request.body.userid }
               }
             ).then((result) => {
-              return ctx.body = responseData;
+
+              if (ctx.request.body.role == 'professional' && ctx.request.body.profEmailToSend && ctx.request.body.needCopy == "yes") {
+                ctx.request.body.emailToProvider = ctx.request.body.profEmailToSend;
+                ctx.query.refCode = uniqueNo;
+                ctx.query.refID = ctx.request.body.userid;
+                ctx.query.refRole = ctx.request.body.role;
+                ctx.request.body.sendProf = true;
+                return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+                  console.log("🚀 ~ file: referralControler.js ~ line 2477 ~ returnadminCtrl.sendReferralCopy ~ providermailStatus", providermailStatus)
+                  if (providermailStatus == false) {
+                    ctx.res.internalServerError({
+                      message: reponseMessages[1002],
+                    });
+                  }
+                  else {
+                    return ctx.res.ok({
+                      message: reponseMessages[1017],
+                    });
+                  }
+                }).catch((error) => {
+                  console.log("hit here")
+                  sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+              }
+              else {
+                return ctx.body = responseData;
+              }
             }).catch(error => {
               //////console.log()(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
