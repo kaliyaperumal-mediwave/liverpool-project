@@ -49,7 +49,9 @@ $(document).ready(function () {
             prevSection2Data: {},
             prevSection3Data: {},
             prevSection4Data: {},
-            payloadData: {},
+            payloadData: {
+                needCopy: ""
+            },
             contactPref: [],
             showManualAddress: "",
             showchildManualAddressSection2: "",
@@ -73,7 +75,7 @@ $(document).ready(function () {
             addMoreOrg: false,
             ageFlag: null,
 
-            subQuestionOfReason : [],
+            subQuestionOfReason: [],
             subDataForMakingReferral: {
                 trouble_concentrating: "",
                 feel_nervous: "",
@@ -173,7 +175,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                     
+
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -181,10 +183,10 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
-                        _self.subQuestionOfReason = _self.section4Data.referral_reason_questions ;
-                        _self.subDataForMakingReferral = _self.section4Data.referral_reason_details ;
-                      
-                        
+                        _self.subQuestionOfReason = _self.section4Data.referral_reason_questions;
+                        _self.subDataForMakingReferral = _self.section4Data.referral_reason_details;
+
+
                         if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
                             var getObjSect2child = convertArrayToObj(_self.section2Data.child_manual_address);
                             delete getObjSect2child.id;
@@ -249,7 +251,7 @@ $(document).ready(function () {
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
                         _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
-                        
+
                         if (_self.section4Data.local_services) {
                             if (_self.section4Data.local_services.indexOf('Other') == -1) {
                                 _self.section4Data.local_services = _self.section4Data.local_services;
@@ -336,7 +338,7 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
-                               // location.href = "/acknowledge";
+                                // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                                 //$('#loader').hide();
                             },
@@ -370,28 +372,36 @@ $(document).ready(function () {
                         else if (this.section1Data.selected_service == "") {
                             this.payloadData.referral_provider = "YPAS";
                         }
-                        buttonElem.setAttribute('disabled', true);
-                        var trimmedPayload = trimObj(this.payloadData);
-                        $.ajax({
-                            url: API_URI + "/saveYoungReview",
-                            type: "post",
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify(trimmedPayload),
-                            cache: false,
-                            success: function (res) {
-                                //location.href = "/acknowledge";
-                                this.isFormSubmitted = false;
-                            },
-                            error: function (error) {
-                                $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.removeAttribute('disabled');
-                                if (error) {
-                                    console.log(error)
-                                    showError(error.responseJSON.message, error.status);
+
+                        if (!this.payloadData.needCopy) {
+                            return false
+                        }
+                        else {
+                            buttonElem.setAttribute('disabled', true);
+                            this.payloadData.profEmailToSend = this.allSectionData.section1.professional_email ? this.allSectionData.section1.professional_email : ''
+                            var trimmedPayload = trimObj(this.payloadData);
+                            $.ajax({
+                                url: API_URI + "/saveYoungReview",
+                                type: "post",
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(trimmedPayload),
+                                cache: false,
+                                success: function (res) {
+                                    location.href = "/acknowledge";
+                                    this.isFormSubmitted = false;
+                                },
+                                error: function (error) {
+                                    $('#loader').removeClass('d-block').addClass('d-none');
+                                    buttonElem.removeAttribute('disabled');
+                                    if (error) {
+                                        console.log(error)
+                                        showError(error.responseJSON.message, error.status);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
                     } else {
                         buttonElem.removeAttribute('disabled');
                         return false;
@@ -765,7 +775,7 @@ $(document).ready(function () {
                 }
                 else if (section == 4) {
 
-                    
+
                     if (data.other_reasons_referral != null) {
                         data.reason_for_referral.push(data.other_reasons_referral);
                     }

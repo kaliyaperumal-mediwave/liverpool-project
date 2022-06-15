@@ -770,10 +770,10 @@ exports.downloadReferral = async ctx => {
 }
 
 exports.sendReferral = async ctx => {
-    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole);
+    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole + ',' + ctx.request.body.sendProf);
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
-    ctx.request.body.emailToProvider = ctx.query.selectedProvider;
+    ctx.request.body.emailToProvider = ctx.request.body.sendProf ? ctx.request.body.emailToProvider : ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
     console.log(" admin control------------------------------------------------------")
     console.log(ctx.request.body.status)
