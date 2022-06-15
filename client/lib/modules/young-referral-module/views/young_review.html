@@ -1567,6 +1567,17 @@
                                 </div>
 
 
+                                <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                        Have you previously accessed any other services
+                                    </label>
+                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text" 
+                                         v-model="section4Data.any_other_services" readonly>
+                                    </div>
+                                </div>
+
+
                                 <div v-if="checkArrayLength(section4Data.local_services)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         Accessed Services
@@ -1885,33 +1896,7 @@
                         }) }}</div>
                 </div> -->
                 <!-- Send End -->
-                {% raw %}
-                <form v-if="userRole == 'professional'" name="copyReferralName">
-                    <div class="px-3 py-2">
-                        <p class="question-font m-0"> Would you like a copy of this referral to be sent to your email
-                            and, if provided, the parents email? By doing this the parent will receive a code
-                            and they will be able to check the status of their referral.</p>
-                        <div class="disable-on-back">
-                            <div class="form-check pt-3 pb-1 pl-0">
-                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyNo" value="no">
-                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyNo">
-                                    No
-                                </label>
-                            </div>
-                            <div class="form-check py-2 pl-0">
-                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyYes" value="yes">
-                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyYes">
-                                    Yes
-                                </label>
-                            </div>
-                        </div>
-                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && payloadData.needCopy==''),'invalid-fields':payloadData.needCopy=='' }">
-                            You must provide an answer to this question to continue.
-                        </small>
-                    </div>
 
-                </form>
-                {% endraw %}
                 <div class="text-center pt-2 pb-1">
                     <a>
                         <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">ACCEPT &

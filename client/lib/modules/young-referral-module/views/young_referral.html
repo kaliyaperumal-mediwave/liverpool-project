@@ -299,7 +299,9 @@
                                 <label :for="item.modelKey" class="question-font">Please can you give us some more
                                     detail so we can make sure we get you the right support </label>
                                 <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
-                                @input="trimWhiteSpace($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')"         v-model="subDataForMakingReferral[item.modelKey]" rows="4"></textarea>
+                                @input="trimWhiteSpace($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')"
+                                 v-model="subDataForMakingReferral[item.modelKey]" placeholder="Enter here" rows="4">
+                                </textarea>
 
                                 <div class="text-validation invalid-feedback d-none"
                                     v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]),'invalid-fields': !subDataForMakingReferral[item.modelKey]}">
@@ -344,7 +346,7 @@
                                     <label :for="item.modelKey +'lastHarm'" class="question-font">When did you last self
                                         harm?</label>
                                     <textarea class="h-112 form-control input-bg-form-control"
-                                        :id="item.modelKey+'lastHarm'"
+                                        :id="item.modelKey+'lastHarm'" placeholder="Enter here"
                                         v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"
                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'last_harmed')">
                                     </textarea>
@@ -360,7 +362,7 @@
                                         details
                                         <b>(optional)</b> </label>
                                     <textarea class="h-112 form-control input-bg-form-control"
-                                        :id="item.modelKey+'more_details'"
+                                        :id="item.modelKey+'more_details'" placeholder="Enter here"
                                         v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"
                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'more_details')"></textarea>
                                 </div>
@@ -399,7 +401,7 @@
                                         bit more details so
                                         we can work out what support is best for you</label>
                                     <textarea class="h-112 form-control input-bg-form-control"
-                                        :id="item.modelKey+'ProvideBestSupport'" rows="4"
+                                        :id="item.modelKey+'ProvideBestSupport'" rows="4" placeholder="Enter here"
                                         v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [item.modelKey],'more_about_self_harming')"></textarea>
 
@@ -425,7 +427,7 @@
                             <label for="proOthers" class="question-font">Other - <b>optional</b></label>
                             <textarea class="h-112 form-control input-bg-form-control" name="listReasonsForReferral"
                                 id="proOthers" v-model="referralData.otherReasonsReferral"
-                                @keyup="checkCharacterLength($event,'showlimitTxt3')"
+                                @keyup="checkCharacterLength($event,'showlimitTxt3')" placeholder="Enter here"
                                 @input="onValueEnter($event,'other')" rows="4"></textarea>
                             <div class="text-validation invalid-feedback d-none" id="mrk1"
                                 v-bind:class="{ 'd-block':(isFormSubmitted && charLimitScenerio1.length >950),'invalid-fields': charLimitScenerio1.length >950}">

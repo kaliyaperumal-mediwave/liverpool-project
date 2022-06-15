@@ -1542,6 +1542,18 @@
                                 </div>
 
 
+
+                                 <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                        Have you previously accessed any other services
+                                    </label>
+                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text" 
+                                         v-model="section4Data.any_other_services" readonly>
+                                    </div>
+                                </div>
+
+
                                 <div v-if="checkArrayLength(section4Data.local_services)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         Accessed Services
