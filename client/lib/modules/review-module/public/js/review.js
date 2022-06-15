@@ -600,7 +600,7 @@ $(document).ready(function () {
                         else if (this.section1Data.selected_service == "") {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
-                        if (this.payloadData.needCopy) {
+                        if (!this.payloadData.needCopy) {
                             return false
                         }
                         else {
