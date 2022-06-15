@@ -86,8 +86,8 @@ $(document).ready(function () {
                 low_self_esteem: "",
                 lack_confidence: ""
             },
-            dummyArray :[
-                { id: '1', qName: "Trouble concentrating", modelName: "trouble_concentrating", isMultiLevel: true},
+            dummyArray: [
+                { id: '1', qName: "Trouble concentrating", modelName: "trouble_concentrating", isMultiLevel: true },
                 { id: '2', qName: "Feeling nervous or on edge", modelName: "feel_nervous", isMultiLevel: true },
                 { id: '3', qName: "Trouble socialising", modelName: "trouble_socialising", isMultiLevel: true },
                 { id: '4', qName: "Feeling sad, unhappy or hopeless", modelName: "sad_unhappy", isMultiLevel: false },
@@ -104,7 +104,9 @@ $(document).ready(function () {
             prevSection2Data: {},
             prevSection3Data: {},
             prevSection4Data: {},
-            payloadData: {},
+            payloadData: {
+                needCopy: ""
+            },
             contactPref: [],
             showManualAddress: "",
             showChildManualAddressSection2: "",
@@ -166,94 +168,94 @@ $(document).ready(function () {
 
         },
         methods: {
-///////
+            ///////
 
-onOptionChange: function (event, data) {
-    if (data) {
-        if (event.target.checked) {
-            this.subQuestionOfReason.push(data)
-        } else {
-            this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
-                return i.id != data.id;
-            });
-            console.log(this.subQuestionOfReason);
-        }
+            onOptionChange: function (event, data) {
+                if (data) {
+                    if (event.target.checked) {
+                        this.subQuestionOfReason.push(data)
+                    } else {
+                        this.subQuestionOfReason = this.subQuestionOfReason.filter(function (i) {
+                            return i.id != data.id;
+                        });
+                        console.log(this.subQuestionOfReason);
+                    }
 
-        if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
-            this.subDataForMakingReferral[data.modelKey] = "";
-        } else if ((typeof (this.subDataForMakingReferral[data.modelKey]) == "object")) {
-            this.subDataForMakingReferral[data.modelKey]["ans"] = "";
-            this.subDataForMakingReferral[data.modelKey]["last_harmed"] = "";
-            this.subDataForMakingReferral[data.modelKey]["more_details"] = "";
-            this.subDataForMakingReferral[data.modelKey]["think_about_self_harming"] = "";
-            this.subDataForMakingReferral[data.modelKey]["more_about_self_harming"] = "";
+                    if (typeof (this.subDataForMakingReferral[data.modelKey]) == "string") {
+                        this.subDataForMakingReferral[data.modelKey] = "";
+                    } else if ((typeof (this.subDataForMakingReferral[data.modelKey]) == "object")) {
+                        this.subDataForMakingReferral[data.modelKey]["ans"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["last_harmed"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["more_details"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["think_about_self_harming"] = "";
+                        this.subDataForMakingReferral[data.modelKey]["more_about_self_harming"] = "";
 
-        }
+                    }
 
 
-    }
-    var questionIdentifier = event.target.name;
-    var optionsName = this.referralData;
-    if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
-        var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
-        allCheckbox.map(function (input) {
-            $(input).removeAttr("data-selected")
-            var mainElem = input.parentElement.parentElement.parentElement;
-            $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
-            $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
-        });
-        resetValues(event.target.form, this, 'referralData');
-        this.reasonForReferral = [];
-    } else if (questionIdentifier == 'accessedService') {
-        resetValues(event.target.form, this, 'referralData');
-    }
-    else if (questionIdentifier === 'eatingDisorder') {
-        if (!this.eatingDifficulties.length) {
-            if (optionsName.otherEatingDifficulties === '') {
-                resetValues(event.target.form, this, 'referralData');
-                this.reasonForReferral = [];
-            }
-            // resetValues(event.target.form, this, 'referralData');
-            // this.reasonForReferral = [];
-        }
-    }
-    else if (questionIdentifier === 'listReasonsForReferral') {
-        if (event.target.checked) {
-            event.currentTarget.setAttribute('data-selected', 'selected')
-        } else {
-            event.currentTarget.setAttribute('data-selected', 'unselected')
-        }
+                }
+                var questionIdentifier = event.target.name;
+                var optionsName = this.referralData;
+                if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
+                    var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                    allCheckbox.map(function (input) {
+                        $(input).removeAttr("data-selected")
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
+                        $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                    });
+                    resetValues(event.target.form, this, 'referralData');
+                    this.reasonForReferral = [];
+                } else if (questionIdentifier == 'accessedService') {
+                    resetValues(event.target.form, this, 'referralData');
+                }
+                else if (questionIdentifier === 'eatingDisorder') {
+                    if (!this.eatingDifficulties.length) {
+                        if (optionsName.otherEatingDifficulties === '') {
+                            resetValues(event.target.form, this, 'referralData');
+                            this.reasonForReferral = [];
+                        }
+                        // resetValues(event.target.form, this, 'referralData');
+                        // this.reasonForReferral = [];
+                    }
+                }
+                else if (questionIdentifier === 'listReasonsForReferral') {
+                    if (event.target.checked) {
+                        event.currentTarget.setAttribute('data-selected', 'selected')
+                    } else {
+                        event.currentTarget.setAttribute('data-selected', 'unselected')
+                    }
 
-        if (!this.reasonForReferral.length) {
-            $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
-            if (optionsName.otherReasonsReferral === '') {
-                resetValues(event.target.form, this, 'referralData');
-                this.reasonForReferral = [];
-            }
-            $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-block').addClass('d-none');
-        } else {
-            $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-none').addClass('d-block');
-            //this.setDynamicReadyOnlyState();
-        }
-    }
-    else if (questionIdentifier === 'listService') {
-        if (event.target.checked) {
-            if (event.target.value === 'Other') {
-                this.showAddOtherService = true;
-            }
-        } else {
-            if (event.target.value === 'Other') {
-                this.showAddOtherService = false;contact_person
-                this.allAvailableService = [];
-            }
-        }
-        if (!this.accessList.length) {
-            resetValues(event.target.form, this, 'referralData');
-        }
-    }
-},
+                    if (!this.reasonForReferral.length) {
+                        $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                        if (optionsName.otherReasonsReferral === '') {
+                            resetValues(event.target.form, this, 'referralData');
+                            this.reasonForReferral = [];
+                        }
+                        $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-block').addClass('d-none');
+                    } else {
+                        $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-none').addClass('d-block');
+                        //this.setDynamicReadyOnlyState();
+                    }
+                }
+                else if (questionIdentifier === 'listService') {
+                    if (event.target.checked) {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = true;
+                        }
+                    } else {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = false; contact_person
+                            this.allAvailableService = [];
+                        }
+                    }
+                    if (!this.accessList.length) {
+                        resetValues(event.target.form, this, 'referralData');
+                    }
+                }
+            },
 
-/////////
+            /////////
 
 
             //Get Request to get all section's data
@@ -414,33 +416,33 @@ onOptionChange: function (event, data) {
                         else {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
-                        if (!this.payloadData.needCopy) {
+                        if (!this.payloadData.role == 'professional' && !this.payloadData.needCopy) {
                             // console.log(!this.payloadData.needCopy,'huhuhuhuhuhuh');
                             return false
                         } else {
-                        buttonElem.setAttribute('disabled', true)
-                        var trimmedPayload = trimObj(this.payloadData);
-                        $.ajax({
-                            url: API_URI + "/saveReview",
-                            type: "post",
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify(trimmedPayload),
-                            cache: false,
-                            success: function (res) {
-                                // location.href = "/acknowledge";
-                                this.isFormSubmitted = false;
-                                //$('#loader').hide();
-                            },
-                            error: function (error) {
-                                $('#loader').removeClass('d-block').addClass('d-none');
-                                buttonElem.removeAttribute('disabled')
-                                if (error) {
-                                    showError(error.responseJSON.message, error.status);
+                            buttonElem.setAttribute('disabled', true)
+                            var trimmedPayload = trimObj(this.payloadData);
+                            $.ajax({
+                                url: API_URI + "/saveReview",
+                                type: "post",
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(trimmedPayload),
+                                cache: false,
+                                success: function (res) {
+                                    // location.href = "/acknowledge";
+                                    this.isFormSubmitted = false;
+                                    //$('#loader').hide();
+                                },
+                                error: function (error) {
+                                    $('#loader').removeClass('d-block').addClass('d-none');
+                                    buttonElem.removeAttribute('disabled')
+                                    if (error) {
+                                        showError(error.responseJSON.message, error.status);
+                                    }
                                 }
-                            }
-                        });
-                    }
+                            });
+                        }
                     } else {
                         buttonElem.removeAttribute('disabled')
                         return false;
@@ -464,6 +466,7 @@ onOptionChange: function (event, data) {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
                         buttonElem.setAttribute('disabled', true);
+                        this.payloadData.profEmailToSend = this.allSectionData.section1.professional_email ? this.allSectionData.section1.professional_email : ''
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
                             url: API_URI + "/saveReview",

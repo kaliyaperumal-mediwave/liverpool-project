@@ -37,6 +37,7 @@ const configs = {
     new_form: process.env.NEW_FORM,
     hccommsurl: process.env.HCCOMMS_URL,
     hccommskey: process.env.HCCOMMS_KEY,
+    frontEndUrl: process.env.FRONT_END_DOMAIN_URL,
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),
