@@ -1529,7 +1529,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-
+          referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+          referral_reason_details: ctx.request.body.referralData.referral_reason_details,
           //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1551,6 +1552,7 @@ exports.saveReferal = ctx => {
             { id: ctx.request.body.id }
         }
       ).then((result) => {
+        console.log(result, 'result');
         const responseData = {
           userid: ctx.request.body.userid,
           status: "ok",
@@ -1607,6 +1609,8 @@ exports.saveReferal = ctx => {
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
                 other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
+                referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+                referral_reason_details: ctx.request.body.referralData.referral_reason_details,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1672,6 +1676,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
+          referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+          referral_reason_details: ctx.request.body.referralData.referral_reason_details,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1747,6 +1753,8 @@ exports.saveReferal = ctx => {
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
                 other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
+                referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+                referral_reason_details: ctx.request.body.referralData.referral_reason_details,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1805,6 +1813,8 @@ exports.saveReferal = ctx => {
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
           other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
+          referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+          referral_reason_details: ctx.request.body.referralData.referral_reason_details,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1858,7 +1868,6 @@ exports.saveReferal = ctx => {
             {
               referral_type: ctx.request.body.referralData.support,
               is_covid: ctx.request.body.referralData.covid,
-
               eating_disorder_difficulties: ctx.request.body.eatingDifficulties,
               reason_for_referral: ctx.request.body.reasonForReferral,
               other_reasons_referral: ctx.request.body.referralData.otherReasonsReferral,
@@ -1866,7 +1875,8 @@ exports.saveReferal = ctx => {
               height: ctx.request.body.referralData.height,
               weight: ctx.request.body.referralData.weight,
               other_eating_difficulties: ctx.request.body.referralData.otherEatingDifficulties,
-
+              referral_reason_questions: ctx.request.body.referralData.referral_reason_questions,
+              referral_reason_details: ctx.request.body.referralData.referral_reason_details,
               // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
               // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
               // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1916,7 +1926,7 @@ exports.saveReferal = ctx => {
     }
   }
 }
-
+////
 exports.fetchReferral = ctx => {
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason

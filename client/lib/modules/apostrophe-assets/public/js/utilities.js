@@ -35,6 +35,21 @@ function preventWhiteSpaces(e, context, sectionObj, key) {
     }
 };
 
+// Prevention of entering white spaces of nested objects
+function preventWhiteSpacesOfNestedObj(e, context, sectionObj, isNestObj, key) {
+    if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+        if (isNestObj) {
+            context[sectionObj][isNestObj][key] = e.target.value.trim();
+
+        } else {
+            context[sectionObj][key] = e.target.value.trim();
+        }
+        return false;
+    } else {
+        return true;
+    }
+};
+
 // Common function for resetting the form
 function dynamicFormReset(context, object) {
     Object.keys(context[object]).map(function (k) {

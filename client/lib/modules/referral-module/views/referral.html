@@ -82,7 +82,7 @@
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental" @change="onOptionChange($event)" value="Mental health">
+                                id="mental" @change="onOptionChange($event,'')" value="Mental health">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental">
                                 Mental health
                             </label>
@@ -91,14 +91,14 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="disorder" @change="onOptionChange($event)" value="Eating disorder">
+                                id="disorder" @change="onOptionChange($event,'')" value="Eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="disorder">
                                 Eating disorder
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental&disorder" @change="onOptionChange($event)"
+                                id="mental&disorder" @change="onOptionChange($event,'')"
                                 value="Mental health & eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
                                 Mental health & eating disorder
@@ -115,21 +115,21 @@
                         <p class="question-font m-0">Is this referral related to Covid-19?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refYes" @change="onOptionChange($event)" value="Yes">
+                                name="covidReferal" id="refYes" @change="onOptionChange($event,'')" value="Yes">
                             <label class="form-check-label option-font d-flex align-items-center" for="refYes">
                                 Yes
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refNo" @change="onOptionChange($event)" value="No">
+                                name="covidReferal" id="refNo" @change="onOptionChange($event,'')" value="No">
                             <label class="form-check-label option-font d-flex align-items-center" for="refNo">
                                 No
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refUnsure" @change="onOptionChange($event)" value="Unsure">
+                                name="covidReferal" id="refUnsure" @change="onOptionChange($event,'')" value="Unsure">
                             <label class="form-check-label option-font d-flex align-items-center" for="refUnsure">
                                 Unsure
                             </label>
@@ -150,7 +150,7 @@
                                 <div>
                                     <input type="checkbox" v-bind:id="item.id" name="eatingDisorder"
                                         v-bind:value="item.value" v-model="eatingDifficulties"
-                                        @change="onOptionChange($event)">
+                                        @change="onOptionChange($event,'')">
                                     <label v-bind:for="item.id" class="option-font d-flex align-items-center">
                                     </label>
                                 </div>
@@ -268,7 +268,7 @@
                                         <input type="checkbox" v-bind:id="item.id" class="checkLogic"
                                             name="listReasonsForReferral" v-bind:value="item.value"
                                             v-model="reasonForReferral" v-bind:checked="item.isActive"
-                                            @change="onOptionChange($event)">
+                                            @change="onOptionChange($event,item)">
                                         <label v-bind:for="item.id" class="option-font d-flex align-items-center">
                                         </label>
                                     </div>
@@ -305,6 +305,134 @@
                 </form>
 
                 <!--Reason for making referral-end -->
+
+
+                <div v-if="referral_reason_questions.length"
+                    class="px-4 pt-3 pb-0 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div v-for="(item, index) in referral_reason_questions" :key="index">
+
+                        <fieldset v-if="!item.hasMultiLevel" class="scheduler-border">
+                            <legend class="scheduler-border question-font px-2">{{item.value}}:</legend>
+                            <div class="form-group py-2 m-0">
+                                <label :for="item.modelKey" class="question-font">Please can you give us some more
+                                    detail so we can make sure we get you the right support </label>
+                                <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
+                                    v-model="referral_reason_details[item.modelKey]" rows="4"
+                                    @input="trimWhiteSpace($event,'referral_reason_details',item.modelKey)"></textarea>
+
+                                <div class="text-validation invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block':(isFormSubmitted && !referral_reason_details[item.modelKey]),'invalid-fields': !referral_reason_details[item.modelKey]}">
+                                    You must provide an answer to this question to continue.
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset v-if="item.hasMultiLevel" class="scheduler-border">
+                            <legend class="scheduler-border question-font px-2">{{item.value}}:</legend>
+
+                            <div class="pt-2">
+                                <p class="question-font m-0">Have you ever self harmed</p>
+                                <div class="form-check pt-3 pb-1 pl-0">
+                                    <input class="form-check-input" type="radio"
+                                        v-model="referral_reason_details[item.modelKey]['ans']" :name="item.modelKey"
+                                        @change="resetDependentQuestion(item)" :id="item.modelKey + 'Yes'" value="yes">
+                                    <label class="form-check-label option-font d-flex align-items-center"
+                                        :for="item.modelKey + 'Yes'">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check py-2 pl-0">
+                                    <input class="form-check-input" type="radio"
+                                        v-model="referral_reason_details[item.modelKey]['ans']" :name="item.modelKey"
+                                        @change="resetDependentQuestion(item)" :id="item.modelKey + 'No'" value="no">
+                                    <label class="form-check-label option-font d-flex align-items-center"
+                                        :for="item.modelKey + 'No'">
+                                        No
+                                    </label>
+                                </div>
+                                <!-- <p>{{referral_reason_details[item.modelKey]['ans']}}</p> -->
+                                <div class="text-validation invalid-feedback d-none" v-bind:class="{ 'd-block':(isFormSubmitted && !referral_reason_details[item.modelKey]['ans']),
+                                    'invalid-fields': !referral_reason_details[item.modelKey]['ans']}">
+                                    You must provide an answer to this question to continue.
+                                </div>
+                            </div>
+
+                            <div v-if="referral_reason_details[item.modelKey]['ans'] == 'yes'">
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey +'lastHarm'" class="question-font">When did you last self
+                                        harm?</label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'lastHarm'"
+                                        v-model="referral_reason_details[item.modelKey]['last_harmed']" rows="4"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'last_harmed')">
+                                    </textarea>
+                                    <div class="text-validation invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block':(isFormSubmitted && referral_reason_details[item.modelKey]['ans'] == 'yes' && !referral_reason_details[item.modelKey]['last_harmed']),
+                                    'invalid-fields': referral_reason_details[item.modelKey]['ans'] == 'yes' && !referral_reason_details[item.modelKey]['last_harmed']}">
+                                        You must provide an answer to this question to continue.
+                                    </div>
+                                </div>
+
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey+'more_details'" class="question-font">Please give us more
+                                        details
+                                        <b>(optional)</b> </label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'more_details'"
+                                        v-model="referral_reason_details[item.modelKey]['more_details']" rows="4"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'more_details')"></textarea>
+                                </div>
+                            </div>
+
+                            <div
+                                v-if="referral_reason_details[item.modelKey]['ans'] == 'yes' || referral_reason_details[item.modelKey]['ans'] == 'no'">
+
+                                <div class="form-group py-2 mt-0 mb-2">
+                                    <label class="question-font">How often do you think about self harming?
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="plain-select">
+                                            <select class="custom-select form-control input-bg-form-control"
+                                                v-model="referral_reason_details[item.modelKey]['think_about_self_harming']"
+                                                name="thinkAbout">
+                                                <option class='option-text' value="" disabled selected>
+                                                    Select option
+                                                </option>
+                                                <option value="Never">Never</option>
+                                                <option value="Occasionally">Occasionally</option>
+                                                <option value="Often">Often</option>
+                                                <option value="Always">Always</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isFormSubmitted && !referral_reason_details[item.modelKey]['think_about_self_harming']),
+                                        'invalid-fields':!referral_reason_details[item.modelKey]['think_about_self_harming'] }">
+                                        You must provide an answer to this question to continue.
+                                    </div>
+                                </div>
+
+                                <div class="form-group py-2 m-0">
+                                    <label :for="item.modelKey+'ProvideBestSupport'" class="question-font">Please give a
+                                        bit more details so
+                                        we can work out what support is best for you</label>
+                                    <textarea class="h-112 form-control input-bg-form-control"
+                                        :id="item.modelKey+'ProvideBestSupport'" rows="4"
+                                        v-model="referral_reason_details[item.modelKey]['more_about_self_harming']"
+                                        @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'more_about_self_harming')"></textarea>
+
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isFormSubmitted && !referral_reason_details[item.modelKey]['more_about_self_harming']),
+                                        'invalid-fields':!referral_reason_details[item.modelKey]['more_about_self_harming'] }">
+                                        You must provide an answer to this question to continue.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+                </div>
 
 
                 <!-- Textarea for other Reason for making referral-start -->
@@ -429,14 +557,15 @@
                         <p class="question-font m-0">{{dynamicLabels.prevAccessedServiceLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.accessService"
-                                name="accessedService" id="accessSerYes" @change="onOptionChange($event)" value="yes">
+                                name="accessedService" id="accessSerYes" @change="onOptionChange($event,'')"
+                                value="yes">
                             <label class="form-check-label option-font d-flex align-items-center" for="accessSerYes">
                                 Yes
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.accessService"
-                                name="accessedService" id="accessSeNo" @change="onOptionChange($event)" value="no">
+                                name="accessedService" id="accessSeNo" @change="onOptionChange($event,'')" value="no">
                             <label class="form-check-label option-font d-flex align-items-center" for="accessSeNo">
                                 No
                             </label>
@@ -453,7 +582,7 @@
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
                             :key="index">
                             <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
-                                v-model="accessList" @change="onOptionChange($event)">
+                                v-model="accessList" @change="onOptionChange($event,'')">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
                                 {{ item.value }}</label>
                         </div>
@@ -658,7 +787,7 @@
 
                 <!-- Dynamic Toaster start Scenario 1-->
                 <div
-                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="accessList.length && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -686,7 +815,7 @@
 
                 <!-- Dynamic Toaster start Scenario 2-->
                 <div
-                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="referralData.accessService == 'no' && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -712,7 +841,7 @@
 
                 <!-- Dynamic Toaster start Scenario 3-->
                 <div
-                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950">
+                    v-if="allAvailableService.length && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">

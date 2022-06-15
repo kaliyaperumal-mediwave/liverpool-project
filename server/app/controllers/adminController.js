@@ -757,7 +757,7 @@ exports.downloadReferral = async ctx => {
             //////console.log()(sendReferralStatus)
             return ctx.res.ok({
                 data: sendReferralStatus,
-                message: reponseMessages[1017],
+                message: referralData,
             });
         }).catch(error => {
             //////console.log()(error);

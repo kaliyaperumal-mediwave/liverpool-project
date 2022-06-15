@@ -306,7 +306,7 @@ $(document).ready(function () {
                 var getToData = _self.toDateCsv.split('/');
                 console.log('from and to', getFromData, getToData)
                 var alterOtherTeam;
-               // showLoader(true);
+                // showLoader(true);
                 $.ajax({
                   url: API_URI + '/getActivityCSV?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2] + '&referralType=' + getReferralType,
                   type: 'get',
@@ -395,7 +395,7 @@ $(document).ready(function () {
 
                       rows.push([]);
                     }
-                   // showLoader(false);
+                    // showLoader(false);
                     let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
                     var encodedUri = encodeURI(csvContent);
                     var blob = new Blob([csvContent], { type: "text/csv" });
@@ -408,18 +408,18 @@ $(document).ready(function () {
                     _self.toDateCsv = "";
                     _self.isCsvDownloadSubmitted = false;
                     _self.showInvalidToDate = false;
-                    
+
                   },
                   error: function (error) {
-                  console.log("🚀 ~ file: admin.js ~ line 413 ~ error", error)
-                  _self.closeStatusPopup();
-                   // showLoader(false);
+                    console.log("🚀 ~ file: admin.js ~ line 413 ~ error", error)
+                    _self.closeStatusPopup();
+                    // showLoader(false);
                     if (error) {
                       showError(error.responseJSON.message, error.status);
                     }
                   },
                   complete: function (data) {
-                //    showLoader(false);
+                    //    showLoader(false);
                   }
                 });
 
@@ -440,7 +440,7 @@ $(document).ready(function () {
             return false;
           }
         });
-          
+
 
         $(".7ec44f9b-12d0-46aa-ac0b-9ddd430c4dc3").on("change", function (e) {
           if (e.target.checked) {
@@ -1067,6 +1067,7 @@ function viewPdf(uuid, role, other, formType) {
   $('#loader').removeClass('d-none').addClass('d-block');
   setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role + "/" + formType, API_URI);
+    console.log("🚀 ~ file: admin.js ~ line 1070 ~ successData", successData)
     if (successData && Object.keys(successData)) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
