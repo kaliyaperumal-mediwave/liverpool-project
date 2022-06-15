@@ -515,7 +515,6 @@ $(document).ready(function () {
 
             //Function to trim space entered
             trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
-                
                 preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
 
             },
@@ -586,8 +585,8 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                
-               
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_details)
+                console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_questions)
                 payload.referralData.referral_reason_details = this.referral_reason_details
                 payload.referralData.referral_reason_questions = this.referral_reason_questions
                
@@ -800,6 +799,14 @@ $(document).ready(function () {
                     } else {
                         this.resetModalValues();
                     }
+                }
+            },
+
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
                 }
             },
 

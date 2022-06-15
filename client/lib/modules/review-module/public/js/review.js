@@ -421,7 +421,7 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
-                                location.href = "/acknowledge";
+                                // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                                 //$('#loader').hide();
                             },
@@ -466,7 +466,7 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
-                                location.href = "/acknowledge";
+                                // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                                 //$('#loader').hide();
                             },
@@ -893,6 +893,16 @@ $(document).ready(function () {
 
                 }
 
+            },
+
+
+              //Function to check array length
+              checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
             },
 
             calculateAge: function (birthDate) {
