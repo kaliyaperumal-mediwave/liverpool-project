@@ -601,6 +601,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
                         if (!this.payloadData.needCopy) {
+                            $('#loader').hide();
                             return false
                         }
                         else {
@@ -615,7 +616,7 @@ $(document).ready(function () {
                                 data: JSON.stringify(trimmedPayload),
                                 cache: false,
                                 success: function (res) {
-                                   // location.href = "/acknowledge";
+                                    // location.href = "/acknowledge";
                                     this.isFormSubmitted = false;
                                     $('#loader').hide();
                                 },
