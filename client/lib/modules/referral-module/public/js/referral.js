@@ -802,6 +802,14 @@ $(document).ready(function () {
                 }
             },
 
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             clearDependentValues: function (parentKey) {
                 var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {

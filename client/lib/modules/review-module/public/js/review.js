@@ -895,6 +895,16 @@ $(document).ready(function () {
 
             },
 
+
+              //Function to check array length
+              checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             calculateAge: function (birthDate) {
                 birthDate = new Date(birthDate);
                 otherDate = new Date();
