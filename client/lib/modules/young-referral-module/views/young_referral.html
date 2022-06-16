@@ -773,7 +773,7 @@
                                 <label for="disability"
                                     class="question-font">{{dynamicLabels.about_our_service}}</label>
                                 <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
-                                    name="about_our_service" id="about_our_service"
+                                    name="about_our_service" id="about_our_service" placeholder="Enter here"
                                     @input="trimWhiteSpace($event,'referralData','about_our_service')"
                                     @keyup="checkCharacterLength($event,'showlimitTxt8')"
                                     v-model="referralData.about_our_service" rows="7"></textarea>

@@ -114,18 +114,22 @@
                     </div>
                 </div>
             </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Selected service:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section1.selected_service %>
+
+            <% if(body.section1.selected_service!='' && body.section1.selected_service!=null ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Selected service:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.selected_service %>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <% } %>
+            
             <% if(body.section1.referral_mode!='' && body.section1.referral_mode!=null ){ %>
                 <div class="text-container">
                     <div class="label-set">
@@ -1482,8 +1486,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <%}%>
-                                                                                <% if(body.section4.any_particular_trigger
-                                                                                    !='' &&
+                                                                                <% if(body.section4.any_particular_trigger !='' &&
                                                                                     body.section4.any_particular_trigger
                                                                                     !=null ) {%>
 
@@ -1501,8 +1504,8 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <%}%>
-                                                                                        <% if(body.section4.disabilities
-                                                                                            !='' &&
+                                                                                    
+                                                                                        <% if(body.section4.disabilities!='' &&
                                                                                             body.section4.disabilities
                                                                                             !=null ) {%>
                                                                                             <div class="text-container">
