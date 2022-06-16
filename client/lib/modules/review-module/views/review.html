@@ -32,8 +32,7 @@
         <h3 class="question-header-font col-md-9 col-sm-11 col-11 px-2 col-lg-6 col-xl-6 mt-4 mt-md-5 mb-0 mx-auto">
             Feedback - <b>optional</b>
         </h3>
-        <div class="secondary-content-area col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto mt-3 mb-4 responsepy"
-            v-cloak>
+        <div class="secondary-content-area col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto mt-3 mb-4 responsepy" v-cloak>
 
             <div class="d-flex text-center pt-3 pb-2">
                 <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 pt-2 mx-auto">
@@ -45,29 +44,25 @@
                         <input v-model="refFeedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
                         <label class="full m-0" for="5star"></label>
 
-                        <input type="radio" v-model="refFeedbackData.ratings" id="4halfstar" name="rating"
-                            value="4.5" />
+                        <input type="radio" v-model="refFeedbackData.ratings" id="4halfstar" name="rating" value="4.5" />
                         <label class="half" for="4halfstar"></label>
 
                         <input type="radio" v-model="refFeedbackData.ratings" id="4star" name="rating" value="4" />
                         <label class="full m-0" for="4star"></label>
 
-                        <input type="radio" v-model="refFeedbackData.ratings" id="3halfstar" name="rating"
-                            value="3.5" />
+                        <input type="radio" v-model="refFeedbackData.ratings" id="3halfstar" name="rating" value="3.5" />
                         <label class="half" for="3halfstar"></label>
 
                         <input type="radio" v-model="refFeedbackData.ratings" id="3star" name="rating" value="3" />
                         <label class="full m-0" for="3star"></label>
 
-                        <input type="radio" v-model="refFeedbackData.ratings" id="2halfstar" name="rating"
-                            value="2.5" />
+                        <input type="radio" v-model="refFeedbackData.ratings" id="2halfstar" name="rating" value="2.5" />
                         <label class="half" for="2halfstar"></label>
 
                         <input type="radio" v-model="refFeedbackData.ratings" id="2star" name="rating" value="2" />
                         <label class="full m-0" for="2star"></label>
 
-                        <input type="radio" v-model="refFeedbackData.ratings" id="1halfstar" name="rating"
-                            value="1.5" />
+                        <input type="radio" v-model="refFeedbackData.ratings" id="1halfstar" name="rating" value="1.5" />
                         <label class="half" for="1halfstar"></label>
 
                         <input type="radio" v-model="refFeedbackData.ratings" id="1star" name="rating" value="1" />
@@ -87,25 +82,21 @@
                 <div class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 mx-auto">
                     <div class="form-group text-left">
                         <label for="feedback" class="referral-feedback m-0 py-2 px-2 text-left">Is there any
-                            other feedback you would like to provide? - <b>optional</b> <span
-                                style="font-weight: normal !important;" class="referral-feedback text-left">(This
+                            other feedback you would like to provide? - <b>optional</b> <span style="font-weight: normal !important;" class="referral-feedback text-left">(This
                                 feedback is about
                                 the form
                                 and the platform only and will be shared with the design/development team. Please do not
                                 include personal information about your healthcare needs as your clinician will not see
                                 it.)</span></label>
 
-                        <textarea class="h-100 px-4 form-control my-2 input-bg-form-control" id="feedback"
-                            v-model="refFeedbackData.comments"
-                            @input="trimWhiteSpace($event,'refFeedbackData','comments')"
-                            placeholder="You can submit your feedback here" rows="4"></textarea>
+                        <textarea class="h-100 px-4 form-control my-2 input-bg-form-control" id="feedback" v-model="refFeedbackData.comments"
+                            @input="trimWhiteSpace($event,'refFeedbackData','comments')" placeholder="You can submit your feedback here" rows="4"></textarea>
                     </div>
                 </div>
             </div>
 
             <div class="pt-3 pb-4 text-center">
-                <button type="button" @click="sendReferralFeedback()" id="secondary"
-                    class="btn px-md-4 px-3 mx-auto w-h-sub flex-c-div">
+                <button type="button" @click="sendReferralFeedback()" id="secondary" class="btn px-md-4 px-3 mx-auto w-h-sub flex-c-div">
                     <span class="btn-quaternary-text">
                         SUBMIT
                     </span>
@@ -114,8 +105,7 @@
 
             {% raw %}
             <!-- Change Password Succuss Modal Start -->
-            <div class="modal fade" id="refFeedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                role="dialog" aria-labelledby="refFeedbackSuccessLabel" aria-hidden="true">
+            <div class="modal fade" id="refFeedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="refFeedbackSuccessLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content modal-bg login-safe-pd">
                         <span aria-hidden="true" class="modal-close" data-dismiss="modal">
@@ -155,32 +145,27 @@
                 <div class="accordion" id="accordionExample">
                     {% raw %}
                     <div class="py-2 px-3">
-                        <div class="d-flex justify-content-between align-items-center" id="headingOne"
-                            data-container="body">
+                        <div class="d-flex justify-content-between align-items-center" id="headingOne" data-container="body">
                             <div class="d-flex align-items-center">
                                 <h2 class="py-2 m-0 question-header-font">
                                     Eligibility
                                 </h2>
-                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" data-container="body" @click="editAllSection('role')"
-                                    data-placement="top" title="Edit Section 1"></i>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon" data-toggle="tooltip" data-container="body" @click="editAllSection('role')" data-placement="top"
+                                    title="Edit Section 1"></i>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" id="toggle1" data-target="#collapseOne" aria-expanded="true"
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35" data-toggle="collapse" id="toggle1" data-target="#collapseOne" aria-expanded="true"
                                     @click="toggleArrow($event,1,allSectionData)" aria-controls="collapseOne"></i>
                             </span>
                         </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                            data-parent="#accordionExample">
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="py-1 py-md-2">
                                 <!-- Your Info Start -->
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="iamA">
                                         I am a:
                                     </label>
-                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        v-model="yourInfo" id="iamA">
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="yourInfo" id="iamA">
                                 </div>
                                 <!-- Your Info End -->
 
@@ -191,30 +176,24 @@
                                             Service location:
                                         </label>
                                         <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control input-bg-form-control" readonly type="text"
-                                                v-model="section1Data.service_location" id="serviceLocation">
+                                            <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.service_location" id="serviceLocation">
                                         </div>
                                     </div>
 
-                                    <div v-if="section1Data.service_location!='I do not want to select a service'"
-                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="section1Data.service_location!='I do not want to select a service'" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
                                             Selected service:
                                         </label>
-                                        <input
-                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.selected_service"
+                                        <input class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.selected_service"
                                             id="selectedService">
                                     </div>
-                                    <div v-if="userRole == 'professional' && section1Data.referral_mode"
-                                        class="py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="userRole == 'professional' && section1Data.referral_mode" class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
                                             Referral type:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <span class="plain-select">
-                                                <select class="custom-select h-50px    input-bg-form-control"
-                                                    @change="onDetectChange($event,'sect1','section1Data','referral_mode')"
+                                                <select class="custom-select h-50px    input-bg-form-control" @change="onDetectChange($event,'sect1','section1Data','referral_mode')"
                                                     v-model="section1Data.referral_mode">
                                                     <option class='option-text' value="1">Routine
                                                     </option>
@@ -230,15 +209,11 @@
                                         </label>
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control input-bg-form-control" type="text"
-                                                    placeholder="Enter first name"
-                                                    @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_name')"
-                                                    v-model="section1Data.professional_name" id="profAddressSec5">
+                                                <input class="form-control input-bg-form-control" type="text" placeholder="Enter first name" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_name')" v-model="section1Data.professional_name" id="profAddressSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
@@ -256,14 +231,11 @@
                                         </label>
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control    input-bg-form-control" type="text"
-                                                    placeholder="Enter last name" @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')"
-                                                    v-model="section1Data.professional_lastname" id="profLastNameSec5">
+                                                <input class="form-control    input-bg-form-control" type="text" placeholder="Enter last name" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')" v-model="section1Data.professional_lastname" id="profLastNameSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
@@ -277,18 +249,14 @@
 
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="profEmailSec5">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0" for="profEmailSec5">
                                             Email:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input
-                                                    class="form-control capitalize-first-letter input-bg-form-control"
-                                                    type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
-                                                    placeholder="Enter email"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_email')"
-                                                    v-model="section1Data.professional_email" id="profEmailSec5">
+                                                <input class="form-control capitalize-first-letter input-bg-form-control" type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
+                                                    placeholder="Enter email" @input="onDetectChange($event,'sect1','section1Data','professional_email')" v-model="section1Data.professional_email"
+                                                    id="profEmailSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
                                                         <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
@@ -303,27 +271,23 @@
                                     </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="profContactSec5">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0" for="profContactSec5">
                                             Contact number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <div class="input-group-prepend cursor-pointer">
                                                     <span class="plain-select custom-mobile-place">
-                                                        <select class="custom-select form-control input-bg-form-control"
-                                                            v-model="section1Data.professional_contact_type"
+                                                        <select class="custom-select form-control input-bg-form-control" v-model="section1Data.professional_contact_type"
                                                             @change="onDetectChange($event,'sect1','section1Data','professional_contact_type')">
                                                             <option selected="selected" value="mobile">Mobile</option>
                                                             <option value="landline">Landline</option>
                                                         </select>
                                                     </span>
                                                 </div>
-                                                <input class="form-control input-bg-form-control" type="text"
-                                                    placeholder="Enter contact number"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
-                                                    inputmode="tel" v-model="section1Data.professional_contact_number"
-                                                    id="profContactSec5">
+                                                <input class="form-control input-bg-form-control" type="text" placeholder="Enter contact number"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')" inputmode="tel"
+                                                    v-model="section1Data.professional_contact_number" id="profContactSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
                                                         <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
@@ -348,26 +312,20 @@
                                         </p>
                                     </div>
 
-                                    <div v-if="section1Data.professional_address"
-                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="section1Data.professional_address" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddress1Sec5">
                                             Address:
                                         </label>
-                                        <textarea
-                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.professional_address"
+                                        <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.professional_address"
                                             id="profAddress1Sec5">
                                                 </textarea>
                                     </div>
 
-                                    <div v-if="checkArrayLength(section1Data.professional_manual_address)"
-                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="checkArrayLength(section1Data.professional_manual_address)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Address:
                                         </label>
-                                        <textarea
-                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="showManualAddressForRole">
+                                        <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="showManualAddressForRole">
                                             </textarea>
                                     </div>
 
@@ -377,11 +335,8 @@
                                         </label>
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control    input-bg-form-control" type="text"
-                                                    placeholder="Enter your profession"
-                                                    @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')"
-                                                    v-model="section1Data.professional_profession"
+                                                <input class="form-control    input-bg-form-control" type="text" placeholder="Enter your profession" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')" v-model="section1Data.professional_profession"
                                                     id="profProfessionSec5">
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
                                                     'invalid-fields':!section1Data.professional_profession }">
@@ -395,31 +350,25 @@
                                 <!-- Professional Info End -->
 
                                 <!-- Interpreter Needed Start -->
-                                <div v-if="userRole == 'child' || userRole == 'parent'"
-                                    class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                <div v-if="userRole == 'child' || userRole == 'parent'" class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                     <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
                                     </label>
                                     <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
-                                        <input class="form-control input-bg-form-control" readonly type="text"
-                                            data-toggle="popover" data-trigger="focus" data-placement="bottom"
-                                            data-content="My popover content." v-model="section1Data.need_interpreter"
-                                            id="InterpreterNeed">
+                                        <input class="form-control input-bg-form-control" readonly type="text" data-toggle="popover" data-trigger="focus" data-placement="bottom"
+                                            data-content="My popover content." v-model="section1Data.need_interpreter" id="InterpreterNeed">
                                     </div>
                                 </div>
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <div
-                                    v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
-                                    <div v-if="userRole == 'child'"
-                                        class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                <div v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
+                                    <div v-if="userRole == 'child'" class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
                                             Any reason parent/carer cannot be contacted:
                                         </label>
                                         <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control" readonly type="text"
-                                                v-model="section1Data.contact_parent" id="parentOrCarerSec5">
+                                            <input class="form-control" readonly type="text" v-model="section1Data.contact_parent" id="parentOrCarerSec5">
                                         </div>
                                     </div>
                                 </div>
@@ -430,8 +379,7 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobChilds">
                                         Child's D.O.B:
                                     </label>
-                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        v-model="section1Data.child_dob" id="dobChilds">
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.child_dob" id="dobChilds">
                                 </div>
                                 <!-- Child's DOB Start -->
 
@@ -443,8 +391,7 @@
                                             Consent given:
                                         </label>
                                         <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control input-bg-form-control " readonly type="text"
-                                                v-model="section1Data.consent_child" id="consentGivenSec5">
+                                            <input class="form-control input-bg-form-control " readonly type="text" v-model="section1Data.consent_child" id="consentGivenSec5">
                                         </div>
                                     </div>
                                 </div>
@@ -457,23 +404,19 @@
                                             Any reason parent/carer cannot be contacted:
                                         </label>
                                         <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control input-bg-form-control" readonly type="text"
-                                                v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
+                                            <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Child and Parent -->
 
                                 <!-- Child -->
-                                <div
-                                    v-if="userRole == 'child' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
+                                <div v-if="userRole == 'child' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
                                             Reason for no contact:
                                         </label>
-                                        <input
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
+                                        <input class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
                                             id="reasonCamhs">
                                     </div>
                                 </div>
@@ -486,19 +429,16 @@
                                             Consent given by child:
                                         </label>
                                         <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control input-bg-form-control" readonly type="text"
-                                                v-model="section1Data.consent_child" id="consentGivenChild">
+                                            <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.consent_child" id="consentGivenChild">
                                         </div>
                                     </div>
 
-                                    <div v-if="ageFlag < 15"
-                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="ageFlag < 15" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
                                             Consent given by parent:
                                         </label>
                                         <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
-                                            <input class="form-control input-bg-form-control" readonly type="text"
-                                                v-model="section1Data.consent_parent" id="consentGivenPar">
+                                            <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.consent_parent" id="consentGivenPar">
                                         </div>
                                     </div>
 
@@ -511,19 +451,14 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         GP:
                                     </label>
-                                    <textarea
-                                        class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                    <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                         </textarea>
                                 </div>
-                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null"
-                                    class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
-                                    <textarea
-                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
+                                    <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
                                 </div>
                                 <!-- Gp End -->
@@ -531,9 +466,7 @@
                             </div>
 
                             <div class="text-center py-4">
-                                <button
-                                    @click="updateInfo($event,section1Data,'/user/updateEligibilityInfo','beforeSaveSection1')"
-                                    disabled id="sect1" type="button" class="btn px-md-4 py-1 px-3">
+                                <button @click="updateInfo($event,section1Data,'/user/updateEligibilityInfo','beforeSaveSection1')" disabled id="sect1" type="button" class="btn px-md-4 py-1 px-3">
                                     <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                         <span class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
@@ -557,29 +490,22 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
-                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon" data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
                                     title="Edit Section 2"></i>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
-                                    data-toggle="collapse" id="toggle2" data-target="#collapseTwo"
-                                    @click="toggleArrow($event,2,allSectionData)" aria-expanded="true"
-                                    aria-controls="collapseTwo"></i>
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer" data-toggle="collapse" id="toggle2" data-target="#collapseTwo"
+                                    @click="toggleArrow($event,2,allSectionData)" aria-expanded="true" aria-controls="collapseTwo"></i>
                             </span>
                         </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                            data-parent="#accordionExample">
-                            <div v-if="userRole == 'professional'"
-                                class="py-3 w-100 mx-0 row align-items-center d-none">
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div v-if="userRole == 'professional'" class="py-3 w-100 mx-0 row align-items-center d-none">
                                 <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
                                     Referral type:
                                 </label>
                                 <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                     <span class="plain-select">
-                                        <select class="custom-select h-50px    input-bg-form-control"
-                                            @change="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.referral_mode">
+                                        <select class="custom-select h-50px    input-bg-form-control" @change="onDetectChange($event,'sect2')" v-model="section2Data.referral_mode">
                                             <option class='option-text' value="1">Routine
                                             </option>
                                             <option class='option-text' value="2">Urgent
@@ -595,12 +521,9 @@
                                         NHS number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control    input-bg-form-control"
-                                            @input="onDetectChange($event,'sect2','section2Data','child_NHS')"
-                                            type="text" inputmode="numeric" placeholder="Enter NHS number"
-                                            v-model="section2Data.child_NHS" id="nhsNumberSect5">
-                                        <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
+                                        <input class="form-control    input-bg-form-control" @input="onDetectChange($event,'sect2','section2Data','child_NHS')" type="text" inputmode="numeric"
+                                            placeholder="Enter NHS number" v-model="section2Data.child_NHS" id="nhsNumberSect5">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
                                         'invalid-fields':(section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)) }">
                                             You must provide a valid NHS Number.
                                         </small>
@@ -615,9 +538,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select
-                                                class="custom-select h-50px custom-select h-50px  input-bg-form-control"
-                                                @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
+                                            <select class="custom-select h-50px custom-select h-50px  input-bg-form-control" @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
                                                 v-model="section2Data.child_name_title">
                                                 <option value="Mr">Mr</option>
                                                 <option value="Miss">Miss</option>
@@ -650,10 +571,8 @@
                                                     </select>
                                                 </span>
                                             </div> -->
-                                            <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','child_name')"
-                                                placeholder="Enter first name" type="text"
-                                                v-model="section2Data.child_name" id="nameSecLast">
+                                            <input class="form-control    input-bg-form-control" @input="onDetectChange($event,'sect2','section2Data','child_name')" placeholder="Enter first name"
+                                                type="text" v-model="section2Data.child_name" id="nameSecLast">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
@@ -675,10 +594,8 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','child_lastname')"
-                                                placeholder="Enter last name" type="text"
-                                                v-model="section2Data.child_lastname" id="nameSec5">
+                                            <input class="form-control    input-bg-form-control" @input="onDetectChange($event,'sect2','section2Data','child_lastname')" placeholder="Enter last name"
+                                                type="text" v-model="section2Data.child_lastname" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
@@ -700,18 +617,15 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','child_email')"
-                                                placeholder="Enter email" inputmode="email" type="text"
-                                                v-model="section2Data.child_email" id="emailSec5">
+                                            <input class="form-control    input-bg-form-control" @input="onDetectChange($event,'sect2','section2Data','child_email')" placeholder="Enter email"
+                                                inputmode="email" type="text" v-model="section2Data.child_email" id="emailSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
-                                        <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_email && !emailRegex.test(section2Data.child_email)),
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_email && !emailRegex.test(section2Data.child_email)),
                                             'invalid-fields':(section2Data.child_email && !emailRegex.test(section2Data.child_email)) }">
                                             You must provide a valid email.
                                         </small>
@@ -743,18 +657,15 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select custom-mobile-place">
-                                                    <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.child_contact_type"
+                                                    <select class="custom-select form-control input-bg-form-control" v-model="section2Data.child_contact_type"
                                                         @change="onDetectChange($event,'sect2','section2Data','child_contact_type')">
                                                         <option selected="selected" value="mobile">Mobile</option>
                                                         <option value="landline">Landline</option>
                                                     </select>
                                                 </span>
                                             </div>
-                                            <input class="form-control    input-bg-form-control"
-                                                @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
-                                                placeholder="Enter contact number" inputmode="tel" type="text"
-                                                v-model="section2Data.child_contact_number" id="cont">
+                                            <input class="form-control    input-bg-form-control" @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
+                                                placeholder="Enter contact number" inputmode="tel" type="text" v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
@@ -779,26 +690,22 @@
                                     </div>
                                 </div>
 
-                                <div v-if="section2Data.child_address"
-                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section2Data.child_address" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea readonly class="form-control input-bg-form-control" type="text"
-                                            v-model="section2Data.child_address" id="addressSect5">
+                                        <textarea readonly class="form-control input-bg-form-control" type="text" v-model="section2Data.child_address" id="addressSect5">
                                 </textarea>
                                     </div>
                                 </div>
 
-                                <div v-if="checkArrayLength(section2Data.child_manual_address)"
-                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="checkArrayLength(section2Data.child_manual_address)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea readonly class="form-control    input-bg-form-control" type="text"
-                                            v-model="showChildManualAddressSection2" id="addressSect5">
+                                        <textarea readonly class="form-control    input-bg-form-control" type="text" v-model="showChildManualAddressSection2" id="addressSect5">
                                 </textarea>
                                     </div>
                                 </div>
@@ -809,9 +716,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                @change="onDetectChange($event,'sect2')"
-                                                v-model="section2Data.can_send_post">
+                                            <select class="custom-select h-50px    input-bg-form-control" @change="onDetectChange($event,'sect2')" v-model="section2Data.can_send_post">
                                                 <option class='option-text' value="Yes">Yes
                                                 </option>
                                                 <option class='option-text' value="No">No
@@ -826,10 +731,8 @@
                                         Gender:
                                     </label>
                                     <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','child_gender')"
-                                            placeholder="Enter gender" v-model="section2Data.child_gender"
-                                            id="genderSect5">
+                                        <input class="form-control input-bg-form-control" type="text" @input="onDetectChange($event,'sect2','section2Data','child_gender')" placeholder="Enter gender"
+                                            v-model="section2Data.child_gender" id="genderSect5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
                                         'invalid-fields':!section2Data.child_gender }">
                                             You must provide an answer.
@@ -843,9 +746,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section2Data.child_gender_birth"
-                                                @change="onDetectChange($event,'sect2')">
+                                            <select class="custom-select h-50px    input-bg-form-control" v-model="section2Data.child_gender_birth" @change="onDetectChange($event,'sect2')">
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No</option>
                                                 <option class='option-text' value="Unsure">Unsure</option>
@@ -860,8 +761,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select v-model="section2Data.sex_at_birth"
-                                                class="custom-select h-50px    input-bg-form-control"
+                                            <select v-model="section2Data.sex_at_birth" class="custom-select h-50px    input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option class='option-text' value="Male">Male</option>
                                                 <option class='option-text' value="Female">Female</option>
@@ -877,10 +777,8 @@
                                         Sexual orientation:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control    input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','child_sexual_orientation')"
-                                            placeholder="Enter sexual orientation"
-                                            v-model="section2Data.child_sexual_orientation" id="orientSect5">
+                                        <input class="form-control    input-bg-form-control" type="text" @input="onDetectChange($event,'sect2','section2Data','child_sexual_orientation')"
+                                            placeholder="Enter sexual orientation" v-model="section2Data.child_sexual_orientation" id="orientSect5">
                                     </div>
                                 </div>
 
@@ -895,21 +793,17 @@
                                             id="ethincitySect5">
                                     </div> -->
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea readonly class="form-control h-50 input-bg-form-control" type="text"
-                                            rows="3" placeholder="Enter ethnicity"
-                                            v-model="section2Data.child_ethnicity">
+                                        <textarea readonly class="form-control h-50 input-bg-form-control" type="text" rows="3" placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity">
                                         </textarea>
                                     </div>
                                 </div>
 
-                                <div v-if="checkArrayLength(section2Data.household_member)"
-                                    class="py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="checkArrayLength(section2Data.household_member)" class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
                                         Household members
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <div class="card text-left mb-2 border-0"
-                                            v-for="(item, index) in section2Data.household_member" :key="index">
+                                        <div class="card text-left mb-2 border-0" v-for="(item, index) in section2Data.household_member" :key="index">
                                             <div class="card-body py-2 px-3 input-bg-form-control">
                                                 <div class="d-flex align-items-center justify-content-between my-1">
                                                     <h5 class="question-font">{{item.name}} {{item.lastName}}</h5>
@@ -960,9 +854,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                @change="onDetectChange($event,'sect2')"
-                                                v-model="section2Data.child_care_adult">
+                                            <select class="custom-select h-50px    input-bg-form-control" @change="onDetectChange($event,'sect2')" v-model="section2Data.child_care_adult">
                                                 <option class='option-text' value="No">No</option>
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="Unsure">Unsure</option>
@@ -976,10 +868,8 @@
                                         Parent / Carer's first name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','parent_name')"
-                                            placeholder="Enter first name" v-model="section2Data.parent_name"
-                                            id="parCarName">
+                                        <input class="form-control input-bg-form-control" type="text" @input="onDetectChange($event,'sect2','section2Data','parent_name')"
+                                            placeholder="Enter first name" v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
                                     'invalid-fields':!section2Data.parent_name}">
                                             You must provide first name.
@@ -992,10 +882,8 @@
                                         Parent / Carer's last name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','parent_lastname')"
-                                            placeholder="Enter last name" v-model="section2Data.parent_lastname"
-                                            id="parCarLastName">
+                                        <input class="form-control input-bg-form-control" type="text" @input="onDetectChange($event,'sect2','section2Data','parent_lastname')"
+                                            placeholder="Enter last name" v-model="section2Data.parent_lastname" id="parCarLastName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_lastname),
                                     'invalid-fields':!section2Data.parent_lastname}">
                                             You must provide last name.
@@ -1008,9 +896,7 @@
                                         Have parental responsibility:
                                     </label>
                                     <div class="col-md-6 capitalize-first-letter col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" readonly type="text"
-                                            @input="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.parental_responsibility" id="parResp">
+                                        <input class="form-control" readonly type="text" @input="onDetectChange($event,'sect2')" v-model="section2Data.parental_responsibility" id="parResp">
                                     </div>
                                 </div>
 
@@ -1019,10 +905,8 @@
                                         Relationship:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control    input-bg-form-control" type="text"
-                                            @input="onDetectChange($event,'sect2','section2Data','child_parent_relationship')"
-                                            placeholder="Enter relationship"
-                                            v-model="section2Data.child_parent_relationship" id="relSec5">
+                                        <input class="form-control    input-bg-form-control" type="text" @input="onDetectChange($event,'sect2','section2Data','child_parent_relationship')"
+                                            placeholder="Enter relationship" v-model="section2Data.child_parent_relationship" id="relSec5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
                                     'invalid-fields':!section2Data.child_parent_relationship }">
                                             You must provide an answer.
@@ -1054,18 +938,15 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select custom-mobile-place">
-                                                    <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.parent_contact_type"
+                                                    <select class="custom-select form-control input-bg-form-control" v-model="section2Data.parent_contact_type"
                                                         @change="onDetectChange($event,'sect2','section2Data','parent_contact_type')">
                                                         <option selected="selected" value="mobile">Mobile</option>
                                                         <option value="landline">Landline</option>
                                                     </select>
                                                 </span>
                                             </div>
-                                            <input class="form-control input-bg-form-control" type="text"
-                                                inputmode="tel" placeholder="Enter contact number"
-                                                @input="onDetectChange($event,'sect2','section2Data','parent_contact_number')"
-                                                v-model="section2Data.parent_contact_number" id="contSec5">
+                                            <input class="form-control input-bg-form-control" type="text" inputmode="tel" placeholder="Enter contact number"
+                                                @input="onDetectChange($event,'sect2','section2Data','parent_contact_number')" v-model="section2Data.parent_contact_number" id="contSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
@@ -1076,13 +957,11 @@
                                     'invalid-fields':!section2Data.parent_contact_number }">
                                             You must provide a number.
                                         </small>
-                                        <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)),
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)),
                                     'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)) }">
                                             You must provide a valid mobile number.
                                         </small>
-                                        <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)),
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)),
                                 'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)) }">
                                             You must provide a valid landline number.
                                         </small>
@@ -1095,18 +974,15 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control    input-bg-form-control" type="text"
-                                                inputmode="email" placeholder="Enter email"
-                                                @input="onDetectChange($event,'sect2','section2Data','parent_email')"
-                                                v-model="section2Data.parent_email" id="emailparentSec5">
+                                            <input class="form-control    input-bg-form-control" type="text" inputmode="email" placeholder="Enter email"
+                                                @input="onDetectChange($event,'sect2','section2Data','parent_email')" v-model="section2Data.parent_email" id="emailparentSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
-                                        <small class="invalid-feedback"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
+                                        <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
                                     'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
                                             You must provide a valid email.
                                         </small>
@@ -1118,8 +994,7 @@
                                         Lives in same house:
                                     </label>
                                     <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
-                                        <input class="form-control input-bg-form-control" readonly type="text"
-                                            v-model="section2Data.parent_same_house">
+                                        <input class="form-control input-bg-form-control" readonly type="text" v-model="section2Data.parent_same_house">
                                     </div>
                                 </div>
 
@@ -1129,9 +1004,8 @@
                                             Parent/carer's address:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <textarea readonly class="form-control    input-bg-form-control" type="text"
-                                                @input="onDetectChange($event,'sect2')"
-                                                v-model="section2Data.parent_address" id="parCarrerAdd5">
+                                            <textarea readonly class="form-control    input-bg-form-control" type="text" @input="onDetectChange($event,'sect2')" v-model="section2Data.parent_address"
+                                                id="parCarrerAdd5">
                                             </textarea>
                                         </div>
                                     </div>
@@ -1143,8 +1017,7 @@
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea readonly class="form-control    input-bg-form-control" type="text"
-                                            v-model="showParentManualAddressSection2">
+                                        <textarea readonly class="form-control    input-bg-form-control" type="text" v-model="showParentManualAddressSection2">
                             </textarea>
                                     </div>
                                 </div>
@@ -1196,9 +1069,7 @@
                                 </div> -->
 
                                 <div class="text-center pt-4 pb-2">
-                                    <button
-                                        @click="updateInfo($event,section2Data,'/user/updateAboutInfo','beforeSaveSection2')"
-                                        disabled id="sect2" type="button" class="btn px-md-4 py-1 px-3">
+                                    <button @click="updateInfo($event,section2Data,'/user/updateAboutInfo','beforeSaveSection2')" disabled id="sect2" type="button" class="btn px-md-4 py-1 px-3">
                                         <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
@@ -1223,28 +1094,22 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     Support needs
                                 </h2>
-                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('education')" data-placement="top"
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon" data-toggle="tooltip" @click="editAllSection('education')" data-placement="top"
                                     title="Edit Section 3"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
-                                    data-toggle="collapse" id="toggle3" data-target="#collapseThree"
-                                    @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
-                                    aria-controls="collapseThree"></i>
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer" data-toggle="collapse" id="toggle3" data-target="#collapseThree"
+                                    @click="toggleArrow($event,3,allSectionData)" aria-expanded="true" aria-controls="collapseThree"></i>
                             </span>
                         </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#accordionExample">
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                             <div class="py-1 py-md-2">
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="eduSect5">
                                         Education / employment:
                                     </label>
-                                    <input
-                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section3Data.child_profession">
+                                    <input class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section3Data.child_profession">
                                     <!-- <div class="col-md-4 col-12 px-0">
                                         <select disabled class="custom-select h-50px    input-bg-form-control"
                                             v-model="section3Data.child_profession"
@@ -1263,27 +1128,23 @@
                                     </div> -->
                                 </div>
 
-                                <div v-if="section3Data.child_education_place"
-                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
+                                <div v-if="section3Data.child_education_place" class="py-3 readOnly-class w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="childEducationPlace">
                                         School/college:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="form-control    input-bg-form-control" type="text"
-                                            v-model="section3Data.child_education_place" id="childEducationPlace"
+                                        <textarea class="form-control    input-bg-form-control" type="text" v-model="section3Data.child_education_place" id="childEducationPlace"
                                             @input="onDetectChange($event,'sect3')">
                                 </textarea>
                                     </div>
                                 </div>
 
-                                <div v-if="checkArrayLength(section3Data.child_education_manual_address)"
-                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
+                                <div v-if="checkArrayLength(section3Data.child_education_manual_address)" class="py-3 readOnly-class w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         School/college:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="form-control    input-bg-form-control" type="text" readonly
-                                            v-model="showManualAddress">
+                                        <textarea class="form-control    input-bg-form-control" type="text" readonly v-model="showManualAddress">
                             </textarea>
                                     </div>
                                 </div>
@@ -1294,9 +1155,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section3Data.child_EHCP"
-                                                @change="onDetectChange($event,'sect3')">
+                                            <select class="custom-select h-50px    input-bg-form-control" v-model="section3Data.child_EHCP" @change="onDetectChange($event,'sect3')">
                                                 <option class='option-text' value="No">No </option>
                                                 <option class='option-text' value="Yes">Yes</option>
                                             </select>
@@ -1310,9 +1169,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section3Data.child_EHAT"
-                                                @change="onDetectChange($event,'sect3')">
+                                            <select class="custom-select h-50px    input-bg-form-control" v-model="section3Data.child_EHAT" @change="onDetectChange($event,'sect3')">
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No
                                                 </option>
@@ -1326,28 +1183,23 @@
                                         Social worker:
                                     </label>
                                     <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
-                                        <input class="form-control input-bg-form-control" readonly type="text"
-                                            v-model="section3Data.child_socialworker">
+                                        <input class="form-control input-bg-form-control" readonly type="text" v-model="section3Data.child_socialworker">
                                     </div>
                                 </div>
 
                                 <div v-if="section3Data.child_socialworker == 'yes'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="socialworkerNameSec5">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="socialworkerNameSec5">
                                             Social worker first name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control    input-bg-form-control" type="text"
-                                                    placeholder="Enter social worker first name"
-                                                    v-model="section3Data.child_socialworker_firstname"
-                                                    id="socialworkerNameSec5"
+                                                <input class="form-control    input-bg-form-control" type="text" placeholder="Enter social worker first name"
+                                                    v-model="section3Data.child_socialworker_firstname" id="socialworkerNameSec5"
                                                     @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1359,21 +1211,17 @@
                                     </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="socialworkerNameSec5">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="socialworkerNameSec5">
                                             Social worker last name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control    input-bg-form-control" type="text"
-                                                    placeholder="Enter social worker last name"
-                                                    v-model="section3Data.child_socialworker_lastname"
-                                                    id="socialworkerLastNameSec5"
+                                                <input class="form-control    input-bg-form-control" type="text" placeholder="Enter social worker last name"
+                                                    v-model="section3Data.child_socialworker_lastname" id="socialworkerLastNameSec5"
                                                     @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1385,26 +1233,22 @@
                                     </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="socialworkerNumSec5">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="socialworkerNumSec5">
                                             Social worker number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <div class="input-group-prepend cursor-pointer">
                                                     <span class="plain-select custom-mobile-place">
-                                                        <select class="custom-select form-control input-bg-form-control"
-                                                            v-model="section3Data.child_socialworker_contact_type"
+                                                        <select class="custom-select form-control input-bg-form-control" v-model="section3Data.child_socialworker_contact_type"
                                                             @change="onDetectChange($event,'sect3','section3Data','child_socialworker_contact_type')">
                                                             <option selected="selected" value="mobile">Mobile</option>
                                                             <option value="landline">Landline</option>
                                                         </select>
                                                     </span>
                                                 </div>
-                                                <input class="form-control input-bg-form-control" type="text"
-                                                    inputmode="tel" placeholder="Enter social worker number"
-                                                    v-model="section3Data.child_socialworker_contact"
-                                                    id="socialworkerNumSec5"
+                                                <input class="form-control input-bg-form-control" type="text" inputmode="tel" placeholder="Enter social worker number"
+                                                    v-model="section3Data.child_socialworker_contact" id="socialworkerNumSec5"
                                                     @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_contact')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
@@ -1431,9 +1275,7 @@
                                 </div>
 
                                 <div class="text-center py-4">
-                                    <button
-                                        @click="updateInfo($event,section3Data,'/user/updateSec3Info','beforeSaveSection3')"
-                                        disabled id="sect3" type="button" class="btn px-md-4 py-1 px-3">
+                                    <button @click="updateInfo($event,section3Data,'/user/updateSec3Info','beforeSaveSection3')" disabled id="sect3" type="button" class="btn px-md-4 py-1 px-3">
                                         <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
@@ -1458,27 +1300,22 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     {{section5Labels.referralLabel}}
                                 </h2>
-                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
-                                    data-toggle="tooltip" @click="editAllSection('referral')" data-placement="top"
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon" data-toggle="tooltip" @click="editAllSection('referral')" data-placement="top"
                                     title="Edit Section 4"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
-                                    data-toggle="collapse" id="toggle4" data-target="#collapseFour"
-                                    @click="toggleArrow($event,4,allSectionData)" aria-expanded="true"
-                                    aria-controls="collapseFour"></i>
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer" data-toggle="collapse" id="toggle4" data-target="#collapseFour"
+                                    @click="toggleArrow($event,4,allSectionData)" aria-expanded="true" aria-controls="collapseFour"></i>
                             </span>
                         </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-                            data-parent="#accordionExample">
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="py-1 py-md-2">
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="supportNeedsSect5">
                                         Support needs:
                                     </label>
-                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section4Data.referral_type" id="supportNeedsSect5">
                                 </div>
 
                                 <div class=" py-3 w-100 mx-0 row align-items-center">
@@ -1487,9 +1324,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px    input-bg-form-control"
-                                                v-model="section4Data.is_covid"
-                                                @change="onDetectChange($event,'sect4')">
+                                            <select class="custom-select h-50px    input-bg-form-control" v-model="section4Data.is_covid" @change="onDetectChange($event,'sect4')">
                                                 <option class='option-text' value="Yes">Yes
                                                 </option>
                                                 <option class='option-text' value="No">No
@@ -1505,11 +1340,8 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Main eating disorder difficulties
                                         </label>
-                                        <textarea
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
-                                            name="infoTextAreas" id="textInf0red" rows="3"
-                                            v-model="section4Data.eating_disorder_difficulties"
-                                            readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
+                                        <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50" name="infoTextAreas" id="textInf0red" rows="3"
+                                            v-model="section4Data.eating_disorder_difficulties" readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
                                     </div>
                                 </div>
 
@@ -1518,11 +1350,8 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Food/fluid intake
                                         </label>
-                                        <textarea
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
-                                            name="infoTextAreas" id="textFood" rows="3"
-                                            v-model="section4Data.food_fluid_intake"
-                                            readonly>{{section4Data.food_fluid_intake}}</textarea>
+                                        <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50" name="infoTextAreas" id="textFood" rows="3"
+                                            v-model="section4Data.food_fluid_intake" readonly>{{section4Data.food_fluid_intake}}</textarea>
                                     </div>
                                 </div>
 
@@ -1532,9 +1361,7 @@
                                             Height
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control    input-bg-form-control" type="text"
-                                                placeholder="Enter height" v-model="section4Data.height"
-                                                id="heightSect5"
+                                            <input class="form-control    input-bg-form-control" type="text" placeholder="Enter height" v-model="section4Data.height" id="heightSect5"
                                                 @input="onDetectChange($event,'sect4','section4Data', 'height')">
                                         </div>
                                     </div>
@@ -1546,9 +1373,7 @@
                                             Weight
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control input-bg-form-control" type="text"
-                                                placeholder="Enter weight" v-model="section4Data.weight"
-                                                id="weightSect5"
+                                            <input class="form-control input-bg-form-control" type="text" placeholder="Enter weight" v-model="section4Data.weight" id="weightSect5"
                                                 @input="onDetectChange($event,'sect4','section4Data', 'weight')">
                                         </div>
                                     </div>
@@ -1556,96 +1381,73 @@
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-start">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
-                                        Main reason for making referral
+                                        Main reason for making referral:
                                     </label>
 
 
+                                    <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
 
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-
-                                        <textarea class="form-control input-bg-form-control h-50" name="infoTextAreas"
-                                            id="textInf0red" rows="3" v-model="section4Data.reason_for_referral"
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
                                             readonly></textarea>
 
-                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length'
-                                            class="pt-3 mt-2">
+                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="pt-3 mt-2">
 
                                             <div v-for="(item, index) in referrralQuestionArray" :key="index">
 
-                                                <fieldset
-                                                    v-if="!item.hasMultiLevel && referral_reason_details_preview[item.modelKey]"
-                                                    class="scheduler-border">
+                                                <fieldset v-if="!item.hasMultiLevel && referral_reason_details_preview[item.modelKey]" class="scheduler-border">
                                                     <legend class="scheduler-border question-font px-2">{{item.qName}}:
                                                     </legend>
                                                     <div class="form-group m-0">
                                                         <label class="question-font">Please can you give us some more
                                                             detail so we can make sure we get you the right
                                                             support</label>
-                                                        <textarea readonly
-                                                            class="h-112 form-control input-bg-form-control"
-                                                            v-model="referral_reason_details_preview[item.modelKey]"></textarea>
+                                                        <textarea readonly class="h-50 form-control input-bg-form-control" rows="4" v-model="referral_reason_details_preview[item.modelKey]"></textarea>
 
                                                     </div>
                                                 </fieldset>
 
 
-                                                <fieldset
-                                                    v-if="item.hasMultiLevel && referral_reason_details_preview[item.modelKey]['ans'] "
-                                                    class="scheduler-border">
+                                                <fieldset v-if="item.hasMultiLevel && referral_reason_details_preview[item.modelKey]['ans'] " class="scheduler-border">
                                                     <legend class="scheduler-border question-font px-2">{{item.qName}}:
                                                     </legend>
 
-                                                    <div v-if="referral_reason_details_preview[item.modelKey]['ans']"
-                                                        class="form-group py-2 m-0">
+                                                    <div v-if="referral_reason_details_preview[item.modelKey]['ans']" class="form-group py-2 m-0">
                                                         <label class="question-font">Have you ever self
                                                             harmed</label>
                                                         <div class="capitalize-first-letter">
-                                                            <input class="form-control input-bg-form-control"
-                                                                type="text" readonly
-                                                                v-model="referral_reason_details_preview[item.modelKey]['ans']">
+                                                            <input class="form-control input-bg-form-control" type="text" readonly v-model="referral_reason_details_preview[item.modelKey]['ans']">
                                                         </div>
                                                     </div>
 
-                                                    <div v-if="referral_reason_details_preview[item.modelKey]['last_harmed']"
-                                                        class="form-group py-2 m-0">
+                                                    <div v-if="referral_reason_details_preview[item.modelKey]['last_harmed']" class="form-group py-2 m-0">
                                                         <label class="question-font">When did you last self
                                                             harm?</label>
-                                                        <textarea class="h-112 form-control input-bg-form-control"
-                                                            readonly
-                                                            v-model="referral_reason_details_preview[item.modelKey]['last_harmed']"
+                                                        <textarea class="h-50 form-control input-bg-form-control" readonly v-model="referral_reason_details_preview[item.modelKey]['last_harmed']"
                                                             rows="4"></textarea>
 
                                                     </div>
 
-                                                    <div v-if="referral_reason_details_preview[item.modelKey]['more_details']"
-                                                        class="form-group py-2 m-0">
-                                                        <label :for="item.modelKey+'more_details'"
-                                                            class="question-font">Please give us more
+                                                    <div v-if="referral_reason_details_preview[item.modelKey]['more_details']" class="form-group py-2 m-0">
+                                                        <label :for="item.modelKey+'more_details'" class="question-font">Please give us more
                                                             details</label>
-                                                        <textarea class="h-112 form-control input-bg-form-control"
-                                                            readonly
-                                                            v-model="referral_reason_details_preview[item.modelKey]['more_details']"
+                                                        <textarea class="h-50 form-control input-bg-form-control" readonly v-model="referral_reason_details_preview[item.modelKey]['more_details']"
                                                             rows="4"></textarea>
                                                     </div>
 
-                                                    <div v-if="referral_reason_details_preview[item.modelKey]['think_about_self_harming']"
-                                                        class="form-group py-2 mt-0 mb-2">
+                                                    <div v-if="referral_reason_details_preview[item.modelKey]['think_about_self_harming']" class="form-group py-2 mt-0 mb-2">
                                                         <label class="question-font">How often do you think about self
                                                             harming?
                                                         </label>
 
-                                                        <input class="form-control input-bg-form-control" type="text"
-                                                            readonly
+                                                        <input class="form-control input-bg-form-control" type="text" readonly
                                                             v-model="referral_reason_details_preview[item.modelKey]['think_about_self_harming']">
                                                     </div>
 
-                                                    <div v-if="referral_reason_details_preview[item.modelKey]['more_about_self_harming']"
-                                                        class="form-group py-2 m-0">
+                                                    <div v-if="referral_reason_details_preview[item.modelKey]['more_about_self_harming']" class="form-group py-2 m-0">
                                                         <label class="question-font">Please give a
                                                             bit more details so
                                                             we can work out what support is best for you</label>
-                                                        <textarea class="h-112 form-control input-bg-form-control"
-                                                            rows="4" readonly
+                                                        <textarea class="h-50 form-control input-bg-form-control" rows="4" readonly
                                                             v-model="referral_reason_details_preview[item.modelKey]['more_about_self_harming']">
                                                     </textarea>
 
@@ -1683,10 +1485,8 @@
                                         Info about issue:
                                     </label>
                                     <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea id="reqTextArea" class="h-50 form-control input-bg-form-control"
-                                            name="infoTextAreas" id="infoAb5" rows="3" maxlength="950"
-                                            v-model="section4Data.referral_issues"
-                                            @keyup="checkCharacterLength($event,'showlimitTxt1')"
+                                        <textarea id="reqTextArea" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="infoAb5" rows="3" maxlength="950"
+                                            v-model="section4Data.referral_issues" @keyup="checkCharacterLength($event,'showlimitTxt1')"
                                             @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
                                         <small class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
@@ -1704,9 +1504,7 @@
                                         Has anything helped?:
                                     </label>
                                     <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
-                                            id="hasHelp5" rows="3" maxlength="950"
-                                            v-model="section4Data.has_anything_helped"
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="hasHelp5" rows="3" maxlength="950" v-model="section4Data.has_anything_helped"
                                             @keyup="checkCharacterLength($event,'showlimitTxt2')"
                                             @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
                                         <small v-if="showlimitTxt2" class="form-text text-muted">
@@ -1720,9 +1518,7 @@
                                         Triggers:
                                     </label>
                                     <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
-                                            id="trig5" rows="3" maxlength="950"
-                                            v-model="section4Data.any_particular_trigger"
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="trig5" rows="3" maxlength="950" v-model="section4Data.any_particular_trigger"
                                             @keyup="checkCharacterLength($event,'showlimitTxt3')"
                                             @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
                                         <small v-if="showlimitTxt3" class="form-text text-muted">
@@ -1736,9 +1532,7 @@
                                         Disabilities / difficulties:
                                     </label>
                                     <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
-                                            id="textInf0red" rows="3" maxlength="950"
-                                            v-model="section4Data.disabilities"
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="3" maxlength="950" v-model="section4Data.disabilities"
                                             @keyup="checkCharacterLength($event,'showlimitTxt4')"
                                             @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
                                         <small v-if="showlimitTxt4" class="form-text text-muted">
@@ -1748,22 +1542,30 @@
                                 </div>
 
 
-                                <div v-if="checkArrayLength(section4Data.local_services)"
-                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+
+                                 <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                        Have you previously accessed any other services
+                                    </label>
+                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text" 
+                                         v-model="section4Data.any_other_services" readonly>
+                                    </div>
+                                </div>
+
+
+                                <div v-if="checkArrayLength(section4Data.local_services)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         Accessed Services
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas"
-                                            placeholder="" rows="3" readonly
+                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" placeholder="" rows="3" readonly
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="text-center py-4">
-                                    <button
-                                        @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')"
-                                        disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
+                                    <button @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')" disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
                                         <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
@@ -1812,17 +1614,14 @@
                     <div class="px-3 m-0 question-header-font">
                         <div v-if="userRole == 'child'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="parent_radio" id="sendToMe"
-                                    value="Me" v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="parent_radio" id="sendToMe" value="Me" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="parent_radio" id="sendToParCarer"
-                                    value="My parent/carer" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center"
-                                    for="sendToParCarer">
+                                <input class="form-check-input" type="radio" name="parent_radio" id="sendToParCarer" value="My parent/carer" v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
                                     My parent/carer
                                 </label>
                             </div>
@@ -1830,17 +1629,14 @@
 
                         <div v-if="userRole == 'parent'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="child_radio" id="sendToMe" value="Me"
-                                    v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="child_radio" id="sendToMe" value="Me" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     Me
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="child_radio" id="sendToParCarer"
-                                    value="My child/ young person" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center"
-                                    for="sendToParCarer">
+                                <input class="form-check-input" type="radio" name="child_radio" id="sendToParCarer" value="My child/ young person" v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
                                     My child/ young person
                                 </label>
                             </div>
@@ -1848,25 +1644,21 @@
 
                         <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="child_radio2" id="sendToMe"
-                                    value="The child/young person" v-model="contact_person">
+                                <input class="form-check-input" type="radio" name="child_radio2" id="sendToMe" value="The child/young person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
                                     The child/young person
                                 </label>
                             </div>
                             <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="child_radio2" id="sendToParCarer"
-                                    value="Their parent/carer" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center"
-                                    for="sendToParCarer">
+                                <input class="form-check-input" type="radio" name="child_radio2" id="sendToParCarer" value="Their parent/carer" v-model="contact_person">
+                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
                                     Their parent/carer
                                 </label>
                             </div>
                         </div>
 
                     </div>
-                    <div class="invalid-feedback d-none m-0 px-3"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && !contact_person), 'invalid-fields':!contact_person}">
+                    <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contact_person), 'invalid-fields':!contact_person}">
                         You must provide an answer.
                     </div>
 
@@ -1886,32 +1678,27 @@
                         </div>
                         <div class="px-3 m-0 question-header-font">
                             <div class="custom-form-group pt-2 mb-2 pl-0">
-                                <input type="checkbox" id="Post" name="contactPreference" value="post"
-                                    v-model="contactPref">
+                                <input type="checkbox" id="Post" name="contactPreference" value="post" v-model="contactPref">
                                 <label for="Post" class="option-font d-flex align-items-center">
                                     Post</label>
                             </div>
                             <div class="custom-form-group m-0">
-                                <input type="checkbox" id="phone" name="contactPreference" value="phone"
-                                    v-model="contactPref">
+                                <input type="checkbox" id="phone" name="contactPreference" value="phone" v-model="contactPref">
                                 <label for="phone" class="option-font d-flex align-items-center">
                                     Phone call</label>
                             </div>
                             <div class="custom-form-group m-0 pb-1">
-                                <input type="checkbox" id="sms" name="contactPreference" value="sms"
-                                    v-model="contactPref">
+                                <input type="checkbox" id="sms" name="contactPreference" value="sms" v-model="contactPref">
                                 <label for="sms" class="option-font d-flex align-items-center">
                                     SMS / text</label>
                             </div>
                             <div class="custom-form-group m-0 pb-1">
-                                <input type="checkbox" id="email" name="contactPreference" value="email"
-                                    v-model="contactPref">
+                                <input type="checkbox" id="email" name="contactPreference" value="email" v-model="contactPref">
                                 <label for="email" class="option-font d-flex align-items-center">
                                     Email</label>
                             </div>
                         </div>
-                        <div class="invalid-feedback d-none m-0 px-3"
-                            v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
+                        <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
                             You must provide an answer.
                         </div>
                     </div>
@@ -2044,10 +1831,37 @@
                 </div> -->
                 <!-- Send End -->
 
+                {% raw %}
+                <form v-if="userRole == 'professional'" name="copyReferralName">
+                    <div class="px-3 py-2">
+                        <p class="question-font m-0"> Would you like a copy of this referral to be sent to your email
+                            and, if provided, the parents email? By doing this the parent will receive a code
+                            and they will be able to check the status of their referral.</p>
+                        <div class="disable-on-back">
+                            <div class="form-check pt-3 pb-1 pl-0">
+                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyNo" value="no">
+                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyNo">
+                                    No
+                                </label>
+                            </div>
+                            <div class="form-check py-2 pl-0">
+                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyYes" value="yes">
+                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyYes">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && payloadData.needCopy==''),'invalid-fields':payloadData.needCopy=='' }">
+                            You must provide an answer to this question to continue.
+                        </small>
+                    </div>
+
+                </form>
+                {% endraw %}
+
                 <div class="text-center pt-2 pb-1">
                     <a>
-                        <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">ACCEPT &
+                        <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">ACCEPT &
                                 SEND</span></button>
                     </a>
                 </div>

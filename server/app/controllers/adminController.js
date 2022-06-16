@@ -770,10 +770,10 @@ exports.downloadReferral = async ctx => {
 }
 
 exports.sendReferral = async ctx => {
-    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole);
+    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole + ',' + ctx.request.body.sendProf);
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
-    ctx.request.body.emailToProvider = ctx.query.selectedProvider;
+    ctx.request.body.emailToProvider = ctx.request.body.sendProf ? ctx.request.body.emailToProvider : ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
     console.log(" admin control------------------------------------------------------")
     console.log(ctx.request.body.status)
@@ -1545,7 +1545,7 @@ function getRefData(refID, refRole, ctx) {
                 include: [{
                     model: ctx.orm().Referral,
                     as: includeModalName,
-                    attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
+                    attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode', 'is_child_gp', 'manual_gp', 'is_child_school'],
                     include: [{
                         model: ctx.orm().Referral,
                         as: includeRelationModal,
@@ -1633,6 +1633,9 @@ function getRefData(refID, refRole, ctx) {
                                     child_dob: elgibilityObj.professional[0].child_dob,
                                     registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp + ', ' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
                                     gp_school: elgibilityObj.professional[0].gp_school,
+                                    is_child_gp: elgibilityObj.professional[0].is_child_gp,
+                                    manual_gp: elgibilityObj.professional[0].manual_gp,
+                                    is_child_school: elgibilityObj.professional[0].is_child_school,
                                     professional_id: elgibilityObj.id,
                                     consent_child: elgibilityObj.consent_child,
                                     consent_parent: elgibilityObj.consent_parent,
@@ -1721,6 +1724,9 @@ function getRefData(refID, refRole, ctx) {
                                     child_dob: elgibilityObj.professional2[0].child_dob,
                                     registered_gp: elgibilityObj.professional2[0].registered_gp_postcode ? elgibilityObj.professional2[0].registered_gp + ', ' + elgibilityObj.professional2[0].registered_gp_postcode : elgibilityObj.professional2[0].registered_gp,
                                     gp_school: elgibilityObj.professional2[0].gp_school,
+                                    is_child_gp: elgibilityObj.professional2[0].is_child_gp,
+                                    manual_gp: elgibilityObj.professional2[0].manual_gp,
+                                    is_child_school: elgibilityObj.professional2[0].is_child_school,
                                     professional_id: elgibilityObj.id,
                                     consent_child: elgibilityObj.consent_child,
                                     consent_parent: elgibilityObj.consent_parent,

@@ -248,6 +248,9 @@ exports.eligibility = ctx => {
           return user.update({
             child_dob: ctx.request.body.prof_ChildDob,
             registered_gp: ctx.request.body.profregistered_gp,
+            is_child_gp: ctx.request.body.is_child_gp,
+            manual_gp: ctx.request.body.manual_gp,
+            is_child_school: ctx.request.body.is_child_school,
             gp_school: ctx.request.body.gpSchool,
             registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
           },
@@ -292,6 +295,9 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
@@ -345,6 +351,9 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
@@ -2236,7 +2245,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode', 'is_child_gp', 'manual_gp', 'is_child_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2317,6 +2326,9 @@ exports.fetchReview = ctx => {
                 child_dob: elgibilityObj.professional[0].child_dob,
                 registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp + ',' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
                 gp_school: elgibilityObj.professional[0].gp_school,
+                is_child_gp: elgibilityObj.professional[0].is_child_gp,
+                manual_gp: elgibilityObj.professional[0].manual_gp,
+                is_child_school: elgibilityObj.professional[0].is_child_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,
@@ -2427,7 +2439,7 @@ exports.saveReview = ctx => {
   console.log(ctx.request.body.venusApi)
   const user = ctx.orm().Referral;
   var provider;
-  ////console.log('\nSave Review Payload == ', ctx.request.body);
+  console.log('\nSave Review Payload == ', ctx.request.body);
   //console.log("fdadfafafafafda " + ctx.request.body.referral_provider)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
@@ -2471,6 +2483,7 @@ exports.saveReview = ctx => {
           ctx.query.refRole = ctx.request.body.role;
           ctx.query.formType = 'child'
           ctx.query.fromReferralPage = true;
+          ctx.request.body.sendProf = false;
           // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
@@ -2481,7 +2494,33 @@ exports.saveReview = ctx => {
                   { uuid: ctx.request.body.userid }
               }
             ).then((result) => {
-              return ctx.body = responseData;
+
+              if (ctx.request.body.role == 'professional' && ctx.request.body.profEmailToSend && ctx.request.body.needCopy == "yes") {
+                ctx.request.body.emailToProvider = ctx.request.body.profEmailToSend;
+                ctx.query.refCode = uniqueNo;
+                ctx.query.refID = ctx.request.body.userid;
+                ctx.query.refRole = ctx.request.body.role;
+                ctx.request.body.sendProf = true;
+                return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+                  console.log("🚀 ~ file: referralControler.js ~ line 2477 ~ returnadminCtrl.sendReferralCopy ~ providermailStatus", providermailStatus)
+                  if (providermailStatus == false) {
+                    ctx.res.internalServerError({
+                      message: reponseMessages[1002],
+                    });
+                  }
+                  else {
+                    return ctx.res.ok({
+                      message: reponseMessages[1017],
+                    });
+                  }
+                }).catch((error) => {
+                  console.log("hit here")
+                  sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+              }
+              else {
+                return ctx.body = responseData;
+              }
             }).catch(error => {
               //////console.log()(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)

@@ -90,19 +90,22 @@
                     <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Selected service:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section1.selected_service %>
+
+            <% if(body.section1.selected_service!='' && body.section1.selected_service!=null ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Selected service:
+                        </label>
                     </div>
-                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.selected_service %>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <% } %>
+
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -763,6 +766,9 @@
             </div>
         </div>
     </div>
+
+    <% if(body.section4.has_anything_helped!='' &&
+    body.section4.has_anything_helped !=null ){ %>
     <div class="text-container">
         <div class="label-set">
             <label class="labelTitle">
@@ -775,6 +781,10 @@
             </div>
         </div>
     </div>
+    <%}%>
+
+    <% if( body.section4.any_particular_trigger!='' &&
+     body.section4.any_particular_trigger !=null ){ %>
     <div class="text-container">
         <div class="label-set">
             <label class="labelTitle">
@@ -787,6 +797,11 @@
             </div>
         </div>
     </div>
+    <%}%>
+
+    <% if( body.section4.disabilities!='' &&
+    body.section4.disabilities !=null ){ %>
+
     <div class="text-container">
         <div class="label-set">
             <label class="labelTitle">
@@ -799,6 +814,7 @@
             </div>
         </div>
     </div>
+    <%}%>
 
     <% if(body.section4.section4LocalService!=undefined) { %>
     <div class="text-container">
