@@ -121,6 +121,8 @@
                     </div>
                 </div>
             </div>
+
+            <% if(body.section1.selected_service!='' && body.section1.selected_service!=null ){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -133,6 +135,8 @@
                     </div>
                 </div>
             </div>
+            <% } %>
+
             <% if(body.section1.referral_mode!='' && body.section1.referral_mode!=null ){ %>
                 <div class="text-container">
                     <div class="label-set">

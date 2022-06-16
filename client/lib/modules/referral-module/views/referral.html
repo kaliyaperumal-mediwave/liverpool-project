@@ -317,7 +317,7 @@
                                 <label :for="item.modelKey" class="question-font">Please can you give us some more
                                     detail so we can make sure we get you the right support </label>
                                 <textarea class="h-112 form-control input-bg-form-control" :id="item.modelKey"
-                                    v-model="referral_reason_details[item.modelKey]" rows="4"
+                                    v-model="referral_reason_details[item.modelKey]" rows="4" placeholder="Enter here"
                                     @input="trimWhiteSpace($event,'referral_reason_details',item.modelKey)"></textarea>
 
                                 <div class="text-validation invalid-feedback d-none"
@@ -363,7 +363,7 @@
                                         harm?</label>
                                     <textarea class="h-112 form-control input-bg-form-control"
                                         :id="item.modelKey+'lastHarm'"
-                                        v-model="referral_reason_details[item.modelKey]['last_harmed']" rows="4"
+                                        v-model="referral_reason_details[item.modelKey]['last_harmed']" rows="4" placeholder="Enter here"
                                         @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'last_harmed')">
                                     </textarea>
                                     <div class="text-validation invalid-feedback d-none"
@@ -379,7 +379,7 @@
                                         <b>(optional)</b> </label>
                                     <textarea class="h-112 form-control input-bg-form-control"
                                         :id="item.modelKey+'more_details'"
-                                        v-model="referral_reason_details[item.modelKey]['more_details']" rows="4"
+                                        v-model="referral_reason_details[item.modelKey]['more_details']" rows="4" placeholder="Enter here"
                                         @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'more_details')"></textarea>
                                 </div>
                             </div>
@@ -417,7 +417,7 @@
                                         bit more details so
                                         we can work out what support is best for you</label>
                                     <textarea class="h-112 form-control input-bg-form-control"
-                                        :id="item.modelKey+'ProvideBestSupport'" rows="4"
+                                        :id="item.modelKey+'ProvideBestSupport'" rows="4" placeholder="Enter here"
                                         v-model="referral_reason_details[item.modelKey]['more_about_self_harming']"
                                         @input="trimWhiteSpaceOfNestedObj($event,'referral_reason_details', [item.modelKey],'more_about_self_harming')"></textarea>
 
@@ -442,7 +442,7 @@
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other - <b>optional</b></label>
                             <textarea class="h-112 form-control input-bg-form-control" name="listReasonsForReferral"
-                                id="proOthers" v-model="referralData.otherReasonsReferral"
+                                id="proOthers" v-model="referralData.otherReasonsReferral" placeholder="Enter here"
                                 @keyup="checkCharacterLength($event,'showlimitTxt3')"
                                 @input="onValueEnter($event,'other')" rows="4"></textarea>
                             <!-- <small v-if="charLimitScenerio1.length >950" id="limitTxt3" class="form-text text-muted"

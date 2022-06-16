@@ -338,9 +338,9 @@ $(document).ready(function () {
                             data: JSON.stringify(trimmedPayload),
                             cache: false,
                             success: function (res) {
+                                $('#loader').hide();
                                 // location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
-                                //$('#loader').hide();
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
@@ -374,6 +374,7 @@ $(document).ready(function () {
                         }
 
                         if (!this.payloadData.needCopy) {
+                            $('#loader').hide();
                             return false
                         }
                         else {
@@ -389,7 +390,8 @@ $(document).ready(function () {
                                 data: JSON.stringify(trimmedPayload),
                                 cache: false,
                                 success: function (res) {
-                                    location.href = "/acknowledge";
+                                    $('#loader').hide();
+                                    //location.href = "/acknowledge";
                                     this.isFormSubmitted = false;
                                 },
                                 error: function (error) {
