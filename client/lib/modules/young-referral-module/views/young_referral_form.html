@@ -1677,50 +1677,6 @@
                 </div>
             </form>
 
-
-
-            <!-- GP Location start -->
-            {% raw %}
-            <!-- <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
-                <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.profDirectService == 'I do not want to select a service' && elgibilityObj.seftonService !== 'MHST Sefton' && elgibilityObj.familyConcernInformation == 'yes' && elgibilityObj.profyoungDob!=null  "
-                    class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <div class="form-group mb-1">
-                        <label for="gpProfLocation" class="question-font">Which GP is the young person
-                            registered
-                            with?</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control gpProfLocation input-bg-form-control"
-                                inputmode="search" v-model="elgibilityObj.regProfGpTxt"
-                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
-                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
-                            <div id="showInputLoader" class="icon-container d-none">
-                                <i class="inputLoader"></i>
-                            </div>
-                            <div class="input-group-append" id="addOpacity">
-                                <span class="input-group-text p-16">
-                                    <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
-                            class="form-text text-muted">You must
-                            enter 3 characters to start
-                            search</small>
-                        <small id="gpErrorMessage"
-                            v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"
-                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
-                        <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
-                            id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
-                            by
-                            our service.
-                            <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
-                        </small>
-                    </div>
-                </div>
-            </form> -->
-            {% endraw %}
-            <!--GP Location End -->
-
              <!-- GP Location start -->
              {% raw %}
              <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
@@ -1769,7 +1725,7 @@
                 <div class="input-group">
                     <input type="text" v-model="elgibilityObj.manual_gp"
                         @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
-                        placeholder="Enter your first name" class="form-control input-bg-form-control"
+                        placeholder="Enter your GP" class="form-control input-bg-form-control"
                         id="fullFirstName">
                     <div class="input-group-append cursor-pointer">
                         <span class="input-group-text px-3 font-23">
