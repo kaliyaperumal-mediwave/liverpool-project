@@ -2284,7 +2284,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional2',
-          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode', 'is_child_gp', 'manual_gp', 'is_child_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'young_family',
@@ -2363,6 +2363,9 @@ exports.fetchReview = ctx => {
                 child_dob: elgibilityObj.professional2[0].child_dob,
                 registered_gp: elgibilityObj.professional2[0].registered_gp_postcode ? elgibilityObj.professional2[0].registered_gp + ',' + elgibilityObj.professional2[0].registered_gp_postcode : elgibilityObj.professional2[0].registered_gp,
                 gp_school: elgibilityObj.professional2[0].gp_school,
+                is_child_gp: elgibilityObj.professional2[0].is_child_gp,
+                manual_gp: elgibilityObj.professional2[0].manual_gp,
+                is_child_school: elgibilityObj.professional2[0].is_child_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,
