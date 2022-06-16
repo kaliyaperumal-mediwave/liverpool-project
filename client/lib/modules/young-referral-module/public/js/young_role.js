@@ -38,6 +38,9 @@ $(document).ready(function () {
                 profBelowAgeLimit: '',
                 profaboveLimit: '',
                 familyConcernInformation: '',
+                is_child_gp: '',
+                is_child_school: '',
+                 gp_school: '',
                 youngConcernInformation: '',
                 contactProffamily: '',
                 regProfGpTxt: '',
@@ -47,6 +50,7 @@ $(document).ready(function () {
                 profContactNumber: '',
                 profAddress: '',
                 profProfession: '',
+                manual_gp : '',
                 disableRole: false,
                 contact_family_camhs: '',
                 reason_contact_family_camhs: '',
@@ -481,7 +485,11 @@ $(document).ready(function () {
                         this.elgibilityObj.profAddress = "";
                         this.elgibilityObj.profProfession = "";
                     }
-
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -510,9 +518,16 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactProffamily = optionValue;
                 }
-                else if (questionIdentifier == "familyConcernSelect" && optionValue == "no") {
-                    this.resetValues(event.target.form);
-                    this.elgibilityObj.familyConcernInformation = optionValue;
+                else if (questionIdentifier == "familyConcernSelect") {
+                    if(optionValue === "no"){
+                        this.resetValues(event.target.form);
+                        this.elgibilityObj.familyConcernInformation = optionValue;
+                    }
+                    
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
                 }
                 else if (questionIdentifier == "directServices") {
                     if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
@@ -522,6 +537,12 @@ $(document).ready(function () {
                     }
                     this.resetValues(event.target.form);
                     this.elgibilityObj.profDirectService = optionValue;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
+
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
@@ -532,6 +553,21 @@ $(document).ready(function () {
                     }
                     this.elgibilityObj.profyoungDob = "";
                     this.hasValidDate = false;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                }
+                else if(questionIdentifier == "aboutSeftonSelect"){
+                   this.elgibilityObj.regProfGpTxt = ''
+                  
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj. gp_school = ''
+                }
+                else if(questionIdentifier == "is_child_school") {
+                    
+                        this.elgibilityObj. gp_school = ''
                 }
             },
 
@@ -1152,7 +1188,6 @@ $(document).ready(function () {
                     this.dynamicRegexPattern = this.landlineRegex;
                 }
                 var role = this.elgibilityObj.role;
-                console.log(this.elgibilityObj)
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
                     if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {

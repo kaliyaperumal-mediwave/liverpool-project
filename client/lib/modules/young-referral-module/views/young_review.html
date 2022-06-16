@@ -1574,8 +1574,12 @@
                                         Main reason for making referral
                                     </div>
 
-                                    <textarea v-if='!section4Data.referral_reason_questions'
-                                    class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                    <div  class="col-md-6 col-lg-6 col-xl-5 col-11 px-0" >
+
+                                    
+
+                                    <textarea 
+                                    class="form-control input-bg-form-control"
                                     name="infoTextAreas" id="textInf0red" rows="3"
                                     v-model="section4Data.reason_for_referral"
                                     readonly>{{section4Data.reason_for_referral}}</textarea>
@@ -1584,7 +1588,7 @@
 
 
                                     <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length'
-                                    class="col-md-6 col-lg-6 col-xl-5 col-11 px-0" >
+                                    class="mt-2" >
 
                                         <div v-for="(item, index) in subQuestionOfReason" :key="index" >
 
@@ -1683,7 +1687,7 @@
                                        
                                     </div>
                                 </div>
-
+                            </div>
 
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
