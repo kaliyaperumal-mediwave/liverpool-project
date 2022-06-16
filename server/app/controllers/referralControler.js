@@ -248,6 +248,9 @@ exports.eligibility = ctx => {
           return user.update({
             child_dob: ctx.request.body.prof_ChildDob,
             registered_gp: ctx.request.body.profregistered_gp,
+            is_child_gp: ctx.request.body.is_child_gp,
+            manual_gp: ctx.request.body.manual_gp,
+            is_child_school: ctx.request.body.is_child_school,
             gp_school: ctx.request.body.gpSchool,
             registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
           },
@@ -292,6 +295,9 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
@@ -345,6 +351,9 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
           gp_school: ctx.request.body.gpSchool,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
@@ -2236,7 +2245,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode', 'is_child_gp', 'manual_gp', 'is_child_school', 'gp_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
