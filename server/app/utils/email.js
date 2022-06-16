@@ -144,7 +144,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
 
 exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject) => {
     try {
-        if (ctx.request.decryptedUser != undefined) {
+        if (ctx.request.body.role != 'professional' && ctx.request.decryptedUser != undefined) {
 
             let template = fs.readFileSync(path.join(`${__dirname}/./templates/referrral-confirrmation.html`), 'utf8');
             let htmlTemplate = _.template(template);
@@ -176,10 +176,44 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
                 }
             });
         } else {
-            ctx.res.ok({
-                data: { sendUserResult: ctx.request.body.ref_code }
-            });
-            resolve();
+            if (ctx.request.body.role == 'professional' && ctx.request.body.needCopy != "") {
+                var toAddress = ctx.request.body.needCopy == 'no' ? ctx.request.body.parentEmailToSend + ',' + ctx.request.body.profEmailToSend : ctx.request.body.parentEmailToSend
+                let template = fs.readFileSync(path.join(`${__dirname}/./templates/referrral-confirrmation.html`), 'utf8');
+                let htmlTemplate = _.template(template);
+                htmlTemplate = htmlTemplate({
+                    refCode: ctx.request.body.ref_code,
+                    frontEndUrl: config.frontEndUrl,
+                });
+
+                const data = {
+                    from: config.email_from_address,
+                    to: toAddress,
+                    subject: 'Referral Confirmation',
+                    html: htmlTemplate,
+                };
+                mailService.sendMail(data, (err, res) => {
+                    if (!err && res) {
+                        logger.info(res);
+                        ctx.res.ok({
+                            data: { sendUserResult: ctx.request.body.ref_code }
+                        });
+                        resolve();
+                    } else {
+                        console.log(err)
+                        console.log(res)
+                        ctx.res.internalServerError({
+                            message: 'Failed to sent mail',
+                        });
+                        reject();
+                    }
+                });
+            }
+            else {
+                ctx.res.ok({
+                    data: { sendUserResult: ctx.request.body.ref_code }
+                });
+                resolve();
+            }
         }
     } catch (e) {
         console.log(e)

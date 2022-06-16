@@ -606,6 +606,7 @@ $(document).ready(function () {
                         else {
                             buttonElem.setAttribute('disabled', true);
                             this.payloadData.profEmailToSend = this.allSectionData.section1.professional_email ? this.allSectionData.section1.professional_email : ''
+                            this.payloadData.parentEmailToSend = this.allSectionData.section2.parent_email ? this.allSectionData.section2.parent_email : ''
                             var trimmedPayload = trimObj(this.payloadData);
                             $.ajax({
                                 url: API_URI + "/saveReview",
