@@ -264,6 +264,11 @@
                                                 </div>
                                             </div>
                                             <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),
+                                            'invalid-fields': !section1Data.professional_email }">
+                                            You must provide a email.
+                                        </small>
+                                            <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
                                                 You must provide a valid email.
                                             </small>
@@ -982,6 +987,11 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_email),
+                                        'invalid-fields':!section2Data.parent_email }">
+                                                You must provide a email.
+                                            </small>
+
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
                                     'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
                                             You must provide a valid email.

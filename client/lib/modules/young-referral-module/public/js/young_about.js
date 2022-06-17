@@ -494,14 +494,14 @@ $(document).ready(function () {
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if ((this.sameGpYoungAddress || this.sameGpYoungManualAddress) && formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
-                    formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
+                    formData.youngCareAdult && formData.youngGender && formData.parentFirstName && formData.parentLastName && formData.emailAddress &&
                     formData.youngIdentity && formData.sexAssignedAtBirth && ((formData.youngEthnicity && formData.youngEthnicity != 'Other Ethnic Groups' && !formData.child_ethnicity_other) || (this.showEthiniciyOther && formData.youngEthnicity == 'Other Ethnic Groups' && formData.child_ethnicity_other)) && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
                 ) {
                     if (formData.youngAddress || this.youngManualAddress.length) {
                         if (((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
                             || (formData.youngEmail && !this.emailRegex.test(formData.youngEmail)) || (formData.youngContactNumber && !this.dynamicRegexyoung.test(formData.youngContactNumber))
-                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || !formData.emailAddress || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }

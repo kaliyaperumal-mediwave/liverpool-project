@@ -479,7 +479,7 @@ $(document).ready(function () {
                     this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
+                if (formData.childNameTitle && formData.contactNumber && formData.emailAddress && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
                     formData.childIdentity && formData.sexAssignedAtBirth && ((formData.childEthnicity && formData.childEthnicity != 'Other Ethnic Groups' && !formData.child_ethnicity_other) || (this.showEthiniciyOther && formData.childEthnicity == 'Other Ethnic Groups' && formData.child_ethnicity_other)) && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)

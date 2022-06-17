@@ -1021,8 +1021,7 @@
                         {% endraw %}
                     </div>
                     <div class="form-group">
-                        <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
-                        </label>
+                        <label for="emailAddress" class="question-font">Your email address</label>
                         {% raw %}
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.profEmail" inputmode="email"
@@ -1034,6 +1033,10 @@
                                     <i aria-hidden="true" class="fa common-fa-fa fa-envelope"></i>
                                 </span>
                             </div>
+                        </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profEmail),
+                        'invalid-fields': !elgibilityObj.profEmail }">
+                            You must provide a email.
                         </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)),
                             'invalid-fields':(elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)) }">
@@ -1664,7 +1667,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profEmail && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1677,7 +1680,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profEmail && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
