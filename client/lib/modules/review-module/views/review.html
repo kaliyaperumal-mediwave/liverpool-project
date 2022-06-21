@@ -263,11 +263,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),
                                             'invalid-fields': !section1Data.professional_email }">
-                                            You must provide a email.
-                                        </small>
+                                                You must provide a email.
+                                            </small>
                                             <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
                                                 You must provide a valid email.
@@ -449,7 +448,7 @@
 
                                     <!-- Sefton or Liverpool  -->
 
-                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
+                                    <!-- <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
@@ -489,7 +488,7 @@
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!--Sefton or Liverpool  -->
 
@@ -1041,8 +1040,8 @@
                                         </div>
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_email),
                                         'invalid-fields':!section2Data.parent_email }">
-                                                You must provide a email.
-                                            </small>
+                                            You must provide a email.
+                                        </small>
 
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
                                     'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
