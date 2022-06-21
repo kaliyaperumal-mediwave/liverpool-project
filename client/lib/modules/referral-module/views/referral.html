@@ -282,7 +282,7 @@
                                 </div>
 
 
-                                <div v-if="referral_reason_questions.length" class="pt-2">
+                                <div v-if="referral_reason_questions && referral_reason_questions.length" class="pt-2">
                                     <div v-for="(it, index) in referral_reason_questions" :key="index">
 
                                         <fieldset v-if="!it.hasMultiLevel && (item.modelKey == it.modelKey)"
