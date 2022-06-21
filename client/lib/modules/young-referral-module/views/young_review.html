@@ -444,7 +444,7 @@
                                         </div>
                                     </div>
 
-                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' " >
+                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
@@ -457,7 +457,7 @@
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.manual_gp">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
-                                                Enter your GP
+                                                Your GP
                                             </label>
                                             <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.manual_gp" id="consentGivenPar1">
@@ -478,7 +478,7 @@
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
-                                                Please enter school
+                                                Child School:
                                             </label>
                                             <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
@@ -503,13 +503,13 @@
                                             </textarea>
                                     </div>
                                 </div>
-                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
                                     <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
-                                </div>
+                                </div> -->
 
                                 <!-- Gp End -->
 
@@ -1452,392 +1452,385 @@
                                         Main reason for making referral:
                                     </label>
 
-<<<<<<< HEAD
-                                    <div  class="col-md-6 col-lg-6 col-xl-5 col-11 px-0" >
-
-                                    
-
-                                    <textarea 
-                                    class="form-control input-bg-form-control"
-                                    name="infoTextAreas" id="textInf0red" rows="3"
-                                    v-model="section4Data.reason_for_referral"
-                                    readonly>{{section4Data.reason_for_referral}}</textarea>
-=======
-                                    <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
->>>>>>> prof/download-copy
-
-                                        <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
-                                            readonly></textarea>
-
-                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="pt-3 mt-2">
-
-<<<<<<< HEAD
-                                    <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length'
-                                    class="mt-2" >
-=======
-                                            <div v-for="(item, index) in subQuestionOfReason" :key="index">
->>>>>>> prof/download-copy
+                                    <<<<<<< HEAD <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
 
 
-                                                <div v-if="!item.hasMultiLevel" class="form-group m-0">
-                                                    <fieldset class="scheduler-border">
 
-                                                        <legend class="scheduler-border question-font px-2">
-                                                            {{item.value}}:
-                                                        </legend>
-                                                        <label :for="item.modelKey" class="question-font"><b>Please can
-                                                                you
-                                                                give us some more
-                                                                detail so we can make sure we get you the right
-                                                                support</b></label>
-                                                        <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
-                                                            v-model="subDataForMakingReferral[item.modelKey]">{{subDataForMakingReferral[item.modelKey]}}</textarea>
+                                        <textarea class="form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="3" v-model="section4Data.reason_for_referral"
+                                            readonly>{{section4Data.reason_for_referral}}</textarea>
+                                        =======
+                                        <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
+                                            >>>>>>> prof/download-copy
 
-                                                    </fieldset>
-                                                </div>
+                                            <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
+                                                readonly></textarea>
 
-                                                <div v-if="item.hasMultiLevel">
-                                                    <fieldset class="scheduler-border">
-                                                        <legend class="scheduler-border question-font px-2">
-                                                            {{item.value}}:
-                                                        </legend>
+                                            <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="pt-3 mt-2">
 
-                                                        <div>
-                                                            <label :for="item.modelKey" class="question-font"><b>Have
-                                                                    you
-                                                                    ever self harmed </b></label>
+                                                <<<<<<< HEAD <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="mt-2">
+                                                    =======
+                                                    <div v-for="(item, index) in subQuestionOfReason" :key="index">
+                                                        >>>>>>> prof/download-copy
 
-                                                            <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
 
+                                                        <div v-if="!item.hasMultiLevel" class="form-group m-0">
+                                                            <fieldset class="scheduler-border">
+
+                                                                <legend class="scheduler-border question-font px-2">
+                                                                    {{item.value}}:
+                                                                </legend>
+                                                                <label :for="item.modelKey" class="question-font"><b>Please can
+                                                                        you
+                                                                        give us some more
+                                                                        detail so we can make sure we get you the right
+                                                                        support</b></label>
+                                                                <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
+                                                                    v-model="subDataForMakingReferral[item.modelKey]">{{subDataForMakingReferral[item.modelKey]}}</textarea>
+
+                                                            </fieldset>
                                                         </div>
 
-                                                        <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
-                                                            <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey +'lastHarm'" class="question-font"><b>When did you last self
-                                                                        harm?</b></label>
-                                                                <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'lastHarm'" readonly
-                                                                    v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"></textarea>
-                                                                <div class="text-validation invalid-feedback d-none" id="mrk3"
-                                                                    v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['last_harmed']),'invalid-fields': !subDataForMakingReferral[item.modelKey]['last_harmed']}">
-                                                                    You must provide some information.
+                                                        <div v-if="item.hasMultiLevel">
+                                                            <fieldset class="scheduler-border">
+                                                                <legend class="scheduler-border question-font px-2">
+                                                                    {{item.value}}:
+                                                                </legend>
+
+                                                                <div>
+                                                                    <label :for="item.modelKey" class="question-font"><b>Have
+                                                                            you
+                                                                            ever self harmed </b></label>
+
+                                                                    <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
+                                                                        v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
+
                                                                 </div>
-                                                            </div>
 
-                                                            <div v-if="subDataForMakingReferral[item.modelKey]['more_details'] !== '' " class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'more_details'" class="question-font"><b>Please give us more
-                                                                        details
-                                                                        (optional)</b> </label>
-                                                                <textarea class="h-50 form-control input-bg-form-control" readonly :id="item.modelKey+'more_details'"
-                                                                    v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"></textarea>
-                                                            </div>
+                                                                <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
+                                                                    <div class="form-group py-2 m-0">
+                                                                        <label :for="item.modelKey +'lastHarm'" class="question-font"><b>When did you last self
+                                                                                harm?</b></label>
+                                                                        <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'lastHarm'" readonly
+                                                                            v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"></textarea>
+                                                                        <div class="text-validation invalid-feedback d-none" id="mrk3"
+                                                                            v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['last_harmed']),'invalid-fields': !subDataForMakingReferral[item.modelKey]['last_harmed']}">
+                                                                            You must provide some information.
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div v-if="subDataForMakingReferral[item.modelKey]['more_details'] !== '' " class="form-group py-2 m-0">
+                                                                        <label :for="item.modelKey+'more_details'" class="question-font"><b>Please give us more
+                                                                                details
+                                                                                (optional)</b> </label>
+                                                                        <textarea class="h-50 form-control input-bg-form-control" readonly :id="item.modelKey+'more_details'"
+                                                                            v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"></textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
+
+                                                                    <div class="form-group py-2 mt-0 mb-2">
+                                                                        <label class="question-font"><b>How often do you think
+                                                                                about
+                                                                                self harming?</b>
+                                                                        </label>
+                                                                        <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'more_details'" readonly
+                                                                            v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
+                                                                            rows="4"><b>{{subDataForMakingReferral[item.modelKey]['think_about_self_harming']}}</b></textarea>
+
+                                                                    </div>
+
+                                                                    <div class="form-group py-2 m-0">
+                                                                        <label :for="item.modelKey+'ProvideBestSupport'" class="question-font"><b>Please give a
+                                                                                bit more details so
+                                                                                we can work out what support is best for
+                                                                                you</b></label>
+                                                                        <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'ProvideBestSupport'" rows="4" readonly
+                                                                            v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
+                                                                            @input="checkValidation($event)">{{subDataForMakingReferral[item.modelKey]['more_about_self_harming']}}</textarea>
+
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
                                                         </div>
 
-                                                        <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
-
-                                                            <div class="form-group py-2 mt-0 mb-2">
-                                                                <label class="question-font"><b>How often do you think
-                                                                        about
-                                                                        self harming?</b>
-                                                                </label>
-                                                                <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'more_details'" readonly
-                                                                    v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
-                                                                    rows="4"><b>{{subDataForMakingReferral[item.modelKey]['think_about_self_harming']}}</b></textarea>
-
-                                                            </div>
-
-                                                            <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'ProvideBestSupport'" class="question-font"><b>Please give a
-                                                                        bit more details so
-                                                                        we can work out what support is best for
-                                                                        you</b></label>
-                                                                <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'ProvideBestSupport'" rows="4" readonly
-                                                                    v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
-                                                                    @input="checkValidation($event)">{{subDataForMakingReferral[item.modelKey]['more_about_self_harming']}}</textarea>
-
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
+                                                    </div>
 
                                             </div>
 
                                         </div>
 
-                                    </div>
-
                                 </div>
                             </div>
 
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
-                                        Info about issue:
-                                    </label>
-                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea maxlength="950" id="reqTextArea" class=" h-50 form-control input-bg-form-control" name="infoTextAreas" id="infoAb5" rows="3"
-                                            v-model="section4Data.referral_issues" @keyup="checkCharacterLength($event,'showlimitTxt1')"
-                                            @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
-                                        <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
-                                            You must provide an answer to this question.
-                                        </small>
-                                        <small v-if="showlimitTxt1" class="form-text text-muted">
-                                            You have reached the maximum character limit.
-                                        </small>
-                                    </div>
+                            <div class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                    Info about issue:
+                                </label>
+                                <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea maxlength="950" id="reqTextArea" class=" h-50 form-control input-bg-form-control" name="infoTextAreas" id="infoAb5" rows="3"
+                                        v-model="section4Data.referral_issues" @keyup="checkCharacterLength($event,'showlimitTxt1')"
+                                        @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
+                                    <small class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
+                                        You must provide an answer to this question.
+                                    </small>
+                                    <small v-if="showlimitTxt1" class="form-text text-muted">
+                                        You have reached the maximum character limit.
+                                    </small>
                                 </div>
+                            </div>
 
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
-                                        Has anything helped?:
-                                    </label>
-                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="hasHelp5" rows="3" v-model="section4Data.has_anything_helped"
-                                            @keyup="checkCharacterLength($event,'showlimitTxt2')"
-                                            @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
-                                        <small v-if="showlimitTxt2" class="form-text text-muted">
-                                            You have reached the maximum character limit.
-                                        </small>
-                                    </div>
+                            <div class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
+                                    Has anything helped?:
+                                </label>
+                                <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="hasHelp5" rows="3" v-model="section4Data.has_anything_helped"
+                                        @keyup="checkCharacterLength($event,'showlimitTxt2')"
+                                        @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
+                                    <small v-if="showlimitTxt2" class="form-text text-muted">
+                                        You have reached the maximum character limit.
+                                    </small>
                                 </div>
+                            </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font px-0 col-12 col-md-4" for="trig5">
-                                        Triggers:
-                                    </label>
-                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="trig5" rows="3" v-model="section4Data.any_particular_trigger"
-                                            @keyup="checkCharacterLength($event,'showlimitTxt3')"
-                                            @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
-                                        <small v-if="showlimitTxt3" class="form-text text-muted">
-                                            You have reached the maximum character limit.
-                                        </small>
-                                    </div>
+                            <div class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font px-0 col-12 col-md-4" for="trig5">
+                                    Triggers:
+                                </label>
+                                <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="trig5" rows="3" v-model="section4Data.any_particular_trigger"
+                                        @keyup="checkCharacterLength($event,'showlimitTxt3')"
+                                        @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
+                                    <small v-if="showlimitTxt3" class="form-text text-muted">
+                                        You have reached the maximum character limit.
+                                    </small>
                                 </div>
+                            </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
-                                        Disabilities / difficulties:
-                                    </label>
-                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="3" v-model="section4Data.disabilities"
-                                            @keyup="checkCharacterLength($event,'showlimitTxt4')"
-                                            @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
-                                        <small v-if="showlimitTxt4" class="form-text text-muted">
-                                            You have reached the maximum character limit.
-                                        </small>
-                                    </div>
+                            <div class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
+                                    Disabilities / difficulties:
+                                </label>
+                                <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="3" v-model="section4Data.disabilities"
+                                        @keyup="checkCharacterLength($event,'showlimitTxt4')"
+                                        @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
+                                    <small v-if="showlimitTxt4" class="form-text text-muted">
+                                        You have reached the maximum character limit.
+                                    </small>
                                 </div>
+                            </div>
 
 
-                                <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
-                                        Have you previously accessed any other services
-                                    </label>
-                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text" 
-                                         v-model="section4Data.any_other_services" readonly>
-                                    </div>
+                            <div v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                    Have you previously accessed any other services
+                                </label>
+                                <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <input class="form-control input-bg-form-control" type="text" v-model="section4Data.any_other_services" readonly>
                                 </div>
+                            </div>
 
 
-                                <div v-if="checkArrayLength(section4Data.local_services)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
-                                        Accessed Services
-                                    </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control    input-bg-form-control" name="infoTextAreas" placeholder="" rows="3" readonly
-                                            v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
-                                    </div>
+                            <div v-if="checkArrayLength(section4Data.local_services)" class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                    Accessed Services
+                                </label>
+                                <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea class="h-50 form-control    input-bg-form-control" name="infoTextAreas" placeholder="" rows="3" readonly
+                                        v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                 </div>
+                            </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
-                                        How did you hear about our service:
-                                    </label>
-                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="hearService" rows="3"
-                                            v-model="section4Data.about_our_service" @keyup="checkCharacterLength($event,'showlimitTxt5')"
-                                            @input="onDetectChange($event,'sect4','section4Data','about_our_service')">{{section4Data.about_our_service}}</textarea>
-                                        <small v-if="showlimitTxt5" class="form-text text-muted">
-                                            You have reached the maximum character limit.
-                                        </small>
-                                    </div>
+                            <div class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
+                                    How did you hear about our service:
+                                </label>
+                                <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <textarea maxlength="950" class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="hearService" rows="3" v-model="section4Data.about_our_service"
+                                        @keyup="checkCharacterLength($event,'showlimitTxt5')"
+                                        @input="onDetectChange($event,'sect4','section4Data','about_our_service')">{{section4Data.about_our_service}}</textarea>
+                                    <small v-if="showlimitTxt5" class="form-text text-muted">
+                                        You have reached the maximum character limit.
+                                    </small>
                                 </div>
+                            </div>
 
-                                <div class="text-center py-4">
-                                    <button @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')" disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
-                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                            <div class="text-center py-4">
+                                <button @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')" disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
+                                    <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             <span class="link-text px-2">Saving Section 4...</span>
                                         </div> -->
-                                        <span id="beforeSaveSection4" class="btn-secondary-text">Save</span>
-                                    </button>
-                                </div>
+                                    <span id="beforeSaveSection4" class="btn-secondary-text">Save</span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Section4-End -->
-
-                    <div class="dropdown-divider mx-3"></div>
-
-                    {% endraw %}
                 </div>
+                <!-- Section4-End -->
 
-                <!-- Contact preferences Start -->
-                <div id="contact-preference">
-                    <!-- <h2 class="py-2 px-3 m-0 question-header-font">
+                <div class="dropdown-divider mx-3"></div>
+
+                {% endraw %}
+            </div>
+
+            <!-- Contact preferences Start -->
+            <div id="contact-preference">
+                <!-- <h2 class="py-2 px-3 m-0 question-header-font">
                         Contact preferences
                     </h2>
                     <p class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12"> How would you like to
                         be
                         contacted about the progress of your child’s referral?
                     </p> -->
-                    <div class="py-2 px-3 m-0 review-header-font">
-                        {{ apos.area(data.page, 'review_contact', {
+                <div class="py-2 px-3 m-0 review-header-font">
+                    {{ apos.area(data.page, 'review_contact', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Heading', element: 'h2' }
+
+                    ]
+                    }
+                    }
+                    }) }}
+                </div>
+                <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                    <p class="m-0"> Who would you like us to contact about the progress of the referral?</p>
+
+                </div>
+
+                <div class="px-3 m-0 question-header-font">
+                    <div v-if="userRole == 'young'">
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio1" id="sendToMe" value="Me" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                Me
+                            </label>
+                        </div>
+                        <div class="form-check pt-2 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio1" id="sendToParCarer" value="My family / friend" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
+                                My family / friend
+                            </label>
+                        </div>
+                    </div>
+
+                    <div v-if="userRole == 'family'">
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio2" id="sendToMe" value="Me" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                Me
+                            </label>
+                        </div>
+                        <div class="form-check pt-2 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio2" id="sendToParCarer" value="My young person" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
+                                My young person
+                            </label>
+                        </div>
+                    </div>
+
+                    <div v-if="userRole == 'professional'">
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio3" id="sendToMe" value="The young person" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
+                                The young person
+                            </label>
+                        </div>
+                        <div class="form-check pt-2 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="young_radio3" id="sendToParCarer" value="Their family / friend" v-model="contact_person">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
+                                Their family / friend
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contact_person), 'invalid-fields':!contact_person}">
+                    You must provide an answer.
+                </div>
+
+                <div v-if="contact_person" class="pt-3">
+                    <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        {{ apos.area(data.page, 'review_contactSub', {
                         widgets: {
                         'apostrophe-rich-text': {
                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
                         styles: [
-                        { name: 'Heading', element: 'h2' }
+                        { name: 'Paragraph', element: 'p' }
 
                         ]
                         }
                         }
                         }) }}
                     </div>
-                    <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
-                        <p class="m-0"> Who would you like us to contact about the progress of the referral?</p>
-
-                    </div>
-
                     <div class="px-3 m-0 question-header-font">
-                        <div v-if="userRole == 'young'">
-                            <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio1" id="sendToMe" value="Me" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
-                                    Me
-                                </label>
-                            </div>
-                            <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio1" id="sendToParCarer" value="My family / friend" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
-                                    My family / friend
-                                </label>
-                            </div>
+                        <div class="custom-form-group pt-2 mb-2 pl-0">
+                            <input type="checkbox" id="Post" name="contactPreference" value="post" v-model="contactPref">
+                            <label for="Post" class="option-font d-flex align-items-center">
+                                Post</label>
                         </div>
-
-                        <div v-if="userRole == 'family'">
-                            <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToMe" value="Me" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
-                                    Me
-                                </label>
-                            </div>
-                            <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio2" id="sendToParCarer" value="My young person" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
-                                    My young person
-                                </label>
-                            </div>
+                        <div class="custom-form-group m-0">
+                            <input type="checkbox" id="phone" name="contactPreference" value="phone" v-model="contactPref">
+                            <label for="phone" class="option-font d-flex align-items-center">
+                                Phone call</label>
                         </div>
-
-                        <div v-if="userRole == 'professional'">
-                            <div class="form-check pt-3 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToMe" value="The young person" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToMe">
-                                    The young person
-                                </label>
-                            </div>
-                            <div class="form-check pt-2 pb-1 pl-0">
-                                <input class="form-check-input" type="radio" name="young_radio3" id="sendToParCarer" value="Their family / friend" v-model="contact_person">
-                                <label class="form-check-label option-font d-flex align-items-center" for="sendToParCarer">
-                                    Their family / friend
-                                </label>
-                            </div>
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="sms" name="contactPreference" value="sms" v-model="contactPref">
+                            <label for="sms" class="option-font d-flex align-items-center">
+                                SMS / text</label>
                         </div>
-
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="email" name="contactPreference" value="email" v-model="contactPref">
+                            <label for="email" class="option-font d-flex align-items-center">
+                                Email</label>
+                        </div>
                     </div>
-                    <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contact_person), 'invalid-fields':!contact_person}">
+                    <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
                         You must provide an answer.
                     </div>
-
-                    <div v-if="contact_person" class="pt-3">
-                        <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
-                            {{ apos.area(data.page, 'review_contactSub', {
-                            widgets: {
-                            'apostrophe-rich-text': {
-                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                            styles: [
-                            { name: 'Paragraph', element: 'p' }
-
-                            ]
-                            }
-                            }
-                            }) }}
-                        </div>
-                        <div class="px-3 m-0 question-header-font">
-                            <div class="custom-form-group pt-2 mb-2 pl-0">
-                                <input type="checkbox" id="Post" name="contactPreference" value="post" v-model="contactPref">
-                                <label for="Post" class="option-font d-flex align-items-center">
-                                    Post</label>
-                            </div>
-                            <div class="custom-form-group m-0">
-                                <input type="checkbox" id="phone" name="contactPreference" value="phone" v-model="contactPref">
-                                <label for="phone" class="option-font d-flex align-items-center">
-                                    Phone call</label>
-                            </div>
-                            <div class="custom-form-group m-0 pb-1">
-                                <input type="checkbox" id="sms" name="contactPreference" value="sms" v-model="contactPref">
-                                <label for="sms" class="option-font d-flex align-items-center">
-                                    SMS / text</label>
-                            </div>
-                            <div class="custom-form-group m-0 pb-1">
-                                <input type="checkbox" id="email" name="contactPreference" value="email" v-model="contactPref">
-                                <label for="email" class="option-font d-flex align-items-center">
-                                    Email</label>
-                            </div>
-                        </div>
-                        <div class="invalid-feedback d-none m-0 px-3" v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
-                            You must provide an answer.
-                        </div>
-                    </div>
                 </div>
-                <!-- Contact preferences Start -->
+            </div>
+            <!-- Contact preferences Start -->
 
-                {% raw %}
-                <form v-if="userRole == 'professional'" name="copyReferralName">
-                    <div class="px-3 py-2">
-                        <p class="question-font m-0"> Would you like a copy of this referral to be sent to your email
-                            and, if provided, the parents email? By doing this the parent will receive a code
-                            and they will be able to check the status of their referral.</p>
-                        <div class="disable-on-back">
-                            <div class="form-check pt-3 pb-1 pl-0">
-                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyNo" value="no">
-                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyNo">
-                                    No
-                                </label>
-                            </div>
-                            <div class="form-check py-2 pl-0">
-                                <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyYes" value="yes">
-                                <label class="form-check-label option-font d-flex align-items-center" for="needCopyYes">
-                                    Yes
-                                </label>
-                            </div>
+            {% raw %}
+            <form v-if="userRole == 'professional'" name="copyReferralName">
+                <div class="px-3 py-2">
+                    <p class="question-font m-0"> Would you like a copy of this referral to be sent to your email
+                        and, if provided, the parents email? By doing this the parent will receive a code
+                        and they will be able to check the status of their referral.</p>
+                    <div class="disable-on-back">
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyNo" value="no">
+                            <label class="form-check-label option-font d-flex align-items-center" for="needCopyNo">
+                                No
+                            </label>
                         </div>
-                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && payloadData.needCopy==''),'invalid-fields':payloadData.needCopy=='' }">
-                            You must provide an answer to this question to continue.
-                        </small>
+                        <div class="form-check py-2 pl-0">
+                            <input v-model="payloadData.needCopy" class="form-check-input" type="radio" name="needCopyNo" id="needCopyYes" value="yes">
+                            <label class="form-check-label option-font d-flex align-items-center" for="needCopyYes">
+                                Yes
+                            </label>
+                        </div>
                     </div>
+                    <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && payloadData.needCopy==''),'invalid-fields':payloadData.needCopy=='' }">
+                        You must provide an answer to this question to continue.
+                    </small>
+                </div>
 
-                </form>
-                {% endraw %}
+            </form>
+            {% endraw %}
 
-                <!--Select a provider Start -->
-                <!-- <div v-if="userRole === 'professional'" class="py-3">
+            <!--Select a provider Start -->
+            <!-- <div v-if="userRole === 'professional'" class="py-3">
                     <h2 class="py-2 px-3 mb-2 question-header-font">
                         Do you want to select a provider to receive this referral?
                     </h2>
@@ -1862,14 +1855,14 @@
                         You must provide an answer.
                     </div>
                 </div> -->
-                <!--Select a provider end -->
+            <!--Select a provider end -->
 
-                <!-- Provider List Start-->
-                <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
-                <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
+            <!-- Provider List Start-->
+            <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
+            <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
                         Please select Provider:
                     </h2> -->
-                <!-- <div class="py-2 px-3 m-0 review-header-font">
+            <!-- <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1882,7 +1875,7 @@
                         }
                         }) }}
                     </div> -->
-                <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+            <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
                         {{ apos.area(data.page, 'review_contactSub', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1895,7 +1888,7 @@
                         }
                         }) }}
                     </div> -->
-                <!-- <div class="px-3 m-0 question-header-font">
+            <!-- <div class="px-3 m-0 question-header-font">
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
                                 value="YPAS" v-model="sendRef">
@@ -1936,16 +1929,16 @@
                         </div>
 
                     </div> -->
-                <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
+            <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
                         You must provide an answer.
                     </div>
                 </div> -->
-                <!-- Provider List End-->
+            <!-- Provider List End-->
 
 
-                <!-- Send Start -->
-                <!-- <div id="send" class="">
+            <!-- Send Start -->
+            <!-- <div id="send" class="">
                     <div class="review-header-font py-3 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
                         'review_send', {
                         widgets: {
@@ -1960,17 +1953,17 @@
                         }
                         }) }}</div>
                 </div> -->
-                <!-- Send End -->
+            <!-- Send End -->
 
-                <div class="text-center pt-2 pb-1">
-                    <a>
-                        <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">ACCEPT &
-                                SEND</span></button>
-                    </a>
-                </div>
+            <div class="text-center pt-2 pb-1">
+                <a>
+                    <button id="acceptBtn" @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">ACCEPT &
+                            SEND</span></button>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 {% endblock %}

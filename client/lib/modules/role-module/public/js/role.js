@@ -36,10 +36,10 @@ $(document).ready(function () {
                 submitForm: '',
                 submitProfForm: '',
                 profBelowAgeLimit: '',
-                is_child_gp:'',
-                is_child_school:'',
-                manual_gp:'',
-                gp_school:'',
+                is_child_gp: '',
+                is_child_school: '',
+                manual_gp: '',
+                gp_school: '',
                 profaboveLimit: '',
                 parentConcernInformation: '',
                 childConcernInformation: '',
@@ -262,7 +262,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profAddress", profData1.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
                         Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
-                     
+
 
                         if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
@@ -494,7 +494,7 @@ $(document).ready(function () {
                     this.elgibilityObj.regProfGpTxt = ''
                     this.elgibilityObj.is_child_gp = ''
                     this.elgibilityObj.is_child_school = ''
-                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.gp_school = ''
                     this.elgibilityObj.manual_gp = ''
 
                 }
@@ -525,17 +525,17 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactProfParent = optionValue;
                 }
-                else if (questionIdentifier == "parentConcernSelect" ) {
-                   if(optionValue == "no"){
+                else if (questionIdentifier == "parentConcernSelect") {
+                    if (optionValue == "no") {
 
-                       this.resetValues(event.target.form);
-                       this.elgibilityObj.parentConcernInformation = optionValue;
-                   }
+                        this.resetValues(event.target.form);
+                        this.elgibilityObj.parentConcernInformation = optionValue;
+                    }
 
                     this.elgibilityObj.is_child_gp = ''
                     this.elgibilityObj.manual_gp = ''
                     this.elgibilityObj.is_child_school = ''
-                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.gp_school = ''
                 }
                 else if (questionIdentifier == "directServices") {
                     if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
@@ -548,7 +548,7 @@ $(document).ready(function () {
                     this.elgibilityObj.regProfGpTxt = ''
                     this.elgibilityObj.is_child_gp = ''
                     this.elgibilityObj.is_child_school = ''
-                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.gp_school = ''
                     this.elgibilityObj.manual_gp = ''
 
                 }
@@ -564,18 +564,18 @@ $(document).ready(function () {
                     this.elgibilityObj.regProfGpTxt = ''
                     this.elgibilityObj.is_child_gp = ''
                     this.elgibilityObj.is_child_school = ''
-                    this.elgibilityObj. gp_school = ''
-                }else if(questionIdentifier == "aboutSeftonSelect"){
+                    this.elgibilityObj.gp_school = ''
+                } else if (questionIdentifier == "aboutSeftonSelect") {
                     this.elgibilityObj.regProfGpTxt = ''
-                   
-                     this.elgibilityObj.is_child_school = ''
-                     this.elgibilityObj.manual_gp = ''
-                     this.elgibilityObj. gp_school = ''
-                 }
-                 else if(questionIdentifier == "is_child_school") {
-                     
-                         this.elgibilityObj. gp_school = ''
-                 }
+
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.gp_school = ''
+                }
+                else if (questionIdentifier == "is_child_school") {
+
+                    this.elgibilityObj.gp_school = ''
+                }
             },
 
             resetValues: function (currentForm) {

@@ -442,9 +442,9 @@
                                         </div>
                                     </div>
 
-                                     <!-- Sefton or Liverpool  -->
+                                    <!-- Sefton or Liverpool  -->
 
-                                     <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' " >
+                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
@@ -457,7 +457,7 @@
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.manual_gp">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
-                                                Enter your GP
+                                                Your GP
                                             </label>
                                             <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.manual_gp" id="consentGivenPar1">
@@ -478,7 +478,7 @@
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
-                                                Please enter school
+                                                Child School:
                                             </label>
                                             <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
@@ -492,7 +492,7 @@
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
 
-                               
+
 
                                 <!-- Gp Start -->
                                 <div v-if="section1Data.registered_gp">
@@ -505,13 +505,13 @@
                                             </textarea>
                                     </div>
                                 </div>
-                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
                                     <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
-                                </div>
+                                </div> -->
 
                                 <!-- Gp End -->
 
@@ -1595,13 +1595,12 @@
 
 
 
-                                 <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
                                         Have you previously accessed any other services
                                     </label>
                                     <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text" 
-                                         v-model="section4Data.any_other_services" readonly>
+                                        <input class="form-control input-bg-form-control" type="text" v-model="section4Data.any_other_services" readonly>
                                     </div>
                                 </div>
 
