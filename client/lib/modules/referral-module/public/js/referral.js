@@ -234,7 +234,7 @@ $(document).ready(function () {
 
                     }
 
-                    
+
 
                 }
 
@@ -352,7 +352,7 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
-                
+
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -520,6 +520,7 @@ $(document).ready(function () {
             },
 
             showMoreOrLessList: function (event) {
+                debugger
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                 var targetElem = event.target;
                 if (Array.from(targetElem.classList).indexOf('fa-chevron-circle-down') > -1) {
@@ -528,12 +529,16 @@ $(document).ready(function () {
                         allCheckbox.map(function (input) {
                             if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                                var seondElem = input.parentElement.parentElement;
+                                $(mainElem).removeClass('d-block');
+                                $(seondElem).css('pointer-events', 'none');
                                 $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
 
                             } else {
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                                var seondElem = input.parentElement.parentElement;
+                                $(mainElem).removeClass('d-block').addClass('d-none').removeAttr("data-selected");
+                                $(seondElem).css('pointer-events', 'none');
                                 $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                             }
                         });
@@ -541,7 +546,9 @@ $(document).ready(function () {
                         allCheckbox.map(function (input) {
                             $(input).removeAttr("data-selected");
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').css('pointer-events', '').removeAttr("data-selected");
+                            $(seondElem).css('pointer-events', '');
                             $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
                         });
                     }
@@ -549,7 +556,9 @@ $(document).ready(function () {
                     $(targetElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').addClass('d-block').css('pointer-events', '');
+                        $(seondElem).css('pointer-events', '');
                     });
                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
                 }
@@ -562,7 +571,9 @@ $(document).ready(function () {
                 if (event.target.textContent === 'Click here to view full list & change the answer') {
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').css('pointer-events', '');
+                        $(seondElem).css('pointer-events', '');
                     });
                     $(arrowElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
@@ -570,11 +581,15 @@ $(document).ready(function () {
                     allCheckbox.map(function (input) {
                         if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-none');
+                            $(seondElem).css('pointer-events', 'none');
 
                         } else {
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').addClass('d-none');
+                            $(seondElem).css('pointer-events', 'none');
                         }
                     });
                     $(arrowElem).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
@@ -589,7 +604,7 @@ $(document).ready(function () {
                 console.log("🚀 ~ file: referral.js ~ line 621 ~ payload", this.referral_reason_questions)
                 payload.referralData.referral_reason_details = this.referral_reason_details
                 payload.referralData.referral_reason_questions = this.referral_reason_questions
-               
+
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
@@ -642,7 +657,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
 
-                    Vue.set(this, "referral_reason_questions", data.referral_reason_questions  ? data.referral_reason_questions : this.referral_reason_questions );
+                    Vue.set(this, "referral_reason_questions", data.referral_reason_questions ? data.referral_reason_questions : this.referral_reason_questions);
                     Vue.set(this, "referral_reason_details", data.referral_reason_details ? data.referral_reason_details : this.referral_reason_details);
                 }
                 setTimeout(function () {
@@ -662,13 +677,17 @@ $(document).ready(function () {
                     if (_self.reasonForReferral.indexOf(input.value) != -1) {
                         input.setAttribute('data-selected', 'selected')
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none')
+                        $(seondElem).css('pointer-events', 'none');
                         $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
 
                     } else {
                         input.setAttribute('data-selected', 'unselected')
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-block').addClass('d-none').removeAttr("data-selected");
+                        $(seondElem).css('pointer-events', 'none');
                         $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                     }
                 });
@@ -740,7 +759,7 @@ $(document).ready(function () {
 
 
             checkValidation: function () {
-                
+
                 var _self = this;
                 var flag = [];
                 this.referral_reason_questions.map(function (i) {
@@ -763,7 +782,7 @@ $(document).ready(function () {
                 var condition = flag.every(function (i) {
                     return i;
                 })
-               
+
                 return condition;
             },
 
