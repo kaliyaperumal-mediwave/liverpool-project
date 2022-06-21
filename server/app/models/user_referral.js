@@ -276,6 +276,15 @@ module.exports = function modelUser(sequelize, types) {
     referral_type: {
       type: types.TEXT,
     },
+    is_child_gp: {
+      type: types.TEXT
+    },
+    manual_gp: {
+      type: types.TEXT
+    },
+    is_child_school: {
+      type: types.TEXT,
+    },
     updatedAt: {
       type: types.DATE,
       defaultValue: types.NOW

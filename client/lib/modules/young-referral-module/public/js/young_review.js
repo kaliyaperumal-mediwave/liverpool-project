@@ -339,7 +339,7 @@ $(document).ready(function () {
                             cache: false,
                             success: function (res) {
                                 $('#loader').hide();
-                                // location.href = "/acknowledge";
+                                location.href = "/acknowledge";
                                 this.isFormSubmitted = false;
                             },
                             error: function (error) {
@@ -391,7 +391,7 @@ $(document).ready(function () {
                                 cache: false,
                                 success: function (res) {
                                     $('#loader').hide();
-                                    //location.href = "/acknowledge";
+                                    location.href = "/acknowledge";
                                     this.isFormSubmitted = false;
                                 },
                                 error: function (error) {

@@ -248,7 +248,10 @@ exports.eligibility = ctx => {
           return user.update({
             child_dob: ctx.request.body.prof_ChildDob,
             registered_gp: ctx.request.body.profregistered_gp,
-            gp_school: ctx.request.body.gpSchool,
+            is_child_gp: ctx.request.body.is_child_gp,
+            manual_gp: ctx.request.body.manual_gp,
+            is_child_school: ctx.request.body.is_child_school,
+            gp_school: ctx.request.body.gp_school,
             registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
           },
             {
@@ -292,7 +295,10 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
-          gp_school: ctx.request.body.gpSchool,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
+          gp_school: ctx.request.body.gp_school,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
@@ -345,7 +351,10 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
-          gp_school: ctx.request.body.gpSchool,
+          is_child_gp: ctx.request.body.is_child_gp,
+          manual_gp: ctx.request.body.manual_gp,
+          is_child_school: ctx.request.body.is_child_school,
+          gp_school: ctx.request.body.gp_school,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
@@ -2236,7 +2245,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school', 'registered_gp_postcode', 'is_child_gp', 'manual_gp', 'is_child_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2317,6 +2326,9 @@ exports.fetchReview = ctx => {
                 child_dob: elgibilityObj.professional[0].child_dob,
                 registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp + ',' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
                 gp_school: elgibilityObj.professional[0].gp_school,
+                is_child_gp: elgibilityObj.professional[0].is_child_gp,
+                manual_gp: elgibilityObj.professional[0].manual_gp,
+                is_child_school: elgibilityObj.professional[0].is_child_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,

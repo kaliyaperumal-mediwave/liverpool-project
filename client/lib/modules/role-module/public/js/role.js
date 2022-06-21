@@ -36,6 +36,10 @@ $(document).ready(function () {
                 submitForm: '',
                 submitProfForm: '',
                 profBelowAgeLimit: '',
+                is_child_gp: '',
+                is_child_school: '',
+                manual_gp: '',
+                gp_school: '',
                 profaboveLimit: '',
                 parentConcernInformation: '',
                 childConcernInformation: '',
@@ -251,7 +255,6 @@ $(document).ready(function () {
                         catch (e) {
                             // alert(e)
                         }
-                        //  console.log(profData.professional_manual_address);
                         Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData1.email);
@@ -259,6 +262,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profAddress", profData1.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
                         Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
+
 
                         if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
@@ -324,6 +328,10 @@ $(document).ready(function () {
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
+                    Vue.set(this.elgibilityObj, "is_child_gp", data[0].professional[0].is_child_gp);
+                    Vue.set(this.elgibilityObj, "manual_gp", data[0].professional[0].manual_gp);
+                    Vue.set(this.elgibilityObj, "is_child_school", data[0].professional[0].is_child_school);
+                    Vue.set(this.elgibilityObj, "gp_school", data[0].professional[0].gp_school);
                     if (data[0].service_location == 'liverpool') {
                         Vue.set(this.elgibilityObj, "liverpoolService", data[0].selected_service);
                     }
@@ -483,6 +491,11 @@ $(document).ready(function () {
                         this.elgibilityObj.profAddress = "";
                         this.elgibilityObj.profProfession = "";
                     }
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
 
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
@@ -512,9 +525,17 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactProfParent = optionValue;
                 }
-                else if (questionIdentifier == "parentConcernSelect" && optionValue == "no") {
-                    this.resetValues(event.target.form);
-                    this.elgibilityObj.parentConcernInformation = optionValue;
+                else if (questionIdentifier == "parentConcernSelect") {
+                    if (optionValue == "no") {
+
+                        this.resetValues(event.target.form);
+                        this.elgibilityObj.parentConcernInformation = optionValue;
+                    }
+
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.gp_school = ''
                 }
                 else if (questionIdentifier == "directServices") {
                     if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
@@ -524,6 +545,12 @@ $(document).ready(function () {
                     }
                     this.resetValues(event.target.form);
                     this.elgibilityObj.profDirectService = optionValue;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
+
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
@@ -534,6 +561,20 @@ $(document).ready(function () {
                     }
                     this.elgibilityObj.profChildDob = "";
                     this.hasValidDate = false;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.gp_school = ''
+                } else if (questionIdentifier == "aboutSeftonSelect") {
+                    this.elgibilityObj.regProfGpTxt = ''
+
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.gp_school = ''
+                }
+                else if (questionIdentifier == "is_child_school") {
+
+                    this.elgibilityObj.gp_school = ''
                 }
             },
 
