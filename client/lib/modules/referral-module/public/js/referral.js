@@ -520,7 +520,6 @@ $(document).ready(function () {
             },
 
             showMoreOrLessList: function (event) {
-                debugger
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                 var targetElem = event.target;
                 if (Array.from(targetElem.classList).indexOf('fa-chevron-circle-down') > -1) {

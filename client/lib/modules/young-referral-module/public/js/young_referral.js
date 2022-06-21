@@ -240,13 +240,13 @@ $(document).ready(function () {
         },
         methods: {
 
-            
+
             //validations check logic
             checkValidation: function () {
-                
+
                 var _self = this;
                 var flag = [];
-                if(this.subQuestionOfReason) {
+                if (this.subQuestionOfReason) {
                     this.subQuestionOfReason.map(function (i) {
                         if (typeof (_self.subDataForMakingReferral[i.modelKey]) == "string" && _self.subDataForMakingReferral[i.modelKey]) {
                             flag.push(true);
@@ -254,11 +254,11 @@ $(document).ready(function () {
                             if (_self.subDataForMakingReferral[i.modelKey]["ans"] && (_self.subDataForMakingReferral[i.modelKey]["ans"] == "yes" && _self.subDataForMakingReferral[i.modelKey]["last_harmed"] && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"]) ||
                                 (_self.subDataForMakingReferral[i.modelKey]["ans"] == "no" && _self.subDataForMakingReferral[i.modelKey]["think_about_self_harming"] && _self.subDataForMakingReferral[i.modelKey]["more_about_self_harming"])) {
                                 flag.push(true);
-    
+
                             } else {
                                 flag.push(false);
                             }
-    
+
                         }
                         else {
                             flag.push(false);
@@ -269,14 +269,14 @@ $(document).ready(function () {
                     })
                     return condition;
                 }
-                
+
             },
 
             //Options changing logic
             onOptionChange: function (event, data) {
 
                 if (data) {
-                
+
                     if (event.target.checked) {
                         this.subQuestionOfReason.push(data)
                     } else {
@@ -296,13 +296,13 @@ $(document).ready(function () {
 
                     }
 
-                   
+
 
                 }
 
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
-                
+
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
                     var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                     allCheckbox.map(function (input) {
@@ -401,10 +401,10 @@ $(document).ready(function () {
                 }
             },
 
-              //reset dependent questions
-              resetDependentQuestion: function (subData) {
-                
-                
+            //reset dependent questions
+            resetDependentQuestion: function (subData) {
+
+
                 // this.subDataForMakingReferral[subData.modelKey]["ans"] = "";
                 this.subDataForMakingReferral[subData.modelKey]["last_harmed"] = "";
                 this.subDataForMakingReferral[subData.modelKey]["more_details"] = "";
@@ -419,7 +419,7 @@ $(document).ready(function () {
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchYoungReferral', payload);
                 if (successData && Object.keys(successData)) {
-                   
+
                     this.patchValue(successData);
                     $('#loader').hide();
                 } else {
@@ -524,7 +524,7 @@ $(document).ready(function () {
 
             //Function to trim space entered
             trimWhiteSpaceOfNestedObj: function (event, mainObj, nestObj, key) {
-    
+
                 preventWhiteSpacesOfNestedObj(event, this, mainObj, nestObj, key)
 
             },
@@ -581,12 +581,16 @@ $(document).ready(function () {
                         allCheckbox.map(function (input) {
                             if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                                var seondElem = input.parentElement.parentElement;
+                                $(mainElem).removeClass('d-block');
+                                $(seondElem).css('pointer-events', 'none');
                                 $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
 
                             } else {
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                                var seondElem = input.parentElement.parentElement;
+                                $(mainElem).removeClass('d-block').addClass('d-none').removeAttr("data-selected");
+                                $(seondElem).css('pointer-events', 'none');
                                 $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                             }
                         });
@@ -594,7 +598,9 @@ $(document).ready(function () {
                         allCheckbox.map(function (input) {
                             $(input).removeAttr("data-selected");
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').css('pointer-events', '').removeAttr("data-selected");
+                            $(seondElem).css('pointer-events', '');
                             $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
                         });
                     }
@@ -602,7 +608,9 @@ $(document).ready(function () {
                     $(targetElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').addClass('d-block').css('pointer-events', '');
+                        $(seondElem).css('pointer-events', '');
                     });
                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
                 }
@@ -615,7 +623,9 @@ $(document).ready(function () {
                 if (event.target.textContent === 'Click here to view full list & change the answer') {
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').css('pointer-events', '');
+                        $(seondElem).css('pointer-events', '');
                     });
                     $(arrowElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
@@ -623,11 +633,15 @@ $(document).ready(function () {
                     allCheckbox.map(function (input) {
                         if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-none');
+                            $(seondElem).css('pointer-events', 'none');
 
                         } else {
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
+                            var seondElem = input.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').addClass('d-none');
+                            $(seondElem).css('pointer-events', 'none');
                         }
                     });
                     $(arrowElem).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
@@ -638,7 +652,7 @@ $(document).ready(function () {
 
             //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
-                payload.referralData.subDataForMakingReferral = [{options:"test young",description:"test professional"},{options:"sample",description:"sample1"}]
+                payload.referralData.subDataForMakingReferral = [{ options: "test young", description: "test professional" }, { options: "sample", description: "sample1" }]
                 payload.referralData.referral_reason_details = this.subDataForMakingReferral
                 payload.referralData.referral_reason_questions = this.subQuestionOfReason
                 var responseData = apiCallPost('post', '/saveYoungReferral', payload);
@@ -696,7 +710,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "accessService", data.any_other_services);
                     Vue.set(this.referralData, "about_our_service", data.about_our_service);
 
-                    Vue.set(this, "subQuestionOfReason", data.referral_reason_questions  ? data.referral_reason_questions : this.subQuestionOfReason );
+                    Vue.set(this, "subQuestionOfReason", data.referral_reason_questions ? data.referral_reason_questions : this.subQuestionOfReason);
                     Vue.set(this, "subDataForMakingReferral", data.referral_reason_details ? data.referral_reason_details : this.subDataForMakingReferral);
                 }
                 setTimeout(function () {
@@ -716,13 +730,17 @@ $(document).ready(function () {
                     if (_self.reasonForReferral.indexOf(input.value) != -1) {
                         input.setAttribute('data-selected', 'selected')
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none')
+                        $(seondElem).css('pointer-events', 'none');
                         $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
 
                     } else {
                         input.setAttribute('data-selected', 'unselected')
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                        var seondElem = input.parentElement.parentElement;
+                        $(mainElem).removeClass('d-block').addClass('d-none').removeAttr("data-selected");
+                        $(seondElem).css('pointer-events', 'none');
                         $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                     }
                 });

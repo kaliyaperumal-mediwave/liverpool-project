@@ -261,9 +261,9 @@
                             </span>
                         </div>
                         <div v-if="showMoreOrLess" class="checkboxWrapper">
-                            <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
-                                :key="index">
-                                <div class="row m-0 align-items-center">
+                            <div class="pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList" :key="index">
+
+                                <div class="row custom-form-group  m-0 align-items-center">
                                     <div>
                                         <input type="checkbox" v-bind:id="item.id" class="checkLogic"
                                             name="listReasonsForReferral" v-bind:value="item.value"
@@ -278,18 +278,160 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                <div v-if="subQuestionOfReason && subQuestionOfReason.length" class="pt-2">
+                                    <div v-for="(it, index) in subQuestionOfReason" :key="index">
+
+                                        <fieldset v-if="!it.hasMultiLevel && (item.modelKey == it.modelKey)"
+                                            class="scheduler-border pt-3 pb-0">
+                                            <!-- <legend class="scheduler-border question-font px-2">{{it.value}}:</legend> -->
+                                            <div class="form-group py-2 m-0">
+                                                <p class="question-font">Please can you give us
+                                                    some more
+                                                    detail so we can make sure we get you the right support </p>
+                                                <textarea class="h-112 form-control input-bg-form-control"
+                                                    :id="it.modelKey" v-model="subDataForMakingReferral[it.modelKey]"
+                                                    rows="4" placeholder="Enter here"
+                                                    @input="trimWhiteSpace($event,'subDataForMakingReferral',it.modelKey)"></textarea>
+
+                                                <div class="text-validation invalid-feedback d-none"
+                                                    v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[it.modelKey]),'invalid-fields': !subDataForMakingReferral[it.modelKey]}">
+                                                    You must provide an answer to this question to continue.
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset v-if="it.hasMultiLevel && (item.modelKey == it.modelKey)"
+                                            class="scheduler-border">
+                                            <!-- <legend class="scheduler-border question-font px-2">{{it.value}}:</legend> -->
+
+                                            <div class="pt-2">
+                                                <p class="question-font m-0">Have you ever self harmed</p>
+                                                <div class="form-check pt-3 pb-1 pl-0">
+                                                    <input class="form-check-input" type="radio"
+                                                        v-model="subDataForMakingReferral[it.modelKey]['ans']"
+                                                        :name="it.modelKey" @change="resetDependentQuestion(it)"
+                                                        :id="it.modelKey + 'Yes'" value="yes">
+                                                    <label
+                                                        class="form-check-label option-font d-flex align-items-center"
+                                                        :for="it.modelKey + 'Yes'">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check py-2 pl-0">
+                                                    <input class="form-check-input" type="radio"
+                                                        v-model="subDataForMakingReferral[it.modelKey]['ans']"
+                                                        :name="it.modelKey" @change="resetDependentQuestion(it)"
+                                                        :id="it.modelKey + 'No'" value="no">
+                                                    <label
+                                                        class="form-check-label option-font d-flex align-items-center"
+                                                        :for="it.modelKey + 'No'">
+                                                        No
+                                                    </label>
+                                                </div>
+                                                <div class="text-validation invalid-feedback d-none" v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[it.modelKey]['ans']),
+                                                'invalid-fields': !subDataForMakingReferral[it.modelKey]['ans']}">
+                                                    You must provide an answer to this question to continue.
+                                                </div>
+                                            </div>
+
+                                            <div v-if="subDataForMakingReferral[it.modelKey]['ans'] == 'yes'">
+                                                <div class="form-group py-2 m-0">
+                                                    <p class="question-font">When
+                                                        did you last self
+                                                        harm?</p>
+                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                        :id="it.modelKey+'lastHarm'"
+                                                        v-model="subDataForMakingReferral[it.modelKey]['last_harmed']"
+                                                        rows="4" placeholder="Enter here"
+                                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'last_harmed')">
+                                                </textarea>
+                                                    <div class="text-validation invalid-feedback d-none"
+                                                        v-bind:class="{ 'd-block':(isFormSubmitted && subDataForMakingReferral[it.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[it.modelKey]['last_harmed']),
+                                                'invalid-fields': subDataForMakingReferral[it.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[it.modelKey]['last_harmed']}">
+                                                        You must provide an answer to this question to continue.
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group py-2 m-0">
+                                                    <p class="question-font">Please give us more
+                                                        details
+                                                        <b>(optional)</b>
+                                                    </p>
+                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                        :id="it.modelKey+'more_details'"
+                                                        v-model="subDataForMakingReferral[it.modelKey]['more_details']"
+                                                        rows="4" placeholder="Enter here"
+                                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'more_details')"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                v-if="subDataForMakingReferral[it.modelKey]['ans'] == 'yes' || subDataForMakingReferral[it.modelKey]['ans'] == 'no'">
+
+                                                <div class="form-group py-2 mt-0 mb-2">
+                                                    <p class="question-font">How often do you think about self
+                                                        harming?
+                                                    </p>
+                                                    <div class="input-group">
+                                                        <span class="plain-select">
+                                                            <select
+                                                                class="custom-select form-control input-bg-form-control"
+                                                                v-model="subDataForMakingReferral[it.modelKey]['think_about_self_harming']"
+                                                                name="thinkAbout">
+                                                                <option class='option-text' value="" disabled selected>
+                                                                    Select option
+                                                                </option>
+                                                                <option value="Never">Never</option>
+                                                                <option value="Occasionally">Occasionally</option>
+                                                                <option value="Often">Often</option>
+                                                                <option value="Always">Always</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                    <div class="invalid-feedback d-none"
+                                                        v-bind:class="{ 'd-block': (isFormSubmitted && !subDataForMakingReferral[it.modelKey]['think_about_self_harming']),
+                                                    'invalid-fields':!subDataForMakingReferral[it.modelKey]['think_about_self_harming'] }">
+                                                        You must provide an answer to this question to continue.
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group py-2 m-0">
+                                                    <p class="question-font">Please give a
+                                                        bit more details so
+                                                        we can work out what support is best for you</p>
+                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                        :id="it.modelKey+'ProvideBestSupport'" rows="4"
+                                                        placeholder="Enter here"
+                                                        v-model="subDataForMakingReferral[it.modelKey]['more_about_self_harming']"
+                                                        @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'more_about_self_harming')"></textarea>
+
+                                                    <div class="invalid-feedback d-none"
+                                                        v-bind:class="{ 'd-block': (isFormSubmitted && !subDataForMakingReferral[it.modelKey]['more_about_self_harming']),
+                                                    'invalid-fields':!subDataForMakingReferral[it.modelKey]['more_about_self_harming'] }">
+                                                        You must provide an answer to this question to continue.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+
+                                    </div>
+                                </div>
+
+
                             </div>
                             <p class="option-font cursor-pointer my-3 d-none" id="showMoreOrLessText"
                                 @click="toggleList($event)">...</p>
                         </div>
-                      
+
                     </div>
                 </form>
 
                 <!--Reason for making referral-end -->
 
 
-                <div v-if="subQuestionOfReason && subQuestionOfReason.length"
+                <!-- <div v-if="subQuestionOfReason && subQuestionOfReason.length"
                     class="px-4 pt-3 pb-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div v-for="(item, index) in subQuestionOfReason" :key="index">
 
@@ -333,7 +475,6 @@
                                         No
                                     </label>
                                 </div>
-                                <!-- <p>{{subDataForMakingReferral[item.modelKey]['ans']}}</p> -->
 
                                 <div class="text-validation invalid-feedback d-none" v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[item.modelKey]['ans']),
                                     'invalid-fields': !subDataForMakingReferral[item.modelKey]['ans']}">
@@ -416,7 +557,7 @@
                         </fieldset>
 
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- Textarea for other Reason for making referral-start -->
@@ -789,7 +930,7 @@
                 <!-- Dynamic Toaster start Scenario 1-->
 
                 <div
-                    v-if="referralData.about_our_service !== '' && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()" >
+                    v-if="referralData.about_our_service !== '' && !showAddOtherService && charLimitScenerio1.length <950 && charLimitScenerio2.length <950 && checkValidation()">
                     <div class="px-4 py-4" v-if="referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
