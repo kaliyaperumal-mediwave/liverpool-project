@@ -444,25 +444,73 @@
                                         </div>
                                     </div>
 
+                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' " >
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Do you have a Sefton or Liverpool
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.manual_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Enter your GP
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.manual_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Do you have a Liverpool/Sefton school
+
+
+
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Please enter school
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
 
                                 <!-- Gp Start -->
-                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        GP:
-                                    </label>
-                                    <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
-                                        </textarea>
+                                <div v-if="section1Data.registered_gp">
+
+                                    <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                            GP:
+                                        </label>
+                                        <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                            </textarea>
+                                    </div>
                                 </div>
                                 <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        child School:
+                                        Child School:
                                     </label>
                                     <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
                                 </div>
+
                                 <!-- Gp End -->
 
                             </div>

@@ -251,7 +251,7 @@ $(document).ready(function () {
                         catch (e) {
                             // alert(e)
                         }
-                        //  console.log(profData.professional_manual_address);
+                        console.log("HELLO",profData.professional2[0][0]);
                         Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData1.email);
@@ -259,7 +259,8 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profAddress", profData1.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
                         Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
-
+                       
+                        
                         if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
                             this.setReadonlyState(true);
@@ -270,7 +271,6 @@ $(document).ready(function () {
             setValues: function (data) {
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                console.log(data)
                 if (roleType == "young") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -326,6 +326,10 @@ $(document).ready(function () {
                     console.log(data[0].professional_address_postcode)
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
+                    Vue.set(this.elgibilityObj, "is_child_gp", data[0].professional2[0].is_child_gp);
+                    Vue.set(this.elgibilityObj, "manual_gp", data[0].professional2[0].manual_gp);
+                    Vue.set(this.elgibilityObj, "is_child_school", data[0].professional2[0].is_child_school);
+                    Vue.set(this.elgibilityObj, "gp_school", data[0].professional2[0].gp_school);
                     if (data[0].service_location == 'liverpool') {
                         Vue.set(this.elgibilityObj, "liverpoolService", data[0].selected_service);
                     }
