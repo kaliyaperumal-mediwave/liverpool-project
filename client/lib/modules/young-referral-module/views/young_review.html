@@ -482,7 +482,7 @@
                                         <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
 
                                             <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
-                                                Child School:
+                                                Child school:
                                             </label>
                                             <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
                                                 <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
@@ -1477,11 +1477,11 @@
                                                         <legend class="scheduler-border question-font px-2">
                                                             {{item.value}}:
                                                         </legend>
-                                                        <label :for="item.modelKey" class="question-font"><b>Please can
+                                                        <label :for="item.modelKey" class="question-font">Please can
                                                                 you
                                                                 give us some more
                                                                 detail so we can make sure we get you the right
-                                                                support</b></label>
+                                                                support</label>
                                                         <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
                                                             v-model="subDataForMakingReferral[item.modelKey]">{{subDataForMakingReferral[item.modelKey]}}</textarea>
 
@@ -1494,20 +1494,23 @@
                                                             {{item.value}}:
                                                         </legend>
 
-                                                        <div>
-                                                            <label :for="item.modelKey" class="question-font"><b>Have
+                                                        <div v-if="subDataForMakingReferral[item.modelKey]['ans']">
+                                                            <label :for="item.modelKey" class="question-font">Have
                                                                     you
-                                                                    ever self harmed </b></label>
+                                                                    ever self harmed</label>
+                                                                    <div class="capitalize-first-letter">
+                                                                        <input class="form-control input-bg-form-control" type="text" readonly v-model="subDataForMakingReferral[item.modelKey]['ans']">
+                                                                    </div>
 
-                                                            <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
+                                                            <!-- <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
+                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea> -->
 
                                                         </div>
 
                                                         <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
                                                             <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey +'lastHarm'" class="question-font"><b>When did you last self
-                                                                        harm?</b></label>
+                                                                <label :for="item.modelKey +'lastHarm'" class="question-font">When did you last self
+                                                                        harm?</label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'lastHarm'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"></textarea>
                                                                 <div class="text-validation invalid-feedback d-none" id="mrk3"
@@ -1517,9 +1520,9 @@
                                                             </div>
 
                                                             <div v-if="subDataForMakingReferral[item.modelKey]['more_details'] !== '' " class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'more_details'" class="question-font"><b>Please give us more
+                                                                <label :for="item.modelKey+'more_details'" class="question-font">Please give us more
                                                                         details
-                                                                        (optional)</b> </label>
+                                                                        (optional) </label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" readonly :id="item.modelKey+'more_details'"
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"></textarea>
                                                             </div>
@@ -1528,9 +1531,9 @@
                                                         <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
 
                                                             <div class="form-group py-2 mt-0 mb-2">
-                                                                <label class="question-font"><b>How often do you think
+                                                                <label class="question-font">How often do you think
                                                                         about
-                                                                        self harming?</b>
+                                                                        self harming?
                                                                 </label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'more_details'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
@@ -1539,10 +1542,10 @@
                                                             </div>
 
                                                             <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'ProvideBestSupport'" class="question-font"><b>Please give a
+                                                                <label :for="item.modelKey+'ProvideBestSupport'" class="question-font">Please give a
                                                                         bit more details so
                                                                         we can work out what support is best for
-                                                                        you</b></label>
+                                                                        you</label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'ProvideBestSupport'" rows="4" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
                                                                     @input="checkValidation($event)">{{subDataForMakingReferral[item.modelKey]['more_about_self_harming']}}</textarea>
