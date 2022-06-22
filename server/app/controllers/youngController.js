@@ -272,7 +272,7 @@ exports.eligibility = ctx => {
             is_child_gp: ctx.request.body.is_child_gp,
             manual_gp: ctx.request.body.manual_gp,
             is_child_school: ctx.request.body.is_child_school,
-            gp_school: ctx.request.body.gpSchool,
+            gp_school: ctx.request.body.gp_school,
             registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
           },
             {
@@ -322,7 +322,7 @@ exports.eligibility = ctx => {
           is_child_gp: ctx.request.body.is_child_gp,
           manual_gp: ctx.request.body.manual_gp,
           is_child_school: ctx.request.body.is_child_school,
-          gp_school: ctx.request.body.gpSchool,
+          gp_school: ctx.request.body.gp_school,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("7")
@@ -389,7 +389,7 @@ exports.eligibility = ctx => {
           is_child_gp: ctx.request.body.is_child_gp,
           manual_gp: ctx.request.body.manual_gp,
           is_child_school: ctx.request.body.is_child_school,
-          gp_school: ctx.request.body.gpSchool,
+          gp_school: ctx.request.body.gp_school,
           registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("7")

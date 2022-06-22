@@ -1014,8 +1014,8 @@
                     <form id="parentOrCarerEmail-form" data-options="emailAddress">
                         <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
-                                <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
-                                    - <b>optional</label>
+                                <label for="emailAddress"
+                                    class="question-font">{{sec2dynamicLabel.guardEmailLabel}}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" id="emailAddress"
                                         inputmode="email" @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
@@ -1026,12 +1026,17 @@
                                                 class="fa fa-envelope"></i></span>
                                     </div>
                                 </div>
+
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.emailAddress),
+                                    'invalid-fields': !aboutFormData.emailAddress }">
+                                    You must provide a email.
+                                </div>
+
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)),
                                     'invalid-fields':(aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)) }">
                                     You must provide a valid email.
                                 </div>
-
                             </div>
                         </div>
                     </form>
@@ -1188,6 +1193,7 @@
                     && aboutObj.childCareAdult
                     && aboutObj.parentFirstName
                     && aboutObj.parentLastName
+                    && aboutFormData.emailAddress
                     && (
                             (aboutFormData.parentialResponsibility =='yes' && (
                                 aboutFormData.relationshipToYou
