@@ -251,7 +251,7 @@ $(document).ready(function () {
                         catch (e) {
                             // alert(e)
                         }
-                        console.log("HELLO",profData.professional2[0][0]);
+                        // console.log("HELLO",profData.professional2[0][0]);
                         Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData1.email);
