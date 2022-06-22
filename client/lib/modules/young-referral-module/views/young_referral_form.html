@@ -1455,7 +1455,7 @@
             <!-- consent family start-->
             {% raw %}
             <form id="contactProffamily-form" data-options="contactProffamily">
-                <div v-show="elgibilityObj.contactProffamily== 'yes' && elgibilityObj.profyoungDob!=null" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.contactProffamily== 'yes' && elgibilityObj.profyoungDob!=null " class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the young person for us to use the
                             information that you provide, and share it with other AMHS partners so that we can help
@@ -1505,42 +1505,161 @@
             </form>
             {% endraw %}
 
-            <!-- GP Location start -->
-            {% raw %}
+
+            <form id="contactProffamily-form" data-options="contactProffamily">
+                <div v-if="elgibilityObj.familyConcernInformation == 'yes' && (elgibilityObj.profDirectService == 'liverpool' || elgibilityObj.profDirectService == 'sefton' ) && (elgibilityObj.seftonService == 'MHST Sefton' || elgibilityObj.liverpoolService == 'MHST Liverpool') "
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">Do you have a Sefton or Liverpool
+                        </p>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" id="aboutSeftonSelect1" v-model="elgibilityObj.is_child_gp" name="aboutSeftonSelect" @change="onChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="aboutSeftonSelect1">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" id="aboutSeftonSelect2" value="yes" v-model="elgibilityObj.is_child_gp" name="aboutSeftonSelect" @change="onChange($event)">
+                        <label class="form-check-label option-font d-flex align-items-center" for="aboutSeftonSelect2">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+             <!-- GP Location start -->
+             {% raw %}
+             <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
+                 <div v-show=" (elgibilityObj.role == 'professional' && (elgibilityObj.profDirectService == 'I do not want to select a service' || (elgibilityObj.seftonService !== 'MHST Sefton' && elgibilityObj.liverpoolService !== 'MHST Liverpool') ) && elgibilityObj.familyConcernInformation == 'yes' && elgibilityObj.profyoungDob!=null) || (elgibilityObj.is_child_gp == 'yes' )"
+                     class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                     <div class="form-group mb-1">
+                         <label for="gpProfLocation" class="question-font">Which GP is the young person
+                             registered
+                             with?</label>
+                         <div class="input-group">
+                             <input type="text" class="form-control gpProfLocation input-bg-form-control"
+                                 inputmodclass="form-group"e="search" v-model="elgibilityObj.regProfGpTxt"
+                                 placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
+                                 aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                             <div id="showInputLoader" class="icon-container d-none">
+                                 <i class="inputLoader"></i>
+                             </div>
+                             <div class="input-group-append" id="addOpacity">
+                                 <span class="input-group-text p-16">
+                                     <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                 </span>
+                             </div>
+                         </div>
+                         <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
+                             class="form-text text-muted">You must
+                             enter 3 characters to start
+                             search</small>
+                         <small id="gpErrorMessage"
+                             v-if="getStringLength(elgibilityObj.regProfGpTxt) >= 3 && elgibilityObj.gpErrMsg"
+                             class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                         <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
+                             id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
+                             by
+                             our service.
+                             <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
+                         </small>
+                     </div>
+                 </div>
+             </form>
+             {% endraw %}
+             <!--GP Location End -->
+             <form id="contactProffamily-form" data-options="contactProffamily">
+             <div v-if="elgibilityObj.is_child_gp == 'no'" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <label for="gpl" class="question-font">Enter your GP</label>
+                {% raw %}
+                <div class="input-group">
+                    <input type="text" v-model="elgibilityObj.manual_gp"
+                        @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
+                        placeholder="Enter your GP" class="form-control input-bg-form-control"
+                        id="fullFirstName">
+                    <div class="input-group-append cursor-pointer">
+                        <span class="input-group-text px-3 font-23">
+                            <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </form>
+            {% endraw %}
+            <!--GP Location End -->
+        
+
+
+            <!-- Have school -->
+            <form id="contactProffamily-form" data-options="contactProffamily">
+                <div v-if="elgibilityObj.is_child_gp == 'no' " class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">Do you have a Liverpool/Sefton school
+                        </p>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" id="is_child_school1" v-model="elgibilityObj.is_child_school" name="is_child_school" @change="onChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="is_child_school1">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" id="is_child_school2" value="yes" v-model="elgibilityObj.is_child_school" name="is_child_school" @change="onChange($event)">
+                        <label class="form-check-label option-font d-flex align-items-center" for="is_child_school2">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <!-- Have school -->
+
+            <!-- Not Support -->
+            <form id="familyConcernInformation-form3" data-options="familyConcernInformation">
+                <div v-if="elgibilityObj.is_child_school == 'no' " class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">Unfortunately we cannot support message</p>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Not Support-->
+
+            <!-- Support -->
             <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
-                <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.familyConcernInformation == 'yes' && elgibilityObj.profyoungDob!=null"
-                    class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <div class="form-group mb-1">
-                        <label for="gpProfLocation" class="question-font">Which GP is the young person
-                            registered
-                            with?</label>
+                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' && elgibilityObj.manual_gp.length > 0 " >
+                
+                    <div class="form-group mb-1" >
+                        <label for="yourProfession" class="question-font">Please enter school</label>
+                        {% raw %}
                         <div class="input-group">
-                            <input type="text" class="form-control gpProfLocation input-bg-form-control" inputmode="search" v-model="elgibilityObj.regProfGpTxt" placeholder="Start typing to search"
-                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
-                            <div id="showInputLoader" class="icon-container d-none">
-                                <i class="inputLoader"></i>
-                            </div>
-                            <div class="input-group-append" id="addOpacity">
-                                <span class="input-group-text p-16">
+                            <input type="text" v-model="elgibilityObj.gp_school"
+                            @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
+                                placeholder="Enter your location" class="form-control input-bg-form-control"
+                                id="txtProfessionalProfession">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3" class="form-text text-muted">You must
-                            enter 3 characters to start
-                            search</small>
-                        <small id="gpErrorMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
-                        <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf" id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not
-                            covered
-                            by
-                            our service.
-                            <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
-                        </small>
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                            You must provide a Location.
+                        </div>
+                        {% endraw %}
                     </div>
+
                 </div>
             </form>
-            {% endraw %}
-            <!--GP Location End -->
+            <!-- Support  -->
 
             <!-- prof gp school start -->
             {% raw %}
@@ -1627,29 +1746,33 @@
                         </div>
                     </div>
                 </div>
-                <!-- toster-container start -->
-            </form>
-            {% endraw %}
-            <!-- <div
-                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profyoungDob!=null && elgibilityObj.gpSchool != 'Neither'">
-                <div class="px-4 py-2 py-lg-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
+
+                <div v-show="elgibilityObj.gp_school.length > 0"
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
+                        <div class="">
                             <p class="text-center m-0 py-2">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center text-danger m-0 py-2">You have missed out a section on
-                                this
-                                page.Please re-check your answer.
-                            </p>
+                            <p class="question-font text-center m-0 pt-2">Great. That’s section 1 finished; you are
+                                eligible to continue with this referral.</p>
                         </div>
                     </div>
                 </div>
-            </div> -->
+
+                <!-- toster-container start -->
+            </form>
+            {% endraw %}
+           
 
             <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profyoungDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
+                class="text-center pt-4 pb-2 pb-lg-1">
+                <a>
+                    <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">SAVE &
+                            CONTINUE</span></button>
+                </a>
+            </div>
+            <div v-show="elgibilityObj.gp_school.length > 0"
                 class="text-center pt-4 pb-2 pb-lg-1">
                 <a>
                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">SAVE &

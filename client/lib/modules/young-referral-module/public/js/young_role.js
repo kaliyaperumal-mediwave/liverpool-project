@@ -374,7 +374,7 @@ $(document).ready(function () {
                     }
                     if (data[0].professional2[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].professional2[0].gp_school);
-                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
+                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", undefined);
 
                     }
                     localStorage.setItem("form2", "yes");
@@ -524,7 +524,7 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "familyConcernSelect") {
                     if(optionValue === "no"){
-                        this.resetValues(event.target.form);
+                        this.resetValues(event.target.form, "familyConcernSelect");
                         this.elgibilityObj.familyConcernInformation = optionValue;
                     }
                     
@@ -575,7 +575,8 @@ $(document).ready(function () {
                 }
             },
 
-            resetValues: function (currentForm) {
+            resetValues: function (currentForm, data) {
+
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
@@ -590,6 +591,9 @@ $(document).ready(function () {
                     }
                 }
                 this.isSubmitted = false;
+                if(data === "familyConcernSelect"){
+                    this.elgibilityObj.contactProffamily = "yes"
+                }
             },
 
             getAge: function (dateString) {
@@ -897,6 +901,7 @@ $(document).ready(function () {
                                 else {
                                     _self.gpListShow = response;
                                     if (_self.gpListShow.length > 0) {
+                                        app.elgibilityObj.gpErrMsg = "";
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
@@ -1122,7 +1127,8 @@ $(document).ready(function () {
                     this[section][key] = e.target.value.trim();
                     return false;
                 }
-                if (this.isSubmitted) {
+                
+                if(this.isSubmitted) {
                     var phoneRegex = /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -1178,6 +1184,9 @@ $(document).ready(function () {
                         }
 
                     }
+                }
+                if(this.elgibilityObj.manual_gp.length === 0){
+                    this.elgibilityObj.gp_school = ""
                 }
             },
 
@@ -1344,7 +1353,7 @@ $(document).ready(function () {
                                     this.elgibilityObj.profBelowAgeLimit = "";
                                     this.elgibilityObj.profaboveLimit = "";
                                     this.elgibilityObj.familyConcern = "";
-                                    this.elgibilityObj.contactProffamily = "";
+                                    // this.elgibilityObj.contactProffamily = "";
                                     this.elgibilityObj.familyConcernInformation = "";
                                     this.elgibilityObj.youngConcernInformation = "";
                                     this.elgibilityObj.submitProfForm = "";
@@ -1379,7 +1388,7 @@ $(document).ready(function () {
                                 this.elgibilityObj.profBelowAgeLimit = "";
                                 this.elgibilityObj.profaboveLimit = "";
                                 this.elgibilityObj.familyConcern = "";
-                                this.elgibilityObj.contactProffamily = "";
+                                // this.elgibilityObj.contactProffamily = "";
                                 this.elgibilityObj.familyConcernInformation = "";
                                 this.elgibilityObj.youngConcernInformation = "";
                                 this.elgibilityObj.submitProfForm = "";
@@ -1411,7 +1420,7 @@ $(document).ready(function () {
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.familyConcern = "";
-                            this.elgibilityObj.contactProffamily = "";
+                            // this.elgibilityObj.contactProffamily = "";
                             this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "";
@@ -1519,7 +1528,7 @@ $(document).ready(function () {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.familyConcern = "";
-                        this.elgibilityObj.contactProffamily = "";
+                        // this.elgibilityObj.contactProffamily = "";
                         this.elgibilityObj.familyConcernInformation = "";
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";

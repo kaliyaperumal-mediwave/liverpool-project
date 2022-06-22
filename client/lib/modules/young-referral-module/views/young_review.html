@@ -497,7 +497,7 @@
                                 <!-- Consent Given End -->
 
                                 <!-- Gp Start -->
-                                <div v-if="section1Data.registered_gp">
+                                <!-- <div v-if="section1Data.registered_gp">
 
                                     <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
@@ -506,8 +506,8 @@
                                         <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                             </textarea>
                                     </div>
-                                </div>
-                                <!-- <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                </div> -->
+                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
@@ -1462,17 +1462,13 @@
                                     </label>
 
                                     <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
-
+<!-- 
                                         <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
-                                            readonly></textarea>
+                                            readonly></textarea> -->
 
-                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="pt-3 mt-2">
+                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' >
 
                                             <div v-for="(item, index) in subQuestionOfReason" :key="index">
-
-
-                                                <div v-if="!item.hasMultiLevel" class="form-group m-0">
-                                                    <fieldset class="scheduler-border">
 
                                                         <legend class="scheduler-border question-font px-2">
                                                             {{item.value}}:
@@ -1845,7 +1841,7 @@
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="resetProvider()" id="selectProviderNo"
                                 value="No" v-model="selectProvider">
-                            <label for="selectProviderNo"
+                            <label for="selectProviderNo"https://meet.google.com/dpd-qfgb-yyj
                                 class="form-check-label option-font d-flex align-items-center">
                                 No</label>
                         </div>
