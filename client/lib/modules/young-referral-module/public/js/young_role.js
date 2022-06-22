@@ -897,6 +897,7 @@ $(document).ready(function () {
                                 else {
                                     _self.gpListShow = response;
                                     if (_self.gpListShow.length > 0) {
+                                        app.elgibilityObj.gpErrMsg = "";
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
@@ -1122,7 +1123,8 @@ $(document).ready(function () {
                     this[section][key] = e.target.value.trim();
                     return false;
                 }
-                if (this.isSubmitted) {
+                
+                if(this.isSubmitted) {
                     var phoneRegex = /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -1178,6 +1180,9 @@ $(document).ready(function () {
                         }
 
                     }
+                }
+                if(this.elgibilityObj.manual_gp.length === 0){
+                    this.elgibilityObj.gp_school = ""
                 }
             },
 

@@ -1705,7 +1705,7 @@
                              enter 3 characters to start
                              search</small>
                          <small id="gpErrorMessage"
-                             v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                             v-if="getStringLength(elgibilityObj.regProfGpTxt) >= 3 && elgibilityObj.gpErrMsg"
                              class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                          <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
                              id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
@@ -1792,14 +1792,14 @@
 
             <!-- Support -->
             <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
-                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
+                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' && elgibilityObj.manual_gp.length > 0 " >
                 
                     <div class="form-group mb-1" >
                         <label for="yourProfession" class="question-font">Please enter school</label>
                         {% raw %}
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.gp_school"
-                               
+                            @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
                                 placeholder="Enter your location" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
                             <div class="input-group-append cursor-pointer">
@@ -1929,24 +1929,7 @@
                 <!-- toster-container start -->
             </form>
             {% endraw %}
-            <!-- <div
-                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profyoungDob!=null && elgibilityObj.gpSchool != 'Neither'">
-                <div class="px-4 py-2 py-lg-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                            <p class="question-font text-center text-danger m-0 py-2">You have missed out a section on
-                                this
-                                page.Please re-check your answer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+           
 
             <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profyoungDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
                 class="text-center pt-4 pb-2 pb-lg-1">
