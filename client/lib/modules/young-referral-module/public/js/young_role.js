@@ -374,7 +374,7 @@ $(document).ready(function () {
                     }
                     if (data[0].professional2[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].professional2[0].gp_school);
-                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
+                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", undefined);
 
                     }
                     localStorage.setItem("form2", "yes");
@@ -524,7 +524,7 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "familyConcernSelect") {
                     if(optionValue === "no"){
-                        this.resetValues(event.target.form);
+                        this.resetValues(event.target.form, "familyConcernSelect");
                         this.elgibilityObj.familyConcernInformation = optionValue;
                     }
                     
@@ -575,7 +575,8 @@ $(document).ready(function () {
                 }
             },
 
-            resetValues: function (currentForm) {
+            resetValues: function (currentForm, data) {
+
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
@@ -590,6 +591,9 @@ $(document).ready(function () {
                     }
                 }
                 this.isSubmitted = false;
+                if(data === "familyConcernSelect"){
+                    this.elgibilityObj.contactProffamily = "yes"
+                }
             },
 
             getAge: function (dateString) {
@@ -1349,7 +1353,7 @@ $(document).ready(function () {
                                     this.elgibilityObj.profBelowAgeLimit = "";
                                     this.elgibilityObj.profaboveLimit = "";
                                     this.elgibilityObj.familyConcern = "";
-                                    this.elgibilityObj.contactProffamily = "";
+                                    // this.elgibilityObj.contactProffamily = "";
                                     this.elgibilityObj.familyConcernInformation = "";
                                     this.elgibilityObj.youngConcernInformation = "";
                                     this.elgibilityObj.submitProfForm = "";
@@ -1384,7 +1388,7 @@ $(document).ready(function () {
                                 this.elgibilityObj.profBelowAgeLimit = "";
                                 this.elgibilityObj.profaboveLimit = "";
                                 this.elgibilityObj.familyConcern = "";
-                                this.elgibilityObj.contactProffamily = "";
+                                // this.elgibilityObj.contactProffamily = "";
                                 this.elgibilityObj.familyConcernInformation = "";
                                 this.elgibilityObj.youngConcernInformation = "";
                                 this.elgibilityObj.submitProfForm = "";
@@ -1416,7 +1420,7 @@ $(document).ready(function () {
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.familyConcern = "";
-                            this.elgibilityObj.contactProffamily = "";
+                            // this.elgibilityObj.contactProffamily = "";
                             this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "";
@@ -1524,7 +1528,7 @@ $(document).ready(function () {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.familyConcern = "";
-                        this.elgibilityObj.contactProffamily = "";
+                        // this.elgibilityObj.contactProffamily = "";
                         this.elgibilityObj.familyConcernInformation = "";
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
