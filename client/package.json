@@ -4,7 +4,7 @@
   "description": "Minimal Apostrophe Boilerplate",
   "main": "app.js",
   "scripts": {
-    "start": "node app apostrophe:generation && node app.js"
+    "start": "node app apostrophe:generation && nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "dependencies": {
     "apostrophe": "2.103.1",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.16",
     "swiper": "^5.3.0"
   },
   "devDependencies": {

@@ -36,7 +36,12 @@
   <div class="my-md-3 my-lg-4 my-xl-4 my-4">
     <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
       <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+
+        <label style="display:none" for="resources">.</label> 
         <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+        
+       
+
         <div>
           <div class="input-group home-primary-content-bg">
             <span class="input-group-prepend">
@@ -46,7 +51,8 @@
                 </span>
               </div>
             </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+            <label style="display: none;" for="searchYourResource">.</label>
+            <input id="searchYourResource" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
               placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
             <!-- <div class="search-wrapper">
 

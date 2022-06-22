@@ -179,6 +179,7 @@
                     </div> -->
 
                     <div class="input-group">
+                        <label style="display: none;" for="manualDatePickerParent">.</label>
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
                             @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
                             id="manualDatePickerParent" placeholder="DD/MM/YYYY">

@@ -184,5 +184,8 @@
 	"trurt": "trurt",
 	"Add About the people": "Add About the people",
 	"Search About the people...": "Search About the people...",
-	"Add Image": "Add Image"
+	"Add Image": "Add Image",
+	"An error occurred.": "An error occurred.",
+	"You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?": "You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?",
+	"You are now editing this document in another tab or window.": "You are now editing this document in another tab or window."
 }

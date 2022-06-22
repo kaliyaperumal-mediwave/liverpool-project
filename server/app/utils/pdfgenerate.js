@@ -52,6 +52,7 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
         }
 
         pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
+            console.log("pdf generator error------------",err)
             resolve(ctx.body = buffer);
         });
     } catch (e) {
