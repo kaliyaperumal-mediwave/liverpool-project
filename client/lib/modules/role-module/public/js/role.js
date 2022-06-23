@@ -521,9 +521,18 @@ $(document).ready(function () {
                     this.elgibilityObj.isInformation = optionValue;
                 }
                 //for professional
-                else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
-                    this.resetValues(event.target.form);
-                    this.elgibilityObj.contactProfParent = optionValue;
+                else if (questionIdentifier == "contactProfParent") {
+                    if(optionValue == "no"){
+                        this.resetValues(event.target.form);
+                        this.elgibilityObj.contactProfParent = optionValue;
+                    }
+                    this.elgibilityObj.parentConcernInformation = ""
+                    
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.gp_school = ''
+
                 }
                 else if (questionIdentifier == "parentConcernSelect") {
                     if (optionValue == "no") {
@@ -1444,6 +1453,10 @@ $(document).ready(function () {
                         this.elgibilityObj.childConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
                         this.elgibilityObj.regProfGpTxt = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else if (this.elgibilityObj.role == 'child') {
                         this.elgibilityObj.belowAgeLimit = "";
@@ -1454,6 +1467,10 @@ $(document).ready(function () {
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else {
                         this.elgibilityObj.aboveLimit = "";
@@ -1462,6 +1479,10 @@ $(document).ready(function () {
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
 
                 }

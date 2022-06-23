@@ -1469,7 +1469,8 @@
                                         <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' >
 
                                             <div v-for="(item, index) in subQuestionOfReason" :key="index">
-
+                                                <div v-if="!item.hasMultiLevel">
+                                                <fieldset class="scheduler-border">
                                                         <legend class="scheduler-border question-font px-2">
                                                             {{item.value}}:
                                                         </legend>

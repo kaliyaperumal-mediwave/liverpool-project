@@ -1751,7 +1751,7 @@
 
                <!-- Support -->
                <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
-                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
+                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' && elgibilityObj.manual_gp.length > 0 " >
                 
                     <div class="form-group mb-1" >
                         <label for="yourProfession" class="question-font">Please enter school</label>
@@ -1825,7 +1825,7 @@
                     </div>
                 </div>
 
-                <div v-if="elgibilityObj.gp_school"
+                <div v-if="elgibilityObj.gp_school && elgibilityObj.manual_gp.length > 0"
                 class="px-4 py-2">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                     <div class="">
@@ -1851,7 +1851,7 @@
                 </a>
             </div>
 
-            <div v-show="elgibilityObj.gp_school"
+            <div v-show="elgibilityObj.gp_school && elgibilityObj.manual_gp.length > 0"
             class="text-center pt-4 pb-2 pb-lg-1">
             <a>
                 <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
