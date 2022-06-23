@@ -1185,9 +1185,7 @@ $(document).ready(function () {
 
                     }
                 }
-                if(this.elgibilityObj.manual_gp.length === 0){
-                    this.elgibilityObj.gp_school = ""
-                }
+           
             },
 
             save: function () {
@@ -1203,7 +1201,7 @@ $(document).ready(function () {
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profEmail && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.manual_gp && this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profEmail && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
