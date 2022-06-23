@@ -1457,6 +1457,10 @@ $(document).ready(function () {
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
                         this.elgibilityObj.regProfGpTxt = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else if (this.elgibilityObj.role == 'young') {
                         this.elgibilityObj.belowAgeLimit = "";
@@ -1467,6 +1471,10 @@ $(document).ready(function () {
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else {
                         this.elgibilityObj.aboveLimit = "";
@@ -1475,6 +1483,10 @@ $(document).ready(function () {
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                 }
 

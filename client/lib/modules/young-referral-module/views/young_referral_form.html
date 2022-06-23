@@ -1747,7 +1747,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.gp_school.length > 0"
+                <div v-show="elgibilityObj.gp_school.length > 0 && elgibilityObj.submitProfForm == 'true'  && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && elgibilityObj.profyoungDob!=null"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
