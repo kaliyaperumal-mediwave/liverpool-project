@@ -1584,6 +1584,9 @@
                             <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                         </span>
                     </div>
+                    <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.manual_gp),'invalid-fields':!elgibilityObj.manual_gp }">
+                        You must provide a first name.
+                    </div>
                 </div>
             </div>
             </form>
@@ -1634,10 +1637,10 @@
 
             <!-- Support -->
             <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
-                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' && elgibilityObj.manual_gp.length > 0 " >
+                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
                 
                     <div class="form-group mb-1" >
-                        <label for="yourProfession" class="question-font">Please enter school</label>
+                        <label for="yourProfession1" class="question-font">Please enter school</label>
                         {% raw %}
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.gp_school"
@@ -1651,7 +1654,7 @@
                             </div>
                         </div>
                         <div class="text-validation invalid-feedback  d-none"
-                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.gp_school),'invalid-fields':!elgibilityObj.gp_school }">
                             You must provide a Location.
                         </div>
                         {% endraw %}
@@ -1747,7 +1750,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.gp_school.length > 0 && elgibilityObj.submitProfForm == 'true'  && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && elgibilityObj.profyoungDob!=null"
+                <div v-if="elgibilityObj.gp_school.length > 0 && elgibilityObj.manual_gp.length > 0  && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profEmail && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
