@@ -50,19 +50,22 @@
                     {% raw %}
 
                     <div class="form-check pt-3 pb-1 pl-0" id="1752a966-f49a-4443-baae-ed131ebb477b">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="aboutYou" value="child" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
+                            id="aboutYou" value="child" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                             Child / Young Person
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="398a82d9-59fe-459c-8d1e-85f803d0319c">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom" value="parent" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
+                            value="parent" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whom">
                             Parent / Carer
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0" id="96dda9ca-9328-47e8-ac1a-8cdc972df4d0">
-                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="profession" value="professional" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
+                            id="profession" value="professional" @change="onChange($event)">
                         <label class="form-check-label d-flex align-items-center option-font" for="profession">
                             Professional
                         </label>
@@ -71,7 +74,8 @@
                 </div>
             </form>
             <form id="interpreter-form" data-options="interpreter">
-                <div v-show="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p class="question-font m-0">Do you need an interpreter?</p> -->
                     <div class="question-font m-0"> {{ apos.area(data.page, 'referral1_titleam', {
                         widgets: {
@@ -85,13 +89,15 @@
                         }) }}</div>
                     {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="interpreter" id="interpreterNo" v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="interpreter" id="interpreterNo"
+                            v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="interpreterNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="interpreter" id="interpreterYes" v-model="elgibilityObj.interpreter" value="yes" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="interpreter" id="interpreterYes"
+                            v-model="elgibilityObj.interpreter" value="yes" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="interpreterYes">
                             Yes
                         </label>
@@ -101,7 +107,8 @@
             </form>
             <!-- toster-container start -->
             <form id="tostInterYes-form" data-options="tostInterYes">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.interpreter == 'yes'" class="px-4 py-2">
+                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.interpreter == 'yes'"
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -122,7 +129,8 @@
 
             <!-- calender start child-->
             <form id="child-Dob-form" data-options="childDob">
-                <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'" class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
+                    class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
                     <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
@@ -171,15 +179,17 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob" @input="checkValidDateMine($event)" @keypress="preventRefresh($event)"
-                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
                         Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                 </div>
@@ -188,7 +198,8 @@
 
             <!-- calender start parent-->
             <form id="parent-Dob-form" data-options="childDob">
-                <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p> -->
@@ -239,15 +250,17 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob" @input="checkValidDateMine($event)" @keypress="preventRefresh($event)"
-                            autocomplete="off" id="manualDatePickerChild" placeholder="DD/MM/YYYY">
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
                         <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
                         Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
 
@@ -261,7 +274,8 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
-                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'" class="px-4 py-2">
+                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -284,7 +298,8 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="age-aboveLimit-form" data-options="aboveLimit">
-                <div v-show="((elgibilityObj.role == 'child' || elgibilityObj.role=='parent')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.childDob!=null" class="px-4 py-2">
+                <div v-show="((elgibilityObj.role == 'child' || elgibilityObj.role=='parent')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.childDob!=null"
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -312,17 +327,20 @@
 
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
                                 your GP
-                                is registered in Sefton: <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ " target="_blank"><b
-                                        class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
+                                is registered in Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a> </p>
                             <p v-show="elgibilityObj.role == 'parent'" class="link-secondary text-center m-0 py-2">If
                                 the
                                 Child/young person's GP is registered
                                 in
-                                Sefton: <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ " target="_blank"><b class="cursor-pointer"><u>Access
-                                            Sefton</u></b></a>
+                                Sefton: <a
+                                    href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                    target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
                             </p>
                             <p class="link-secondary text-center m-0 py-2">
-                                <a href="https://www.samaritans.org/ " target="_blank"><b class="cursor-pointer"><u>Samaritans</u></b></a>
+                                <a href="https://www.samaritans.org/ " target="_blank"><b
+                                        class="cursor-pointer"><u>Samaritans</u></b></a>
                                 is
                                 available via
                                 phone for anyone
@@ -337,20 +355,25 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="contactParent-AgeLimit-form" data-options="contactParent">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no' && elgibilityObj.childDob!=null" class="px-4 py-2">
+                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no' && elgibilityObj.childDob!=null"
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
                             <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
-                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a href="https://www.childline.org.uk/ " target="_blank"> Childline
+                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a
+                                    href="https://www.childline.org.uk/ " target="_blank"> Childline
                                 </a>
                             </p>
-                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a href="https://www.nspcc.org.uk/keeping-children-safe/our-services/childline/" target="_blank">
+                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a
+                                    href="https://www.nspcc.org.uk/keeping-children-safe/our-services/childline/"
+                                    target="_blank">
                                     NSPCC</a>
                             </p>
-                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a href="https://www.bullying.co.uk/ " target="_blank"> Bullying UK</a></p>
+                            <p class="link-text text-center cursor-pointer m-0 py-2"> <a
+                                    href="https://www.bullying.co.uk/ " target="_blank"> Bullying UK</a></p>
                         </div>
                     </div>
                 </div>
@@ -363,7 +386,8 @@
             <!-- consent start-->
 
             <form id="isInformation-form3" data-options="contactParent">
-                <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p v-show="elgibilityObj.role=='child'" class="question-font m-0">
                             Do you give consent for us to
@@ -400,16 +424,21 @@
                             }
                             }) }}
                         </div>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" data-toggle="modal" data-target="#consentModal" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="info-icon" data-toggle="modal"
+                            data-target="#consentModal" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="camhsSelect" v-model="elgibilityObj.isInformation" id="consentInfoNo" value="no" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="camhsSelect"
+                            v-model="elgibilityObj.isInformation" id="consentInfoNo" value="no"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="consentInfoNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="camhsSelect" v-model="elgibilityObj.isInformation" id="consentInfoYes" value="yes" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="camhsSelect"
+                            v-model="elgibilityObj.isInformation" id="consentInfoYes" value="yes"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="consentInfoYes">
                             Yes
                         </label>
@@ -422,12 +451,14 @@
 
             <!-- toster-container start -->
             <form id="isInformation-form4" data-options="isInformation">
-                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.childDob!=null" class="px-4 py-2">
+                <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.childDob!=null"
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
-                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal" data-target="#consentModal" aria-hidden="true"></i>
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
                             <p v-show="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">
@@ -469,7 +500,8 @@
                                       }
                                     }) }} -->
                             </p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text" href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
+                                    href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                     Tell me more about consent.
                                     <!-- {{ apos.area(data.page, 'referral1_telConsent', {
                                            widgets: {
@@ -501,13 +533,16 @@
                             during this referral process?</p>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact" v-model="elgibilityObj.contact_parent_camhs" id="reasonContactNo" value="no" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="reasonParentContact"
+                            v-model="elgibilityObj.contact_parent_camhs" id="reasonContactNo" value="no"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="reasonContactNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact" v-model="elgibilityObj.contact_parent_camhs" id="reasonContactYes" value="yes"
+                        <input class="form-check-input" type="radio" name="reasonParentContact"
+                            v-model="elgibilityObj.contact_parent_camhs" id="reasonContactYes" value="yes"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="reasonContactYes">
                             Yes
@@ -525,8 +560,9 @@
                     <div class="form-group py-1">
                         <label for="textInfo2" class="question-font">Please explain any reasons why we
                             should not contact your parent/carer:</label>
-                        <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
-                            placeholder="Tell us why you do not want us to contact your parents or carer" v-model="elgibilityObj.reason_contact_parent_camhs" rows="7"
+                        <textarea maxlength="950" class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                            id="textInfo2" placeholder="Tell us why you do not want us to contact your parents or carer"
+                            v-model="elgibilityObj.reason_contact_parent_camhs" rows="7"
                             @keyup="checkCharacterLength($event,'showlimitTxt1')" @input="clearGP($event)"></textarea>
                         <small v-if="showlimitTxt1" class="form-text text-muted">
                             You have reached the maximum character limit.
@@ -582,8 +618,10 @@
                         </div>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation input-bg-form-control" inputmode="search" @input="getAddress($event)" placeholder="Start typing to search" id="gpLocation"
-                                aria-label="location" v-model="elgibilityObj.regGpTxt" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                            <input type="text" class="form-control gpLocation input-bg-form-control" inputmode="search"
+                                @input="getAddress($event)" placeholder="Start typing to search" id="gpLocation"
+                                aria-label="location" v-model="elgibilityObj.regGpTxt"
+                                v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoaderProf" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -596,8 +634,11 @@
                         <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3" class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="emailHelp" v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
-                        <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink" id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
+                        <small id="emailHelp"
+                            v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink"
+                            id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
                             our service.
                             <a :href="elgibilityObj.gpErrLink" target="_blank">Find a service local to me</a>
                         </small>
@@ -680,18 +721,21 @@
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
-                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal" data-target="#consentModal" aria-hidden="true"></i>
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
                             <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
                                 service.</p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
-                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157" target="_blank">
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
                                     Find a service local to me
                                 </a></p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2" v-on:click="changePrevAns('regGpTxt','gpLocation')"> Change my previous
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('regGpTxt','gpLocation')"> Change my previous
                                 answer </p>
                         </div>
                     </div>
@@ -742,7 +786,8 @@
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                 class="text-center py-4">
                 <a>
-                    <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">SAVE &
+                    <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
                 </a>
             </div>
@@ -753,28 +798,33 @@
 
             {% raw %}
             <form id="profSelectService-form" data-options="profDirectService">
-                <div v-show="elgibilityObj.role == 'professional'" class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role == 'professional'"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you want to refer directly to a service in Liverpool or Sefton?
                         </p>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="directServices" v-model="elgibilityObj.profDirectService" id="liverpoolServices" value="liverpool"
+                        <input class="form-check-input" type="radio" name="directServices"
+                            v-model="elgibilityObj.profDirectService" id="liverpoolServices" value="liverpool"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="liverpoolServices">
                             Liverpool
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="directServices" v-model="elgibilityObj.profDirectService" id="seftonServices" value="sefton" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="directServices"
+                            v-model="elgibilityObj.profDirectService" id="seftonServices" value="sefton"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="seftonServices">
                             Sefton
                         </label>
                     </div>
 
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="directServices" v-model="elgibilityObj.profDirectService" id="noServiceSelect" value="I do not want to select a service"
-                            @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="directServices"
+                            v-model="elgibilityObj.profDirectService" id="noServiceSelect"
+                            value="I do not want to select a service" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="noServiceSelect">
                             I do not want to select a service
                         </label>
@@ -783,48 +833,61 @@
             </form>
 
             <form id="profLiverpoolService-form" data-options="liverpoolService">
-                <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.profDirectService == 'liverpool'" class="px-4 pt-1 pb-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.profDirectService == 'liverpool'"
+                    class="px-4 pt-1 pb-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Please select a service:</p>
                     </div>
                     <div class="form-check pt-3 pb-2 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="alderLiverpoolCamhs" value="Alder Hey - Liverpool CAMHS"
-                            @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="alderLiverpoolCamhs">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="alderLiverpoolCamhs"
+                            value="Alder Hey - Liverpool CAMHS" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderLiverpoolCamhs">
                             Alder Hey/Liverpool CAMHS
                         </label>
                     </div>
 
                     <div class="form-check pt-3 pb-2 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="alderLiverpoolEdys" value="Alder Hey - Liverpool EDYS"
-                            @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="alderLiverpoolEdys">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="alderLiverpoolEdys"
+                            value="Alder Hey - Liverpool EDYS" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderLiverpoolEdys">
                             Alder Hey/Liverpool EDYS
                         </label>
                     </div>
 
                     <div class="form-check py-2 pb-md-3 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS" @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="ypas">
                             YPAS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool"
+                            @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team (only school professionals can refer)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="seedings" value="Seedlings" @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="seedings">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="seedings" value="Seedlings"
+                            @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="seedings">
                             Seedlings (only school professionals – primary)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="liverpoolService" v-model="elgibilityObj.liverpoolService" id="wellbeingClinics" value="Wellbeing Clinics"
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="wellbeingClinics" value="Wellbeing Clinics"
                             @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="wellbeingClinics">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="wellbeingClinics">
                             Wellbeing Clinics (only school professionals – secondary)
                         </label>
                     </div>
@@ -832,39 +895,52 @@
             </form>
 
             <form id="profSeftonService-form" data-options="seftonService">
-                <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.profDirectService == 'sefton'" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.profDirectService == 'sefton'"
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Please select a service:</p>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="seftonService" v-model="elgibilityObj.seftonService" id="alderSeftonCamhs" value="Alder Hey - Sefton CAMHS"
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="alderSeftonCamhs" value="Alder Hey - Sefton CAMHS"
                             @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="alderSeftonCamhs">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderSeftonCamhs">
                             Alder Hey/Sefton CAMHS
                         </label>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="seftonService" v-model="elgibilityObj.seftonService" id="alderSeftonEdys" value="Alder Hey - Sefton EDYS"
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="alderSeftonEdys" value="Alder Hey - Sefton EDYS"
                             @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="alderSeftonEdys">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderSeftonEdys">
                             Alder Hey/Sefton EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="seftonService" v-model="elgibilityObj.seftonService" id="venus" value="Venus" @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="venus">
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="venus" value="Venus" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="venus">
                             Venus
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="seftonService" v-model="elgibilityObj.seftonService" id="parenting2000" value="Parenting 2000" @change="onChange($event)">
-                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="parenting2000">
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="parenting2000" value="Parenting 2000"
+                            @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="parenting2000">
                             Parenting 2000
                         </label>
                     </div>
                     <div class="form-check py-3 pl-0">
-                        <input class="form-check-input" type="radio" name="seftonService" v-model="elgibilityObj.seftonService" id="seftonMHST" value="MHST Sefton" @change="onChange($event)">
-                        <label class="form-check-label heightSetCustom option-font d-flex align-items-center" for="seftonMHST">
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="seftonMHST" value="MHST Sefton"
+                            @change="onChange($event)">
+                        <label class="form-check-label heightSetCustom option-font d-flex align-items-center"
+                            for="seftonMHST">
                             Mental Health Support Team (only school professionals – currently in pilot phase with
                             specific schools)
                         </label>
@@ -885,13 +961,15 @@
                         class="px-2 px-lg-0 py-2 col-12 mx-auto">
                         <p class="question-font m-0">Is this an urgent or routine referral?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" checked id="routine" value="1" name="referralMode" v-model="elgibilityObj.referral_mode">
+                            <input class="form-check-input" type="radio" checked id="routine" value="1"
+                                name="referralMode" v-model="elgibilityObj.referral_mode">
                             <label class="form-check-label option-font d-flex align-items-center" for="routine">
                                 Routine
                             </label>
                         </div>
                         <div class="form-check  py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2" v-model="elgibilityObj.referral_mode">
+                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2"
+                                v-model="elgibilityObj.referral_mode">
                             <label class="form-check-label option-font d-flex align-items-center" for="urgent">
                                 Urgent
                             </label>
@@ -906,15 +984,18 @@
                         <label for="firstName" class="question-font">Your first name</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profFirstName" @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')" placeholder="Enter your first name"
-                                class="form-control input-bg-form-control" id="fullFirstName">
+                            <input type="text" v-model="elgibilityObj.profFirstName"
+                                @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
+                                placeholder="Enter your first name" class="form-control input-bg-form-control"
+                                id="fullFirstName">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profFirstName),'invalid-fields':!elgibilityObj.profFirstName }">
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profFirstName),'invalid-fields':!elgibilityObj.profFirstName }">
                             You must provide a first name.
                         </div>
                         {% endraw %}
@@ -923,15 +1004,18 @@
                         <label for="lastName" class="question-font">Your last name</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.proflastName" @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')" placeholder="Enter your last name"
-                                class="form-control input-bg-form-control" id="fullLatstName">
+                            <input type="text" v-model="elgibilityObj.proflastName"
+                                @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')"
+                                placeholder="Enter your last name" class="form-control input-bg-form-control"
+                                id="fullLatstName">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.proflastName),'invalid-fields':!elgibilityObj.proflastName }">
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.proflastName),'invalid-fields':!elgibilityObj.proflastName }">
                             You must provide a last name.
                         </div>
                         {% endraw %}
@@ -940,8 +1024,10 @@
                         <label for="emailAddress" class="question-font">Your email address</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profEmail" inputmode="email" @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
-                                placeholder="Enter your email address" class="form-control input-bg-form-control" id="emailAddress">
+                            <input type="text" v-model="elgibilityObj.profEmail" inputmode="email"
+                                @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
+                                placeholder="Enter your email address" class="form-control input-bg-form-control"
+                                id="emailAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-envelope"></i>
@@ -967,29 +1053,35 @@
                         <div class="input-group">
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
-                                    <select v-model="elgibilityObj.professional_contact_type" @change="selectContactTypeProfessional(elgibilityObj.professional_contact_type)"
+                                    <select v-model="elgibilityObj.professional_contact_type"
+                                        @change="selectContactTypeProfessional(elgibilityObj.professional_contact_type)"
                                         class="custom-select form-control input-bg-form-control">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
                                     </select>
                                 </span>
                             </div>
-                            <input type="text" v-model="elgibilityObj.profContactNumber" inputmode="tel" @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
-                                placeholder="Enter your contact number" class="form-control input-bg-form-control" id="contact">
+                            <input type="text" v-model="elgibilityObj.profContactNumber" inputmode="tel"
+                                @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
+                                placeholder="Enter your contact number" class="form-control input-bg-form-control"
+                                id="contact">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-25">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-phone"></i>
                                 </span>
                             </div>
                         </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profContactNumber),'invalid-fields':!elgibilityObj.profContactNumber }">
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profContactNumber),'invalid-fields':!elgibilityObj.profContactNumber }">
                             You must provide a number.
                         </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'mobile' && !phoneRegex.test(elgibilityObj.profContactNumber)),
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'mobile' && !phoneRegex.test(elgibilityObj.profContactNumber)),
                             'invalid-fields':(elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'mobile' && !phoneRegex.test(elgibilityObj.profContactNumber)) }">
                             You must provide a valid mobile number.
                         </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'landline' && !landlineRegex.test(elgibilityObj.profContactNumber)),
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'landline' && !landlineRegex.test(elgibilityObj.profContactNumber)),
                         'invalid-fields':(elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'landline' && !landlineRegex.test(elgibilityObj.profContactNumber)) }">
                             You must provide a valid landline number.
                         </div>
@@ -1004,8 +1096,10 @@
                                 placeholder="Enter your address" class="form-control input-bg-form-control"
                                 id="postCodeAddress" autocomplete="off"> -->
 
-                            <multiselect :options="addressOptions" v-model="elgibilityObj.profAddress" @input="updateSelected" @search-change="searchQuery" :searchable="true" :close-on-select="true"
-                                placeholder="Search" :custom-label="customLabel" :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            <multiselect :options="addressOptions" v-model="elgibilityObj.profAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
                             </multiselect>
                             <!--
                             <div class="input-group-append cursor-pointer">
@@ -1018,24 +1112,28 @@
                             v-bind:class="{ 'd-block':(isSubmitted && (!elgibilityObj.profAddress && !professionalManualAddress.length)),'invalid-fields':(!elgibilityObj.profAddress && !professionalManualAddress.length) }">
                             You must provide a address.
                         </div>
-                        <p class="link-text text-right mb-0 mt-2 cursor-pointer" id="3ef3160e-50f7-43de-9a6a-842512adad96" @click="getManualAddress()"><u>Enter
+                        <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                            id="3ef3160e-50f7-43de-9a6a-842512adad96" @click="getManualAddress()"><u>Enter
                                 manually</u></p>
                         {% endraw %}
                         {% raw %}
                         <div v-show="professionalManualAddress.length">
                             <div class="py-4">
                                 <label class="question-font">Manual address</label>
-                                <div class="card text-left mb-2" v-for="(item, index) in professionalManualAddress" :key="index">
+                                <div class="card text-left mb-2" v-for="(item, index) in professionalManualAddress"
+                                    :key="index">
                                     <div class="card-body text-capitalize bg-set-on-card">
                                         <div class="d-flex align-items-center justify-content-between my-1">
                                             <h3 class="link-text">{{item.addressLine1}}</h3>
                                             <div class="d-flex">
-                                                <span class="badge badge-pill cursor-pointer" data-toggle="modal" data-target="#roleManualAddressModal" @click="patchAddress(item)">
+                                                <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                                    data-target="#roleManualAddressModal" @click="patchAddress(item)">
                                                     <i class="fa fa-pencil fa-2x" aria-hidden="true">
                                                     </i>
                                                 </span>
-                                                <span class="badge badge-pill cursor-pointer"><i data-toggle="modal" data-target="#deleteAddressSect1Modal" class="fa fa-trash-o fa-2x"
-                                                        aria-hidden="true"></i>
+                                                <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
+                                                        data-target="#deleteAddressSect1Modal"
+                                                        class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -1055,8 +1153,10 @@
                         <label for="yourProfession" class="question-font">Your profession</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profProfession" @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
-                                placeholder="Enter your profession" class="form-control input-bg-form-control" id="txtProfessionalProfession">
+                            <input type="text" v-model="elgibilityObj.profProfession"
+                                @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
+                                placeholder="Enter your profession" class="form-control input-bg-form-control"
+                                id="txtProfessionalProfession">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
                                     <i class="fas common-fa-fa fa-user-tie"></i>
@@ -1075,7 +1175,8 @@
 
             <!-- Add Manual address Modal Start -->
             {% raw %}
-            <div class="modal fade" id="roleManualAddressModal" tabindex="-1" role="dialog" aria-labelledby="roleManualAddressModalLabel" aria-hidden="true">
+            <div class="modal fade" id="roleManualAddressModal" tabindex="-1" role="dialog"
+                aria-labelledby="roleManualAddressModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content modal-bg">
                         <div class="modal-header justify-content-center">
@@ -1100,15 +1201,18 @@
                                 <label for="addressline1" inputmode="text" class="question-font">Address
                                     line 1</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="addressData.addressLine1" @input="trimWhiteSpace($event,'addressData','addressLine1')"
-                                        id="addressline1" placeholder="Enter address line 1">
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="addressData.addressLine1"
+                                        @input="trimWhiteSpace($event,'addressData','addressLine1')" id="addressline1"
+                                        placeholder="Enter address line 1">
                                     <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.addressLine1) }">
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.addressLine1) }">
                                     Please provide an address.
                                 </div>
                             </div>
@@ -1119,8 +1223,10 @@
                                 <label for="addressline2" inputmode="text" class="question-font">Address
                                     line 2 -<b> optional</b></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="addressData.addressLine2" @input="trimWhiteSpace($event,'addressData','addressLine2')"
-                                        id="addressline2" placeholder="Enter address line 2">
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="addressData.addressLine2"
+                                        @input="trimWhiteSpace($event,'addressData','addressLine2')" id="addressline2"
+                                        placeholder="Enter address line 2">
                                     <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1134,10 +1240,12 @@
                             <div class="form-group">
                                 <label for="cityInfo" inputmode="text" class="question-font">City</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="addressData.city" @input="trimWhiteSpace($event,'addressData','city')" id="cityInfo"
-                                        placeholder="Enter city">
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="addressData.city" @input="trimWhiteSpace($event,'addressData','city')"
+                                        id="cityInfo" placeholder="Enter city">
                                 </div>
-                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
                                     Please provide a city name.
                                 </div>
                             </div>
@@ -1148,7 +1256,9 @@
                                 <label for="countyAdd" inputmode="text" class="question-font">Country -<b>
                                         optional</b></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="addressData.country" @input="trimWhiteSpace($event,'addressData','country')" id="countyAdd"
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="addressData.country"
+                                        @input="trimWhiteSpace($event,'addressData','country')" id="countyAdd"
                                         placeholder="Enter country">
                                     <div class="input-group-append">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
@@ -1163,13 +1273,17 @@
                             <div class="form-group">
                                 <label for="postCodeAdd" inputmode="text" class="question-font">Postcode</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-bg-form-control" v-model="addressData.postCode" @input="trimWhiteSpace($event,'addressData','postCode')"
-                                        id="postCodeAdd" placeholder="Enter postcode">
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="addressData.postCode"
+                                        @input="trimWhiteSpace($event,'addressData','postCode')" id="postCodeAdd"
+                                        placeholder="Enter postcode">
                                 </div>
-                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                     Please provide a postcode.
                                 </div>
-                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
                                     Please provide a valid postcode.
                                 </div>
                             </div>
@@ -1200,12 +1314,14 @@
             <!-- Add Manual address Modal End -->
 
             <!-- Delete Modal Start -->
-            <div class="modal fade" id="deleteAddressSect1Modal" tabindex="-1" role="dialog" aria-labelledby="deleteAddresModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteAddressSect1Modal" tabindex="-1" role="dialog"
+                aria-labelledby="deleteAddresModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content modal-bg">
                         <div class="modal-header justify-content-center">
                             <h5 class="question-header-font">Delete address</h5>
-                            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                    class="fal fa-times fa-2x cursor-pointer"></i></i>
                         </div>
                         <div class="modal-body py-1 px-4">
                             <h5 class="support-modal-header-text text-center">Are you
@@ -1234,15 +1350,18 @@
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)" @input="checkValidDateMine($event)"
-                            autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
+                        <input type="text" class="form-control input-bg-form-control"
+                            v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)"
+                            @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
+                            placeholder="DD/MM/YYYY">
                         <div class="input-group-append">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="text-validation invalid-feedback  d-none" v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
                         Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                     <!-- <div class="input-group">
@@ -1291,16 +1410,21 @@
                             to
                             use information that you provide, and share it with other CAMHS partners so that we can help
                             them?</p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="info-icon" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="contactProfParent" v-model="elgibilityObj.contactProfParent" id="infoBelogAgeNo" value="no" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="contactProfParent"
+                            v-model="elgibilityObj.contactProfParent" id="infoBelogAgeNo" value="no"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="infoBelogAgeNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="contactProfParent" v-model="elgibilityObj.contactProfParent" id="infoBelowAgeYes" value="yes" @change="onChange($event)">
+                        <input class="form-check-input" type="radio" name="contactProfParent"
+                            v-model="elgibilityObj.contactProfParent" id="infoBelowAgeYes" value="yes"
+                            @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="infoBelowAgeYes">
                             Yes
                         </label>
@@ -1312,7 +1436,8 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes' && elgibilityObj.profChildDob!=null" class="px-4 py-2">
+            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes' && elgibilityObj.profChildDob!=null"
+                class="px-4 py-2">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
@@ -1333,10 +1458,11 @@
                         </p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Sefton:
-                            <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ " target="_blank"><b class="cursor-pointer"><u>Access
-                                        Sefton</u></b></a>
+                            <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
+                                target="_blank"><b class="cursor-pointer"><u>Access Sefton</u></b></a>
                         </p>
-                        <p class="link-secondary text-center m-0 py-2"> <a href="https://www.samaritans.org/ " target="_blank"><b class="cursor-pointer"><u>Samaritans</u></b></a>
+                        <p class="link-secondary text-center m-0 py-2"> <a href="https://www.samaritans.org/ "
+                                target="_blank"><b class="cursor-pointer"><u>Samaritans</u></b></a>
                             is
                             available via
                             phone for anyone
@@ -1349,7 +1475,8 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProfParent == 'no' && elgibilityObj.profChildDob!=null" class="px-4 py-2">
+            <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProfParent == 'no' && elgibilityObj.profChildDob!=null"
+                class="px-4 py-2">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
@@ -1359,7 +1486,8 @@
                             to continue.</p>
                         <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above if
                             you are willing to provide consent.</p>
-                        <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text" href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
+                        <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text"
+                                href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                 Tell me more about consent.
                             </a></p>
                     </div>
@@ -1371,23 +1499,28 @@
             <!-- consent parent start-->
             {% raw %}
             <form id="contactProfParent-form" data-options="contactProfParent">
-                <div v-show="elgibilityObj.contactProfParent== 'yes' && elgibilityObj.profChildDob!=null" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                <div v-show="elgibilityObj.contactProfParent== 'yes' && elgibilityObj.profChildDob!=null"
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the child / young person for us to use the
                             information that you provide, and share it with other CAMHS partners so that we can help
                             them?
                         </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="info-icon" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="aboutYouParentConcern" v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect" @change="onChange($event)"
-                            value="no">
-                        <label class="form-check-label option-font d-flex align-items-center" for="aboutYouParentConcern">
+                        <input class="form-check-input" type="radio" id="aboutYouParentConcern"
+                            v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                            @change="onChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center"
+                            for="aboutYouParentConcern">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" id="whomParentConcern" value="yes" v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                        <input class="form-check-input" type="radio" id="whomParentConcern" value="yes"
+                            v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whomParentConcern">
                             Yes
@@ -1398,10 +1531,40 @@
             {% endraw %}
             <!-- consent- parent end -->
 
+            <form id="contactProffamily-form" data-options="contactProffamily">
+                <div v-if="elgibilityObj.parentConcernInformation == 'yes' && (elgibilityObj.profDirectService == 'liverpool' || elgibilityObj.profDirectService == 'sefton' ) && (elgibilityObj.seftonService == 'MHST Sefton' || elgibilityObj.liverpoolService == 'MHST Liverpool') "
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">Do you have a Sefton or Liverpool
+                        </p>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="info-icon" alt="">
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" id="aboutSeftonSelect1"
+                            v-model="elgibilityObj.is_child_gp" name="aboutSeftonSelect"
+                            @change="onChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center"
+                            for="aboutSeftonSelect1">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" id="aboutSeftonSelect2" value="yes"
+                            v-model="elgibilityObj.is_child_gp" name="aboutSeftonSelect"
+                            @change="onChange($event)">
+                        <label class="form-check-label option-font d-flex align-items-center" for="aboutSeftonSelect2">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </form>
+
             <!-- toster-container start -->
             {% raw %}
             <form id="parentConcernInformation-form3" data-options="parentConcernInformation">
-                <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null " class="px-4 py-2">
+                <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null "
+                    class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -1412,7 +1575,8 @@
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Would you please change your
                                 answer above if you are willing to provide consent?
                             </p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text" href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
+                            <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text"
+                                    href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                     Tell me more about consent.
                                 </a></p>
                         </div>
@@ -1424,15 +1588,17 @@
             <!-- GP Location start -->
             {% raw %}
             <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
-                <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
+                <div v-show=" (elgibilityObj.role == 'professional' && (elgibilityObj.profDirectService == 'I do not want to select a service' || (elgibilityObj.seftonService !== 'MHST Sefton' && elgibilityObj.liverpoolService !== 'MHST Liverpool') ) && elgibilityObj.parentConcernInformation == 'yes') || (elgibilityObj.is_child_gp == 'yes' )"
                     class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group mb-1">
                         <label for="gpProfLocation" class="question-font">Which GP is the child / young person
                             registered
                             with?</label>
                         <div class="input-group">
-                            <input type="text" class="form-control gpProfLocation input-bg-form-control" inputmode="search" v-model="elgibilityObj.regProfGpTxt" placeholder="Start typing to search"
-                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                            <input type="text" class="form-control gpProfLocation input-bg-form-control"
+                                inputmode="search" v-model="elgibilityObj.regProfGpTxt"
+                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
+                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -1442,12 +1608,15 @@
                                 </span>
                             </div>
                         </div>
-                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3" class="form-text text-muted">You must
+                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
+                            class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="gpErrorMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
-                        <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf" id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not
-                            covered
+                        <small id="gpErrorMessage"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
+                            id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
                             by
                             our service.
                             <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
@@ -1458,6 +1627,62 @@
             {% endraw %}
             <!--GP Location End -->
 
+    
+             <form id="contactProffamily-form" data-options="contactProffamily">
+                <div v-if="elgibilityObj.is_child_gp == 'no'" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                   <label for="gpl" class="question-font">Enter your GP</label>
+                   {% raw %}
+                   <div class="input-group">
+                       <input type="text" v-model="elgibilityObj.manual_gp"
+                           @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
+                           placeholder="Enter your GP" class="form-control input-bg-form-control"
+                           id="fullFirstName">
+                       <div class="input-group-append cursor-pointer">
+                           <span class="input-group-text px-3 font-23">
+                               <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
+                           </span>
+                       </div>
+                   </div>
+                   <div class="text-validation invalid-feedback  d-none"
+                       v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.manual_gp),'invalid-fields':!elgibilityObj.manual_gp }">
+                       You must provide a first name.
+                   </div>
+                   {% endraw %}
+               </div>
+               </form>
+   
+   
+               <!-- Have school -->
+               <form id="contactProffamily-form" data-options="contactProffamily">
+                   <div  v-if="elgibilityObj.is_child_gp == 'no' "
+                       class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                       <div class="d-flex align-items-start">
+                           <p class="question-font m-0">Do you have a Liverpool/Sefton school
+                           </p>
+                           <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                               data-target="#consentModal" class="info-icon" alt="">
+                       </div>
+                       <div class="form-check pt-3 pb-1 pl-0">
+                           <input class="form-check-input" type="radio" id="is_child_school1"
+                               v-model="elgibilityObj.is_child_school" name="is_child_school"
+                               @change="onChange($event)" value="no">
+                           <label class="form-check-label option-font d-flex align-items-center"
+                               for="is_child_school1">
+                               No
+                           </label>
+                       </div>
+                       <div class="form-check py-2 pl-0">
+                           <input class="form-check-input" type="radio" id="is_child_school2" value="yes"
+                               v-model="elgibilityObj.is_child_school" name="is_child_school"
+                               @change="onChange($event)">
+                           <label class="form-check-label option-font d-flex align-items-center" for="is_child_school2">
+                               Yes
+                           </label>
+                       </div>
+                   </div>
+               </form>
+               <!-- Have school -->
+
             <!-- prof gp school start -->
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
@@ -1467,19 +1692,25 @@
                         <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to
                             school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" name="gpAttendSchool" v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool" @change="onChange($event)">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                                v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
+                                @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="liverpoolSchool">
                                 Liverpool
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="gpAttendSchool" v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton" @change="onChange($event)">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                                v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
+                                @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="seftonSchool">
                                 Sefton
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="gpAttendSchool" v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither" @change="onChange($event)">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                                v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
+                                @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="schoolNeither">
                                 Neither
                             </label>
@@ -1497,23 +1728,73 @@
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
-                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal" data-target="#consentModal" aria-hidden="true"></i>
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
                             <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
                                 service.</p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
-                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157" target="_blank">
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
                                     Find a service local to me
                                 </a></p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2" v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
                                 answer </p>
                         </div>
                     </div>
                 </div>
             </form>
+
+               <!-- Support -->
+               <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
+                <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
+                
+                    <div class="form-group mb-1" >
+                        <label for="yourProfession" class="question-font">Please enter school</label>
+                      
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.gp_school"
+                               
+                                placeholder="Enter your location" class="form-control input-bg-form-control"
+                                id="txtProfessionalProfession">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                            You must provide a Location.
+                        </div>
+                      
+                    </div>
+                    
+                </div>
+                </form>
+
+                  <!-- Not Support -->
+            <form id="parentConcernInformation-form3" data-options="parentConcernInformation">
+                <div v-if="elgibilityObj.is_child_school == 'no' "
+                    class="px-4 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">Unfortunately we cannot support message</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Not Support-->
+
+            <!-- Support  -->
             {% endraw %}
             <!-- toster-container start -->
             {% raw %}
@@ -1543,35 +1824,41 @@
                         </div>
                     </div>
                 </div>
+
+                <div v-if="elgibilityObj.gp_school"
+                class="px-4 py-2">
+                <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
+                    <div class="">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 pt-2">Great. That’s section 1 finished; you are
+                            eligible to continue with this referral.</p>
+                    </div>
+                </div>
+            </div>
                 <!-- toster-container start -->
             </form>
             {% endraw %}
-            <!-- <div
-                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
-                <div class="px-4 py-2 py-lg-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                            <p class="question-font text-center text-danger m-0 py-2">You have missed out a section on
-                                this
-                                page.Please re-check your answer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+            
 
             <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
                 class="text-center pt-4 pb-2 pb-lg-1">
                 <a>
-                    <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span class="btn-secondary-text">SAVE &
+                    <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
                 </a>
             </div>
+
+            <div v-show="elgibilityObj.gp_school"
+            class="text-center pt-4 pb-2 pb-lg-1">
+            <a>
+                <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                        class="btn-secondary-text">SAVE &
+                        CONTINUE</span></button>
+            </a>
+        </div>
             <!-- ----endraw- -->
         </div>
     </div>
@@ -1585,7 +1872,8 @@
                         <span style="color:#023087 ;">
                             <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
                         </span>
-                        <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i class="fal fa-times common-fa-fa fa-2x cursor-pointer"></i>
+                        <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                class="fal fa-times common-fa-fa fa-2x cursor-pointer"></i>
                     </div>
                     <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                         <h3 class="support-modal-content-text text-left py-4">
