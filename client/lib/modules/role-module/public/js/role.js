@@ -338,6 +338,7 @@ $(document).ready(function () {
                     else {
                         Vue.set(this.elgibilityObj, "seftonService", data[0].selected_service);
                     }
+                    console.log("HIII", data[0].professional_firstname)
                     Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
                     Vue.set(this.elgibilityObj, "proflastName", data[0].professional_lastname);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
