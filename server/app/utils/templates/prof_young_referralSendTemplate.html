@@ -257,6 +257,9 @@
                                             </div>
                                         </div>
                                         <% } %>
+
+
+                                        <% if(body.section1.registered_gp!='' && body.section1.registered_gp!=null) {%>
                                             <div class="text-container">
                                                 <div class="label-set">
                                                     <label class="labelTitle">
@@ -269,20 +272,70 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <% if(body.section1.gp_school!='' && body.section1.gp_school!=null ){ %>
-                                                <div class="text-container">
-                                                    <div class="label-set">
-                                                        <label class="labelTitle">
-                                                            Young person's school:
-                                                        </label>
-                                                    </div>
-                                                    <div class="label-set">
-                                                        <div class="duplicate_text">
-                                                            <%= body.section1.gp_school %>
+                                            <% } %>
+
+                                                <% if(body.section1.is_child_gp!='' && body.section1.is_child_gp!=null) {%>
+                                                    <div class="text-container">
+                                                        <div class="label-set">
+                                                            <label class="labelTitle">
+                                                                Do you have a GP in Sefton or Liverpool:
+                                                            </label>
+                                                        </div>
+                                                        <div class="label-set">
+                                                            <div class="duplicate_text">
+                                                                <%= body.section1.is_child_gp %>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <% } %>
+                                                    <% } %>
+
+                                                        <% if(body.section1.manual_gp!='' && body.section1.manual_gp!=null) {%>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        GP:
+                                                                    </label>
+                                                                </div>
+                                                                <div class="label-set">
+                                                                    <div class="duplicate_text">
+                                                                        <%= body.section1.manual_gp %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% } %>
+
+                                                                <% if(body.section1.is_child_school!='' && body.section1.is_child_school!=null) {%>
+                                                                    <div class="text-container">
+                                                                        <div class="label-set">
+                                                                            <label class="labelTitle">
+                                                                                Do you have a Liverpool/Sefton school:
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="label-set">
+                                                                            <div class="duplicate_text">
+                                                                                <%= body.section1.is_child_school %>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <% } %>
+
+
+                                                                        <% if(body.section1.gp_school!='' && body.section1.gp_school!=null ){ %>
+                                                                            <div class="text-container">
+                                                                                <div class="label-set">
+                                                                                    <label class="labelTitle">
+                                                                                        Young person's school:
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="label-set">
+                                                                                    <div class="duplicate_text">
+                                                                                        <%= body.section1.gp_school %>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <% } %>
+                                           
+                                           
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
