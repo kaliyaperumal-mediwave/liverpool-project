@@ -274,10 +274,13 @@ function createPayload(ctx) {
             "22g_feel_nervous": ctx.request.body.referralData.section4.referral_reason_details.feel_nervous ? ctx.request.body.referralData.section4.referral_reason_details.feel_nervous : alternativeBlankSpace,
             "22h_feel_stressed": ctx.request.body.referralData.section4.referral_reason_details.feel_stressed ? ctx.request.body.referralData.section4.referral_reason_details.feel_stressed : alternativeBlankSpace,
             "22i_hard_to_control": ctx.request.body.referralData.section4.referral_reason_details.hard_to_control ? ctx.request.body.referralData.section4.referral_reason_details.hard_to_control : alternativeBlankSpace,
-            "22j_hurt_myself_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_ever_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_ever_self_harmed : alternativeBlankSpace,
-            "22k_hurt_myself_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_last_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_last_self_harmed : alternativeBlankSpace,
-            "22l_hurt_myself_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.bullying : alternativeBlankSpace,
-            "22m_hurt_myself_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself_think_about_self_harming : alternativeBlankSpace,
+          
+            "22j_hurt_myself_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans : alternativeBlankSpace,
+            "22k_hurt_myself_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed : alternativeBlankSpace,
+            "22l_hurt_myself_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming : alternativeBlankSpace,
+            "22m_hurt_myself_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming : alternativeBlankSpace,
+          
+          
             "22n_issues_food_diet": ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet ? ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet : alternativeBlankSpace,
             "22o_lack_confidence": ctx.request.body.referralData.section4.referral_reason_details.lack_confidence ? ctx.request.body.referralData.section4.referral_reason_details.lack_confidence : alternativeBlankSpace,
             "22p_low_self_esteem": ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem ? ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem : alternativeBlankSpace,
@@ -285,16 +288,22 @@ function createPayload(ctx) {
             "22r_problem_self_identity": ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity ? ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity : alternativeBlankSpace,
             "22s_problem_with_family": ctx.request.body.referralData.section4.referral_reason_details.problem_with_family ? ctx.request.body.referralData.section4.referral_reason_details.problem_with_family : alternativeBlankSpace,
             "22y_pullying_hair": ctx.request.body.referralData.section4.referral_reason_details.pullying_hair ? ctx.request.body.referralData.section4.referral_reason_details.pullying_hair : alternativeBlankSpace,
-            "22u_sad_unhappy_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_ever_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_ever_self_harmed : alternativeBlankSpace,
-            "22v_sad_unhappy_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_last_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_last_self_harmed : alternativeBlankSpace,
-            "22w_sad_unhappy_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_more_about_self_harming : alternativeBlankSpace,
-            "22x_sad_unhappy_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy_think_about_self_harming : alternativeBlankSpace,
+          
+            "22u_sad_unhappy_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans : alternativeBlankSpace,
+            "22v_sad_unhappy_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed : alternativeBlankSpace,
+            "22w_sad_unhappy_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming : alternativeBlankSpace,
+            "22x_sad_unhappy_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming : alternativeBlankSpace,
+         
+         
             "22y_scared_anxious": ctx.request.body.referralData.section4.referral_reason_details.scared_anxious ? ctx.request.body.referralData.section4.referral_reason_details.scared_anxious : alternativeBlankSpace,
             "22z_seeing_hearing_things": ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things ? ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things : alternativeBlankSpace,
-            "22za_self_harming_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming_ever_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.self_harming_ever_self_harmed : alternativeBlankSpace,
-            "22zb_self_harming_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming_last_self_harmed ? ctx.request.body.referralData.section4.referral_reason_details.self_harming_last_self_harmed : alternativeBlankSpace,
-            "22zc_self_harming_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming_more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming_more_about_self_harming : alternativeBlankSpace,
-            "2zd_self_harming_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming_think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming_think_about_self_harming : alternativeBlankSpace,
+          
+            "22za_self_harming_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans : alternativeBlankSpace,
+            "22zb_self_harming_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed : alternativeBlankSpace,
+            "22zc_self_harming_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming : alternativeBlankSpace,
+            "2zd_self_harming_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming : alternativeBlankSpace,
+          
+          
             "22ze_traumatic_experience": ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience ? ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience : alternativeBlankSpace,
             "22zf_trouble_concentrating": ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating ? ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating : alternativeBlankSpace,
             "22zg_trouble_read": ctx.request.body.referralData.section4.referral_reason_details.trouble_read ? ctx.request.body.referralData.section4.referral_reason_details.trouble_read : alternativeBlankSpace,
@@ -313,6 +322,8 @@ function createPayload(ctx) {
 
     else if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent" || ctx.request.body.referralData.role == "Family" || ctx.request.body.referralData.role == "family") {
         //console.log(ctx.request.body.referralData)
+        console.log("parent request obj ----------------- #### ",ctx.request.body.referralData.section4.referral_reason_details) 
+        console.log("----------------------------- finished --------------------------------")
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role != "Family" ? ctx.request.body.referralData.role : "Family / friends",
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
@@ -382,12 +393,67 @@ function createPayload(ctx) {
             "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": formatingInput(ctx.request.body.referralData.section4.disabilities),
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.join(', ') : alternativeBlankSpace,
             "26a_how_heard_about_service": formatingInput(ctx.request.body.referralData.section4.about_our_service),
+
+
+             // ------------ Added By Aritra Basak ------------------
+
+            "22c_bullying": ctx.request.body.referralData.section4.referral_reason_details.bullying ? ctx.request.body.referralData.section4.referral_reason_details.bullying : alternativeBlankSpace,
+            "22d_clumsy_uncoordinated": ctx.request.body.referralData.section4.referral_reason_details.clumsy_uncoordinated ? ctx.request.body.referralData.section4.referral_reason_details.clumsy_uncoordinated : alternativeBlankSpace,
+            "22e_compulsive_behaviour": ctx.request.body.referralData.section4.referral_reason_details.compulsive_behaviour ? ctx.request.body.referralData.section4.referral_reason_details.compulsive_behaviour : alternativeBlankSpace,
+            "22f_drinking_drugs": ctx.request.body.referralData.section4.referral_reason_details.drinking_drugs ? ctx.request.body.referralData.section4.referral_reason_details.drinking_drugs : alternativeBlankSpace,
+            "22g_feel_nervous": ctx.request.body.referralData.section4.referral_reason_details.feel_nervous ? ctx.request.body.referralData.section4.referral_reason_details.feel_nervous : alternativeBlankSpace,
+            "22h_feel_stressed": ctx.request.body.referralData.section4.referral_reason_details.feel_stressed ? ctx.request.body.referralData.section4.referral_reason_details.feel_stressed : alternativeBlankSpace,
+            "22i_hard_to_control": ctx.request.body.referralData.section4.referral_reason_details.hard_to_control ? ctx.request.body.referralData.section4.referral_reason_details.hard_to_control : alternativeBlankSpace,
+             
+            "22j_hurt_myself_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans : alternativeBlankSpace,
+            "22k_hurt_myself_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed : alternativeBlankSpace,
+            "22l_hurt_myself_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming : alternativeBlankSpace,
+            "22m_hurt_myself_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming : alternativeBlankSpace,
+          
+          
+          
+            "22n_issues_food_diet": ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet ? ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet : alternativeBlankSpace,
+            "22o_lack_confidence": ctx.request.body.referralData.section4.referral_reason_details.lack_confidence ? ctx.request.body.referralData.section4.referral_reason_details.lack_confidence : alternativeBlankSpace,
+            "22p_low_self_esteem": ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem ? ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem : alternativeBlankSpace,
+            "22q_panic_attack": ctx.request.body.referralData.section4.referral_reason_details.panic_attack ? ctx.request.body.referralData.section4.referral_reason_details.panic_attack : alternativeBlankSpace,
+            "22r_problem_self_identity": ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity ? ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity : alternativeBlankSpace,
+            "22s_problem_with_family": ctx.request.body.referralData.section4.referral_reason_details.problem_with_family ? ctx.request.body.referralData.section4.referral_reason_details.problem_with_family : alternativeBlankSpace,
+            "22y_pullying_hair": ctx.request.body.referralData.section4.referral_reason_details.pullying_hair ? ctx.request.body.referralData.section4.referral_reason_details.pullying_hair : alternativeBlankSpace,
+             
+            "22u_sad_unhappy_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans : alternativeBlankSpace,
+            "22v_sad_unhappy_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed : alternativeBlankSpace,
+            "22w_sad_unhappy_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming : alternativeBlankSpace,
+            "22x_sad_unhappy_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming : alternativeBlankSpace,
+         
+            
+            "22y_scared_anxious": ctx.request.body.referralData.section4.referral_reason_details.scared_anxious ? ctx.request.body.referralData.section4.referral_reason_details.scared_anxious : alternativeBlankSpace,
+            "22z_seeing_hearing_things": ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things ? ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things : alternativeBlankSpace,
+           
+            "22za_self_harming_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans : alternativeBlankSpace,
+            "22zb_self_harming_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed : alternativeBlankSpace,
+            "22zc_self_harming_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming : alternativeBlankSpace,
+            "2zd_self_harming_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming : alternativeBlankSpace,
+          
+           
+            "22ze_traumatic_experience": ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience ? ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience : alternativeBlankSpace,
+            "22zf_trouble_concentrating": ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating ? ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating : alternativeBlankSpace,
+            "22zg_trouble_read": ctx.request.body.referralData.section4.referral_reason_details.trouble_read ? ctx.request.body.referralData.section4.referral_reason_details.trouble_read : alternativeBlankSpace,
+            "22zh_trouble_sleeping": ctx.request.body.referralData.section4.referral_reason_details.trouble_sleeping ? ctx.request.body.referralData.section4.referral_reason_details.trouble_sleeping : alternativeBlankSpace,
+            "22zi_trouble_socialising": ctx.request.body.referralData.section4.referral_reason_details.trouble_socialising ? ctx.request.body.referralData.section4.referral_reason_details.trouble_socialising : alternativeBlankSpace,
+            "22zj_uncontrolled_movements": ctx.request.body.referralData.section4.referral_reason_details.uncontrolled_movements ? ctx.request.body.referralData.section4.referral_reason_details.uncontrolled_movements : alternativeBlankSpace,
+            "22zj_unwant_to_live": ctx.request.body.referralData.section4.referral_reason_details.unwant_to_live ? ctx.request.body.referralData.section4.referral_reason_details.unwant_to_live : alternativeBlankSpace,
+            "22zk_wetting_soiling_myself": ctx.request.body.referralData.section4.referral_reason_details.wetting_soiling_myself ? ctx.request.body.referralData.section4.referral_reason_details.wetting_soiling_myself : alternativeBlankSpace,
+            
+
+
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section2.contact_person + concatString + ctx.request.body.referralData.section2.contact_preferences.join(', '),
             "30_mindwave_id": ctx.request.body.refCode
         }
     }
     else if (ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child" || ctx.request.body.referralData.role == "Young" || ctx.request.body.referralData.role == "young") {
+        console.log("child request obj ----------------- #### ",ctx.request.body.referralData.section4.referral_reason_details) 
+        console.log("----------------------------- finished --------------------------------")
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role != "Young" ? ctx.request.body.referralData.role : "Young Person",
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
@@ -462,6 +528,58 @@ function createPayload(ctx) {
             "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": formatingInput(ctx.request.body.referralData.section4.disabilities),
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.join(', ') : alternativeBlankSpace,
             "26a_how_heard_about_service": formatingInput(ctx.request.body.referralData.section4.about_our_service),
+
+             // ------------ Added By Aritra Basak ------------------
+
+             
+
+            "22c_bullying": ctx.request.body.referralData.section4.referral_reason_details.bullying ? ctx.request.body.referralData.section4.referral_reason_details.bullying : alternativeBlankSpace,
+            "22d_clumsy_uncoordinated": ctx.request.body.referralData.section4.referral_reason_details.clumsy_uncoordinated ? ctx.request.body.referralData.section4.referral_reason_details.clumsy_uncoordinated : alternativeBlankSpace,
+            "22e_compulsive_behaviour": ctx.request.body.referralData.section4.referral_reason_details.compulsive_behaviour ? ctx.request.body.referralData.section4.referral_reason_details.compulsive_behaviour : alternativeBlankSpace,
+            "22f_drinking_drugs": ctx.request.body.referralData.section4.referral_reason_details.drinking_drugs ? ctx.request.body.referralData.section4.referral_reason_details.drinking_drugs : alternativeBlankSpace,
+            "22g_feel_nervous": ctx.request.body.referralData.section4.referral_reason_details.feel_nervous ? ctx.request.body.referralData.section4.referral_reason_details.feel_nervous : alternativeBlankSpace,
+            "22h_feel_stressed": ctx.request.body.referralData.section4.referral_reason_details.feel_stressed ? ctx.request.body.referralData.section4.referral_reason_details.feel_stressed : alternativeBlankSpace,    
+            "22i_hard_to_control": ctx.request.body.referralData.section4.referral_reason_details.hard_to_control ? ctx.request.body.referralData.section4.referral_reason_details.hard_to_control : alternativeBlankSpace,
+          
+            "22j_hurt_myself_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.ans : alternativeBlankSpace,
+            "22k_hurt_myself_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.last_harmed : alternativeBlankSpace,
+            "22l_hurt_myself_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.more_about_self_harming : alternativeBlankSpace,
+            "22m_hurt_myself_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.hurt_myself.think_about_self_harming : alternativeBlankSpace,
+          
+            
+            "22n_issues_food_diet": ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet ? ctx.request.body.referralData.section4.referral_reason_details.issues_food_diet : alternativeBlankSpace,
+            "22o_lack_confidence": ctx.request.body.referralData.section4.referral_reason_details.lack_confidence ? ctx.request.body.referralData.section4.referral_reason_details.lack_confidence : alternativeBlankSpace,
+            "22p_low_self_esteem": ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem ? ctx.request.body.referralData.section4.referral_reason_details.low_self_esteem : alternativeBlankSpace,
+            "22q_panic_attack": ctx.request.body.referralData.section4.referral_reason_details.panic_attack ? ctx.request.body.referralData.section4.referral_reason_details.panic_attack : alternativeBlankSpace,
+            "22r_problem_self_identity": ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity ? ctx.request.body.referralData.section4.referral_reason_details.problem_self_identity : alternativeBlankSpace,
+            "22s_problem_with_family": ctx.request.body.referralData.section4.referral_reason_details.problem_with_family ? ctx.request.body.referralData.section4.referral_reason_details.problem_with_family : alternativeBlankSpace,
+            "22y_pullying_hair": ctx.request.body.referralData.section4.referral_reason_details.pullying_hair ? ctx.request.body.referralData.section4.referral_reason_details.pullying_hair : alternativeBlankSpace,
+           
+            "22u_sad_unhappy_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.ans : alternativeBlankSpace,
+            "22v_sad_unhappy_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.last_harmed : alternativeBlankSpace,
+            "22w_sad_unhappy_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.more_about_self_harming : alternativeBlankSpace,
+            "22x_sad_unhappy_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.sad_unhappy.think_about_self_harming : alternativeBlankSpace,
+          
+           
+            "22y_scared_anxious": ctx.request.body.referralData.section4.referral_reason_details.scared_anxious ? ctx.request.body.referralData.section4.referral_reason_details.scared_anxious : alternativeBlankSpace,
+            "22z_seeing_hearing_things": ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things ? ctx.request.body.referralData.section4.referral_reason_details.seeing_hearing_things : alternativeBlankSpace,
+           
+            "22za_self_harming_ever_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.ans : alternativeBlankSpace,
+            "22zb_self_harming_last_self_harmed": ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.last_harmed : alternativeBlankSpace,
+            "22zc_self_harming_more_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.more_about_self_harming : alternativeBlankSpace,
+            "2zd_self_harming_think_about_self_harming": ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming ? ctx.request.body.referralData.section4.referral_reason_details.self_harming.think_about_self_harming : alternativeBlankSpace,
+          
+           
+            "22ze_traumatic_experience": ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience ? ctx.request.body.referralData.section4.referral_reason_details.traumatic_experience : alternativeBlankSpace,
+            "22zf_trouble_concentrating": ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating ? ctx.request.body.referralData.section4.referral_reason_details.trouble_concentrating : alternativeBlankSpace,
+            "22zg_trouble_read": ctx.request.body.referralData.section4.referral_reason_details.trouble_read ? ctx.request.body.referralData.section4.referral_reason_details.trouble_read : alternativeBlankSpace,
+            "22zh_trouble_sleeping": ctx.request.body.referralData.section4.referral_reason_details.trouble_sleeping ? ctx.request.body.referralData.section4.referral_reason_details.trouble_sleeping : alternativeBlankSpace,
+            "22zi_trouble_socialising": ctx.request.body.referralData.section4.referral_reason_details.trouble_socialising ? ctx.request.body.referralData.section4.referral_reason_details.trouble_socialising : alternativeBlankSpace,
+            "22zj_uncontrolled_movements": ctx.request.body.referralData.section4.referral_reason_details.uncontrolled_movements ? ctx.request.body.referralData.section4.referral_reason_details.uncontrolled_movements : alternativeBlankSpace,
+            "22zj_unwant_to_live": ctx.request.body.referralData.section4.referral_reason_details.unwant_to_live ? ctx.request.body.referralData.section4.referral_reason_details.unwant_to_live : alternativeBlankSpace,
+            "22zk_wetting_soiling_myself": ctx.request.body.referralData.section4.referral_reason_details.wetting_soiling_myself ? ctx.request.body.referralData.section4.referral_reason_details.wetting_soiling_myself : alternativeBlankSpace,
+            
+
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section1.contact_person + concatString + ctx.request.body.referralData.section1.contact_preferences.join(', '),
             "30_mindwave_id": ctx.request.body.referralData.section1.reference_code
