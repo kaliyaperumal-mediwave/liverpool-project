@@ -338,6 +338,7 @@ $(document).ready(function () {
                     else {
                         Vue.set(this.elgibilityObj, "seftonService", data[0].selected_service);
                     }
+                    console.log("HIII", data[0].professional_firstname)
                     Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
                     Vue.set(this.elgibilityObj, "proflastName", data[0].professional_lastname);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
@@ -1196,7 +1197,13 @@ $(document).ready(function () {
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.manual_gp.length && this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profEmail && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if(this.elgibilityObj.is_child_gp == "no"){
+                        if(this.elgibilityObj.manual_gp.length == 0){
+                            scrollToInvalidInput();
+                                    return false;
+                        }
+                    }
+                    if ( this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profEmail && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
