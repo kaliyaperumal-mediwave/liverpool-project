@@ -586,6 +586,7 @@ $(document).ready(function () {
 
                     this.elgibilityObj.gp_school = ''
                 }
+                
             },
 
             resetValues: function (currentForm) {
@@ -1210,9 +1211,9 @@ $(document).ready(function () {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
                                     var gpArray = (this.elgibilityObj.regProfGpTxt).split(",");
-                                    this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
-                                    this.elgibilityObj.profregistered_gp = gpArray[0];
-
+                                    this.elgibilityObj.profRegistered_gp_postcode = this.elgibilityObj.regProfGpTxt !=''? gpArray[1] :''
+                                    this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt !=''? gpArray[0] : '';
+                                    
                                     if (this.elgibilityObj.profAddress) {
                                         var profAddresArray = (this.elgibilityObj.profAddress).split(",");
                                         this.elgibilityObj.profAddress_postcode = profAddresArray[profAddresArray.length - 1];

@@ -1536,7 +1536,7 @@
                 <div v-if="elgibilityObj.parentConcernInformation == 'yes' && (elgibilityObj.profDirectService == 'liverpool' || elgibilityObj.profDirectService == 'sefton' ) && (elgibilityObj.seftonService == 'MHST Sefton' || elgibilityObj.liverpoolService == 'MHST Liverpool') "
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have a Sefton or Liverpool
+                        <p class="question-font m-0">Do you have a Sefton or Liverpool?
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
                             data-target="#consentModal" class="info-icon" alt="">
@@ -1658,7 +1658,7 @@
                    <div  v-if="elgibilityObj.is_child_gp == 'no' "
                        class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                        <div class="d-flex align-items-start">
-                           <p class="question-font m-0">Do you have a Liverpool/Sefton school
+                           <p class="question-font m-0">Do you have a Liverpool/Sefton school?
                            </p>
                            <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
                                data-target="#consentModal" class="info-icon" alt="">
@@ -1688,7 +1688,7 @@
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
-                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto d-none">
                     <div class="form-group">
                         <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to
                             school?</label>
