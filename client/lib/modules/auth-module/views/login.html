@@ -93,7 +93,7 @@
                         <!-- <label for="loginPassword" class="auth-font my-1">Password</label> -->
                         <div id="authForm">
                             <div class="input-group">
-                                <label style="display:none" for="loginPassword">Login Password</label>
+                                <label class="hide-formlabel" for="loginPassword">Login Password</label>
                                 <input type="password" class="form-control auth-border py-2 input-bg-form-control"
                                     id="loginPassword" @input="trimWhiteSpace($event,'loginObject','password')"
                                     v-model="loginObject.password" placeholder="Enter your password">

@@ -34,7 +34,11 @@
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" />
         </a> -->
       <div class="col-12 px-0 mb-sm-3">
-        <a href="{{ data.logoPath }}"><i class="fal fa-long-arrow-left fa-2x ham-icon"></i></a>
+        <a href="{{ data.logoPath }}"><i class="fal fa-long-arrow-left fa-2x ham-icon">
+          
+         </i>
+         <span style="display: none;">back arrow</span>
+      </a>
         <div class="resource_text pb-sm-2 pt-2">Resources</div>
       </div>
 
@@ -51,8 +55,10 @@
               </span>
             </div>
           </span>
+          <label class="hide-formlabel" for="example-search-input">Search Example</label>
           <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
             placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
+            
           <!-- <div class="search-wrapper">
 
           <form class="wid-80">

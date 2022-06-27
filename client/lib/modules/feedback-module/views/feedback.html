@@ -37,6 +37,7 @@
                 <!-- <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt=""> -->
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
+                <span style="display: none;">back button</span>
             </a>
 
             <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
@@ -96,36 +97,41 @@
                 }}
             </div>
             <fieldset id="feedBackStars" class="rating float-left">
-                <input v-model="feedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
+                
+               
+                <input v-model="feedbackData.ratings" type="radio" id="5star" name="rating" value="5"/>
                 <label class="full m-0" for="5star"></label>
+            
+
 
                 <input type="radio" v-model="feedbackData.ratings" id="4halfstar" name="rating" value="4.5" />
-                <label class="half" for="4halfstar"></label>
+                <label  class="half" for="4halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="4star" name="rating" value="4" />
-                <label class="full m-0" for="4star"></label>
+                <label  class="full m-0" for="4star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3halfstar" name="rating" value="3.5" />
-                <label class="half" for="3halfstar"></label>
+                <label   class="half" for="3halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3star" name="rating" value="3" />
-                <label class="full m-0" for="3star"></label>
+                <label   class="full m-0" for="3star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2halfstar" name="rating" value="2.5" />
-                <label class="half" for="2halfstar"></label>
+                <label  class="half" for="2halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2star" name="rating" value="2" />
-                <label class="full m-0" for="2star"></label>
+                <label   class="full m-0" for="2star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1halfstar" name="rating" value="1.5" />
-                <label class="half" for="1halfstar"></label>
+                <label   class="half" for="1halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1star" name="rating" value="1" />
-                <label class="full m-0" for="1star"></label>
+                <label   class="full m-0" for="1star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="halfstar" name="rating" value="0.5" />
-                <label class="half" for="halfstar"></label>
+                <label  class="half" for="halfstar"></label>
             </fieldset>
+
             <div class="invalid-feedback d-none float-left text-left px-2 py-1"
                 v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.ratings),'invalid-fields':!feedbackData.ratings }">
                 You must provide rating.

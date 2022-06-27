@@ -36,7 +36,9 @@
             </a> -->
 
       <!-- <div class="col-12 px-0 mb-sm-3"> -->
-      <a href="{{ data.logoPath }}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
+      <a href="{{ data.logoPath }}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon "></i>
+        <span class="hide-formlabel">back arrow</span>
+      </a>
 
       <h2 class="home-header-primary m-0 pt-2 pb-0">About mental health services</h2>
       <!-- </div> -->
@@ -46,6 +48,7 @@
   <div class="">
     <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
       <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+        <label class="hide-formlabel" for="resources">.</label>
         <input hidden id="resources" value="{{data.piecesArray|dump}}" />
         <div>
           <div class="input-group home-primary-content-bg">
@@ -56,6 +59,7 @@
                 </span>
               </div>
             </span>
+            <label class="hide-formlabel" for="example-search-input">Filter Pieces</label>
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
               placeholder="Search your service" id="example-search-input" @input="filterPieces()" />
             <!-- <div class="search-wrapper">

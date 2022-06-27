@@ -64,6 +64,7 @@
             }) }}
           </div>
           <!-- <label for="firstName" class="auth-font my-1">First name</label> -->
+          <label class="hide-formlabel" for="firstName">FirstName:</label>
           <input type="text" placeholder="Enter your first name" class="form-control auth-border input-bg-form-control"
             id="firstName" @input="trimWhiteSpace($event,'signUpObject','first_name')"
             v-model="signUpObject.first_name">
@@ -86,6 +87,7 @@
             }) }}
           </div>
           <!-- <label for="lastName" class="auth-font my-1">Last name</label> -->
+          <label class="hide-formlabel" for="lastName">LastName</label>
           <input type="text" placeholder="Enter your last name" class="form-control auth-border input-bg-form-control"
             id="lastName" @input="trimWhiteSpace($event,'signUpObject','last_name')" v-model="signUpObject.last_name">
           <div class="invalid-feedback px-1 d-none"
@@ -107,6 +109,7 @@
             }) }}
           </div>
           <!-- <label for="emailAddressAuth" class="auth-font my-1">Email address</label> -->
+          <label class="hide-formlabel" for="emailAddressAuth">Email</label>
           <input type="text" inputmode="email" placeholder="Enter your email address"
             class="form-control auth-border input-bg-form-control"
             @input="trimWhiteSpace($event,'signUpObject','email')" id="emailAddressAuth" v-model="signUpObject.email">
@@ -171,6 +174,7 @@
           <!-- <label for="signUpPassword" class="auth-font my-1">Password</label> -->
           <div id="authForm">
             <div class="input-group">
+              <label class="hide-formlabel" for="signUpPassword">Enter password</label>
               <input type="password" class="form-control auth-border py-2 input-bg-form-control" id="signUpPassword"
                 autocomplete="off" @input="trimWhiteSpace($event,'signUpObject','password')"
                 v-model="signUpObject.password" placeholder="Enter your password">
@@ -215,6 +219,7 @@
           <!-- <label for="confirmPassword" class="auth-font my-1">Confirm password</label> -->
           <div id="authForm">
             <div class="input-group">
+              <label class="hide-formlabel" for="confirmPassword">Confirm Password</label>
               <input type="password" class="form-control auth-border py-2 input-bg-form-control" id="confirmPassword"
                 autocomplete="off" @input="trimWhiteSpace($event,'signUpObject','confirm_password')"
                 v-model="signUpObject.confirm_password" placeholder="Enter your password">
