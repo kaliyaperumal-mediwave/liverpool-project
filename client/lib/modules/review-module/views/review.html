@@ -263,11 +263,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),
                                             'invalid-fields': !section1Data.professional_email }">
-                                            You must provide a email.
-                                        </small>
+                                                You must provide a email.
+                                            </small>
                                             <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
                                                 You must provide a valid email.
@@ -447,25 +446,77 @@
                                         </div>
                                     </div>
 
+                                    <!-- Sefton or Liverpool  -->
+
+                                    <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                               Have a Sefton or Liverpool
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.manual_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Your GP
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.manual_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Have a Liverpool/Sefton school
+
+
+
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Child school:
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Sefton or Liverpool  -->
+
                                 </div>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
 
+
+
                                 <!-- Gp Start -->
-                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        GP:
-                                    </label>
-                                    <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
-                                        </textarea>
+                                <div v-if="section1Data.registered_gp">
+
+                                    <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                            GP:
+                                        </label>
+                                        <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                            </textarea>
+                                    </div>
                                 </div>
-                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
                                     <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
-                                </div>
+                                </div> -->
+
                                 <!-- Gp End -->
 
                             </div>
@@ -989,8 +1040,8 @@
                                         </div>
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_email),
                                         'invalid-fields':!section2Data.parent_email }">
-                                                You must provide a email.
-                                            </small>
+                                            You must provide a email.
+                                        </small>
 
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
                                     'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
@@ -1553,13 +1604,12 @@
 
 
 
-                                 <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
                                         Have you previously accessed any other services
                                     </label>
                                     <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text" 
-                                         v-model="section4Data.any_other_services" readonly>
+                                        <input class="form-control input-bg-form-control" type="text" v-model="section4Data.any_other_services" readonly>
                                     </div>
                                 </div>
 

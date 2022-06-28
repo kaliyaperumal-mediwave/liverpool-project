@@ -263,9 +263,9 @@
                                                 </div>
                                             </div>
                                             <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),'invalid-fields': !section1Data.professional_email }">
-                                            You must provide a email.
-                                        </small>
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_email),'invalid-fields': !section1Data.professional_email }">
+                                                You must provide a email.
+                                            </small>
                                             <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
                                                 You must provide a valid email.
@@ -448,25 +448,73 @@
                                         </div>
                                     </div>
 
+                                    <!-- <div v-if="section1Data.selected_service == 'MHST Liverpool' || section1Data.selected_service == 'MHST Sefton' ">
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Do you have a Sefton or Liverpool
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.manual_gp">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Your GP
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.manual_gp" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.is_child_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Do you have a Liverpool/Sefton school
+
+
+
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.is_child_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                        <div class="readOnly-class py-3 w-100 mx-0 row align-items-center" v-if="section1Data.gp_school">
+
+                                            <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar1">
+                                                Child school:
+                                            </label>
+                                            <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                                <input class="form-control input-bg-form-control" readonly type="text" v-model="section1Data.gp_school" id="consentGivenPar1">
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+
+
                                 </div>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
 
                                 <!-- Gp Start -->
-                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        GP:
-                                    </label>
-                                    <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
-                                        </textarea>
-                                </div>
+                                <!-- <div v-if="section1Data.registered_gp">
+
+                                    <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                            GP:
+                                        </label>
+                                        <textarea class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                            </textarea>
+                                    </div>
+                                </div> -->
                                 <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-                                        child School:
+                                        Child School:
                                     </label>
                                     <textarea class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
                                 </div>
+
                                 <!-- Gp End -->
 
                             </div>
@@ -992,8 +1040,8 @@
                                         </div>
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_email),
                                         'invalid-fields':!section2Data.parent_email }">
-                                                You must provide a email.
-                                            </small>
+                                            You must provide a email.
+                                        </small>
 
                                         <small class="invalid-feedback" v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_email && !emailRegex.test(section2Data.parent_email)),
                                     'invalid-fields':(section2Data.parent_email && !emailRegex.test(section2Data.parent_email)) }">
@@ -1414,26 +1462,23 @@
                                     </label>
 
                                     <div class="col-md-6 col-lg-6 col-xl-5 h-100 col-11 px-0">
-
+ 
                                         <textarea class="h-50 form-control input-bg-form-control" name="infoTextAreas" id="textInf0red" rows="4" v-model="section4Data.reason_for_referral"
                                             readonly></textarea>
 
-                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' class="pt-3 mt-2">
+                                        <div v-if='section4Data.referral_reason_questions && section4Data.referral_reason_questions.length' >
 
                                             <div v-for="(item, index) in subQuestionOfReason" :key="index">
-
-
-                                                <div v-if="!item.hasMultiLevel" class="form-group m-0">
-                                                    <fieldset class="scheduler-border">
-
+                                                <div v-if="!item.hasMultiLevel">
+                                                <fieldset class="scheduler-border">
                                                         <legend class="scheduler-border question-font px-2">
                                                             {{item.value}}:
                                                         </legend>
-                                                        <label :for="item.modelKey" class="question-font"><b>Please can
+                                                        <label :for="item.modelKey" class="question-font">Please can
                                                                 you
                                                                 give us some more
                                                                 detail so we can make sure we get you the right
-                                                                support</b></label>
+                                                                support</label>
                                                         <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
                                                             v-model="subDataForMakingReferral[item.modelKey]">{{subDataForMakingReferral[item.modelKey]}}</textarea>
 
@@ -1446,20 +1491,23 @@
                                                             {{item.value}}:
                                                         </legend>
 
-                                                        <div>
-                                                            <label :for="item.modelKey" class="question-font"><b>Have
+                                                        <div v-if="subDataForMakingReferral[item.modelKey]['ans']">
+                                                            <label :for="item.modelKey" class="question-font">Have
                                                                     you
-                                                                    ever self harmed </b></label>
+                                                                    ever self harmed</label>
+                                                                    <div class="capitalize-first-letter">
+                                                                        <input class="form-control input-bg-form-control" type="text" readonly v-model="subDataForMakingReferral[item.modelKey]['ans']">
+                                                                    </div>
 
-                                                            <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
-                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea>
+                                                            <!-- <textarea readonly class="h-50 form-control input-bg-form-control" :id="item.modelKey" rows="4"
+                                                                v-model="subDataForMakingReferral[item.modelKey]['ans']" readonly>{{subDataForMakingReferral[item.modelKey]['ans']}}</textarea> -->
 
                                                         </div>
 
                                                         <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes'">
                                                             <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey +'lastHarm'" class="question-font"><b>When did you last self
-                                                                        harm?</b></label>
+                                                                <label :for="item.modelKey +'lastHarm'" class="question-font">When did you last self
+                                                                        harm?</label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'lastHarm'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['last_harmed']" rows="4"></textarea>
                                                                 <div class="text-validation invalid-feedback d-none" id="mrk3"
@@ -1469,9 +1517,9 @@
                                                             </div>
 
                                                             <div v-if="subDataForMakingReferral[item.modelKey]['more_details'] !== '' " class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'more_details'" class="question-font"><b>Please give us more
+                                                                <label :for="item.modelKey+'more_details'" class="question-font">Please give us more
                                                                         details
-                                                                        (optional)</b> </label>
+                                                                        (optional) </label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" readonly :id="item.modelKey+'more_details'"
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_details']" rows="4"></textarea>
                                                             </div>
@@ -1480,9 +1528,9 @@
                                                         <div v-if="subDataForMakingReferral[item.modelKey]['ans'] == 'yes' || subDataForMakingReferral[item.modelKey]['ans'] == 'no'">
 
                                                             <div class="form-group py-2 mt-0 mb-2">
-                                                                <label class="question-font"><b>How often do you think
+                                                                <label class="question-font">How often do you think
                                                                         about
-                                                                        self harming?</b>
+                                                                        self harming?
                                                                 </label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'more_details'" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['think_about_self_harming']"
@@ -1491,10 +1539,10 @@
                                                             </div>
 
                                                             <div class="form-group py-2 m-0">
-                                                                <label :for="item.modelKey+'ProvideBestSupport'" class="question-font"><b>Please give a
+                                                                <label :for="item.modelKey+'ProvideBestSupport'" class="question-font">Please give a
                                                                         bit more details so
                                                                         we can work out what support is best for
-                                                                        you</b></label>
+                                                                        you</label>
                                                                 <textarea class="h-50 form-control input-bg-form-control" :id="item.modelKey+'ProvideBestSupport'" rows="4" readonly
                                                                     v-model="subDataForMakingReferral[item.modelKey]['more_about_self_harming']"
                                                                     @input="checkValidation($event)">{{subDataForMakingReferral[item.modelKey]['more_about_self_harming']}}</textarea>
@@ -1511,7 +1559,6 @@
                                     </div>
 
                                 </div>
-
 
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -1576,13 +1623,12 @@
                                 </div>
 
 
-                                <div  v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section4Data.any_other_services" class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
                                         Have you previously accessed any other services
                                     </label>
                                     <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control input-bg-form-control" type="text" 
-                                         v-model="section4Data.any_other_services" readonly>
+                                        <input class="form-control input-bg-form-control" type="text" v-model="section4Data.any_other_services" readonly>
                                     </div>
                                 </div>
 
@@ -1796,7 +1842,7 @@
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="resetProvider()" id="selectProviderNo"
                                 value="No" v-model="selectProvider">
-                            <label for="selectProviderNo"
+                            <label for="selectProviderNo"https://meet.google.com/dpd-qfgb-yyj
                                 class="form-check-label option-font d-flex align-items-center">
                                 No</label>
                         </div>

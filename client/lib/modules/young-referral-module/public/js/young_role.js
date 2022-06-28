@@ -38,6 +38,9 @@ $(document).ready(function () {
                 profBelowAgeLimit: '',
                 profaboveLimit: '',
                 familyConcernInformation: '',
+                is_child_gp: '',
+                is_child_school: '',
+                 gp_school: '',
                 youngConcernInformation: '',
                 contactProffamily: '',
                 regProfGpTxt: '',
@@ -47,6 +50,7 @@ $(document).ready(function () {
                 profContactNumber: '',
                 profAddress: '',
                 profProfession: '',
+                manual_gp : '',
                 disableRole: false,
                 contact_family_camhs: '',
                 reason_contact_family_camhs: '',
@@ -247,7 +251,7 @@ $(document).ready(function () {
                         catch (e) {
                             // alert(e)
                         }
-                        //  console.log(profData.professional_manual_address);
+                        // console.log("HELLO",profData.professional2[0][0]);
                         Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData1.email);
@@ -255,7 +259,8 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profAddress", profData1.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
                         Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
-
+                       
+                        
                         if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
                             this.setReadonlyState(true);
@@ -266,7 +271,6 @@ $(document).ready(function () {
             setValues: function (data) {
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                console.log(data)
                 if (roleType == "young") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -322,6 +326,10 @@ $(document).ready(function () {
                     console.log(data[0].professional_address_postcode)
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
+                    Vue.set(this.elgibilityObj, "is_child_gp", data[0].professional2[0].is_child_gp);
+                    Vue.set(this.elgibilityObj, "manual_gp", data[0].professional2[0].manual_gp);
+                    Vue.set(this.elgibilityObj, "is_child_school", data[0].professional2[0].is_child_school);
+                    Vue.set(this.elgibilityObj, "gp_school", data[0].professional2[0].gp_school);
                     if (data[0].service_location == 'liverpool') {
                         Vue.set(this.elgibilityObj, "liverpoolService", data[0].selected_service);
                     }
@@ -366,7 +374,7 @@ $(document).ready(function () {
                     }
                     if (data[0].professional2[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].professional2[0].gp_school);
-                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
+                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", undefined);
 
                     }
                     localStorage.setItem("form2", "yes");
@@ -481,7 +489,11 @@ $(document).ready(function () {
                         this.elgibilityObj.profAddress = "";
                         this.elgibilityObj.profProfession = "";
                     }
-
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -510,9 +522,16 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactProffamily = optionValue;
                 }
-                else if (questionIdentifier == "familyConcernSelect" && optionValue == "no") {
-                    this.resetValues(event.target.form);
-                    this.elgibilityObj.familyConcernInformation = optionValue;
+                else if (questionIdentifier == "familyConcernSelect") {
+                    if(optionValue === "no"){
+                        this.resetValues(event.target.form, "familyConcernSelect");
+                        this.elgibilityObj.familyConcernInformation = optionValue;
+                    }
+                    
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
                 }
                 else if (questionIdentifier == "directServices") {
                     if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
@@ -522,6 +541,12 @@ $(document).ready(function () {
                     }
                     this.resetValues(event.target.form);
                     this.elgibilityObj.profDirectService = optionValue;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                    this.elgibilityObj.manual_gp = ''
+
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
@@ -532,10 +557,26 @@ $(document).ready(function () {
                     }
                     this.elgibilityObj.profyoungDob = "";
                     this.hasValidDate = false;
+                    this.elgibilityObj.regProfGpTxt = ''
+                    this.elgibilityObj.is_child_gp = ''
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj. gp_school = ''
+                }
+                else if(questionIdentifier == "aboutSeftonSelect"){
+                   this.elgibilityObj.regProfGpTxt = ''
+                  
+                    this.elgibilityObj.is_child_school = ''
+                    this.elgibilityObj.manual_gp = ''
+                    this.elgibilityObj. gp_school = ''
+                }
+                else if(questionIdentifier == "is_child_school") {
+                    
+                        this.elgibilityObj. gp_school = ''
                 }
             },
 
-            resetValues: function (currentForm) {
+            resetValues: function (currentForm, data) {
+
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
@@ -550,6 +591,9 @@ $(document).ready(function () {
                     }
                 }
                 this.isSubmitted = false;
+                if(data === "familyConcernSelect"){
+                    this.elgibilityObj.contactProffamily = "yes"
+                }
             },
 
             getAge: function (dateString) {
@@ -857,6 +901,7 @@ $(document).ready(function () {
                                 else {
                                     _self.gpListShow = response;
                                     if (_self.gpListShow.length > 0) {
+                                        app.elgibilityObj.gpErrMsg = "";
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
@@ -1082,7 +1127,8 @@ $(document).ready(function () {
                     this[section][key] = e.target.value.trim();
                     return false;
                 }
-                if (this.isSubmitted) {
+                
+                if(this.isSubmitted) {
                     var phoneRegex = /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -1139,6 +1185,7 @@ $(document).ready(function () {
 
                     }
                 }
+           
             },
 
             save: function () {
@@ -1152,9 +1199,14 @@ $(document).ready(function () {
                     this.dynamicRegexPattern = this.landlineRegex;
                 }
                 var role = this.elgibilityObj.role;
-                console.log(this.elgibilityObj)
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
+                    if(this.elgibilityObj.is_child_gp == "no"){
+                        if(this.elgibilityObj.manual_gp.length == 0){
+                            scrollToInvalidInput();
+                                    return false;
+                        }
+                    }
                     if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profEmail && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
@@ -1162,8 +1214,8 @@ $(document).ready(function () {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
                                     var gpArray = (this.elgibilityObj.regProfGpTxt).split(",");
-                                    this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
-                                    this.elgibilityObj.profregistered_gp = gpArray[0];
+                                    this.elgibilityObj.profRegistered_gp_postcode = this.elgibilityObj.regProfGpTxt !=''? gpArray[1] :''
+                                    this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt !=''? gpArray[0] : '';
 
                                     // if (this.elgibilityObj.profAddress) {
                                     //     var profAddresArray = (this.elgibilityObj.profAddress).split(",");
@@ -1305,7 +1357,7 @@ $(document).ready(function () {
                                     this.elgibilityObj.profBelowAgeLimit = "";
                                     this.elgibilityObj.profaboveLimit = "";
                                     this.elgibilityObj.familyConcern = "";
-                                    this.elgibilityObj.contactProffamily = "";
+                                    // this.elgibilityObj.contactProffamily = "";
                                     this.elgibilityObj.familyConcernInformation = "";
                                     this.elgibilityObj.youngConcernInformation = "";
                                     this.elgibilityObj.submitProfForm = "";
@@ -1340,7 +1392,7 @@ $(document).ready(function () {
                                 this.elgibilityObj.profBelowAgeLimit = "";
                                 this.elgibilityObj.profaboveLimit = "";
                                 this.elgibilityObj.familyConcern = "";
-                                this.elgibilityObj.contactProffamily = "";
+                                // this.elgibilityObj.contactProffamily = "";
                                 this.elgibilityObj.familyConcernInformation = "";
                                 this.elgibilityObj.youngConcernInformation = "";
                                 this.elgibilityObj.submitProfForm = "";
@@ -1372,7 +1424,7 @@ $(document).ready(function () {
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.familyConcern = "";
-                            this.elgibilityObj.contactProffamily = "";
+                            // this.elgibilityObj.contactProffamily = "";
                             this.elgibilityObj.familyConcernInformation = "";
                             this.elgibilityObj.youngConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "";
@@ -1409,6 +1461,10 @@ $(document).ready(function () {
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
                         this.elgibilityObj.regProfGpTxt = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else if (this.elgibilityObj.role == 'young') {
                         this.elgibilityObj.belowAgeLimit = "";
@@ -1419,6 +1475,10 @@ $(document).ready(function () {
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                     else {
                         this.elgibilityObj.aboveLimit = "";
@@ -1427,6 +1487,10 @@ $(document).ready(function () {
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
+                        this.elgibilityObj.is_child_gp=""
+                        this.elgibilityObj.manual_gp = "";
+                        this.elgibilityObj.is_child_school = ""
+                        this.elgibilityObj.gp_school = ""
                     }
                 }
 
@@ -1480,7 +1544,7 @@ $(document).ready(function () {
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.familyConcern = "";
-                        this.elgibilityObj.contactProffamily = "";
+                        // this.elgibilityObj.contactProffamily = "";
                         this.elgibilityObj.familyConcernInformation = "";
                         this.elgibilityObj.youngConcernInformation = "";
                         this.elgibilityObj.submitProfForm = "";
@@ -1773,7 +1837,7 @@ $(document).ready(function () {
                 var isRange = true;
                 if (postCode) {
                     var index = ((postCode).substring(0, postCode.indexOf(' '))).replace(/\D/g, '');
-                    if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
+                    if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 69)) {
                         isRange = false;
                         if (index == 26 || index == 28 || index == 32 || index == 33 || index == 34 || index == 35 || index == 36) {
                             isRange = true;
@@ -1785,9 +1849,11 @@ $(document).ready(function () {
                 }
                 if (postCode && postCode == 'L14 0JE') {
                     var isRange = true;
+                    
                 }
                 return isRange;
             },
+                
 
             changePrevAns: function (attributeValue, inputId) {
                 this.elgibilityObj[attributeValue] = "";

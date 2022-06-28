@@ -1307,7 +1307,7 @@ $(document).ready(function () {
                 this.selectedResources.splice(index, 1)
             },
             liverpoolGPAddress: function (gp, youngAddress) {
-                gp = gp.toUpperCase()
+                gp = gp ? gp.toUpperCase() : '';
                 youngAddress = youngAddress.toUpperCase()
                 var gpCityName, addressCityName, returnflag
                 var gpCodes = [
@@ -1315,7 +1315,7 @@ $(document).ready(function () {
                         type: 'Liverpool',
                         code: [
                             'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
-                            'L16', 'L17', 'L18', 'L19', 'L24', 'L25', 'L27']
+                            'L16', 'L17', 'L18', 'L19', 'L24', 'L25', 'L27','L69']
                     },
                     { type: 'Sefton', code: ['L20', 'L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38', 'PR8', 'PR9'] },
                 ]
