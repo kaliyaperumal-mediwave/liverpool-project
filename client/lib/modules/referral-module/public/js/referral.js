@@ -470,6 +470,20 @@ $(document).ready(function () {
                 this.charLimitScenerio2 = this.referralData.otherEatingDifficulties ? (this.eatingDifficulties.toString() + ' ' + this.referralData.otherEatingDifficulties) : "";
             },
 
+
+            checkCharacterLengthForReasonRef: function (ev) {
+                var curElem = ev.currentTarget;
+                var helperTxtElem = curElem.nextElementSibling
+                var curVal = ev.target.value;
+                var curLen = curVal.length;
+                var maxlength = curElem.getAttribute("maxlength");
+                if (maxlength && Number(curLen) >= Number(maxlength)) {
+                    $(helperTxtElem).addClass("d-block").removeClass("d-none");
+                } else {
+                    $(helperTxtElem).addClass("d-none").removeClass("d-block");
+                }
+            },
+
             //Function to trim space entered
             trimWhiteSpace: function (event, obj, key, hasShowLess) {
                 preventWhiteSpaces(event, this, obj, key);

@@ -289,10 +289,14 @@
                                                 <p class="question-font">Please can you give us
                                                     some more
                                                     detail so we can make sure we get you the right support </p>
-                                                <textarea class="h-112 form-control input-bg-form-control"
+                                                <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
                                                     :id="it.modelKey" v-model="subDataForMakingReferral[it.modelKey]"
-                                                    rows="4" placeholder="Enter here"
+                                                    rows="4" placeholder="Enter here"  @keyup="checkCharacterLengthForReasonRef($event)"
                                                     @input="trimWhiteSpace($event,'subDataForMakingReferral',it.modelKey)"></textarea>
+
+                                                    <small class="d-none form-text text-muted">
+                                                        You have reached the maximum character limit.
+                                                    </small>
 
                                                 <div class="text-validation invalid-feedback d-none"
                                                     v-bind:class="{ 'd-block':(isFormSubmitted && !subDataForMakingReferral[it.modelKey]),'invalid-fields': !subDataForMakingReferral[it.modelKey]}">
@@ -340,12 +344,15 @@
                                                     <p class="question-font">When
                                                         did you last self
                                                         harm?</p>
-                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                    <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
                                                         :id="it.modelKey+'lastHarm'"
                                                         v-model="subDataForMakingReferral[it.modelKey]['last_harmed']"
-                                                        rows="4" placeholder="Enter here"
+                                                        rows="4" placeholder="Enter here" @keyup="checkCharacterLengthForReasonRef($event)"
                                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'last_harmed')">
                                                 </textarea>
+                                                <small class="d-none form-text text-muted">
+                                                    You have reached the maximum character limit.
+                                                </small>
                                                     <div class="text-validation invalid-feedback d-none"
                                                         v-bind:class="{ 'd-block':(isFormSubmitted && subDataForMakingReferral[it.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[it.modelKey]['last_harmed']),
                                                 'invalid-fields': subDataForMakingReferral[it.modelKey]['ans'] == 'yes' && !subDataForMakingReferral[it.modelKey]['last_harmed']}">
@@ -358,11 +365,14 @@
                                                         details
                                                         <b>(optional)</b>
                                                     </p>
-                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                    <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
                                                         :id="it.modelKey+'more_details'"
                                                         v-model="subDataForMakingReferral[it.modelKey]['more_details']"
-                                                        rows="4" placeholder="Enter here"
+                                                        rows="4" placeholder="Enter here" @keyup="checkCharacterLengthForReasonRef($event)"
                                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'more_details')"></textarea>
+                                                        <small class="d-none form-text text-muted">
+                                                            You have reached the maximum character limit.
+                                                        </small>
                                                 </div>
                                             </div>
 
@@ -400,11 +410,15 @@
                                                     <p class="question-font">Please give a
                                                         bit more details so
                                                         we can work out what support is best for you</p>
-                                                    <textarea class="h-112 form-control input-bg-form-control"
+                                                    <textarea maxlength="950" class="h-112 form-control input-bg-form-control"
                                                         :id="it.modelKey+'ProvideBestSupport'" rows="4"
-                                                        placeholder="Enter here"
+                                                        placeholder="Enter here" @keyup="checkCharacterLengthForReasonRef($event)"
                                                         v-model="subDataForMakingReferral[it.modelKey]['more_about_self_harming']"
                                                         @input="trimWhiteSpaceOfNestedObj($event,'subDataForMakingReferral', [it.modelKey],'more_about_self_harming')"></textarea>
+
+                                                        <small class="d-none form-text text-muted">
+                                                            You have reached the maximum character limit.
+                                                        </small>
 
                                                     <div class="invalid-feedback d-none"
                                                         v-bind:class="{ 'd-block': (isFormSubmitted && !subDataForMakingReferral[it.modelKey]['more_about_self_harming']),
