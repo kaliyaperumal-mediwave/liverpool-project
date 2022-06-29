@@ -512,6 +512,10 @@ $(document).ready(function () {
                         delayedScrollToInvalidInput();
                         return false;
                     }
+                    if (this.showAddOtherService && (this.allAvailableService && !this.allAvailableService.length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
                     $('#loader').show();
                     this.upsertReferralForm(this.payloadData);
 
