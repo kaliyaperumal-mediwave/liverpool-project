@@ -1630,14 +1630,13 @@
             <!--GP Location End -->
 
     
-             <form id="contactProffamily-form" data-options="contactProffamily">
+             <form id="contactProffamily-form" data-options="contactProffamily" onSubmit="return false;">
                 <div v-if="elgibilityObj.is_child_gp == 'no'" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                    <label for="gpl" class="question-font">Enter your GP</label>
                    {% raw %}
                    <div class="input-group">
                        <input type="text" v-model="elgibilityObj.manual_gp"
                            @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
-                           @keypress="preventRefresh($event)"
                            placeholder="Enter your GP" class="form-control input-bg-form-control"
                            id="fullFirstName">
                        <div class="input-group-append cursor-pointer">
@@ -1753,7 +1752,7 @@
             </form>
 
                <!-- Support -->
-               <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
+               <form id="parentConcernInformation-form4" data-options="parentConcernInformation" onSubmit="return false;">
                 <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
                 
                     <div class="form-group mb-1" >
@@ -1762,7 +1761,6 @@
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.gp_school"
                             @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
-                            @keypress="preventRefresh($event)"
                                 placeholder="Enter your school" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
                             <div class="input-group-append cursor-pointer">
@@ -1773,7 +1771,7 @@
                         </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.gp_school),'invalid-fields':!elgibilityObj.gp_school }">
-                            You must provide a Location.
+                            You must provide a school.
                         </div>
                       
                     </div>

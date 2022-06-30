@@ -1570,14 +1570,13 @@
              </form>
              {% endraw %}
              <!--GP Location End -->
-             <form id="contactProffamily-form" data-options="contactProffamily">
+             <form id="contactProffamily-form" data-options="contactProffamily" onSubmit="return false;">
              <div v-if="elgibilityObj.is_child_gp == 'no'" class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <label for="gpl" class="question-font">Enter your GP</label>
                 {% raw %}
                 <div class="input-group">
                     <input type="text" v-model="elgibilityObj.manual_gp"
                         @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
-                        @keypress="preventRefresh($event)"
                         placeholder="Enter your GP" class="form-control input-bg-form-control"
                         id="fullFirstName">
                     <div class="input-group-append cursor-pointer">
@@ -1638,7 +1637,7 @@
             <!-- Not Support-->
 
             <!-- Support -->
-            <form id="familyConcernInformation-form4" data-options="familyConcernInformation">
+            <form id="familyConcernInformation-form4" data-options="familyConcernInformation" onSubmit="return false;">
                 <div  class="px-4 py-2 py-lg-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto" v-if="elgibilityObj.is_child_school == 'yes' " >
                 
                     <div class="form-group mb-1" >
@@ -1646,7 +1645,6 @@
                         {% raw %}
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.gp_school"
-                            @keypress="preventRefresh($event)"
                             @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
                                 placeholder="Enter your school" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
