@@ -1510,7 +1510,7 @@
                 <div v-if="elgibilityObj.familyConcernInformation == 'yes' && (elgibilityObj.profDirectService == 'liverpool' || elgibilityObj.profDirectService == 'sefton' ) && (elgibilityObj.seftonService == 'MHST Sefton' || elgibilityObj.liverpoolService == 'MHST Liverpool') "
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have a Sefton or Liverpool
+                        <p class="question-font m-0">Do you have a Sefton or Liverpool GP?
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
                     </div>
@@ -1600,7 +1600,7 @@
             <form id="contactProffamily-form" data-options="contactProffamily">
                 <div v-if="elgibilityObj.is_child_gp == 'no' " class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have a Liverpool/Sefton school
+                        <p class="question-font m-0">Do you have a Sefton or Liverpool school?
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal" data-target="#consentModal" class="info-icon" alt="">
                     </div>
@@ -1628,7 +1628,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Unfortunately we cannot support message</p>
+                            <p class="question-font text-center m-0 py-2">Unfortunately, this area not covered by our
+                                service.</p>
 
                         </div>
                     </div>
@@ -1647,7 +1648,7 @@
                             <input type="text" v-model="elgibilityObj.gp_school"
                             @keypress="preventRefresh($event)"
                             @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
-                                placeholder="Enter your location" class="form-control input-bg-form-control"
+                                placeholder="Enter your school" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
