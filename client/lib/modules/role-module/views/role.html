@@ -1637,6 +1637,7 @@
                    <div class="input-group">
                        <input type="text" v-model="elgibilityObj.manual_gp"
                            @input="onVaueChange($event,'firstName','elgibilityObj','manual_gp')"
+                           @keypress="preventRefresh($event)"
                            placeholder="Enter your GP" class="form-control input-bg-form-control"
                            id="fullFirstName">
                        <div class="input-group-append cursor-pointer">
@@ -1761,6 +1762,7 @@
                         <div class="input-group">
                             <input type="text" v-model="elgibilityObj.gp_school"
                             @input="onVaueChange($event,'firstName','elgibilityObj','gp_school')"
+                            @keypress="preventRefresh($event)"
                                 placeholder="Enter your location" class="form-control input-bg-form-control"
                                 id="txtProfessionalProfession">
                             <div class="input-group-append cursor-pointer">
